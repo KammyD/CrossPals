@@ -1,0 +1,71 @@
+---
+interface Props { lang?: 'en' | 'es'; }
+const { lang = 'en' } = Astro.props;
+const L = {
+  en: { name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours' },
+  es: { name:'Tu Nombre', email:'Correo Electrónico', country:'Tu País', product:'Producto que quieres importar', budget:'Presupuesto Estimado (USD)', msg:'Detalles adicionales (opcional)', submit:'Enviar Consulta', np:'Alex Johnson', ep:'alex@ejemplo.com', cp:'México, Brasil, Argentina…', bp:'$500 – $5,000', pp:'Ej. Fundas para teléfonos, 500 unidades…', mp:'Plazos, requisitos, preguntas…', note:'Respuesta típica en 24 horas' },
+};
+const l = L[lang];
+---
+<form class="cform" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />
+  <input type="hidden" name="subject" value="New CrossPals Inquiry" />
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div class="cform__row">
+    <div class="cform__field">
+      <label for="cf-name">{l.name}</label>
+      <input id="cf-name" type="text" name="name" placeholder={l.np} required />
+    </div>
+    <div class="cform__field">
+      <label for="cf-email">{l.email}</label>
+      <input id="cf-email" type="email" name="email" placeholder={l.ep} required />
+    </div>
+  </div>
+  <div class="cform__row">
+    <div class="cform__field">
+      <label for="cf-country">{l.country}</label>
+      <input id="cf-country" type="text" name="country" placeholder={l.cp} required />
+    </div>
+    <div class="cform__field">
+      <label for="cf-budget">{l.budget}</label>
+      <input id="cf-budget" type="text" name="budget" placeholder={l.bp} />
+    </div>
+  </div>
+  <div class="cform__field">
+    <label for="cf-product">{l.product}</label>
+    <input id="cf-product" type="text" name="product" placeholder={l.pp} required />
+  </div>
+  <div class="cform__field">
+    <label for="cf-msg">{l.msg}</label>
+    <textarea id="cf-msg" name="message" rows="4" placeholder={l.mp}></textarea>
+  </div>
+  <div class="cform__foot">
+    <button type="submit" class="btn btn-primary cform__submit">
+      {l.submit}
+      <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <p class="cform__note">🌿 {l.note}</p>
+  </div>
+</form>
+
+<style>
+  .cform { display:flex; flex-direction:column; gap:var(--s5); }
+  .cform__row { display:grid; grid-template-columns:1fr 1fr; gap:var(--s4); }
+  .cform__field { display:flex; flex-direction:column; gap:6px; }
+  .cform__field label { font-size:12px; font-weight:600; color:var(--warm-950); letter-spacing:0.04em; text-transform:uppercase; font-family:var(--font-mono); }
+  .cform__field input, .cform__field textarea {
+    padding:12px 16px; border:1.5px solid var(--warm-200); border-radius:var(--r2);
+    font-size:15px; font-family:var(--font-sans); color:var(--warm-950);
+    background:var(--bg-page); transition:var(--t-fast); outline:none; resize:vertical; width:100%;
+  }
+  .cform__field input:focus, .cform__field textarea:focus {
+    border-color:var(--avo-600); background:#fff;
+    box-shadow:0 0 0 3px rgba(45,106,45,.08);
+  }
+  .cform__field input::placeholder, .cform__field textarea::placeholder { color:var(--warm-400); }
+  .cform__foot { display:flex; flex-direction:column; gap:var(--s3); }
+  .cform__submit { width:100%; justify-content:center; padding:15px; font-size:15px; }
+  .cform__note { font-size:12px; color:var(--text-body); text-align:center; }
+  @media(max-width:560px) { .cform__row { grid-template-columns:1fr; } }
+</style>

@@ -1,0 +1,252 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+
+const services: Array<{ icon: IconName; n: string; title: string; body: string; delay: number; featured?: boolean }> = [
+  { icon: 'sourcing',   n: '01', title: 'Búsqueda de Productos', body: 'Buscamos entre miles de proveedores chinos para encontrar la mejor opción según tu presupuesto y estándares de calidad.', delay: 0 },
+  { icon: 'inspection', n: '02', title: 'Inspección de Calidad', body: 'Inspección física en fábrica antes del envío. Informe fotográfico detallado y veredicto claro antes de aprobar el embarque.', delay: 1, featured: true },
+  { icon: 'payment',    n: '03', title: 'Compra y Pago',         body: 'Negociamos en chino y gestionamos todos los pagos a proveedores verificados. Tu dinero está protegido en cada paso.', delay: 2 },
+  { icon: 'shipping',   n: '04', title: 'Envío y Logística',     body: 'Entrega puerta a puerta en todo el mundo. Comparamos opciones de flete y gestionamos toda la documentación aduanera.', delay: 3 },
+];
+---
+<BaseLayout title="Abastecimiento Confiable desde China para Emprendedores" description="CrossPals conecta emprendedores globales con proveedores chinos de confianza." lang="es">
+
+<section class="hero grain" style="position:relative;overflow:hidden;">
+  <div class="hero__grid">
+    <div class="hero__left">
+      <div class="hero__left-inner">
+        <p class="overline overline--light">Tu Socio de Abastecimiento en China</p>
+        <h1 class="hero__title">El Puente Entre Tu<br /><em class="hero__accent">Idea</em> y China</h1>
+        <p class="hero__desc">CrossPals conecta a emprendedores globales con proveedores chinos de confianza — gestionando búsqueda, inspección, compra y envío de principio a fin.</p>
+        <div class="hero__actions">
+          <a href="/es/contact" class="btn btn-amber">Cotización Gratis <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="/es/services" class="btn btn-ghost">Cómo Funciona</a>
+        </div>
+        <div class="hero__trust">
+          <span>✓ Sin experiencia necesaria</span>
+          <span>✓ Respuesta en 24 horas</span>
+          <span>✓ Precios transparentes</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__right">
+      <span class="hero__deco-num" aria-hidden="true">30+</span>
+      <p class="hero__deco-label" aria-hidden="true">países atendidos</p>
+      <div class="fcard fcard--a"><div class="fcard__dot"></div><div><p class="fcard__title">Pedido verificado ✓</p><p class="fcard__sub">Lagos, Nigeria · 500 unidades</p></div></div>
+      <div class="fcard fcard--b">
+        <div class="fcard__icon-wrap">
+          <Icon name="shipping" size={16} color="#3a4a24" />
+        </div>
+        <div><p class="fcard__title">Enviado a Brasil</p><p class="fcard__sub">DHL Express · 8 días</p></div>
+      </div>
+      <div class="fcard fcard--c">
+        <div class="fcard__stars">
+          {[1,2,3,4,5].map(() => (
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="#c8880a" stroke="none">
+              <path d="M12 2l2.9 5.9L21 9l-4.5 4.4 1.3 6.6L12 17l-5.8 3 1.3-6.6L3 9l6.1-1.1L12 2z"/>
+            </svg>
+          ))}
+        </div>
+        <p class="fcard__quote">"Encontré mi proveedor en 48 horas"</p>
+        <p class="fcard__sub">— Ciudad de México</p>
+      </div>
+      <div class="hero__ring hero__ring--1" aria-hidden="true"></div>
+      <div class="hero__ring hero__ring--2" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div class="hero__stats">
+    <div class="hstat"><strong>500<span>+</span></strong><span>Emprendedores Atendidos</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>$2M<span>+</span></strong><span>Mercancía Abastecida</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>98<span>%</span></strong><span>Tasa de Satisfacción</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>48<span>h</span></strong><span>Primera Cotización</span></div>
+  </div>
+</section>
+
+<section class="section bg-ivory">
+  <div class="container">
+    <div class="svc__head reveal"><p class="overline">Qué Hacemos</p><h2>Servicios Completos de<br /><em>Abastecimiento desde China</em></h2></div>
+    <div class="svc__grid">
+      {services.map(s => (
+        <div class:list={['svc-card reveal',{'svc-card--featured':s.featured},`reveal-delay-${s.delay}`]}>
+          <div class="svc-card__top">
+            <div class:list={['svc-card__icon-bg', {'svc-card__icon-bg--light': s.featured}]}>
+              <Icon name={s.icon} size={22} color={s.featured ? '#3a4a24' : '#637d3e'} />
+            </div>
+            <span class="svc-card__num">{s.n}</span>
+          </div>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+          <a href="/es/services" class="svc-card__link">Más información <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg></a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section hiw grain" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="hiw__head reveal"><p class="overline overline--light">Proceso</p><h2 class="text-white">De la Idea al Inventario<br /><em>en 4 Pasos</em></h2></div>
+    <div class="hiw__steps">
+      {[
+        {n:'1',title:'Envías tu solicitud',body:'Cuéntanos el tipo de producto, cantidad, requisitos y presupuesto en nuestro formulario simple.'},
+        {n:'2',title:'Recibes opciones de proveedores',body:'3–5 proveedores verificados con precios y perfiles, en tu bandeja en 48 horas.'},
+        {n:'3',title:'Compramos e inspeccionamos',body:'Pagamos al proveedor, supervisamos la producción y te enviamos el informe QC antes del envío.'},
+        {n:'4',title:'Entregado a tu puerta',body:'Los productos salen de China con número de rastreo. Aduanas gestionadas. Tú solo esperas.'},
+      ].map((step,i)=>(
+        <div class:list={['hiw__step reveal',`reveal-delay-${i}`]}>
+          <div class="hiw__step-n">{step.n}</div>
+          <div class="hiw__step-body"><h4>{step.title}</h4><p>{step.body}</p></div>
+        </div>
+      ))}
+    </div>
+    <div class="hiw__cta reveal"><a href="/es/contact" class="btn btn-amber">Empieza tu Primer Pedido</a><a href="/es/about" class="btn btn-ghost">Conoce al Equipo</a></div>
+  </div>
+  <div class="hiw__bg-text" aria-hidden="true">SOURCING</div>
+</section>
+
+<section class="section testi">
+  <div class="container">
+    <div class="testi__head reveal"><p class="overline">Casos de Éxito</p><h2>Negocios Reales,<br /><em>Resultados Reales</em></h2></div>
+    <div class="testi__grid">
+      <div class="tcard tcard--tall reveal">
+        <div class="tcard__country">🇧🇷 Brasil</div>
+        <blockquote>"CrossPals encontró un proveedor certificado, gestionó 3 envíos en 6 meses, y ahora tengo una marca real — todo comenzando con $800."</blockquote>
+        <div class="tcard__author">Revendedor de Electrónicos, São Paulo</div>
+        <div class="tcard__result">ROI 3x en primer trimestre</div>
+      </div>
+      <div class="tcard reveal reveal-delay-1">
+        <div class="tcard__country">🇳🇬 Nigeria</div>
+        <blockquote>"Mi proveedor en Yiwu en 48 horas. Fotos QC, envío DHL — nunca salí de Lagos."</blockquote>
+        <div class="tcard__author">Fundadora de Accesorios de Moda</div>
+        <div class="tcard__result">40% menos costo</div>
+      </div>
+      <div class="tcard reveal reveal-delay-2">
+        <div class="tcard__country">🇲🇽 México</div>
+        <blockquote>"El soporte de reorden continuo significa que siempre soy competitiva. 12 pedidos y contando."</blockquote>
+        <div class="tcard__author">Dropshipper de Artículos del Hogar</div>
+        <div class="tcard__result">12 reordenes y creciendo</div>
+      </div>
+      <div class="tcard tcard--accent reveal reveal-delay-1">
+        <p class="overline overline--amber">Nuestro historial</p>
+        <div class="tcard__bignum">500<span>+</span></div>
+        <p>emprendedores atendidos en 30+ países de África, América Latina y el Sudeste Asiático.</p>
+        <a href="/es/about" class="btn btn-outline" style="margin-top:var(--s5);">Nuestra Historia →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final grain" style="position:relative;overflow:hidden;">
+  <div class="container cta-final__inner">
+    <div class="cta-final__text reveal">
+      <p class="overline overline--light">¿Listo?</p>
+      <h2 class="text-white">Tu Primer Proveedor<br /><em>Está a 48 Horas</em></h2>
+      <p class="text-light">Sin compromiso. Sin experiencia necesaria. Solo dinos qué quieres importar.</p>
+    </div>
+    <div class="cta-final__form reveal reveal-delay-2">
+      <form class="quick-form" action="/es/contact" method="GET">
+        <input type="text" name="product" placeholder="¿Qué quieres importar?" required />
+        <button type="submit" class="btn btn-amber">Cotizar <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
+      <p class="cta-final__note">O <a href="https://wa.me/yourwhatsapp">chatea por WhatsApp</a> · Gratis, sin compromiso</p>
+    </div>
+  </div>
+  <div class="cta-final__deco" aria-hidden="true">CROSSPALS</div>
+</section>
+
+</BaseLayout>
+
+<!-- Reuse all styles from index.astro via global tokens -->
+<style>
+.hero{position:relative;background:var(--avo-950);min-height:100vh;display:flex;flex-direction:column;}
+.hero__grid{display:grid;grid-template-columns:1fr 1fr;flex:1;}
+.hero__left{background:var(--avo-950);display:flex;align-items:center;padding:120px var(--s8) var(--s8) var(--s7);}
+.hero__left-inner{max-width:520px;}
+.hero__title{color:#fff;font-size:clamp(44px,5.5vw,76px);line-height:1.05;margin:var(--s3) 0 var(--s6);}
+.hero__accent{font-style:italic;color:var(--avo-300);}
+.hero__desc{color:rgba(255,255,255,.6);font-size:17px;line-height:1.75;margin-bottom:var(--s7);max-width:420px;}
+.hero__actions{display:flex;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s6);}
+.hero__trust{display:flex;gap:var(--s5);flex-wrap:wrap;}
+.hero__trust span{font-size:12px;color:rgba(255,255,255,.4);font-family:var(--font-mono);}
+.hero__right{background:var(--bg-page);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:100px var(--s6) var(--s6);}
+.hero__deco-num{font-family:var(--font-serif);font-size:clamp(80px,12vw,160px);font-weight:900;color:var(--avo-50);line-height:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;user-select:none;}
+.hero__deco-label{position:absolute;top:calc(50% + 90px);left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--warm-400);}
+.fcard{position:absolute;background:#fff;border-radius:var(--r3);box-shadow:var(--shadow-md);padding:var(--s4) var(--s5);display:flex;align-items:flex-start;gap:var(--s3);max-width:260px;z-index:2;animation:float 6s ease-in-out infinite;}
+.fcard--a{top:18%;right:8%;animation-delay:0s;}
+.fcard--b{bottom:28%;left:6%;animation-delay:-2s;}
+.fcard--c{bottom:12%;right:12%;animation-delay:-4s;flex-direction:column;gap:var(--s1);max-width:200px;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.fcard__dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;flex-shrink:0;margin-top:4px;animation:pd 2s ease-in-out infinite;}
+@keyframes pd{0%,100%{opacity:1}50%{opacity:.45}}
+.fcard__icon-wrap{width:28px;height:28px;border-radius:6px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}.fcard__title{font-size:13px;font-weight:600;color:var(--warm-950);}.fcard__sub{font-size:11px;color:var(--warm-600);margin-top:2px;}.fcard__stars{display:flex;gap:2px;align-items:center;}.fcard__quote{font-size:12px;font-style:italic;color:var(--warm-800);}
+.hero__ring{position:absolute;border-radius:50%;border:1.5px dashed var(--avo-200);pointer-events:none;animation:spin-slow 30s linear infinite;}
+.hero__ring--1{width:320px;height:320px;top:50%;left:50%;margin:-160px;}
+.hero__ring--2{width:480px;height:480px;top:50%;left:50%;margin:-240px;animation-direction:reverse;animation-duration:50s;border-color:var(--avo-50);}
+@keyframes spin-slow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.hero__stats{background:var(--avo-700);display:flex;align-items:center;justify-content:center;padding:var(--s5);}
+.hstat{flex:1;text-align:center;padding:var(--s4) var(--s5);}
+.hstat strong{display:block;font-family:var(--font-serif);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#fff;line-height:1;}
+.hstat strong span{color:var(--avo-300);}
+.hstat>span{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:0.1em;font-family:var(--font-mono);display:block;margin-top:4px;}
+.hstat__sep{width:1px;height:48px;background:rgba(255,255,255,.12);flex-shrink:0;}
+.svc__head{margin-bottom:var(--s8);}.svc__head h2 em{font-style:italic;color:var(--avo-600);}
+.svc__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);}
+.svc-card{background:#fff;border-radius:var(--r3);padding:var(--s7) var(--s5);border:1px solid var(--warm-200);transition:var(--t-med);display:flex;flex-direction:column;gap:var(--s4);position:relative;overflow:hidden;}
+.svc-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--avo-600);transition:height var(--t-med);}
+.svc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--avo-200);}
+.svc-card:hover::before{height:100%;}
+.svc-card--featured{background:var(--avo-700);border-color:var(--avo-700);}
+.svc-card--featured h3{color:#fff;}.svc-card--featured p{color:rgba(255,255,255,.65);}.svc-card--featured .svc-card__link{color:var(--avo-300);}.svc-card--featured::before{display:none;}
+.svc-card__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--s3);}
+.svc-card__num{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--warm-400);letter-spacing:0.1em;}
+.svc-card--featured .svc-card__num{color:rgba(255,255,255,.35);}
+.svc-card__icon-bg{width:36px;height:36px;border-radius:8px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}.svc-card__icon-bg--light{background:rgba(186,209,133,.2);}.svc-card h3{font-size:19px;}.svc-card p{font-size:14px;line-height:1.75;flex:1;}
+.svc-card__link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--avo-600);text-decoration:none;transition:gap var(--t-fast);margin-top:auto;}
+.svc-card:hover .svc-card__link{gap:10px;}
+.hiw{background:var(--avo-700);position:relative;overflow:hidden;}
+.hiw__head{margin-bottom:var(--s8);}.hiw__head h2 em{color:var(--avo-300);font-style:italic;}
+.hiw__steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);margin-bottom:var(--s8);}
+.hiw__step{padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.15);}
+.hiw__step-n{display:block;font-family:var(--font-serif);font-size:56px;font-weight:700;color:rgba(255,255,255,.08);line-height:1;margin-bottom:var(--s4);}
+.hiw__step h4{color:#fff;font-size:16px;margin-bottom:var(--s3);}.hiw__step p{font-size:14px;color:rgba(255,255,255,.5);}
+.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;}
+.hiw__bg-text{position:absolute;bottom:-20px;right:-20px;font-family:var(--font-serif);font-size:clamp(80px,14vw,180px);font-weight:900;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.05em;}
+.testi{background:var(--warm-100);}
+.testi__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--s8);}
+.testi__head h2 em{color:var(--avo-600);font-style:italic;}
+.testi__grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:var(--s5);}
+.tcard{background:#fff;border-radius:var(--r3);padding:var(--s7);border:1px solid var(--warm-200);display:flex;flex-direction:column;gap:var(--s4);transition:var(--t-med);}
+.tcard:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.tcard--tall{grid-row:1/3;}
+.tcard--accent{background:var(--avo-700);border-color:var(--avo-700);}
+.tcard--accent p{color:rgba(255,255,255,.6);}
+.tcard--accent .btn-outline{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.8);}
+.tcard__country{font-family:var(--font-mono);font-size:11px;color:var(--text-body);letter-spacing:0.08em;text-transform:uppercase;}
+.tcard--accent .tcard__country{color:rgba(255,255,255,.45);}
+blockquote{font-family:var(--font-serif);font-style:italic;font-size:17px;color:var(--ink);line-height:1.6;flex:1;padding:0;border:none;margin:0;}
+.tcard--tall blockquote{font-size:20px;}
+.tcard__author{font-size:12px;color:var(--text-body);font-weight:600;}
+.tcard__result{display:inline-block;background:var(--avo-50);color:var(--avo-600);font-size:12px;font-weight:700;padding:4px 14px;border-radius:var(--rfull);font-family:var(--font-mono);letter-spacing:0.04em;}
+.tcard__bignum{font-family:var(--font-serif);font-size:72px;font-weight:900;color:#fff;line-height:1;}
+.tcard__bignum span{color:var(--avo-300);}
+.cta-final{background:var(--avo-950);padding:var(--s9) var(--s5);position:relative;overflow:hidden;}
+.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;}
+.cta-final__text h2{color:#fff;margin:var(--s3) 0 var(--s4);font-size:clamp(28px,4vw,52px);}
+.cta-final__text h2 em{color:var(--avo-300);font-style:italic;}
+.cta-final__text p{max-width:400px;}
+.cta-final__form{display:flex;flex-direction:column;gap:var(--s3);min-width:360px;}
+.quick-form{display:flex;gap:var(--s3);}
+.quick-form input{flex:1;padding:14px 18px;border:1.5px solid rgba(255,255,255,.15);border-radius:var(--r2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:var(--font-sans);outline:none;transition:var(--t-fast);backdrop-filter:blur(4px);}
+.quick-form input:focus{border-color:var(--avo-300);background:rgba(255,255,255,.1);}
+.quick-form input::placeholder{color:rgba(255,255,255,.35);}
+.cta-final__note{font-size:12px;color:rgba(255,255,255,.35);text-align:center;font-family:var(--font-mono);}
+.cta-final__note a{color:var(--avo-300);text-decoration:underline;}
+.cta-final__deco{position:absolute;bottom:-30px;right:-20px;font-family:var(--font-serif);font-size:clamp(70px,12vw,150px);font-weight:900;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.04em;}
+@media(max-width:1100px){.svc__grid{grid-template-columns:repeat(2,1fr)}.hiw__steps{grid-template-columns:repeat(2,1fr)}.testi__grid{grid-template-columns:1fr 1fr}.tcard--tall{grid-row:auto}}
+@media(max-width:860px){.hero__grid{grid-template-columns:1fr}.hero__right{display:none}.hero__left{padding:120px var(--s5) var(--s7)}.hero__stats{flex-wrap:wrap}.hstat{min-width:50%}.testi__head{flex-direction:column;align-items:flex-start;gap:var(--s5)}}
+@media(max-width:640px){.svc__grid{grid-template-columns:1fr}.hiw__steps{grid-template-columns:1fr}.testi__grid{grid-template-columns:1fr}.cta-final__inner{flex-direction:column;text-align:center}.cta-final__form{min-width:unset;width:100%}.quick-form{flex-direction:column}.hstat{min-width:100%}.hstat__sep{display:none}}
+</style>

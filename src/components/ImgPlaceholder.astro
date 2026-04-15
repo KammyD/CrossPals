@@ -1,0 +1,148 @@
+---
+/**
+ * ImgPlaceholder — 图片占位组件
+ *
+ * 使用方法：
+ *   <ImgPlaceholder src="/images/hero.jpg" alt="描述" ratio="16/9" hint="建议：工厂/产品实景图，横向构图" />
+ *
+ * 替换图片时：
+ *   1. 将你的图片放入 /public/images/ 目录
+ *   2. 把 src 从 picsum URL 改成 /images/your-file.jpg
+ *   3. 删除 hint 属性（占位提示会自动消失）
+ */
+
+interface Props {
+  src?: string;          // 图片路径，不填时显示占位图
+  alt: string;           // alt 文字（SEO 必填）
+  ratio?: string;        // 宽高比，如 "16/9" "4/3" "1/1" "3/2"
+  hint?: string;         // 给自己看的提示文字（构建时不输出）
+  class?: string;        // 额外 CSS 类
+  width?: number;        // picsum 宽度（影响占位图清晰度）
+  height?: number;       // picsum 高度
+  seed?: number;         // picsum 随机种子（固定同一张图）
+  objectFit?: 'cover' | 'contain' | 'fill';
+  rounded?: boolean;
+}
+
+const {
+  src,
+  alt,
+  ratio = '16/9',
+  hint,
+  class: cls = '',
+  width = 1200,
+  height = 675,
+  seed = 10,
+  objectFit = 'cover',
+  rounded = false,
+} = Astro.props;
+
+// 生成占位图 URL（picsum.photos 稳定服务）
+const placeholderUrl = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+const finalSrc = src ?? placeholderUrl;
+const isPlaceholder = !src;
+
+// 宽高比 → padding-top 百分比
+const ratioParts = ratio.split('/').map(Number);
+const paddingTop = ratioParts.length === 2
+  ? `${(ratioParts[1] / ratioParts[0] * 100).toFixed(2)}%`
+  : '56.25%'; // 默认 16:9
+---
+
+<figure
+  class:list={['img-ph', cls, { 'img-ph--placeholder': isPlaceholder, 'img-ph--rounded': rounded }]}
+  style={`--ratio-pt: ${paddingTop}`}
+  title={hint}
+>
+  <div class="img-ph__wrap">
+    <img
+      src={finalSrc}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      style={`object-fit: ${objectFit}`}
+    />
+    {isPlaceholder && (
+      <div class="img-ph__overlay" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <span>Replace with your photo</span>
+        {hint && <em>{hint}</em>}
+      </div>
+    )}
+  </div>
+</figure>
+
+<style>
+  .img-ph {
+    margin: 0;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-ph__wrap {
+    position: relative;
+    width: 100%;
+    padding-top: var(--ratio-pt, 56.25%);
+    overflow: hidden;
+  }
+
+  .img-ph img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* Zoom on hover when inside a link */
+  a:hover .img-ph img,
+  .img-ph:hover img {
+    transform: scale(1.04);
+  }
+
+  /* Overlay hint (only for placeholders) */
+  .img-ph__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(31, 74, 31, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.9);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    padding: 16px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .img-ph--placeholder:hover .img-ph__overlay {
+    opacity: 1;
+  }
+
+  .img-ph__overlay em {
+    font-style: normal;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    max-width: 220px;
+  }
+
+  /* Rounded variant */
+  .img-ph--rounded .img-ph__wrap {
+    border-radius: 16px;
+  }
+
+  .img-ph--rounded img {
+    border-radius: 16px;
+  }
+</style>

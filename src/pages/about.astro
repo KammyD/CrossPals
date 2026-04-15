@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+
+const values: Array<{ icon: IconName; n: string; title: string; body: string }> = [
+  { icon: 'trust',        n: '01', title: 'Trust First',          body: 'We only recommend suppliers we have personally vetted. Your money is safe because we treat every transaction as our own.' },
+  { icon: 'global',       n: '02', title: 'Global Perspective',   body: 'Our team spans China and multiple continents. We understand the cultural context on both sides of every deal.' },
+  { icon: 'transparent',  n: '03', title: 'Radical Transparency', body: 'Supplier price, shipping cost, our fee — you see every number before committing. No hidden markups ever.' },
+  { icon: 'endtoend',     n: '04', title: 'End-to-End Ownership', body: "From first inquiry to delivery confirmation, one dedicated agent handles your entire journey. We don't hand you off." },
+];
+
+const team = [
+  { name: 'Wei Zhang',     role: 'Head of Sourcing, Yiwu',              bio: '12 years sourcing across Yiwu, Guangzhou, and Shenzhen markets. Fluent in supplier psychology.', seed: 301, hint: '建议：专业人像照，中国市场背景' },
+  { name: 'Amara Osei',    role: 'Client Success, Africa & Middle East', bio: 'Former entrepreneur who built her own China-sourced brand. Now she helps others do the same.', seed: 302, hint: '建议：专业人像照，温暖自信的表情' },
+  { name: 'Carlos Mendez', role: 'Latin America Operations',             bio: 'Logistics specialist with deep knowledge of import regulations across Mexico, Brazil, and Colombia.', seed: 303, hint: '建议：专业人像照，商务风格' },
+];
+
+const gallery = [
+  { seed: 401, hint: '建议：义乌小商品市场/广交会现场' },
+  { seed: 402, hint: '建议：工厂生产线/质检现场' },
+  { seed: 403, hint: '建议：装箱打包/货物出发' },
+  { seed: 404, hint: '建议：客户收货开箱/产品使用场景' },
+];
+---
+<BaseLayout title="About Us" description="CrossPals was built by traders and entrepreneurs who wanted to make China sourcing accessible for everyone.">
+
+  <PageHero overline="Our Story" title="A Team That<br /><em style='font-style:italic;color:var(--avo-300)'>Bridges Worlds</em>" subtitle="We built the sourcing partner we wished existed when we started." />
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-text reveal">
+        <p class="overline">Why We Exist</p>
+        <h2>Built From Frustration,<br/><em>Driven by Purpose</em></h2>
+        <div class="divider" style="margin:var(--s5) 0;"></div>
+        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">CrossPals was founded by a team of trade veterans and entrepreneurs who witnessed how difficult it was for overseas startups to access reliable Chinese suppliers. Language barriers, fraud risk, and opaque pricing were killing promising businesses before they started.</p>
+        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">We built CrossPals to be the trusted partner we wished we had — combining deep supplier networks in China with the transparency that international entrepreneurs deserve.</p>
+        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s7);">Today we serve entrepreneurs across 30+ countries, from Lagos to São Paulo to Manila.</p>
+
+        <!-- 📸 Company photo -->
+        <ImgPlaceholder seed={200} width={900} height={500} ratio="16/9"
+          alt="CrossPals team at work"
+          hint="建议：团队工作照/办公室全景/中国市场调研，横向16:9"
+          rounded={true} />
+
+        <div class="mission-card reveal reveal-delay-2">
+          <div class="mission-card__icon">
+            <Icon name="compass" size={24} color="#4d6330" />
+          </div>
+          <div>
+            <strong>Our Mission</strong>
+            <p>Make China sourcing accessible, safe, and profitable for every entrepreneur in the world — regardless of experience or budget.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-stats reveal reveal-delay-1">
+        {[
+          { n:'500+', label:'Entrepreneurs served' },
+          { n:'$2M+', label:'In goods sourced & delivered' },
+          { n:'30+',  label:'Countries reached' },
+          { n:'98%',  label:'First-order satisfaction' },
+        ].map(s => (
+          <div class="astat">
+            <strong>{s.n}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values — SVG icons replacing emoji -->
+  <section class="section bg-parchment">
+    <div class="container">
+      <div class="section-hd reveal" style="text-align:center;max-width:560px;margin:0 auto var(--s8);">
+        <p class="overline">What We Stand For</p>
+        <h2>Four Values,<br/><em>One Standard</em></h2>
+      </div>
+      <div class="vals-grid">
+        {values.map((v, i) => (
+          <div class:list={['val-card reveal', `reveal-delay-${i}`]}>
+            <div class="val-card__top">
+              <div class="val-card__icon-bg">
+                <Icon name={v.icon} size={22} color="#637d3e" />
+              </div>
+              <span class="val-card__n">{v.n}</span>
+            </div>
+            <h4>{v.title}</h4>
+            <p>{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team — photo placeholders -->
+  <section class="section">
+    <div class="container">
+      <div class="section-hd reveal" style="max-width:480px;margin-bottom:var(--s8);">
+        <p class="overline">The People</p>
+        <h2>Meet the<br/><em>CrossPals Team</em></h2>
+      </div>
+      <div class="team-grid">
+        {team.map((m, i) => (
+          <div class:list={['team-card reveal', `reveal-delay-${i}`]}>
+            <ImgPlaceholder seed={m.seed} width={400} height={400} ratio="1/1"
+              alt={m.name} hint={m.hint} />
+            <div class="team-card__info">
+              <h4>{m.name}</h4>
+              <p class="team-card__role">{m.role}</p>
+              <p>{m.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery strip -->
+  <section class="section bg-parchment" style="padding-top:0;">
+    <div class="container">
+      <div class="section-hd reveal" style="padding-top:var(--s9);margin-bottom:var(--s6);">
+        <p class="overline">On the Ground</p>
+        <h2 style="font-size:clamp(24px,3vw,36px);">From Factory Floor<br/><em>to Your Door</em></h2>
+      </div>
+      <div class="gallery-strip">
+        {gallery.map((g, i) => (
+          <div class:list={['gallery-item reveal', `reveal-delay-${i}`]}>
+            <ImgPlaceholder seed={g.seed} width={400} height={533} ratio="3/4"
+              alt="CrossPals in action" hint={g.hint} rounded={true} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <p class="overline overline--light reveal">Work With Us</p>
+      <h2 style="color:#fff;margin-bottom:var(--s5);" class="reveal reveal-delay-1">
+        Ready to Start Your<br/><em style="color:var(--avo-300)">Sourcing Journey?</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s7);" class="reveal reveal-delay-2">
+        Send us your first inquiry — no commitment. We'll show you exactly what sourcing from China can look like for your business.
+      </p>
+      <a href="/contact" class="btn btn-primary reveal reveal-delay-3">
+        Get a Free Quote
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em{font-style:italic;color:var(--avo-600);}
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--s10);align-items:start;}
+  .about-text h2{margin-bottom:var(--s5);}
+  .mission-card{display:flex;gap:var(--s4);background:var(--avo-50);border:1px solid var(--avo-200);border-radius:var(--r3);padding:var(--s5);margin-top:var(--s7);}
+  .mission-card__icon{width:44px;height:44px;background:var(--avo-100);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mission-card strong{display:block;font-family:var(--font-serif);font-size:16px;color:var(--avo-800);margin-bottom:6px;}
+  .mission-card p{font-size:14px;margin:0;}
+  .about-stats{display:flex;flex-direction:column;position:sticky;top:100px;}
+  .astat{padding:var(--s6) 0;border-bottom:1px solid var(--border-light);}
+  .astat:last-child{border-bottom:none;}
+  .astat strong{display:block;font-family:var(--font-serif);font-size:clamp(40px,5vw,60px);font-weight:700;color:var(--avo-600);line-height:1;margin-bottom:6px;}
+  .astat span{font-size:13px;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:.04em;}
+  .section-hd h2 em{font-style:italic;color:var(--avo-600);}
+  .vals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);}
+  .val-card{background:var(--bg-surface);border-radius:var(--r3);padding:var(--s7) var(--s5);border:1px solid var(--border-light);transition:var(--t-med);}
+  .val-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
+  .val-card__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s5);}
+  .val-card__icon-bg{width:44px;height:44px;border-radius:10px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;}
+  .val-card__n{font-family:var(--font-mono);font-size:11px;color:var(--warm-400);}
+  .val-card h4{font-size:17px;margin-bottom:var(--s3);}
+  .val-card p{font-size:14px;}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);}
+  .team-card{background:var(--bg-surface);border-radius:var(--r3);border:1px solid var(--border-light);overflow:hidden;transition:var(--t-med);}
+  .team-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+  .team-card :global(.img-ph){border-radius:0;}
+  .team-card :global(.img-ph__wrap){border-radius:0;}
+  .team-card__info{padding:var(--s5);}
+  .team-card h4{font-size:19px;margin-bottom:4px;}
+  .team-card__role{font-size:11px;font-weight:600;color:var(--avo-600);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4);font-family:var(--font-mono);}
+  .team-card p{font-size:14px;}
+  .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);}
+  .gallery-item{overflow:hidden;border-radius:var(--r3);}
+  .gallery-item :global(img){transition:transform .5s var(--ease-out);}
+  .gallery-item:hover :global(img){transform:scale(1.06);}
+  @media(max-width:960px){.about-grid{grid-template-columns:1fr}.about-stats{position:static;flex-direction:row;flex-wrap:wrap}.astat{flex:1;min-width:140px;border-bottom:none;border-right:1px solid var(--border-light);padding:var(--s5)}.astat:last-child{border-right:none}.vals-grid{grid-template-columns:repeat(2,1fr)}.team-grid{grid-template-columns:1fr;max-width:380px}.gallery-strip{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:540px){.vals-grid{grid-template-columns:1fr}.about-stats{flex-direction:column}.astat{border-right:none;border-bottom:1px solid var(--border-light)}.gallery-strip{grid-template-columns:1fr}}
+</style>

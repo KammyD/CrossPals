@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactForm from '../../components/ContactForm.astro';
+---
+<!-- This file is intentionally minimal — see EN version for full content -->
+<BaseLayout title="Sobre Nosotros" description="CrossPals fue creado por traders y emprendedores." lang="es">
+  <PageHero overline="Nuestra Historia" title="Un Equipo que<br /><em style='font-style:italic;color:var(--avo-300)'>Une Mundos</em>" subtitle="Construimos el socio que deseábamos tener cuando empezamos." />
+  <section class="section">
+    <div class="container" style="max-width:720px;">
+      <p class="overline">Por Qué Existimos</p>
+      <h2 style="margin-bottom:var(--s5);">Construido desde la<br /><em style="color:var(--avo-600);font-style:italic;">Frustración</em></h2>
+      <p style="font-size:17px;line-height:1.8;margin-bottom:var(--s5);">CrossPals fue fundado por veteranos del comercio y emprendedores que vieron lo difícil que era para startups en el exterior acceder a proveedores chinos confiables. Las barreras idiomáticas, el riesgo de fraude y los precios opacos arruinaban demasiados negocios.</p>
+      <p style="font-size:17px;line-height:1.8;margin-bottom:var(--s8);">Creamos CrossPals para ser el socio de confianza que desearíamos haber tenido — combinando redes de proveedores en China con la transparencia que merecen los emprendedores internacionales.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-bottom:var(--s8);">
+        {[{n:'500+',l:'Emprendedores atendidos'},{n:'$2M+',l:'Mercancía abastecida'},{n:'30+',l:'Países alcanzados'},{n:'98%',l:'Satisfacción en primeros pedidos'}].map(s=>(
+          <div style="padding:var(--s6);background:var(--avo-50);border:1px solid var(--avo-200);border-radius:var(--r3);">
+            <strong style="display:block;font-family:var(--font-serif);font-size:48px;font-weight:700;color:var(--avo-700);line-height:1;margin-bottom:6px;">{s.n}</strong>
+            <span style="font-size:13px;color:var(--text-body);font-family:var(--font-mono);">{s.l}</span>
+          </div>
+        ))}
+      </div>
+      <a href="/es/contact" class="btn btn-primary">Cotización Gratis <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+</BaseLayout>

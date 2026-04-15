@@ -1,0 +1,531 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+
+const services: Array<{ icon: IconName; n: string; title: string; body: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
+  { icon: 'sourcing',    n: '01', title: 'Product Sourcing',     body: 'We search thousands of Chinese suppliers — 1688, Alibaba, and direct factory networks — to find the exact match for your budget and standards.', seed: 10, hint: '建议：义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: 'Quality Inspection',   body: 'Physical inspection at the factory before your goods ship. Detailed photo report, defect counts, and a clear pass/fail so you never ship blind.', seed: 20, hint: '建议：质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: 'Purchasing & Payment', body: 'We negotiate in Chinese and handle all payments to verified suppliers. Your money is protected at every step — no wires to strangers.', seed: 30, hint: '建议：签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: 'Shipping & Logistics', body: 'Door-to-door worldwide. We compare air, sea, and express options, then handle customs docs and give you real-time tracking.', seed: 40, hint: '建议：集装箱港口/货运飞机', delay: 3 },
+];
+
+const steps: Array<{ icon: IconName; title: string; body: string }> = [
+  { icon: 'package',    title: 'Submit your request',      body: 'Tell us your product type, quantity, quality needs, and budget via our simple form.' },
+  { icon: 'global',     title: 'Receive supplier options', body: '3–5 vetted suppliers with pricing and profiles, delivered to your inbox within 48 hours.' },
+  { icon: 'inspection', title: 'We purchase & inspect',    body: 'We pay the supplier, oversee production, and send you a full QC photo report before anything ships.' },
+  { icon: 'shipping',   title: 'Delivered to your door',   body: 'Goods leave China with tracking number, customs handled. You sit back and wait.' },
+];
+
+const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
+  { icon: 'global',       n: '01', title: 'No Language Barrier',  body: 'We negotiate directly in Chinese — you get factory prices, not tourist prices.' },
+  { icon: 'trust',        n: '02', title: 'Real Accountability',   body: 'A dedicated agent manages your order. You get one person, not a ticket queue.' },
+  { icon: 'handshake',    n: '03', title: 'Built for Beginners',   body: 'Never sourced before? We guide you step by step from first inquiry to first sale.' },
+  { icon: 'transparent',  n: '04', title: 'Transparent Costs',     body: 'Supplier price + shipping + our fee. You see everything before committing.' },
+];
+
+const blogPosts = [
+  { cat: 'Sourcing Guide', title: 'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', slug: 'find-suppliers-1688', time: '5 min', seed: 101, hint: '建议：1688平台/中国电商/供应商市场' },
+  { cat: 'Shipping',       title: 'Air vs Sea Freight: Which to Choose for Your First Order?',        slug: 'air-vs-sea-freight',  time: '4 min', seed: 102, hint: '建议：货运飞机/集装箱码头' },
+  { cat: 'Business Tips',  title: '5 Products That Are Cheaper in China and Sell Well Everywhere',    slug: 'cheap-china-products', time: '6 min', seed: 103, hint: '建议：热销商品展示/产品陈列' },
+];
+---
+<BaseLayout
+  title="Trusted China Sourcing for Global Entrepreneurs"
+  description="CrossPals helps overseas entrepreneurs find, verify, and ship quality products from China."
+>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero grain" style="position:relative;overflow:hidden;">
+  <div class="hero__grid">
+    <!-- Left text panel -->
+    <div class="hero__left">
+      <div class="hero__left-inner">
+        <p class="overline overline--light">Your China Sourcing Partner</p>
+        <h1 class="hero__title">The Bridge<br/>Between Your<br/><em>Idea</em> &amp; China</h1>
+        <p class="hero__desc">CrossPals connects global entrepreneurs with trusted Chinese suppliers — handling sourcing, inspection, purchasing, and shipping end-to-end.</p>
+        <div class="hero__actions">
+          <a href="/contact" class="btn btn-primary">
+            Get a Free Quote
+            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          </a>
+          <a href="/services" class="btn btn-ghost">See How It Works</a>
+        </div>
+
+        <!-- Trust badges — SVG icons replacing ✓ text -->
+        <div class="hero__trust">
+          <div class="trust-item">
+            <Icon name="check-circle" size={16} color="rgba(186,209,133,0.9)" />
+            <span>No experience needed</span>
+          </div>
+          <div class="trust-item">
+            <Icon name="clock" size={16} color="rgba(186,209,133,0.9)" />
+            <span>Reply in 24 hours</span>
+          </div>
+          <div class="trust-item">
+            <Icon name="transparent" size={16} color="rgba(186,209,133,0.9)" />
+            <span>Transparent pricing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right full-bleed photo -->
+    <div class="hero__right">
+      <div class="hero__photo-fill">
+        <ImgPlaceholder seed={42} width={900} height={1100} ratio="9/11"
+          alt="China factory warehouse — CrossPals sourcing"
+          hint="建议：工厂车间 / 仓库货架 / 产品特写，竖向构图" />
+      </div>
+
+      <!-- Floating status cards — SVG icons replacing emoji -->
+      <div class="fcard fcard--a">
+        <div class="fcard__icon-wrap fcard__icon-wrap--green">
+          <Icon name="check-circle" size={16} color="#3a4a24" />
+        </div>
+        <div>
+          <p class="fcard__title">Order verified</p>
+          <p class="fcard__sub">Lagos, Nigeria · 500 units</p>
+        </div>
+      </div>
+
+      <div class="fcard fcard--b">
+        <div class="fcard__icon-wrap fcard__icon-wrap--avo">
+          <Icon name="shipping" size={16} color="#3a4a24" />
+        </div>
+        <div>
+          <p class="fcard__title">Shipped to Brazil</p>
+          <p class="fcard__sub">DHL Express · 8 days</p>
+        </div>
+      </div>
+
+      <div class="fcard fcard--c">
+        <div class="fcard__stars">
+          {[1,2,3,4,5].map(() => (
+            <Icon name="star" size={11} color="#c8880a" />
+          ))}
+        </div>
+        <p class="fcard__quote">"Found my supplier in 48 hours"</p>
+        <p class="fcard__sub">— Mexico City</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="hero__stats">
+    <div class="hstat"><strong>500<span>+</span></strong><span>Entrepreneurs Served</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>$2M<span>+</span></strong><span>Goods Sourced</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>98<span>%</span></strong><span>Satisfaction Rate</span></div>
+    <div class="hstat__sep"></div>
+    <div class="hstat"><strong>48<span>h</span></strong><span>First Supplier Quote</span></div>
+  </div>
+</section>
+
+
+<!-- ═══ SERVICES ═══ -->
+<section class="section svc">
+  <div class="container">
+    <div class="svc__head reveal">
+      <p class="overline">What We Do</p>
+      <h2>End-to-End China<br/><em>Sourcing Services</em></h2>
+    </div>
+    <div class="svc__grid">
+      {services.map(s => (
+        <div class:list={['svc-card reveal', {'svc-card--featured': s.featured}, `reveal-delay-${s.delay}`]}>
+          <ImgPlaceholder seed={s.seed} width={600} height={338} ratio="16/9" alt={s.title} hint={s.hint} />
+          <div class="svc-card__body">
+            <div class="svc-card__top">
+              <div class:list={['svc-card__icon-bg', {'svc-card__icon-bg--light': s.featured}]}>
+                <Icon name={s.icon} size={22} color={s.featured ? '#3a4a24' : '#637d3e'} />
+              </div>
+              <span class="svc-card__num">{s.n}</span>
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <a href="/services" class="svc-card__link">
+              Learn more
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section hiw grain" style="position:relative;overflow:hidden;">
+  <div class="container hiw__wrap">
+    <div class="hiw__content">
+      <div class="hiw__head reveal">
+        <p class="overline overline--light">Process</p>
+        <h2 style="color:#fff;">From Idea to Inventory<br/><em style="color:var(--avo-300)">in 4 Steps</em></h2>
+      </div>
+      <div class="hiw__steps">
+        {steps.map((step, i) => (
+          <div class:list={['hiw__step reveal', `reveal-delay-${i}`]}>
+            <div class="hiw__step-icon">
+              <Icon name={step.icon} size={20} color="rgba(186,209,133,0.85)" />
+              <span class="hiw__step-n">0{i+1}</span>
+            </div>
+            <div class="hiw__step-body">
+              <h4>{step.title}</h4>
+              <p>{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="hiw__cta reveal">
+        <a href="/contact" class="btn btn-primary">Start Your First Order</a>
+        <a href="/about" class="btn btn-ghost">Meet the Team</a>
+      </div>
+    </div>
+
+    <div class="hiw__photo reveal reveal-delay-3">
+      <ImgPlaceholder seed={55} width={560} height={700} ratio="4/5"
+        alt="CrossPals team at work"
+        hint="建议：团队工作照/客户开箱照，竖向构图"
+        rounded={true} />
+    </div>
+  </div>
+  <div class="hiw__bg-text" aria-hidden="true">SOURCING</div>
+</section>
+
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section testi">
+  <div class="container">
+    <div class="testi__head reveal">
+      <p class="overline">Success Stories</p>
+      <h2>Real Businesses,<br/><em>Real Results</em></h2>
+    </div>
+    <div class="testi__grid">
+
+      <div class="tcard tcard--tall reveal">
+        <ImgPlaceholder seed={71} width={600} height={340} ratio="16/9"
+          alt="Brazil electronics brand"
+          hint="建议：电子产品/品牌包装/线上店铺截图" />
+        <div class="tcard__inner">
+          <div class="tcard__region">
+            <div class="tcard__region-dot"></div>
+            <span>Brazil</span>
+          </div>
+          <blockquote>"CrossPals found a certified supplier, managed 3 shipments in 6 months, and now I run a real brand — all starting with $800."</blockquote>
+          <div class="tcard__author">Electronics Reseller, São Paulo</div>
+          <div class="tcard__result">
+            <Icon name="check-circle" size={13} color="#4d6330" />
+            3× ROI in first quarter
+          </div>
+        </div>
+      </div>
+
+      <div class="tcard reveal reveal-delay-1">
+        <ImgPlaceholder seed={82} width={480} height={270} ratio="16/9"
+          alt="Nigeria fashion accessories"
+          hint="建议：时尚配件/首饰产品图" />
+        <div class="tcard__inner">
+          <div class="tcard__region">
+            <div class="tcard__region-dot"></div>
+            <span>Nigeria</span>
+          </div>
+          <blockquote>"Got my Yiwu supplier in 48 hours. QC photos, DHL shipping — I never left Lagos."</blockquote>
+          <div class="tcard__author">Fashion Accessories Founder</div>
+          <div class="tcard__result">
+            <Icon name="check-circle" size={13} color="#4d6330" />
+            40% lower cost
+          </div>
+        </div>
+      </div>
+
+      <div class="tcard reveal reveal-delay-2">
+        <ImgPlaceholder seed={93} width={480} height={270} ratio="16/9"
+          alt="Mexico home goods"
+          hint="建议：家居用品/厨房产品图" />
+        <div class="tcard__inner">
+          <div class="tcard__region">
+            <div class="tcard__region-dot"></div>
+            <span>Mexico</span>
+          </div>
+          <blockquote>"Ongoing reorder support means I always stay competitive. 12 orders and counting."</blockquote>
+          <div class="tcard__author">Home Goods Dropshipper</div>
+          <div class="tcard__result">
+            <Icon name="check-circle" size={13} color="#4d6330" />
+            12 reorders &amp; growing
+          </div>
+        </div>
+      </div>
+
+      <div class="tcard tcard--accent reveal reveal-delay-1">
+        <div class="tcard__inner">
+          <p class="overline overline--avo">Our track record</p>
+          <div class="tcard__bignum">500<span>+</span></div>
+          <p>entrepreneurs served across 30+ countries in Africa, Latin America, and Southeast Asia.</p>
+          <a href="/about" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.8);">Our Story →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ WHY CROSSPALS ═══ -->
+<section class="section why bg-parchment">
+  <div class="container why__grid">
+    <div class="why__left reveal">
+      <p class="overline">Why CrossPals</p>
+      <h2>We Solved the Hard Parts<br/><em>So You Don't Have To</em></h2>
+      <div class="divider" style="margin:var(--s6) 0;"></div>
+      <p style="font-size:16px;line-height:1.8;">Most entrepreneurs fail at China sourcing because of language barriers, payment risk, and quality uncertainty. CrossPals eliminates all three.</p>
+
+      <div style="margin-top:var(--s6);">
+        <ImgPlaceholder seed={15} width={560} height={420} ratio="4/3"
+          alt="CrossPals team"
+          hint="建议：团队合影/中国市场实景/创始人工作照"
+          rounded={true} />
+      </div>
+
+      <a href="/contact" class="btn btn-primary" style="margin-top:var(--s6);">
+        Start for Free
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+
+    <div class="why__right">
+      {whyItems.map((w, i) => (
+        <div class:list={['why-item reveal', `reveal-delay-${i}`]}>
+          <div class="why-item__icon">
+            <Icon name={w.icon} size={22} color="#637d3e" />
+          </div>
+          <div>
+            <div class="why-item__top">
+              <h4>{w.title}</h4>
+              <span class="why-item__n">{w.n}</span>
+            </div>
+            <p>{w.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ BLOG PREVIEW ═══ -->
+<section class="section blog-prev">
+  <div class="container">
+    <div class="blog-prev__head reveal">
+      <div>
+        <p class="overline">Resources</p>
+        <h2>Sourcing<br/><em>Knowledge Base</em></h2>
+      </div>
+      <a href="/blog" class="btn btn-outline">All Articles →</a>
+    </div>
+    <div class="blog-prev__grid">
+      {blogPosts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class:list={['bcard reveal', `reveal-delay-${i}`]}>
+          <ImgPlaceholder seed={post.seed} width={600} height={338} ratio="16/9" alt={post.title} hint={post.hint} />
+          <div class="bcard__body">
+            <span class="bcard__cat">{post.cat}</span>
+            <h4>{post.title}</h4>
+            <div class="bcard__foot">
+              <div class="bcard__time">
+                <Icon name="clock" size={12} color="var(--warm-400)" />
+                <span>{post.time} read</span>
+              </div>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="cta-final grain" style="position:relative;overflow:hidden;">
+  <div class="container cta-final__inner">
+    <div class="cta-final__text reveal">
+      <p class="overline overline--light">Ready?</p>
+      <h2 style="color:#fff;margin:var(--s3) 0 var(--s4);font-size:clamp(28px,4vw,52px);">
+        Your First Supplier<br/><em style="color:var(--avo-300)">Is 48 Hours Away</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:400px;">No commitment. No experience needed. Just tell us what you want to source.</p>
+    </div>
+    <div class="cta-final__form reveal reveal-delay-2">
+      <form class="quick-form" action="/contact" method="GET">
+        <input type="text" name="product" placeholder="What do you want to source?" required />
+        <button type="submit" class="btn btn-primary">
+          Get Quotes
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </button>
+      </form>
+      <p class="cta-final__note">
+        Or <a href="https://wa.me/yourwhatsapp">chat on WhatsApp</a> · Free, no commitment
+      </p>
+    </div>
+  </div>
+  <div class="cta-final__deco" aria-hidden="true">CROSSPALS</div>
+</section>
+
+</BaseLayout>
+
+<style>
+/* HERO */
+.hero{background:var(--avo-950);min-height:100vh;display:flex;flex-direction:column;}
+.hero__grid{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0;}
+.hero__left{background:var(--avo-950);display:flex;align-items:center;padding:120px var(--s8) var(--s8) var(--s7);}
+.hero__left-inner{max-width:520px;}
+.hero__title{color:#fff;font-size:clamp(42px,5.5vw,74px);line-height:1.06;margin:var(--s3) 0 var(--s5);}
+.hero__title em{font-style:italic;color:var(--avo-300);}
+.hero__desc{color:rgba(255,255,255,.58);font-size:17px;line-height:1.75;margin-bottom:var(--s6);max-width:420px;}
+.hero__actions{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s6);}
+
+/* Trust badges with icons */
+.hero__trust{display:flex;flex-wrap:wrap;gap:var(--s4);}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.50);font-family:var(--font-mono);letter-spacing:.02em;}
+
+/* Right photo */
+.hero__right{position:relative;overflow:hidden;}
+.hero__photo-fill{position:absolute;inset:0;}
+.hero__photo-fill :global(.img-ph){height:100%;}
+.hero__photo-fill :global(.img-ph__wrap){padding-top:0!important;height:100%;}
+.hero__photo-fill :global(img){width:100%;height:100%;object-fit:cover;}
+
+/* Floating cards */
+.fcard{position:absolute;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-radius:var(--r3);box-shadow:0 8px 32px rgba(0,0,0,.18);padding:var(--s3) var(--s4);display:flex;align-items:flex-start;gap:var(--s3);max-width:260px;z-index:2;animation:float 6s ease-in-out infinite;}
+.fcard--a{top:18%;right:8%;animation-delay:0s;}
+.fcard--b{bottom:30%;left:6%;animation-delay:-2s;}
+.fcard--c{bottom:10%;right:10%;animation-delay:-4s;flex-direction:column;gap:var(--s2);max-width:200px;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.fcard__icon-wrap{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fcard__icon-wrap--green{background:var(--avo-200);}
+.fcard__icon-wrap--avo{background:var(--avo-100);}
+
+.fcard__title{font-size:13px;font-weight:600;color:var(--warm-950);}
+.fcard__sub{font-size:11px;color:var(--warm-600);margin-top:2px;}
+.fcard__stars{display:flex;gap:2px;align-items:center;}
+.fcard__quote{font-size:12px;font-style:italic;color:var(--warm-800);}
+
+/* Stats bar */
+.hero__stats{background:var(--avo-900);display:flex;align-items:center;justify-content:center;padding:var(--s5);}
+.hstat{flex:1;text-align:center;padding:var(--s3) var(--s5);}
+.hstat strong{display:block;font-family:var(--font-serif);font-size:clamp(26px,3.5vw,40px);font-weight:700;color:#fff;line-height:1;}
+.hstat strong span{color:var(--avo-300);}
+.hstat>span{font-size:11px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.1em;font-family:var(--font-mono);display:block;margin-top:4px;}
+.hstat__sep{width:1px;height:44px;background:rgba(255,255,255,.10);flex-shrink:0;}
+
+/* SERVICES */
+.svc{background:var(--bg-page);}
+.svc__head{margin-bottom:var(--s8);}
+.svc__head h2 em,.blog-prev__head h2 em{font-style:italic;color:var(--avo-600);}
+.svc__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);}
+.svc-card{background:var(--bg-surface);border-radius:var(--r3);border:1px solid var(--border-light);transition:var(--t-med);display:flex;flex-direction:column;overflow:hidden;}
+.svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--avo-200);}
+.svc-card--featured{background:var(--avo-900);border-color:var(--avo-800);}
+.svc-card--featured h3,.svc-card--featured p{color:rgba(255,255,255,.8);}
+.svc-card--featured h3{color:#fff;}
+.svc-card--featured .svc-card__link{color:var(--avo-300);}
+.svc-card :global(.img-ph){border-radius:0;flex-shrink:0;}
+.svc-card :global(.img-ph__wrap){border-radius:0;}
+.svc-card__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+.svc-card__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s2);}
+.svc-card__icon-bg{width:36px;height:36px;border-radius:8px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.svc-card__icon-bg--light{background:rgba(186,209,133,.2);}
+.svc-card__num{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--warm-400);letter-spacing:.1em;}
+.svc-card--featured .svc-card__num{color:rgba(255,255,255,.25);}
+.svc-card h3{font-size:17px;}
+.svc-card p{font-size:13px;line-height:1.75;flex:1;}
+.svc-card__link{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--avo-600);text-decoration:none;transition:gap var(--t-fast);margin-top:auto;}
+.svc-card:hover .svc-card__link{gap:10px;}
+
+/* HOW IT WORKS */
+.hiw{background:var(--avo-950);position:relative;overflow:hidden;}
+.hiw__wrap{display:grid;grid-template-columns:1fr 400px;gap:var(--s8);align-items:center;padding-top:var(--s9);padding-bottom:var(--s9);}
+.hiw__head{margin-bottom:var(--s7);}
+.hiw__steps{display:flex;flex-direction:column;margin-bottom:var(--s7);}
+.hiw__step{display:flex;align-items:flex-start;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.hiw__step:last-child{border-bottom:none;}
+.hiw__step-icon{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;}
+.hiw__step-n{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.08em;}
+.hiw__step h4{color:#fff;font-size:16px;margin-bottom:4px;}
+.hiw__step p{font-size:14px;color:rgba(255,255,255,.48);}
+.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;}
+.hiw__bg-text{position:absolute;bottom:-24px;right:-16px;font-family:var(--font-serif);font-size:clamp(80px,14vw,180px);font-weight:900;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em;}
+
+/* TESTIMONIALS */
+.testi{background:var(--warm-100);}
+.testi__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--s8);}
+.testi__head h2 em{color:var(--avo-600);font-style:italic;}
+.testi__grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:auto auto;gap:var(--s5);}
+.tcard{background:var(--bg-surface);border-radius:var(--r3);border:1px solid var(--border-light);display:flex;flex-direction:column;transition:var(--t-med);overflow:hidden;}
+.tcard:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.tcard--tall{grid-row:1/3;}
+.tcard--accent{background:var(--avo-950);border-color:var(--avo-800);}
+.tcard--accent p{color:rgba(255,255,255,.55);}
+.tcard :global(.img-ph){border-radius:0;flex-shrink:0;}
+.tcard :global(.img-ph__wrap){border-radius:0;}
+.tcard__inner{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+.tcard--tall .tcard__inner{padding:var(--s6);}
+.tcard--accent .tcard__inner{padding:var(--s7);}
+.tcard__region{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;color:var(--warm-600);letter-spacing:.08em;text-transform:uppercase;}
+.tcard__region-dot{width:6px;height:6px;border-radius:50%;background:var(--avo-500);flex-shrink:0;}
+blockquote{font-family:var(--font-serif);font-style:italic;color:var(--text-primary);line-height:1.6;flex:1;padding:0;border:none;margin:0;font-size:15px;}
+.tcard--tall blockquote{font-size:18px;}
+.tcard__author{font-size:12px;color:var(--text-muted);font-weight:600;}
+.tcard__result{display:inline-flex;align-items:center;gap:6px;background:var(--avo-50);color:var(--avo-700);font-size:12px;font-weight:700;padding:5px 12px;border-radius:var(--rfull);font-family:var(--font-mono);letter-spacing:.04em;align-self:flex-start;border:1px solid var(--avo-200);}
+.tcard__bignum{font-family:var(--font-serif);font-size:68px;font-weight:900;color:#fff;line-height:1;}
+.tcard__bignum span{color:var(--avo-300);}
+
+/* WHY */
+.why{background:var(--warm-100);}
+.why__grid{display:grid;grid-template-columns:1fr 1.5fr;gap:var(--s10);align-items:start;}
+.why h2 em{color:var(--avo-600);font-style:italic;}
+.why__right{display:flex;flex-direction:column;}
+.why-item{display:flex;gap:var(--s5);padding:var(--s6) 0;border-bottom:1px solid var(--border-light);transition:background var(--t-fast),padding-left var(--t-fast);border-radius:var(--r2);}
+.why-item:first-child{padding-top:0;}
+.why-item:last-child{border-bottom:none;}
+.why-item:hover{padding-left:var(--s3);}
+.why-item__icon{width:44px;height:44px;border-radius:10px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.why-item__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.why-item__n{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--avo-500);letter-spacing:.1em;}
+.why-item h4{font-size:17px;}
+.why-item p{font-size:14px;}
+
+/* BLOG */
+.blog-prev{background:var(--bg-page);}
+.blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--s8);}
+.blog-prev__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);}
+.bcard{background:var(--bg-surface);border-radius:var(--r3);border:1px solid var(--border-light);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:var(--t-med);overflow:hidden;}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--avo-200);}
+.bcard :global(.img-ph){border-radius:0;flex-shrink:0;}
+.bcard :global(.img-ph__wrap){border-radius:0;}
+.bcard__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+.bcard__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--avo-600);}
+.bcard h4{font-size:17px;line-height:1.3;flex:1;transition:color var(--t-fast);}
+.bcard:hover h4{color:var(--avo-700);}
+.bcard__foot{display:flex;justify-content:space-between;align-items:center;padding-top:var(--s4);border-top:1px solid var(--border-light);margin-top:auto;}
+.bcard__time{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--warm-400);font-family:var(--font-mono);}
+
+/* CTA FINAL */
+.cta-final{background:var(--avo-950);padding:var(--s9) var(--s5);position:relative;overflow:hidden;}
+.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;}
+.cta-final__form{display:flex;flex-direction:column;gap:var(--s3);min-width:360px;}
+.quick-form{display:flex;gap:var(--s3);}
+.quick-form input{flex:1;padding:13px 18px;border:1.5px solid rgba(255,255,255,.14);border-radius:var(--r2);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:var(--font-sans);outline:none;transition:border-color var(--t-fast);}
+.quick-form input:focus{border-color:var(--avo-300);}
+.quick-form input::placeholder{color:rgba(255,255,255,.32);}
+.cta-final__note{font-size:12px;color:rgba(255,255,255,.32);text-align:center;font-family:var(--font-mono);}
+.cta-final__note a{color:var(--avo-300);text-decoration:underline;}
+.cta-final__deco{position:absolute;bottom:-28px;right:-16px;font-family:var(--font-serif);font-size:clamp(70px,12vw,150px);font-weight:900;color:rgba(255,255,255,.02);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.04em;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.svc__grid{grid-template-columns:repeat(2,1fr)}.hiw__wrap{grid-template-columns:1fr}.hiw__photo{display:none}.testi__grid{grid-template-columns:1fr 1fr}.tcard--tall{grid-row:auto}.why__grid{grid-template-columns:1fr;gap:var(--s7)}}
+@media(max-width:860px){.hero__grid{grid-template-columns:1fr}.hero__right{display:none}.hero__left{padding:120px var(--s5) var(--s7)}.hero__stats{flex-wrap:wrap}.hstat{min-width:50%}.testi__head,.blog-prev__head{flex-direction:column;align-items:flex-start;gap:var(--s5)}}
+@media(max-width:640px){.svc__grid{grid-template-columns:1fr}.testi__grid{grid-template-columns:1fr}.blog-prev__grid{grid-template-columns:1fr}.cta-final__inner{flex-direction:column;text-align:center}.cta-final__form{min-width:unset;width:100%}.quick-form{flex-direction:column}.hstat{min-width:100%}.hstat__sep{display:none}}
+</style>

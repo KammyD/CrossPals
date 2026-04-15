@@ -1,0 +1,15 @@
+export const es = {
+  nav_home:     'Inicio',
+  nav_services: 'Servicios',
+  nav_about:    'Nosotros',
+  nav_blog:     'Blog',
+  nav_contact:  'Contacto',
+  nav_cta:      'Cotización Gratis',
+  footer_tagline:  'Abastecimiento confiable desde China para emprendedores globales.',
+  footer_services: 'Servicios',
+  footer_company:  'Empresa',
+  footer_legal:    'Legal',
+  footer_privacy:  'Política de Privacidad',
+  footer_terms:    'Términos de Servicio',
+  footer_rights:   'Todos los derechos reservados.',
+} as const;

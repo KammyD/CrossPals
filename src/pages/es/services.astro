@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+
+const services: Array<{
+  icon: IconName; n: string; title: string; desc: string;
+  details: string[]; featured?: boolean;
+}> = [
+  {
+    icon: 'sourcing', n: '01', title: 'Búsqueda de Productos',
+    desc: 'Buscamos entre miles de proveedores chinos para encontrar la opción ideal según tu presupuesto y estándares.',
+    details: ['Búsqueda en 1688, Alibaba y fábricas directas','3–5 proveedores verificados con cotizaciones','Certificaciones e historial verificados','Perfil completo del proveedor en 48 horas'],
+  },
+  {
+    icon: 'inspection', n: '02', title: 'Inspección de Calidad', featured: true,
+    desc: 'Inspección física en fábrica antes del envío. Informe fotográfico, conteo de defectos y veredicto claro.',
+    details: ['Inspección previa al envío en fábrica','Informe fotográfico de 20–40 fotos','Pruebas de funcionalidad y conteo de defectos','Recomendación clara antes de aprobar el envío'],
+  },
+  {
+    icon: 'payment', n: '03', title: 'Compra y Pago',
+    desc: 'Negociamos en chino y gestionamos todos los pagos a proveedores verificados de forma segura.',
+    details: ['Negociación de precios en chino','Pago seguro solo a proveedores verificados','Documentación completa de la orden de compra','Múltiples métodos de pago aceptados'],
+  },
+  {
+    icon: 'shipping', n: '04', title: 'Envío y Logística',
+    desc: 'Entrega puerta a puerta en todo el mundo con flete comparado y aduanas gestionadas.',
+    details: ['Flete aéreo, marítimo y express comparados','Envíos consolidados de múltiples proveedores','Factura comercial y trámites aduaneros','Seguimiento en tiempo real compartido'],
+  },
+];
+---
+
+<BaseLayout title="Servicios" description="CrossPals ofrece servicios completos de abastecimiento desde China." lang="es">
+  <PageHero
+    overline="Qué Hacemos"
+    title="Abastecimiento Completo<br/><em style='font-style:italic;color:var(--avo-300)'>desde China</em>"
+    subtitle="Desde tu primera idea de producto hasta los reordenes — gestionamos cada paso."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="svcs">
+        {services.map((s, i) => (
+          <div class:list={['svc-row reveal', { 'svc-row--featured': s.featured, 'svc-row--reverse': i % 2 === 1 }]}>
+            <div class="svc-row__meta">
+              <div class="svc-row__icon-wrap">
+                <Icon name={s.icon} size={28} color={s.featured ? 'rgba(186,209,133,0.9)' : '#637d3e'} />
+              </div>
+              <span class="svc-row__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <a href="/es/contact"
+                class:list={['btn', s.featured ? 'btn-primary' : 'btn-outline']}
+                style="margin-top:var(--s5);align-self:flex-start;">
+                Empezar
+                <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M3 8h10M8 3l5 5-5 5"/>
+                </svg>
+              </a>
+            </div>
+            <ul class="svc-row__list">
+              {s.details.map(d => (
+                <li>
+                  <Icon name="check-circle" size={15} color={s.featured ? 'rgba(186,209,133,0.8)' : '#637d3e'} />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <p class="overline overline--light reveal">Empieza</p>
+      <h2 style="color:#fff;margin-bottom:var(--s5);" class="reveal reveal-delay-1">
+        ¿Listo para tu<br/><em style="color:var(--avo-300)">Primer Pedido?</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:420px;margin:0 auto var(--s7);" class="reveal reveal-delay-2">
+        Envíanos tus requisitos y tendremos opciones de proveedores en 48 horas.
+      </p>
+      <a href="/es/contact" class="btn btn-primary reveal reveal-delay-3">
+        Cotización Gratis
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 8h10M8 3l5 5-5 5"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+  .svcs { display:flex; flex-direction:column; }
+  .svc-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--s8); align-items:center; padding:var(--s8) 0; border-bottom:1px solid var(--border-light); }
+  .svc-row:first-child { padding-top:0; }
+  .svc-row:last-child  { border-bottom:none; }
+  .svc-row--reverse .svc-row__meta { order:2; }
+  .svc-row--reverse .svc-row__list { order:1; }
+  .svc-row--featured { background:var(--avo-950); border-radius:var(--r4); padding:var(--s7); border:1px solid var(--avo-800); margin:var(--s6) 0; }
+  .svc-row--featured h3 { color:#fff; }
+  .svc-row--featured p  { color:rgba(255,255,255,.75); }
+  .svc-row--featured .svc-row__n { color:rgba(255,255,255,.25); }
+  .svc-row__meta { display:flex; flex-direction:column; gap:var(--s4); }
+  .svc-row__icon-wrap { width:52px; height:52px; border-radius:12px; background:var(--avo-100); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .svc-row--featured .svc-row__icon-wrap { background:rgba(186,209,133,.12); }
+  .svc-row__n { font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--warm-400); letter-spacing:.12em; }
+  .svc-row__meta h3 { font-size:clamp(20px,2.5vw,28px); }
+  .svc-row__meta > p { font-size:16px; line-height:1.75; }
+  .svc-row__list { list-style:none; display:flex; flex-direction:column; background:var(--bg-surface); border-radius:var(--r3); border:1px solid var(--border-light); overflow:hidden; }
+  .svc-row--featured .svc-row__list { background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.08); }
+  .svc-row__list li { display:flex; align-items:flex-start; gap:var(--s3); padding:var(--s4) var(--s5); border-bottom:1px solid var(--border-light); font-size:14px; color:var(--text-body); transition:background var(--t-fast); }
+  .svc-row--featured .svc-row__list li { border-color:rgba(255,255,255,.06); color:rgba(255,255,255,.65); }
+  .svc-row__list li:last-child { border-bottom:none; }
+  .svc-row__list li:hover { background:var(--avo-50); }
+  .svc-row--featured .svc-row__list li:hover { background:rgba(255,255,255,.05); }
+  .svc-row__list :global(.icon-svg) { flex-shrink:0; margin-top:2px; }
+  @media (max-width:900px) {
+    .svc-row { grid-template-columns:1fr; }
+    .svc-row--reverse .svc-row__meta { order:0; }
+    .svc-row--reverse .svc-row__list { order:0; }
+  }
+</style>

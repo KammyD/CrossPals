@@ -1,0 +1,523 @@
+---
+import Logo from './Logo.astro';
+import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+const lang    = getLangFromUrl(Astro.url);
+const t       = useTranslations(lang);
+const path    = Astro.url.pathname;
+
+const nav = [
+  { key: 'nav_home',     href: '/'         },
+  { key: 'nav_services', href: '/services'  },
+  { key: 'nav_about',    href: '/about'     },
+  { key: 'nav_blog',     href: '/blog'      },
+  { key: 'nav_contact',  href: '/contact'   },
+] as const;
+
+const languages = [
+  { code: 'en', label: 'English',    native: 'English',    flag: '🇺🇸' },
+  { code: 'es', label: 'Spanish',    native: 'Español',    flag: '🇪🇸' },
+  { code: 'fr', label: 'French',     native: 'Français',   flag: '🇫🇷' },
+  { code: 'ar', label: 'Arabic',     native: 'العربية',    flag: '🇸🇦' },
+  { code: 'pt', label: 'Portuguese', native: 'Português',  flag: '🇧🇷' },
+] as const;
+
+function active(href: string) {
+  const full = localePath(lang, href);
+  if (href === '/') return path === full;
+  return path === full || path.startsWith(full + '/');
+}
+---
+
+<header class="hdr" id="hdr">
+  <div class="hdr__bar container">
+
+    <!-- Logo -->
+    <Logo variant="light" size="md" />
+
+    <!-- Primary nav -->
+    <nav class="hdr__nav" aria-label="Primary">
+      {nav.map(item => (
+        <a
+          href={localePath(lang, item.href)}
+          class:list={['hdr__link', { 'hdr__link--on': active(item.href) }]}
+        >
+          {t(item.key)}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right side -->
+    <div class="hdr__end">
+
+      <!-- Language dropdown -->
+      <div class="lang" id="langWrap">
+        <button class="lang__btn" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
+          <!-- Globe SVG -->
+          <svg class="lang__globe" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="10" cy="10" r="8.5"/>
+            <path d="M10 1.5C10 1.5 6.5 5 6.5 10s3.5 8.5 3.5 8.5"/>
+            <path d="M10 1.5C10 1.5 13.5 5 13.5 10s-3.5 8.5-3.5 8.5"/>
+            <path d="M1.5 10h17"/>
+            <path d="M2.5 6.5h15M2.5 13.5h15"/>
+          </svg>
+          <span class="lang__code">{lang.toUpperCase()}</span>
+          <!-- Chevron SVG -->
+          <svg class="lang__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6l4 4 4-4"/>
+          </svg>
+        </button>
+
+        <div class="lang__dropdown" id="langDropdown" role="listbox" aria-label="Select language">
+          <div class="lang__dropdown-title">Language</div>
+          {languages.map(l => (
+            <a
+              href={l.code === 'en' ? '/' : `/${l.code}`}
+              class:list={['lang__option', { 'lang__option--on': l.code === lang }]}
+              role="option"
+              aria-selected={l.code === lang}
+            >
+              <span class="lang__flag" aria-hidden="true">{l.flag}</span>
+              <span class="lang__info">
+                <span class="lang__name">{l.label}</span>
+                <span class="lang__native">{l.native}</span>
+              </span>
+              {l.code === lang && (
+                <svg class="lang__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="3 8 6.5 11.5 13 5"/>
+                </svg>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <a href={localePath(lang, '/contact')} class="hdr__cta">
+        {t('nav_cta')}
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M3 8h10M8 3l5 5-5 5"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Mobile burger -->
+    <button class="hdr__burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span class="hdr__burger-line"></span>
+      <span class="hdr__burger-line"></span>
+      <span class="hdr__burger-line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile fullscreen drawer (outside header for z-index) -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__inner">
+    <nav class="drawer__nav">
+      {nav.map((item, i) => (
+        <a
+          href={localePath(lang, item.href)}
+          class:list={['drawer__link', { 'drawer__link--on': active(item.href) }]}
+          style={`--i:${i}`}
+        >
+          <span class="drawer__idx">0{i + 1}</span>
+          <span class="drawer__label">{t(item.key)}</span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 8h10M8 3l5 5-5 5"/>
+          </svg>
+        </a>
+      ))}
+    </nav>
+
+    <div class="drawer__foot">
+      <!-- Lang list in drawer -->
+      <div class="drawer__lang-list">
+        {languages.map(l => (
+          <a
+            href={l.code === 'en' ? '/' : `/${l.code}`}
+            class:list={['drawer__lang-item', { 'drawer__lang-item--on': l.code === lang }]}
+          >
+            <span>{l.flag}</span>
+            <span>{l.label}</span>
+          </a>
+        ))}
+      </div>
+      <a href={localePath(lang, '/contact')} class="hdr__cta drawer__cta">
+        {t('nav_cta')}
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M3 8h10M8 3l5 5-5 5"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const hdr     = document.getElementById('hdr')!;
+  const burger  = document.getElementById('burgerBtn')!;
+  const drawer  = document.getElementById('drawer')!;
+  const trigger = document.getElementById('langTrigger')!;
+  const dropdown= document.getElementById('langDropdown')!;
+  let menuOpen  = false;
+  let langOpen  = false;
+
+  // ── Scroll state ──
+  const tick = () => hdr.classList.toggle('hdr--solid', window.scrollY > 24);
+  window.addEventListener('scroll', tick, { passive: true });
+  tick();
+
+  // ── Mobile drawer ──
+  const setMenu = (v: boolean) => {
+    menuOpen = v;
+    burger.setAttribute('aria-expanded', String(v));
+    burger.classList.toggle('hdr__burger--open', v);
+    drawer.classList.toggle('drawer--open', v);
+    drawer.setAttribute('aria-hidden', String(!v));
+    document.body.style.overflow = v ? 'hidden' : '';
+  };
+  burger.addEventListener('click', () => setMenu(!menuOpen));
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // ── Language dropdown ──
+  const setLang = (v: boolean) => {
+    langOpen = v;
+    trigger.setAttribute('aria-expanded', String(v));
+    dropdown.classList.toggle('lang__dropdown--open', v);
+    trigger.classList.toggle('lang__btn--open', v);
+  };
+  trigger.addEventListener('click', (e) => { e.stopPropagation(); setLang(!langOpen); });
+  document.addEventListener('click', () => { if (langOpen) setLang(false); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { setLang(false); setMenu(false); }
+  });
+</script>
+
+<style>
+/* ═══════════════════════════════════════════
+   HEADER BASE — transparent, gradient mask
+═══════════════════════════════════════════ */
+.hdr {
+  position: fixed; inset: 0 0 auto; z-index: 1000;
+
+  /* Gradient shadow ensures text is readable on any hero photo */
+  background: linear-gradient(
+    180deg,
+    rgba(28, 33, 20, 0.78) 0%,
+    rgba(28, 33, 20, 0.30) 70%,
+    transparent 100%
+  );
+
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Scrolled: fully solid + blur */
+.hdr--solid {
+  background: rgba(28, 33, 20, 0.96) !important;
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: 0 1px 0 rgba(255,255,255,.07), 0 4px 32px rgba(0,0,0,.28);
+}
+
+.hdr__bar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* ═══════════════════════════════════════════
+   NAV LINKS — readable white on dark bg
+═══════════════════════════════════════════ */
+.hdr__nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+  margin-right: var(--s5);
+}
+
+.hdr__link {
+  position: relative;
+  display: inline-flex; align-items: center;
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.80);   /* ← always white, always visible */
+  text-decoration: none;
+  transition: color .18s, background .18s;
+}
+
+.hdr__link:hover {
+  color: #fff;
+  background: rgba(255,255,255,.09);
+}
+
+.hdr__link--on {
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Active dot */
+.hdr__link--on::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--avo-300);
+}
+
+/* ═══════════════════════════════════════════
+   RIGHT SECTION
+═══════════════════════════════════════════ */
+.hdr__end {
+  display: flex; align-items: center; gap: var(--s3);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   LANGUAGE DROPDOWN
+═══════════════════════════════════════════ */
+.lang { position: relative; }
+
+.lang__btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,.85);
+  transition: background .18s, border-color .18s;
+  white-space: nowrap;
+}
+
+.lang__btn:hover,
+.lang__btn--open {
+  background: rgba(255,255,255,.16);
+  border-color: rgba(255,255,255,.40);
+  color: #fff;
+}
+
+.lang__globe { width: 15px; height: 15px; flex-shrink: 0; opacity: .75; }
+.lang__code  { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
+
+.lang__chevron {
+  width: 12px; height: 12px; flex-shrink: 0; opacity: .6;
+  transition: transform .22s var(--ease-out);
+}
+.lang__btn--open .lang__chevron { transform: rotate(180deg); }
+
+/* Dropdown panel */
+.lang__dropdown {
+  position: absolute;
+  top: calc(100% + 10px); right: 0;
+  width: 210px;
+  background: var(--avo-950);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.25);
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  pointer-events: none;
+  transition: opacity .2s var(--ease-out), transform .2s var(--ease-out);
+  transform-origin: top right;
+}
+
+.lang__dropdown--open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.lang__dropdown-title {
+  padding: 10px 14px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.30);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.lang__option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition: background .14s;
+  cursor: pointer;
+}
+.lang__option:hover      { background: rgba(255,255,255,.07); }
+.lang__option--on        { background: rgba(186,209,133,.10); }
+.lang__option:last-child { border-radius: 0 0 11px 11px; }
+
+.lang__flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
+.lang__info { display: flex; flex-direction: column; flex: 1; }
+.lang__name { font-size: 14px; font-weight: 500; color: rgba(255,255,255,.90); }
+.lang__native { font-size: 11px; color: rgba(255,255,255,.40); margin-top: 1px; }
+
+.lang__check {
+  width: 14px; height: 14px;
+  stroke: var(--avo-300); flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   CTA BUTTON
+═══════════════════════════════════════════ */
+.hdr__cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px;
+  background: var(--avo-500);
+  color: #fff;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 14px; font-weight: 600;
+  letter-spacing: .02em;
+  text-decoration: none; border: none; cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 2px 0 var(--avo-700);
+  transition: background .18s, transform .18s, box-shadow .18s;
+  white-space: nowrap;
+}
+
+.hdr__cta svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform .18s; }
+.hdr__cta:hover svg { transform: translateX(3px); }
+
+.hdr__cta:hover {
+  background: var(--avo-400);
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 var(--avo-700), var(--shadow-avo);
+}
+.hdr__cta:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 var(--avo-700); }
+
+/* ═══════════════════════════════════════════
+   MOBILE BURGER
+═══════════════════════════════════════════ */
+.hdr__burger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 6px;
+  cursor: pointer; padding: 9px 10px; margin-left: auto;
+  width: 42px; height: 42px;
+  transition: background .18s, border-color .18s;
+}
+.hdr__burger:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.40); }
+
+.hdr__burger-line {
+  display: block; width: 20px; height: 1.5px;
+  background: rgba(255,255,255,.85); border-radius: 2px;
+  transition: transform .28s var(--ease-out), opacity .2s;
+  transform-origin: center;
+}
+.hdr__burger--open .hdr__burger-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hdr__burger--open .hdr__burger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hdr__burger--open .hdr__burger-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ═══════════════════════════════════════════
+   MOBILE DRAWER
+═══════════════════════════════════════════ */
+.drawer {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--avo-950);
+  padding-top: 72px;
+  overflow-y: auto;
+}
+
+.drawer--open {
+  display: flex; flex-direction: column;
+  animation: drawerIn .3s var(--ease-out);
+}
+
+@keyframes drawerIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.drawer__inner {
+  display: flex; flex-direction: column; flex: 1;
+  padding: var(--s4) var(--s5) var(--s7);
+}
+
+.drawer__nav {
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column;
+}
+
+.drawer__link {
+  display: flex; align-items: center; gap: var(--s4);
+  padding: 18px var(--s3);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  font-family: var(--font-serif);
+  font-size: 26px; font-weight: 600;
+  color: rgba(255,255,255,.72);
+  text-decoration: none;
+  transition: color .18s, padding-left .22s;
+  animation: linkIn .4s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 0.06s);
+}
+
+@keyframes linkIn {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.drawer__link:hover  { color: #fff; padding-left: var(--s5); }
+.drawer__link--on    { color: var(--avo-300); }
+.drawer__link svg    { width: 18px; height: 18px; margin-left: auto; opacity: .3; flex-shrink: 0; transition: opacity .18s, transform .18s; }
+.drawer__link:hover svg { opacity: .7; transform: translateX(4px); }
+
+.drawer__idx {
+  font-family: var(--font-mono); font-size: 11px;
+  color: rgba(255,255,255,.25); letter-spacing: .08em;
+  width: 24px; flex-shrink: 0;
+}
+
+.drawer__label { flex: 1; }
+
+.drawer__foot {
+  margin-top: auto; padding-top: var(--s7);
+  display: flex; flex-direction: column; gap: var(--s3);
+}
+
+.drawer__lang-list {
+  display: flex; flex-wrap: wrap; gap: var(--s2);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.drawer__lang-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--rfull);
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,.60);
+  text-decoration: none;
+  transition: background .15s, color .15s;
+}
+.drawer__lang-item:hover     { background: rgba(255,255,255,.14); color: #fff; }
+.drawer__lang-item--on       { background: rgba(186,209,133,.15); border-color: rgba(186,209,133,.30); color: var(--avo-200); }
+
+.drawer__cta { width: 100%; justify-content: center; padding: 15px; font-size: 16px; border-radius: 8px; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hdr__nav, .hdr__end { display: none; }
+  .hdr__burger { display: flex; }
+}
+</style>

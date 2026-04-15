@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+
+const expectItems: Array<{ icon: IconName; strong: string; body: string }> = [
+  { icon: 'clock',      strong: 'Reply within 24 hours',       body: 'Usually much faster during business hours (China GMT+8).' },
+  { icon: 'sourcing',   strong: 'Supplier shortlist in 48h',   body: '3–5 vetted options with pricing and profiles.' },
+  { icon: 'lock',       strong: 'No commitment required',      body: 'Review our options before deciding anything.' },
+  { icon: 'handshake',  strong: 'Dedicated agent assigned',    body: 'One person manages your entire inquiry start to finish.' },
+];
+---
+<BaseLayout title="Contact Us" description="Get in touch with CrossPals. Submit a sourcing inquiry and we'll reply within 24 hours.">
+
+  <PageHero
+    overline="Get In Touch"
+    title="Let's Start<br /><em style='font-style:italic;color:var(--avo-300)'>Sourcing Together</em>"
+    subtitle="Tell us what you're looking for and we'll get back within 24 hours — no commitment required."
+  />
+
+  <section class="section">
+    <div class="container contact-wrap">
+
+      <!-- Form side -->
+      <div class="contact-form-col reveal">
+        <p class="overline">Send an Inquiry</p>
+        <h2>Tell Us What<br /><em>You Need</em></h2>
+        <p class="contact-form-col__sub">The more detail you share, the faster we can find the right suppliers.</p>
+        <ContactForm lang="en" />
+      </div>
+
+      <!-- Info side -->
+      <aside class="contact-info reveal reveal-delay-2">
+
+        <!-- Direct channels -->
+        <div class="info-block">
+          <h4>Prefer to chat directly?</h4>
+          <a href="https://wa.me/yourwhatsapp" class="ch-card ch-card--wa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>Chat with us live</span>
+            </div>
+          </a>
+          <a href="mailto:hello@crosspals.com" class="ch-card ch-card--email">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <strong>Email</strong>
+              <span>hello@crosspals.com</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- What to expect -->
+        <div class="info-block expect-block">
+          <h4>What to expect</h4>
+          <ul class="expect-list">
+            {expectItems.map(e => (
+              <li>
+                <div class="expect-icon">
+                  <Icon name={e.icon} size={16} color="#637d3e" />
+                </div>
+                <div>
+                  <strong>{e.strong}</strong>
+                  <p>{e.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Trust quote -->
+        <div class="info-block trust-quote">
+          <blockquote>"CrossPals replied within 2 hours and had 4 suppliers for me by the next morning."</blockquote>
+          <cite>— Lagos, Nigeria · First-time importer</cite>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+
+  .contact-wrap {
+    display:grid; grid-template-columns:1.3fr 1fr;
+    gap:var(--s8); align-items:start;
+  }
+
+  .contact-form-col h2 { margin:var(--s3) 0 var(--s3); }
+  .contact-form-col__sub { font-size:15px; color:var(--text-body); margin-bottom:var(--s6); }
+
+  .contact-info {
+    display:flex; flex-direction:column; gap:var(--s5);
+    position:sticky; top:90px;
+  }
+
+  .info-block { display:flex; flex-direction:column; gap:var(--s4); }
+
+  .info-block h4 {
+    font-size:15px; color:var(--warm-950); margin-bottom:var(--s2);
+  }
+
+  .ch-card {
+    display:flex; align-items:center; gap:var(--s4);
+    padding:var(--s4) var(--s5); border-radius:var(--r2);
+    text-decoration:none; transition:var(--t-fast);
+  }
+
+  .ch-card strong { display:block; font-weight:700; font-size:14px; }
+  .ch-card span   { font-size:12px; opacity:.7; }
+
+  .ch-card--wa {
+    background:#e7f9ef; color:#1a7a3a;
+    border:1px solid #b2e8c7;
+  }
+  .ch-card--wa:hover { background:#25D366; color:#fff; transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+
+  .ch-card--email {
+    background:var(--avo-50); color:var(--avo-700);
+    border:1px solid var(--avo-200);
+  }
+  .ch-card--email:hover { background:var(--avo-700); color:#fff; transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+
+  .expect-block {
+    background:var(--warm-100); border-radius:var(--r3);
+    padding:var(--s6); border:1px solid var(--warm-200);
+  }
+
+  .expect-list {
+    list-style:none; display:flex; flex-direction:column; gap:var(--s4);
+  }
+
+  .expect-list li { display:flex; gap:var(--s3); align-items:flex-start; }
+  .expect-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--avo-100);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .expect-list strong { display:block; font-size:13px; font-weight:600; color:var(--warm-950); font-family:var(--font-sans); margin-bottom:2px; }
+  .expect-list p { font-size:12px; color:var(--text-body); margin:0; }
+
+  .trust-quote {
+    background:var(--avo-700); border-radius:var(--r3); padding:var(--s5) var(--s6);
+  }
+
+  .trust-quote blockquote {
+    font-family:var(--font-serif); font-style:italic;
+    font-size:15px; color:#fff; line-height:1.6;
+    border:none; padding:0; margin:0 0 var(--s3);
+  }
+
+  .trust-quote cite {
+    font-size:11px; color:rgba(255,255,255,.45);
+    font-family:var(--font-mono); letter-spacing:0.06em;
+    font-style:normal;
+  }
+
+  @media(max-width:900px) {
+    .contact-wrap { grid-template-columns:1fr; }
+    .contact-info { position:static; }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'en' | 'es';
+}
+const {
+  title,
+  description = 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.',
+  lang = 'en',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://crosspals.com');
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | CrossPals</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title"       content={`${title} | CrossPals`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type"        content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <Header />
+    <main id="main">{/* @ts-ignore */}<slot /></main>
+    <Footer />
+
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+/* ================================================================
+   CrossPals — Design System v4
+   Palette: Avocado Green × Warm Cream × Toasted Wheat
+   Fonts: Playfair Display (serif display) + Instrument Sans (body)
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Instrument+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Avocado greens ── */
+  --avo-950:  #1c2114;
+  --avo-900:  #2a3219;
+  --avo-800:  #3a4a24;
+  --avo-700:  #4d6330;
+  --avo-600:  #637d3e;
+  --avo-500:  #7d9a4f;   /* primary brand */
+  --avo-400:  #9cb668;   /* hover / accent */
+  --avo-300:  #bad185;   /* italic em color */
+  --avo-200:  #d4e8a8;
+  --avo-100:  #eaf4d0;
+  --avo-50:   #f5fae8;
+
+  /* ── Warm neutrals ── */
+  --warm-950: #1e1a12;
+  --warm-800: #4a3e28;
+  --warm-600: #7a6848;
+  --warm-400: #b8a07a;
+  --warm-300: #d4bfa0;
+  --warm-200: #e8d8c0;
+  --warm-100: #f4ede0;
+  --warm-50:  #faf6ef;
+
+  /* Semantic aliases */
+  --bg-page:        var(--warm-50);
+  --bg-surface:     #ffffff;
+  --bg-subtle:      var(--warm-100);
+  --bg-dark:        var(--avo-950);
+  --bg-dark-mid:    var(--avo-900);
+
+  --text-primary:   var(--warm-950);
+  --text-body:      var(--warm-800);
+  --text-muted:     var(--warm-600);
+  --text-faint:     var(--warm-400);
+
+  --border-light:   var(--warm-200);
+  --border-mid:     var(--warm-300);
+
+  --accent:         var(--avo-500);
+  --accent-hover:   var(--avo-400);
+  --accent-light:   var(--avo-100);
+  --accent-em:      var(--avo-300);   /* italic text on dark */
+
+  /* ── Typography ── */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans:  'Instrument Sans', system-ui, sans-serif;
+  --font-mono:  'DM Mono', monospace;
+
+  /* ── Spacing ── */
+  --s1:  4px;  --s2:  8px;   --s3: 12px;  --s4: 16px;
+  --s5: 24px;  --s6: 32px;   --s7: 48px;  --s8: 64px;
+  --s9: 96px;  --s10: 128px;
+
+  /* ── Radii ── */
+  --r1: 4px; --r2: 8px; --r3: 16px; --r4: 24px; --rfull: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-xs: 0 1px 4px rgba(74,62,40,.06);
+  --shadow-sm: 0 2px 12px rgba(74,62,40,.09);
+  --shadow-md: 0 8px 32px rgba(74,62,40,.13);
+  --shadow-lg: 0 20px 60px rgba(74,62,40,.17);
+  --shadow-avo: 0 4px 20px rgba(125,154,79,.30);
+
+  /* ── Transitions ── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast: 0.18s var(--ease-in-out);
+  --t-med:  0.32s var(--ease-out);
+  --t-slow: 0.55s var(--ease-out);
+}
+
+/* ── Reset & Base ── */
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-serif);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(40px, 5.5vw, 76px); font-weight: 700; }
+h2 { font-size: clamp(28px, 4vw, 52px);   font-weight: 600; }
+h3 { font-size: clamp(20px, 2vw, 28px);   font-weight: 600; }
+h4 { font-size: 18px; font-weight: 600; }
+
+p  { font-size: 16px; color: var(--text-body); line-height: 1.78; }
+a  { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── Layout ── */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 var(--s5); }
+.section    { padding: var(--s9) var(--s5); }
+.section--dark    { background: var(--avo-950); }
+.section--mid     { background: var(--avo-100); }
+.section--subtle  { background: var(--bg-subtle); }
+
+/* ── Grain texture ── */
+.grain::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px;
+}
+
+/* ── Overline label ── */
+.overline {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--avo-600);
+  margin-bottom: var(--s4);
+}
+.overline::before { content: ''; width: 24px; height: 1px; background: currentColor; flex-shrink: 0; }
+.overline--light  { color: rgba(255,255,255,.5); }
+.overline--avo    { color: var(--avo-300); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  padding: 13px 26px;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 600;
+  letter-spacing: 0.02em; border-radius: var(--r2);
+  cursor: pointer; border: none; text-decoration: none;
+  transition: var(--t-fast); white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--avo-500); color: #fff;
+  box-shadow: 0 2px 0 var(--avo-700), var(--shadow-sm);
+}
+.btn-primary:hover { background: var(--avo-400); transform: translateY(-2px); box-shadow: 0 4px 0 var(--avo-700), var(--shadow-avo); }
+.btn-primary:active { transform: none; box-shadow: 0 1px 0 var(--avo-700); }
+
+.btn-outline {
+  background: transparent; color: var(--avo-600);
+  border: 1.5px solid var(--avo-500);
+}
+.btn-outline:hover { background: var(--avo-50); border-color: var(--avo-400); }
+
+.btn-ghost {
+  background: rgba(255,255,255,.10); color: #fff;
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.5); }
+
+/* Arrow icon inside btn */
+.arrow-icon { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.5; transition:transform var(--t-fast); flex-shrink:0; }
+.btn:hover .arrow-icon { transform: translateX(3px); }
+
+/* ── Tag / Badge ── */
+.tag {
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: var(--rfull); border: 1px solid;
+}
+.tag-avo   { background: var(--avo-100);  color: var(--avo-700);  border-color: var(--avo-200); }
+.tag-light { background: rgba(255,255,255,.10); color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.2); }
+
+/* ── Divider ── */
+.divider { width: 40px; height: 2px; background: var(--avo-500); border-radius: 2px; }
+.divider--light { background: rgba(255,255,255,.4); }
+
+/* ── Scroll reveal ── */
+.reveal { opacity:0; transform:translateY(28px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-delay-1 { transition-delay:.1s; }
+.reveal-delay-2 { transition-delay:.2s; }
+.reveal-delay-3 { transition-delay:.3s; }
+.reveal-delay-4 { transition-delay:.4s; }
+
+/* ── Shared SVG icon styles ── */
+.icon-svg { display:block; flex-shrink:0; }
+.icon-sm  { width:20px; height:20px; }
+.icon-md  { width:28px; height:28px; }
+.icon-lg  { width:40px; height:40px; }
+.icon-xl  { width:56px; height:56px; }
+
+/* ── Utility ── */
+.text-avo    { color: var(--avo-500); }
+.text-avo-em { color: var(--avo-300); }
+.text-muted  { color: var(--text-muted); }
+.text-white  { color: #fff; }
+.text-light  { color: rgba(255,255,255,.65); }
+.bg-dark     { background: var(--avo-950); }
+.bg-subtle   { background: var(--bg-subtle); }
+.bg-parchment{ background: var(--warm-100); }

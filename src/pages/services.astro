@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ImgPlaceholder from '../components/ImgPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import type { IconName } from '../components/Icon.astro';
+
+const services: Array<{
+  icon: IconName; n: string; title: string; desc: string;
+  details: string[]; featured?: boolean;
+}> = [
+  {
+    icon: 'sourcing', n: '01', title: 'Product Sourcing',
+    desc: 'Tell us what you need. We search across 1688, Alibaba, and direct factory networks.',
+    details: [
+      'Search across 1688, Alibaba & direct factories',
+      '3–5 vetted suppliers with full price quotes',
+      'Factory certifications & track record verified',
+      'Complete supplier profile delivered in 48 hours',
+    ],
+  },
+  {
+    icon: 'inspection', n: '02', title: 'Quality Inspection', featured: true,
+    desc: 'Physical inspection at the factory before your goods ship. Photo report and a clear pass/fail — every order.',
+    details: [
+      'Pre-shipment inspection at factory or warehouse',
+      '20–40 photo report covering all key aspects',
+      'Measurements, functionality tests & defect counts',
+      'Clear recommendation before you approve shipment',
+    ],
+  },
+  {
+    icon: 'payment', n: '03', title: 'Purchasing & Payment',
+    desc: 'We negotiate in Chinese and handle all payments to verified suppliers.',
+    details: [
+      'Price negotiation directly in Chinese',
+      'Secure payment only to verified suppliers',
+      'Full purchase order documentation provided',
+      'Multiple payment methods accepted from your side',
+    ],
+  },
+  {
+    icon: 'shipping', n: '04', title: 'Shipping & Logistics',
+    desc: 'Door-to-door worldwide. We compare freight options and handle customs docs.',
+    details: [
+      'Air, sea & express options compared',
+      'Consolidated shipping from multiple suppliers',
+      'Commercial invoice & customs paperwork handled',
+      'Real-time tracking number shared with you',
+    ],
+  },
+  {
+    icon: 'factory', n: '05', title: 'Factory Visits',
+    desc: 'For larger orders or new suppliers, we arrange in-person factory audits.',
+    details: [
+      'Facility walkthrough & capacity verification',
+      'Worker safety & compliance check',
+      'On-site sample approval',
+      'Video call with you during the visit if needed',
+    ],
+  },
+  {
+    icon: 'reorder', n: '06', title: 'Ongoing Reorder Support',
+    desc: 'We build you a reliable reorder system so your business never runs out of stock.',
+    details: [
+      'Dedicated supplier relationship management',
+      'Seasonal price renegotiation on your behalf',
+      'Reorder alerts & inventory planning support',
+      'Priority handling for repeat clients',
+    ],
+  },
+];
+
+const steps: Array<{ icon: IconName; day: string; title: string; body: string }> = [
+  { icon: 'package',    day: 'Day 1',    title: 'You submit your request',     body: 'Product details, quantity, quality requirements, and budget via our inquiry form.' },
+  { icon: 'global',     day: 'Day 2',    title: 'We send supplier options',    body: '3–5 vetted suppliers with quotes and profiles, ready for your review.' },
+  { icon: 'payment',    day: 'Day 3–5',  title: 'Negotiation & purchase',      body: 'We agree on terms in Chinese, issue the PO, and release the deposit securely.' },
+  { icon: 'inspection', day: 'Day 7–20', title: 'Production & inspection',     body: 'Goods are manufactured. We inspect and send you a QC photo report before shipment.' },
+  { icon: 'shipping',   day: 'Day 21+',  title: 'Shipped & delivered',         body: 'Goods leave China. You track in real time and receive at your door, customs cleared.' },
+];
+
+const faqs = [
+  { q: 'What is your minimum order size?',         a: 'No strict minimum, but we work best with orders of $300 USD or more. Smaller orders may have fewer supplier options.' },
+  { q: 'How long does the whole process take?',    a: 'Supplier shortlist: 24–48h. Negotiation & purchase: 1–3 days. Inspection: 2–5 days after goods are ready. Shipping: 5–35 days.' },
+  { q: 'What is your service fee?',                a: 'A transparent fee based on order value — typically 5–10%. You always see the full cost breakdown before committing a dollar.' },
+  { q: 'What if goods fail inspection?',           a: 'We work with the supplier to resolve — rework, replacement, or refund. We never release payment without your approval.' },
+  { q: 'Can I get custom packaging with my logo?', a: 'Yes. We handle custom boxes, bags, labels, and hang tags. MOQ varies by supplier, typically 300–1,000 pieces.' },
+  { q: 'Do you support dropshipping?',             a: 'Yes. We ship directly to your customers in multiple countries, with discrete or branded packaging.' },
+];
+---
+
+<BaseLayout title="Services" description="CrossPals offers end-to-end China sourcing: product finding, quality inspection, purchasing, shipping, and reorder support.">
+
+  <PageHero
+    overline="What We Do"
+    title="Full-Service<br/><em style='font-style:italic;color:var(--avo-300)'>China Sourcing</em>"
+    subtitle="From your first product idea to repeat orders — we handle every step so you can focus on selling."
+  />
+
+  <!-- Services -->
+  <section class="section">
+    <div class="container">
+      <div class="svcs">
+        {services.map((s, i) => (
+          <div class:list={['svc-row reveal', { 'svc-row--featured': s.featured, 'svc-row--reverse': i % 2 === 1 }]}>
+            <div class="svc-row__meta">
+              <div class="svc-row__icon-wrap">
+                <Icon name={s.icon} size={28} color={s.featured ? 'rgba(186,209,133,0.9)' : '#637d3e'} />
+              </div>
+              <span class="svc-row__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <a
+                href="/contact"
+                class:list={['btn', s.featured ? 'btn-primary' : 'btn-outline']}
+                style="margin-top:var(--s5);align-self:flex-start;"
+              >
+                Get Started
+                <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M3 8h10M8 3l5 5-5 5"/>
+                </svg>
+              </a>
+            </div>
+            <ul class="svc-row__list">
+              {s.details.map(d => (
+                <li>
+                  <Icon name="check-circle" size={15} color={s.featured ? 'rgba(186,209,133,0.8)' : '#637d3e'} />
+                  <span>{d}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process timeline -->
+  <section class="section bg-parchment">
+    <div class="container">
+      <div class="tl-head reveal">
+        <p class="overline">Our Process</p>
+        <h2>How a Typical Order<br/><em>Flows</em></h2>
+      </div>
+      <div class="timeline">
+        {steps.map((step, i) => (
+          <div class:list={['tl-item reveal', `reveal-delay-${Math.min(i, 3)}`]}>
+            <div class="tl-item__marker">
+              <Icon name={step.icon} size={18} color="#fff" />
+            </div>
+            <div class="tl-item__body">
+              <time>{step.day}</time>
+              <h4>{step.title}</h4>
+              <p>{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container faq-wrap">
+      <div class="faq-head reveal">
+        <p class="overline">FAQ</p>
+        <h2>Common<br/><em>Questions</em></h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((faq, i) => (
+          <details class:list={['faq-item reveal', `reveal-delay-${i % 3}`]}>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <p class="overline overline--light reveal">Get Started</p>
+      <h2 style="color:#fff;margin-bottom:var(--s5);" class="reveal reveal-delay-1">
+        Ready to Place<br/><em style="color:var(--avo-300)">Your First Order?</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:420px;margin:0 auto var(--s7);" class="reveal reveal-delay-2">
+        Send us your requirements and we'll have supplier options within 48 hours.
+      </p>
+      <a href="/contact" class="btn btn-primary reveal reveal-delay-3">
+        Get a Free Quote
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 8h10M8 3l5 5-5 5"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+
+  .svcs { display:flex; flex-direction:column; }
+  .svc-row {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:var(--s8); align-items:center;
+    padding:var(--s8) 0; border-bottom:1px solid var(--border-light);
+  }
+  .svc-row:first-child { padding-top:0; }
+  .svc-row:last-child  { border-bottom:none; }
+  .svc-row--reverse .svc-row__meta { order:2; }
+  .svc-row--reverse .svc-row__list { order:1; }
+  .svc-row--featured {
+    background:var(--avo-950); border-radius:var(--r4);
+    padding:var(--s7); border:1px solid var(--avo-800); margin:var(--s6) 0;
+  }
+  .svc-row--featured h3  { color:#fff; }
+  .svc-row--featured p   { color:rgba(255,255,255,.75); }
+  .svc-row--featured .svc-row__n { color:rgba(255,255,255,.25); }
+
+  .svc-row__meta { display:flex; flex-direction:column; gap:var(--s4); }
+  .svc-row__icon-wrap {
+    width:52px; height:52px; border-radius:12px;
+    background:var(--avo-100); display:flex;
+    align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .svc-row--featured .svc-row__icon-wrap { background:rgba(186,209,133,.12); }
+  .svc-row__n { font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--warm-400); letter-spacing:.12em; }
+  .svc-row__meta h3 { font-size:clamp(20px,2.5vw,28px); }
+  .svc-row__meta > p { font-size:16px; line-height:1.75; }
+
+  .svc-row__list {
+    list-style:none; display:flex; flex-direction:column;
+    background:var(--bg-surface); border-radius:var(--r3);
+    border:1px solid var(--border-light); overflow:hidden;
+  }
+  .svc-row--featured .svc-row__list { background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.08); }
+  .svc-row__list li {
+    display:flex; align-items:flex-start; gap:var(--s3);
+    padding:var(--s4) var(--s5); border-bottom:1px solid var(--border-light);
+    font-size:14px; color:var(--text-body); transition:background var(--t-fast);
+  }
+  .svc-row--featured .svc-row__list li { border-color:rgba(255,255,255,.06); color:rgba(255,255,255,.65); }
+  .svc-row__list li:last-child { border-bottom:none; }
+  .svc-row__list li:hover { background:var(--avo-50); }
+  .svc-row--featured .svc-row__list li:hover { background:rgba(255,255,255,.05); }
+  .svc-row__list :global(.icon-svg) { flex-shrink:0; margin-top:2px; }
+
+  .tl-head { margin-bottom:var(--s8); }
+  .timeline { max-width:640px; display:flex; flex-direction:column; }
+  .tl-item { display:flex; gap:var(--s5); padding-bottom:var(--s7); position:relative; }
+  .tl-item::after {
+    content:''; position:absolute; left:21px; top:44px; bottom:0;
+    width:2px; background:var(--border-mid);
+  }
+  .tl-item:last-child::after { display:none; }
+  .tl-item__marker {
+    width:44px; height:44px; border-radius:50%;
+    background:var(--avo-600); display:flex;
+    align-items:center; justify-content:center; flex-shrink:0; position:relative; z-index:1;
+  }
+  .tl-item__body { padding-top:10px; }
+  time {
+    font-family:var(--font-mono); font-size:10px; font-weight:500;
+    color:var(--avo-600); text-transform:uppercase; letter-spacing:.1em;
+    display:block; margin-bottom:4px;
+  }
+  .tl-item__body h4 { font-size:17px; margin-bottom:6px; }
+  .tl-item__body p  { font-size:14px; }
+
+  .faq-wrap { display:grid; grid-template-columns:260px 1fr; gap:var(--s8); align-items:start; }
+  .faq-head h2 em { font-style:italic; color:var(--avo-600); }
+  .faq-head { position:sticky; top:100px; }
+  .faq-list { display:flex; flex-direction:column; }
+  .faq-item { border-bottom:1px solid var(--border-light); }
+  .faq-item summary {
+    font-family:var(--font-serif); font-size:17px; font-weight:600;
+    color:var(--text-primary); list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:var(--s5); padding:var(--s5) 0;
+    transition:color var(--t-fast); cursor:pointer; user-select:none;
+  }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::after {
+    content:'+'; font-size:22px; font-weight:300;
+    color:var(--avo-500); flex-shrink:0;
+    transition:transform var(--t-med);
+  }
+  .faq-item[open] summary { color:var(--avo-700); }
+  .faq-item[open] summary::after { transform:rotate(45deg); }
+  .faq-item > p { font-size:15px; color:var(--text-body); padding:0 0 var(--s5); line-height:1.75; }
+
+  @media (max-width:900px) {
+    .svc-row { grid-template-columns:1fr; }
+    .svc-row--reverse .svc-row__meta { order:0; }
+    .svc-row--reverse .svc-row__list { order:0; }
+    .faq-wrap { grid-template-columns:1fr; }
+    .faq-head { position:static; }
+  }
+</style>
