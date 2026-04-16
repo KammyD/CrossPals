@@ -1,10 +1,8 @@
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://crosspals.com',
-  server:{port:9000},
-  integrations: [sitemap()],
+  server:{port:9001,},
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es'],
