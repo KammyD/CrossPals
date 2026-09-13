@@ -4,7 +4,7 @@ export const en = {
   nav_about:    'About',
   nav_blog:     'Blog',
   nav_contact:  'Contact',
-  nav_cta:      'Get a Free Quote',
+  nav_cta:      'Get a Quote',
   footer_tagline:  'Trusted China sourcing for global entrepreneurs.',
   footer_services: 'Services',
   footer_company:  'Company',

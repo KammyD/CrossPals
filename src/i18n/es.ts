@@ -4,7 +4,7 @@ export const es = {
   nav_about:    'Nosotros',
   nav_blog:     'Blog',
   nav_contact:  'Contacto',
-  nav_cta:      'Cotización Gratis',
+  nav_cta:      'Pedir presupuesto',
   footer_tagline:  'Abastecimiento confiable desde China para emprendedores globales.',
   footer_services: 'Servicios',
   footer_company:  'Empresa',

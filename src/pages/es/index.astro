@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import Icon from '../../components/Icon.astro';
 import type { IconName } from '../../components/Icon.astro';
+import { PHONE } from '../../config/site';
 
 const services: Array<{ icon: IconName; n: string; title: string; body: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
   { icon: 'sourcing',   n: '01', title: 'Búsqueda de Productos', body: 'Buscamos entre miles de proveedores chinos para encontrar la mejor opción según tu presupuesto y estándares de calidad.', seed: 10, hint: '义乌商品城/供应商展会', delay: 0 },
@@ -45,17 +46,19 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
 ---
 <BaseLayout title="Abastecimiento Confiable desde China para Emprendedores" description="CrossPals conecta emprendedores globales con proveedores chinos de confianza." lang="es">
 
-<a href="/es/contact" class="announce">
-  <span class="announce__dot" aria-hidden="true"></span>
-  <span><strong>Nuevo:</strong> consulta de abastecimiento gratis para primeros importadores — lista de proveedores en 48h</span>
-  <span class="announce__arrow" aria-hidden="true">→</span>
-</a>
+<div class="topband">
+  <a href="/es/contact" class="announce announce--dark">
+    <span class="announce__dot" aria-hidden="true"></span>
+    <span><strong>Nuevo:</strong> consulta de abastecimiento gratis para primeros importadores — lista de proveedores en 48h</span>
+    <span class="announce__arrow" aria-hidden="true">→</span>
+  </a>
 
-<div class="masthead">
-  <div class="container masthead__inner">
-    <span>CrossPals · Manual de Abastecimiento</span>
-    <span class="masthead__rule" aria-hidden="true"></span>
-    <span>Edición Nº01 — MMXXVI</span>
+  <div class="masthead">
+    <div class="container masthead__inner">
+      <span>CrossPals · Manual de Abastecimiento</span>
+      <span class="masthead__rule" aria-hidden="true"></span>
+      <span>Edición Nº01 — MMXXVI</span>
+    </div>
   </div>
 </div>
 
@@ -316,7 +319,7 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
         <input type="text" name="product" placeholder="¿Qué quieres importar?" required />
         <button type="submit" class="btn btn-primary">Cotizar <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg></button>
       </form>
-      <p class="cta-final__note">O <a href="https://wa.me/yourwhatsapp">chatea por WhatsApp</a> · Gratis, sin compromiso</p>
+      <p class="cta-final__note">O <a href={PHONE.wa}>chatea por WhatsApp</a> · Gratis, sin compromiso</p>
     </div>
   </div>
 </section>
@@ -325,6 +328,11 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
 
 <style>
 /* — Home styles shared with EN (scoped copy) — */
+.topband{background:var(--avo-950);padding-top:var(--hdr-h);}
+.announce--dark{background:transparent;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(232,229,218,.82);}
+.announce--dark strong{color:var(--seal);font-weight:600;}
+.announce--dark:hover{background:rgba(255,255,255,.05);}
+.announce--dark:hover .announce__arrow{transform:translateX(3px);}
 .masthead{background:var(--avo-950);border-bottom:1px solid rgba(255,255,255,.08);}
 .masthead__inner{display:flex;align-items:center;gap:var(--s4);padding:10px var(--s5);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);}
 .masthead__rule{flex:1;height:1px;background:rgba(255,255,255,.1);}

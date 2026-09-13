@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from './PageHero.astro';
-import { legalContent } from '../data/legal';
+import { legalContent, legalEntity } from '../data/legal';
 import type { LegalKind } from '../data/legal';
 
 interface Props { lang: 'en' | 'es'; kind: LegalKind }
 const { lang, kind } = Astro.props;
 const doc = legalContent[lang][kind];
+const entity = legalEntity[lang];
 const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
 ---
 
@@ -16,6 +17,12 @@ const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
   <section class="section">
     <div class="container legal">
       <p class="legal__updated">{doc.updated}</p>
+
+      <div class="legal__entity">
+        <h2>{entity.h}</h2>
+        {entity.lines.map(l => <p>{l}</p>)}
+      </div>
+
       {doc.sections.map(s => (
         <div class="legal__block">
           <h2>{s.h}</h2>
@@ -36,6 +43,21 @@ const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
     color: var(--warm-400); padding-bottom: var(--s4); margin-bottom: var(--s6);
     border-bottom: 1px solid var(--border-light);
   }
+  .legal__entity {
+    background: var(--warm-100); border-left: 3px solid var(--seal);
+    padding: var(--s5); margin-bottom: var(--s6);
+  }
+  .legal__entity h2 {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--seal);
+    margin-bottom: var(--s3);
+  }
+  .legal__entity p {
+    font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7;
+    letter-spacing: .02em; color: var(--text-body); margin: 0 0 4px;
+  }
+  .legal__entity p:last-child { margin-bottom: 0; }
+
   .legal__block { margin-bottom: var(--s6); }
   .legal__block h2 { font-size: clamp(18px, 2.1vw, 23px); margin-bottom: var(--s3); }
   .legal__block p { font-size: 15px; line-height: 1.75; color: var(--text-body); margin-bottom: var(--s3); }

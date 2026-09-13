@@ -5,6 +5,8 @@
 
 export type LegalKind = 'privacy' | 'terms';
 
+import { COMPANY, PHONE, EMAIL } from '../config/site';
+
 interface LegalSection { h: string; p: string[] }
 export interface LegalDoc {
   title: string;
@@ -27,8 +29,8 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '1. Who we are',
           p: [
-            'CrossPals is a sourcing partner that helps overseas entrepreneurs find, verify, and ship products from Chinese suppliers. In this policy, "we", "us", and "CrossPals" refer to that service and its operators.',
-            'For any privacy question, or to exercise the rights described below, write to hello@crosspals.com.',
+            `CrossPals is the trading name of ${COMPANY.nameEn} (${COMPANY.nameZh}), registered at ${COMPANY.address.en}. We help overseas entrepreneurs find, verify, and ship products from Chinese suppliers. In this policy, "we", "us", and "CrossPals" refer to that company and the service it operates.`,
+            `For any privacy question, or to exercise the rights described below, write to ${EMAIL.en} or reach us on ${PHONE.display}.`,
           ],
         },
         {
@@ -62,7 +64,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '6. Your rights',
           p: [
-            'You can ask us for a copy of your data, ask us to correct it, ask us to delete it, or object to certain uses such as marketing. Email hello@crosspals.com and we will respond within 30 days.',
+            `You can ask us for a copy of your data, ask us to correct it, ask us to delete it, or object to certain uses such as marketing. Email ${EMAIL.en} or call ${PHONE.display} and we will respond within 30 days.`,
           ],
         },
         {
@@ -88,7 +90,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '1. Scope',
           p: [
-            'By using crosspals.com or instructing us to source, purchase, inspect, or ship goods, you agree to these terms. If you do not agree, please do not use the service.',
+            `These terms are between you and ${COMPANY.nameEn} (${COMPANY.nameZh}), registered at ${COMPANY.address.en}, which operates the CrossPals service. By using crosspals.com or instructing us to source, purchase, inspect, or ship goods, you agree to these terms. If you do not agree, please do not use the service.`,
           ],
         },
         {
@@ -142,7 +144,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '10. Changes and contact',
           p: [
-            'We may update these terms; the version published on this page applies from the date shown at the top. Questions about these terms: hello@crosspals.com.',
+            `We may update these terms; the version published on this page applies from the date shown at the top. Questions about these terms: ${EMAIL.en} · ${PHONE.display}.`,
           ],
         },
       ],
@@ -158,8 +160,8 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '1. Quiénes somos',
           p: [
-            'CrossPals es un socio de abastecimiento que ayuda a emprendedores internacionales a encontrar, verificar y enviar productos de proveedores chinos. En esta política, "nosotros" se refiere a ese servicio y a sus operadores.',
-            'Para cualquier consulta de privacidad, o para ejercer los derechos descritos abajo, escribe a hello@crosspals.com.',
+            `CrossPals es el nombre comercial de ${COMPANY.nameEn} (${COMPANY.nameZh}), con domicilio en ${COMPANY.address.es}. Ayudamos a emprendedores internacionales a encontrar, verificar y enviar productos de proveedores chinos. En esta política, "nosotros" se refiere a esa empresa y al servicio que opera.`,
+            `Para cualquier consulta de privacidad, o para ejercer los derechos descritos abajo, escribe a ${EMAIL.es} o contáctanos en ${PHONE.display}.`,
           ],
         },
         {
@@ -193,7 +195,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '6. Tus derechos',
           p: [
-            'Puedes pedir una copia de tus datos, solicitar su corrección o eliminación, u oponerte a ciertos usos como el marketing. Escribe a hello@crosspals.com y responderemos en un plazo de 30 días.',
+            `Puedes pedir una copia de tus datos, solicitar su corrección o eliminación, u oponerte a ciertos usos como el marketing. Escribe a ${EMAIL.es} o llama al ${PHONE.display} y responderemos en un plazo de 30 días.`,
           ],
         },
         {
@@ -219,7 +221,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '1. Alcance',
           p: [
-            'Al usar crosspals.com o al encargarnos buscar, comprar, inspeccionar o enviar mercancía, aceptas estos términos. Si no estás de acuerdo, no utilices el servicio.',
+            `Estos términos son entre tú y ${COMPANY.nameEn} (${COMPANY.nameZh}), con domicilio en ${COMPANY.address.es}, que opera el servicio CrossPals. Al usar crosspals.com o al encargarnos buscar, comprar, inspeccionar o enviar mercancía, aceptas estos términos. Si no estás de acuerdo, no utilices el servicio.`,
           ],
         },
         {
@@ -273,10 +275,33 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
         {
           h: '10. Cambios y contacto',
           p: [
-            'Podemos actualizar estos términos; la versión publicada en esta página aplica desde la fecha indicada arriba. Consultas: hello@crosspals.com.',
+            `Podemos actualizar estos términos; la versión publicada en esta página aplica desde la fecha indicada arriba. Consultas: ${EMAIL.es} · ${PHONE.display}.`,
           ],
         },
       ],
     },
+  },
+};
+
+/**
+ * 主体信息块 —— 法务页顶部展示（公司主体 / 注册地址 / 联系方式）。
+ * 数据来自 src/config/site.ts，改那一处即可。
+ */
+export const legalEntity: Record<'en' | 'es', { h: string; lines: string[] }> = {
+  en: {
+    h: 'Registered company',
+    lines: [
+      `${COMPANY.nameEn} — ${COMPANY.nameZh}`,
+      COMPANY.address.en,
+      `${PHONE.display} · ${EMAIL.en}`,
+    ],
+  },
+  es: {
+    h: 'Empresa registrada',
+    lines: [
+      `${COMPANY.nameEn} — ${COMPANY.nameZh}`,
+      COMPANY.address.es,
+      `${PHONE.display} · ${EMAIL.es}`,
+    ],
   },
 };

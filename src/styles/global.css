@@ -38,6 +38,21 @@
   --seal-deep: #9c2c22;
   --seal-soft: #f0dcd6;
 
+  /* ── 顶栏（Header）：左白 → 右墨绿（avo-950）的半透明渐变，浮在 Hero 之上 ──
+     左端深色 Hero 上盖一层薄白（logo / 深色文字用），右端压一层**页面主色调的墨绿**（导航 / CTA 用），
+     中间交叉淡出 —— 右端和 Hero 底色同源，整条栏像长在页面里，而不是"贴上去的一条"。
+     注意别直接写 linear-gradient(#fff → #1c2114)：alpha 会跟着一起插值，中段会糊出不透明的灰带。 */
+  --hdr-h:      84px;              /* 顶栏高度（移动端 68px，见文件末尾 responsive） */
+  --hdr-bg:     #1c2114;           /* 移动抽屉的不透明底色 = avo-950（页面主色） */
+  --hdr-fg:     #e8e5da;           /* 深色区文字：导航 / 语言 / 汉堡 */
+  --hdr-line:   rgba(255,255,255,.10);
+  --hdr-line-2: rgba(255,255,255,.16);
+  --hdr-hover:  rgba(255,255,255,.06);
+  --hdr-wz:     max(300px, calc(50% - 260px)); /* 白→墨绿分界线：跟着 .container 左边缘再往右放一程 */
+  --hdr-fade:   min(320px, calc(var(--hdr-wz) * .58)); /* 交叉淡出宽度：越大越柔和，且保证 logo 段仍是实心白 */
+  --hdr-w-a:    .64;               /* 白层不透明度（滚动时加深，见 Header.astro） */
+  --hdr-k-a:    .72;               /* 墨绿层不透明度 */
+
   /* Semantic aliases */
   --bg-page:        var(--warm-50);
   --bg-surface:     #ffffff;
@@ -309,6 +324,8 @@ img { max-width: 100%; display: block; }
 /* ── 公告提醒 Banner（细条，不打断浏览） ── */
 .announce {
   display: flex; align-items: center; gap: var(--s3);
+  /* 与 .container 同宽同内边距，保证和下方 masthead / hero 左端对齐 */
+  max-width: 1180px; margin: 0 auto;
   padding: 9px var(--s5);
   background: var(--seal-soft); border-bottom: 1px solid #e3c4bc;
   font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
@@ -400,6 +417,11 @@ img { max-width: 100%; display: block; }
 .bento__body { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--s4); background: linear-gradient(0deg, rgba(28,33,20,.85), transparent); }
 .bento__body h4 { color: #fff; font-size: 16px; }
 .bento__body span { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.6); }
+
+/* ── 顶栏高度：移动端收窄（跟随 Header / 各页顶部补偿） ── */
+@media (max-width: 900px) {
+  :root { --hdr-h: 68px; }
+}
 
 @media (max-width: 980px) {
   .statband__grid { grid-template-columns: 1fr; gap: var(--s6); }

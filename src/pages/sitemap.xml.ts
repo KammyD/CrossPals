@@ -25,7 +25,7 @@ const routes = [
 ];
 
 export const GET: APIRoute = ({ site }) => {
-  const base = (site ?? new URL('https://crosspals.com')).href.replace(/\/$/, '');
+  const base = (site ?? new URL('https://www.crosspals.com')).href.replace(/\/$/, '');
   const today = new Date().toISOString().slice(0, 10);
   const urls = routes
     .map(r => `  <url>\n    <loc>${base}${r.path}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${r.priority}</priority>\n  </url>`)

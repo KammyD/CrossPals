@@ -3,21 +3,24 @@
  * CrossPals logo — real artwork.
  *  · layout="horizontal" → /img/logo-horizontal.png (509×208) — header / nav bar
  *  · layout="stacked"    → /img/logo-stacked.png    (954×826) — footer brand block
+ *  · variant="light"     → 米白剪影版，仅用于深色底（header / drawer）
  * Sizing is height-driven: the image keeps its own aspect ratio (`width:auto`).
  */
 interface Props {
   layout?: 'horizontal' | 'stacked';
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'light';
   href?: string;
 }
-const { layout = 'horizontal', size = 'md', href = '/' } = Astro.props;
+const { layout = 'horizontal', size = 'md', variant = 'default', href = '/' } = Astro.props;
 
 const isStacked = layout === 'stacked';
-const src = isStacked ? '/img/logo-stacked.png' : '/img/logo-horizontal.png';
+const light = variant === 'light' ? '-light' : '';
+const src = isStacked ? `/img/logo-stacked${light}.png` : `/img/logo-horizontal${light}.png`;
 const nat = isStacked ? { w: 954, h: 826 } : { w: 509, h: 208 };
 const heights = isStacked
   ? { sm: 68, md: 88, lg: 112 }
-  : { sm: 30, md: 36, lg: 46 };
+  : { sm: 30, md: 48, lg: 56 };
 const h = heights[size];
 ---
 <a href={href} class:list={['logo', `logo--${layout}`]} aria-label="CrossPals — Home">

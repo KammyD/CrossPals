@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_URL, PHONE, EMAIL, COMPANY } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -16,7 +17,7 @@ const {
   lang = 'en',
   article,
 } = Astro.props;
-const SITE = Astro.site ?? new URL('https://crosspals.com');
+const SITE = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
 
@@ -30,9 +31,17 @@ const esUrl = hasTwin ? new URL('/es' + (pathNoLang === '/' ? '/' : pathNoLang),
 const ORG = {
   '@type': 'Organization',
   name: 'CrossPals',
+  legalName: COMPANY.nameEn,
   url: SITE.href.replace(/\/$/, '/'),
   logo: new URL('/img/logo-stacked.png', SITE).href,
-  email: 'hello@crosspals.com',
+  email: EMAIL.en,
+  telephone: PHONE.tel,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: COMPANY.addressParts.locality,
+    addressRegion: COMPANY.addressParts.region,
+    addressCountry: COMPANY.addressParts.country,
+  },
   description: 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
   areaServed: ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
 };
@@ -82,7 +91,7 @@ const jsonLd = article
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#f4ede0" />
+    <meta name="theme-color" content="#1d2418" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>

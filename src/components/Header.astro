@@ -31,7 +31,7 @@ function active(href: string) {
 <header class="hdr" id="hdr">
   <div class="hdr__bar container">
 
-    <!-- Logo -->
+    <!-- Logo（左端是薄白底，用深色原版 logo） -->
     <Logo layout="horizontal" size="md" />
 
     <!-- Primary nav -->
@@ -160,10 +160,37 @@ function active(href: string) {
   let menuOpen  = false;
   let langOpen  = false;
 
-  // ── Scroll state ──
-  const tick = () => hdr.classList.toggle('hdr--solid', window.scrollY > 24);
-  window.addEventListener('scroll', tick, { passive: true });
-  tick();
+  // ── 滚动状态：下滚收起 / 上滚滑出 ──
+  const TOP_ZONE  = 140;   // 这个位置以内始终显示
+  const HIDE_AFTER = 24;   // 下滚累计超过这个位移才收起
+  const SHOW_AFTER = 10;   // 上滚累计超过这个位移就滑出
+  let lastY = window.scrollY;
+  let acc   = 0;           // 同方向累计位移，滤掉橡皮筋式抖动
+
+  const onScroll = () => {
+    const y  = Math.max(0, window.scrollY);
+    const dy = y - lastY;
+    lastY = y;
+
+    hdr.classList.toggle('hdr--solid', y > 24);
+
+    // 菜单/语言面板开着、或者回到顶部附近：始终显示
+    if (menuOpen || langOpen || y <= TOP_ZONE) {
+      hdr.classList.remove('hdr--hide');
+      acc = 0;
+      return;
+    }
+
+    if (dy > 0) {
+      acc = Math.max(0, acc) + dy;
+      if (acc > HIDE_AFTER) hdr.classList.add('hdr--hide');
+    } else if (dy < 0) {
+      acc = Math.min(0, acc) + dy;
+      if (acc < -SHOW_AFTER) hdr.classList.remove('hdr--hide');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
   // ── Mobile drawer ──
   const setMenu = (v: boolean) => {
@@ -198,23 +225,55 @@ function active(href: string) {
 .hdr {
   position: fixed; inset: 0 0 auto; z-index: 1000;
 
-  /* Pure white masthead bar — dark text on white */
-  background: #fff;
-  box-shadow: 0 1px 0 var(--border-light);
+  /* 左白 → 右墨绿（avo-950，页面主色）：两层渐变交叉淡出（白层淡出 / 墨绿层淡入），中间不会出现灰带。
+     下面先给一条"两停靠点"的兜底声明（老浏览器 / calc 不受支持时生效），
+     再给带缓动的多停靠点版本——后一条若被判定无效会被整体丢弃，兜底仍在。 */
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, var(--hdr-w-a)) 0,
+      rgba(255, 255, 255, var(--hdr-w-a)) calc(var(--hdr-wz) - var(--hdr-fade)),
+      rgba(255, 255, 255, 0) var(--hdr-wz)),
+    linear-gradient(90deg,
+      rgba(28, 33, 20, 0) calc(var(--hdr-wz) - var(--hdr-fade)),
+      rgba(28, 33, 20, var(--hdr-k-a)) calc(var(--hdr-wz) + var(--hdr-fade) * .4),
+      rgba(28, 33, 20, var(--hdr-k-a)) 100%);
 
-  transition: background 0.35s ease, box-shadow 0.35s ease;
+  /* 缓动版：白层收得慢、墨绿层铺得匀，中段过渡更"软"，没有一处凭手感能看出边界 */
+  background:
+    linear-gradient(90deg,
+      rgba(255, 255, 255, var(--hdr-w-a)) 0,
+      rgba(255, 255, 255, var(--hdr-w-a)) calc(var(--hdr-wz) - var(--hdr-fade)),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .72)) calc(var(--hdr-wz) - var(--hdr-fade) * .58),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .28)) calc(var(--hdr-wz) - var(--hdr-fade) * .24),
+      rgba(255, 255, 255, 0) var(--hdr-wz)),
+    linear-gradient(90deg,
+      rgba(28, 33, 20, 0) calc(var(--hdr-wz) - var(--hdr-fade)),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .24)) calc(var(--hdr-wz) - var(--hdr-fade) * .5),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .66)) calc(var(--hdr-wz) - var(--hdr-fade) * .14),
+      rgba(28, 33, 20, var(--hdr-k-a)) calc(var(--hdr-wz) + var(--hdr-fade) * .4),
+      rgba(28, 33, 20, var(--hdr-k-a)) 100%);
+
+  border-bottom: 1px solid var(--hdr-line);
+  transition: box-shadow .35s ease, border-color .35s ease,
+              transform .46s cubic-bezier(.16, 1, .3, 1);
+  will-change: transform;
 }
 
-/* Scrolled: stay white, lift with soft shadow */
+/* 滚动后：两层都加重 + 毛玻璃 + 投影，把顶栏和内容分开
+   （不用 1.0：留一点透，让底下的内容始终能透出来一丝，栏子才不像一块贴纸） */
 .hdr--solid {
-  background: #fff !important;
-  backdrop-filter: blur(20px) saturate(1.6);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  box-shadow: 0 1px 0 var(--border-light), 0 4px 24px rgba(28,33,20,.12);
+  --hdr-w-a: .84;
+  --hdr-k-a: .86;
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .24);
 }
+
+/* 下滚隐藏 / 上滚滑出（transform，不占文档流，页面补偿靠 --hdr-h） */
+.hdr--hide { transform: translateY(-100%); }
 
 .hdr__bar {
-  height: 72px;
+  height: var(--hdr-h);
   display: flex;
   align-items: center;
   gap: 0;
@@ -226,7 +285,7 @@ function active(href: string) {
 .hdr__nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 42px;                 /* 导航间距 40–46px */
   margin-left: auto;
   margin-right: var(--s7);
 }
@@ -234,36 +293,29 @@ function active(href: string) {
 .hdr__link {
   position: relative;
   display: inline-flex; align-items: center;
-  padding: 8px 15px;
+  padding: 6px 0;
   border-radius: 0;
 
   font-family: var(--font-sans);
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  color: var(--avo-800);
+  font-size: 15.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--hdr-fg);
   text-decoration: none;
-  transition: color .18s, background .18s;
+  transition: color .18s;
 }
 
-.hdr__link:hover {
-  color: var(--avo-950);
-  background: rgba(28,33,20,.06);
-}
+.hdr__link:hover  { color: #fff; }
 
-.hdr__link--on {
-  color: var(--avo-950);
-  font-weight: 700;
-}
+.hdr__link--on   { color: var(--hdr-fg); font-weight: 600; }
 
-/* Active dot */
+/* Active：文字下方 26px 砖红细线（替掉原来的小红点） */
 .hdr__link--on::after {
   content: '';
   position: absolute;
-  bottom: 3px; left: 50%;
+  bottom: -7px; left: 50%;
   transform: translateX(-50%);
-  width: 5px; height: 5px;
-  border-radius: 50%;
+  width: 26px; height: 2px;
   background: var(--seal);
 }
 
@@ -282,31 +334,32 @@ function active(href: string) {
 
 .lang__btn {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 12px;
-  background: rgba(28,33,20,.05);
-  border: 1px solid rgba(28,33,20,.12);
+  padding: 8px 10px;
+  /* 深色体系下不再做独立灰盒子：默认透明，hover 才浮出 */
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 0;
   cursor: pointer;
   font-family: var(--font-sans);
   font-size: 13px; font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--avo-800);
-  transition: background .18s, border-color .18s;
+  color: var(--hdr-fg);
+  transition: background .18s, border-color .18s, color .18s;
   white-space: nowrap;
 }
 
 .lang__btn:hover,
 .lang__btn--open {
-  background: rgba(28,33,20,.10);
-  border-color: rgba(28,33,20,.25);
-  color: var(--avo-950);
+  background: var(--hdr-hover);
+  border-color: var(--hdr-line-2);
+  color: #fff;
 }
 
-.lang__globe { width: 15px; height: 15px; flex-shrink: 0; opacity: .75; }
+.lang__globe { width: 14px; height: 14px; flex-shrink: 0; opacity: .5; }
 .lang__code  { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
 
 .lang__chevron {
-  width: 12px; height: 12px; flex-shrink: 0; opacity: .6;
+  width: 11px; height: 11px; flex-shrink: 0; opacity: .45;
   transition: transform .22s var(--ease-out);
 }
 .lang__btn--open .lang__chevron { transform: rotate(180deg); }
@@ -316,11 +369,11 @@ function active(href: string) {
   position: absolute;
   top: calc(100% + 10px); right: 0;
   width: 210px;
-  background: #fff;
-  border: 1px solid var(--border-light);
+  background: #20271b;
+  border: 1px solid var(--hdr-line-2);
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(28,33,20,.18), 0 4px 16px rgba(28,33,20,.10);
+  box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.28);
 
   /* Hidden state */
   opacity: 0;
@@ -341,8 +394,8 @@ function active(href: string) {
   font-family: var(--font-mono);
   font-size: 10px; font-weight: 500;
   letter-spacing: .12em; text-transform: uppercase;
-  color: var(--text-muted);
-  border-bottom: 1px solid var(--border-light);
+  color: rgba(232,229,218,.45);
+  border-bottom: 1px solid var(--hdr-line);
 }
 
 .lang__option {
@@ -352,14 +405,14 @@ function active(href: string) {
   transition: background .14s;
   cursor: pointer;
 }
-.lang__option:hover      { background: rgba(28,33,20,.05); }
-.lang__option--on        { background: var(--avo-50); }
+.lang__option:hover      { background: var(--hdr-hover); }
+.lang__option--on        { background: rgba(255,255,255,.08); }
 .lang__option:last-child { border-radius: 0; }
 
 .lang__flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
 .lang__info { display: flex; flex-direction: column; flex: 1; }
-.lang__name { font-size: 14px; font-weight: 500; color: var(--avo-900); }
-.lang__native { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.lang__name { font-size: 14px; font-weight: 500; color: var(--hdr-fg); }
+.lang__native { font-size: 11px; color: rgba(232,229,218,.5); margin-top: 1px; }
 
 .lang__check {
   width: 14px; height: 14px;
@@ -371,16 +424,16 @@ function active(href: string) {
 ═══════════════════════════════════════════ */
 .hdr__cta {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 22px;
+  height: 48px;                 /* CTA 高度 48–50px */
+  padding: 0 26px;              /* 左右 padding 24–28px */
   background: var(--seal);
   color: #fff;
   border-radius: 0;
   font-family: var(--font-sans);
-  font-size: 15px; font-weight: 600;
+  font-size: 14.5px; font-weight: 600;
   letter-spacing: .02em;
   text-decoration: none; border: none; cursor: pointer;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 2px 0 var(--seal-deep);
-  transition: background .18s, transform .18s, box-shadow .18s;
+  transition: background .18s, transform .18s;
   white-space: nowrap;
 }
 
@@ -390,27 +443,26 @@ function active(href: string) {
 .hdr__cta:hover {
   background: var(--seal-deep);
   transform: translateY(-1px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 #7a221a;
 }
-.hdr__cta:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 var(--seal-deep); }
+.hdr__cta:active { transform: none; }
 
 /* ═══════════════════════════════════════════
    MOBILE BURGER
 ═══════════════════════════════════════════ */
 .hdr__burger {
   display: none; flex-direction: column; justify-content: center; gap: 5px;
-  background: rgba(28,33,20,.05);
-  border: 1px solid rgba(28,33,20,.12);
+  background: transparent;
+  border: 1px solid var(--hdr-line-2);
   border-radius: 0;
   cursor: pointer; padding: 9px 10px; margin-left: auto;
   width: 42px; height: 42px;
   transition: background .18s, border-color .18s;
 }
-.hdr__burger:hover { background: rgba(28,33,20,.10); border-color: rgba(28,33,20,.25); }
+.hdr__burger:hover { background: var(--hdr-hover); border-color: rgba(255,255,255,.25); }
 
 .hdr__burger-line {
   display: block; width: 20px; height: 1.5px;
-  background: var(--avo-800); border-radius: 2px;
+  background: var(--hdr-fg); border-radius: 2px;
   transition: transform .28s var(--ease-out), opacity .2s;
   transform-origin: center;
 }
@@ -424,8 +476,8 @@ function active(href: string) {
 .drawer {
   display: none;
   position: fixed; inset: 0; z-index: 999;
-  background: #fff;
-  padding-top: 72px;
+  background: var(--hdr-bg);
+  padding-top: var(--hdr-h);
   overflow-y: auto;
 }
 
@@ -445,17 +497,17 @@ function active(href: string) {
 }
 
 .drawer__nav {
-  border-top: 1px solid rgba(28,33,20,.10);
+  border-top: 1px solid var(--hdr-line);
   display: flex; flex-direction: column;
 }
 
 .drawer__link {
   display: flex; align-items: center; gap: var(--s4);
   padding: 18px var(--s3);
-  border-bottom: 1px solid rgba(28,33,20,.08);
+  border-bottom: 1px solid rgba(255,255,255,.07);
   font-family: var(--font-serif);
   font-size: 26px; font-weight: 600;
-  color: var(--avo-800);
+  color: var(--hdr-fg);
   text-decoration: none;
   transition: color .18s, padding-left .22s;
   animation: linkIn .4s var(--ease-out) both;
@@ -467,14 +519,14 @@ function active(href: string) {
   to   { opacity: 1; transform: none; }
 }
 
-.drawer__link:hover  { color: var(--avo-950); padding-left: var(--s5); }
+.drawer__link:hover  { color: #fff; padding-left: var(--s5); }
 .drawer__link--on    { color: var(--seal); }
 .drawer__link svg    { width: 18px; height: 18px; margin-left: auto; opacity: .3; flex-shrink: 0; transition: opacity .18s, transform .18s; }
 .drawer__link:hover svg { opacity: .7; transform: translateX(4px); }
 
 .drawer__idx {
   font-family: var(--font-mono); font-size: 11px;
-  color: var(--text-faint); letter-spacing: .08em;
+  color: rgba(232,229,218,.35); letter-spacing: .08em;
   width: 24px; flex-shrink: 0;
 }
 
@@ -488,37 +540,41 @@ function active(href: string) {
 .drawer__lang-list {
   display: flex; flex-wrap: wrap; gap: var(--s2);
   padding-bottom: var(--s4);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--hdr-line);
 }
 
 .drawer__lang-item {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 14px;
-  background: rgba(28,33,20,.05);
-  border: 1px solid var(--border-light);
+  background: transparent;
+  border: 1px solid var(--hdr-line-2);
   border-radius: 0;
   font-size: 13px; font-weight: 500;
-  color: var(--text-muted);
+  color: rgba(232,229,218,.7);
   text-decoration: none;
-  transition: background .15s, color .15s;
+  transition: background .15s, color .15s, border-color .15s;
 }
-.drawer__lang-item:hover     { background: rgba(28,33,20,.10); color: var(--avo-900); }
-.drawer__lang-item--on       { background: var(--avo-50); border-color: var(--avo-200); color: var(--avo-800); }
+.drawer__lang-item:hover     { background: var(--hdr-hover); color: var(--hdr-fg); }
+.drawer__lang-item--on       { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); color: #fff; }
 
 .drawer__cta { width: 100%; justify-content: center; padding: 15px; font-size: 16px; border-radius: 0; }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
-/* Tablet: claw back width so the bold nav still fits */
+/* Tablet: 收紧导航间距，保证 5 项 + 语言 + CTA 仍能一行放下 */
 @media (max-width: 1120px) and (min-width: 901px) {
-  .hdr__link { font-size: 15.5px; font-weight: 600; padding: 8px 11px; }
-  .hdr__nav  { margin-right: var(--s4); gap: 2px; }
-  .hdr__cta  { font-size: 14px; padding: 10px 18px; }
+  .hdr__nav   { gap: 26px; margin-right: var(--s5); }
+  .hdr__link  { font-size: 15px; }
+  .hdr__cta   { font-size: 14px; height: 46px; padding: 0 20px; }
+  .lang__btn  { padding: 8px 8px; }
 }
 
 @media (max-width: 900px) {
   .hdr__nav, .hdr__end { display: none; }
   .hdr__burger { display: flex; }
+  /* 移动端只留 logo + 汉堡：白区收到刚好盖住 logo，淡出走一小段 */
+  .hdr { --hdr-wz: 200px; --hdr-fade: 82px; }
+  .hdr__bar :global(.logo img) { height: 36px; }
 }
 </style>

@@ -20,7 +20,8 @@ const { overline, title, subtitle, align = 'center' } = Astro.props;
 <style>
   .phero {
     background: var(--avo-950);
-    padding: 112px 0 var(--section-y);
+    /* 顶栏是 fixed 且同色（hdr-bg ≈ avo-950），这里只需把内容推到顶栏下方 */
+    padding: calc(var(--hdr-h) + 44px) 0 var(--section-y);
     color: #fff; overflow: hidden; position: relative;
   }
   .phero__inner { position:relative; z-index:1; text-align:center; max-width:880px; margin:0 auto; }

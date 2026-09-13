@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../components/ImgPlaceholder.astro';
 import Icon from '../components/Icon.astro';
 import type { IconName } from '../components/Icon.astro';
+import { PHONE } from '../config/site';
 
 const services: Array<{ icon: IconName; n: string; title: string; body: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
   { icon: 'sourcing',    n: '01', title: 'Product Sourcing',     body: 'We search thousands of Chinese suppliers — 1688, Alibaba, and direct factory networks — to find the exact match for your budget and standards.', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
@@ -48,19 +49,24 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
   description="CrossPals helps overseas entrepreneurs find, verify, and ship quality products from China."
 >
 
-<!-- ═══ 公告提醒 Banner（模板：公告提醒） ═══ -->
-<a href="/contact" class="announce">
-  <span class="announce__dot" aria-hidden="true"></span>
-  <span><strong>New:</strong> free sourcing consultation for first-time importers — supplier shortlist in 48h</span>
-  <span class="announce__arrow" aria-hidden="true">→</span>
-</a>
+<!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══
+     顶栏是 fixed 且深橄榄绿，这里用 padding-top 把内容推到顶栏下方，
+     背景与 Hero 同为 avo-950 —— 顶栏 → 顶部带 → Hero 是一整块深色视觉区。 -->
+<div class="topband">
+  <!-- 公告提醒 Banner（模板：公告提醒） -->
+  <a href="/contact" class="announce announce--dark">
+    <span class="announce__dot" aria-hidden="true"></span>
+    <span><strong>New:</strong> free sourcing consultation for first-time importers — supplier shortlist in 48h</span>
+    <span class="announce__arrow" aria-hidden="true">→</span>
+  </a>
 
-<!-- ═══ MASTHEAD ISSUE LINE ═══ -->
-<div class="masthead">
-  <div class="container masthead__inner">
-    <span>CrossPals · China Sourcing Manual</span>
-    <span class="masthead__rule" aria-hidden="true"></span>
-    <span>Issue Nº01 — MMXXVI</span>
+  <!-- MASTHEAD ISSUE LINE -->
+  <div class="masthead">
+    <div class="container masthead__inner">
+      <span>CrossPals · China Sourcing Manual</span>
+      <span class="masthead__rule" aria-hidden="true"></span>
+      <span>Issue Nº01 — MMXXVI</span>
+    </div>
   </div>
 </div>
 
@@ -370,7 +376,7 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
           <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
         </button>
       </form>
-      <p class="cta-final__note">Or <a href="https://wa.me/yourwhatsapp">chat on WhatsApp</a> · Free, no commitment</p>
+      <p class="cta-final__note">Or <a href={PHONE.wa}>chat on WhatsApp</a> · Free, no commitment</p>
     </div>
   </div>
 </section>
@@ -378,6 +384,14 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 </BaseLayout>
 
 <style>
+/* TOPBAND —— 顶栏固定，顶部带用 padding-top 让位；整块与 Hero 同色 */
+.topband{background:var(--avo-950);padding-top:var(--hdr-h);}
+/* 公告条在深色带里：不用浅粉底，避免把深色区切断 */
+.announce--dark{background:transparent;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(232,229,218,.82);}
+.announce--dark strong{color:var(--seal);font-weight:600;}
+.announce--dark:hover{background:rgba(255,255,255,.05);}
+.announce--dark:hover .announce__arrow{transform:translateX(3px);}
+
 /* MASTHEAD */
 .masthead{background:var(--avo-950);border-bottom:1px solid rgba(255,255,255,.08);}
 .masthead__inner{display:flex;align-items:center;gap:var(--s4);padding:10px var(--s5);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);}

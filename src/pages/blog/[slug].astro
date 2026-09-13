@@ -27,7 +27,7 @@ const { post } = Astro.props;
 
   <!-- Article hero with full-width cover image -->
   <!-- 📸 SLOT O: 文章头图 — 建议：与文章主题紧密相关的横向宽图 21:9（高度已用 max-height 限幅） -->
-  <div class="article-cover" style="padding-top:72px;">
+  <div class="article-cover" style="padding-top:var(--hdr-h);">
     <ImgPlaceholder
       src={'/img/'+blogImg[post.seed]+'.webp'} seed={post.seed} width={1680} height={720} ratio="21/9" priority
       alt={post.title}
@@ -71,7 +71,8 @@ const { post } = Astro.props;
 </BaseLayout>
 
 <style>
-  .article-cover{max-height:44vh;min-height:200px;overflow:hidden;}
+  /* padding-top 只是给固定顶栏让位，限幅要把它加回来，否则图片被压扁 */
+  .article-cover{max-height:calc(44vh + var(--hdr-h));min-height:260px;overflow:hidden;}
   .article-cover :global(.img-ph){border-radius:0;}
   .article-cover :global(.img-ph__wrap){border-radius:0;}
   .article-hdr{background:var(--warm-100);padding:var(--s6) 0 var(--s5);border-bottom:1px solid var(--border-light);}
