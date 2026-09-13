@@ -1,7 +1,19 @@
 {
   "siteId": "crosspals",
-  "analyzedAt": "2026-09-11T01:33:39.260Z",
-  "contentSources": [],
+  "analyzedAt": "2026-09-13T17:44:30.457Z",
+  "contentSources": [
+    {
+      "name": "data",
+      "label": "法律文档",
+      "path": "src/data",
+      "type": "content",
+      "fileTypes": [],
+      "confidence": 0.8,
+      "confidenceSource": "ai-high",
+      "reason": "包含法律条款等可能需要非技术人员维护的内容",
+      "lockedByUser": false
+    }
+  ],
   "codeSources": [
     {
       "name": "components",
@@ -11,22 +23,22 @@
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.99,
+      "confidence": 1,
       "confidenceSource": "ai-high",
-      "reason": "包含网站的各类可复用组件",
+      "reason": "包含 Astro 组件文件，属于技术实现部分",
       "lockedByUser": false
     },
     {
       "name": "i18n",
       "label": "国际化",
       "path": "src/i18n",
-      "type": "code",
+      "type": "content",
       "fileTypes": [
         ".ts"
       ],
-      "confidence": 0.95,
+      "confidence": 0.85,
       "confidenceSource": "ai-high",
-      "reason": "包含多语言翻译文件和工具函数",
+      "reason": "包含多语言翻译，可能需要运营人员维护",
       "lockedByUser": false
     },
     {
@@ -37,48 +49,48 @@
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.99,
+      "confidence": 1,
       "confidenceSource": "ai-high",
-      "reason": "包含网站的基础布局模板",
+      "reason": "包含基础布局文件，属于技术实现部分",
       "lockedByUser": false
     },
     {
       "name": "pages",
-      "label": "页面",
+      "label": "页面路由",
       "path": "src/pages",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.99,
+      "confidence": 1,
       "confidenceSource": "ai-high",
-      "reason": "包含网站的路由页面文件",
+      "reason": "包含路由文件，属于框架结构部分",
       "lockedByUser": false
     },
     {
       "name": "blog",
-      "label": "博客页面",
+      "label": "博客路由",
       "path": "src/pages/blog",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.98,
+      "confidence": 0.95,
       "confidenceSource": "ai-high",
-      "reason": "包含博客列表和详情页的模板",
+      "reason": "包含博客页面模板，实际内容通常由 CMS 管理",
       "lockedByUser": false
     },
     {
       "name": "es",
       "label": "西班牙语页面",
       "path": "src/pages/es",
-      "type": "unknown",
+      "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.5,
-      "confidenceSource": "ai-low",
-      "reason": "可能是内容也可能是代码，需要更多信息",
+      "confidence": 0.9,
+      "confidenceSource": "ai-high",
+      "reason": "多语言页面路由，属于框架结构",
       "lockedByUser": false
     },
     {
@@ -89,9 +101,20 @@
       "fileTypes": [
         ".css"
       ],
-      "confidence": 0.99,
+      "confidence": 1,
       "confidenceSource": "ai-high",
-      "reason": "包含全局样式文件",
+      "reason": "包含全局样式文件，属于技术实现",
+      "lockedByUser": false
+    },
+    {
+      "name": "config",
+      "label": "配置",
+      "path": "src/config",
+      "type": "code",
+      "fileTypes": [],
+      "confidence": 0.9,
+      "confidenceSource": "ai-high",
+      "reason": "通常包含站点配置，属于技术设置",
       "lockedByUser": false
     }
   ],
