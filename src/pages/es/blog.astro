@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+
+// Mismos artículos que el blog en inglés (el contenido está redactado en inglés).
+const posts = [
+  { slug:'find-suppliers-1688',    title:'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', cat:'Guía de compras', time:'5 min', date:'2024-11-12', featured:true, seed:501 },
+  { slug:'air-vs-sea-freight',     title:'Air vs Sea Freight: Which Should You Choose for Your First Order?', cat:'Envío',        time:'4 min', date:'2024-10-28', seed:502 },
+  { slug:'cheap-china-products',   title:'5 Products That Are Cheaper in China and Sell Well Everywhere', cat:'Consejos',     time:'6 min', date:'2024-10-05', seed:503 },
+  { slug:'avoid-alibaba-scams',    title:'How to Avoid the 7 Most Common Alibaba Scams', cat:'Seguridad',     time:'7 min', date:'2024-09-20', seed:504 },
+  { slug:'custom-packaging-guide', title:'Custom Packaging from China: A Beginner\'s Complete Guide', cat:'Marca',        time:'5 min', date:'2024-09-08', seed:505 },
+  { slug:'payment-methods-suppliers', title:'The Safest Ways to Pay Chinese Suppliers', cat:'Pagos',        time:'4 min', date:'2024-08-22', seed:506 },
+];
+
+const blogImg: Record<number,string> = {501:'sourcing-1688',502:'shipping',503:'blog-products',504:'blog-safety',505:'blog-packaging',506:'payment'};
+---
+<BaseLayout title="Recursos" description="Guías prácticas para emprendedores que importan desde China." lang="es">
+
+  <PageHero overline="Recursos" title="Base de<br /><em style='font-style:italic;color:var(--avo-300)'>Conocimiento</em>" subtitle="Guías prácticas para emprendedores que importan desde China." />
+
+  <section class="section">
+    <div class="container">
+      <p class="esnote reveal">
+        Por ahora todos los artículos están redactados en inglés. Si necesitas alguno en español, escríbenos y lo traducimos.
+      </p>
+
+      <div class="alist">
+        {posts.map((post, i) => (
+          <a href={`/blog/${post.slug}`} class:list={['arow reveal', { 'arow--feat': post.featured }, `reveal-delay-${Math.min(i,3)}`]}>
+            <div class="arow__thumb">
+              <ImgPlaceholder src={'/img/'+blogImg[post.seed]+'.webp'} seed={post.seed} width={480} height={300} ratio="8/5" alt={post.title} />
+            </div>
+            <div class="arow__body">
+              <span class="arow__cat">{post.cat}</span>
+              <h3>{post.title}</h3>
+              <div class="arow__foot">
+                <span class="arow__time"><Icon name="clock" size={12} color="var(--warm-400)" />{post.time} de lectura</span>
+                <span class="arow__read">Leer en inglés →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="escta reveal">
+        <a href="/es/contact" class="btn btn-primary">Habla con CrossPals</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .esnote {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--text-muted);
+    border-left: 2px solid var(--seal); padding: var(--s2) 0 var(--s2) var(--s4);
+    margin-bottom: var(--s7); max-width: 620px;
+  }
+  .alist { display: flex; flex-direction: column; border-top: 1px solid var(--border-light); }
+  .arow {
+    display: grid; grid-template-columns: 220px 1fr; gap: var(--s5);
+    align-items: center; padding: var(--s5) 0;
+    border-bottom: 1px solid var(--border-light);
+    text-decoration: none; color: inherit;
+  }
+  .arow__thumb :global(.img-ph) { border: 1px solid var(--border-light); }
+  .arow--feat .arow__thumb :global(.img-ph) { border-color: var(--seal); }
+  .arow__body { display: flex; flex-direction: column; gap: var(--s2); min-width: 0; }
+  .arow__cat {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--avo-600);
+  }
+  .arow h3 { font-size: clamp(17px, 2vw, 21px); line-height: 1.3; transition: color var(--t-fast); }
+  .arow:hover h3 { color: var(--seal); }
+  .arow__foot { display: flex; align-items: center; gap: var(--s4); margin-top: var(--s1); }
+  .arow__time { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--warm-400); font-family: var(--font-mono); }
+  .arow__read { font-size: 12px; font-family: var(--font-mono); color: var(--seal); font-weight: 500; }
+  .escta { margin-top: var(--s7); }
+  @media (max-width: 640px) {
+    .arow { grid-template-columns: 1fr; gap: var(--s4); }
+    .arow__thumb { max-width: 320px; }
+  }
+</style>

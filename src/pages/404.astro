@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = lang === 'es'
+  ? {
+      overline: 'Error 404',
+      title: 'Esta página no está<br/><em>en el libro mayor</em>',
+      body: 'El enlace que seguiste no existe o cambió de sitio. Vuelve al inicio o escríbenos y te ayudamos a encontrar lo que buscabas.',
+      home: 'Volver al inicio',
+      contact: 'Contactar',
+      note: 'Si crees que es un error nuestro, cuéntanoslo:',
+    }
+  : {
+      overline: 'Error 404',
+      title: 'This page is not<br/><em>in the ledger</em>',
+      body: 'The link you followed does not exist or has moved. Head back to the home page, or write to us and we will help you find what you were after.',
+      home: 'Back to home',
+      contact: 'Contact us',
+      note: 'If you think this is our mistake, tell us:',
+    };
+---
+
+<BaseLayout title="404" description="Page not found." lang={lang}>
+  <section class="section nf grain" style="position:relative;">
+    <div class="container nf__inner">
+      <p class="overline overline--light reveal">{copy.overline}</p>
+      <h1 class="nf__title reveal reveal-delay-1" set:html={copy.title} />
+      <p class="nf__body reveal reveal-delay-2">{copy.body}</p>
+      <div class="nf__cta reveal reveal-delay-3">
+        <a href={lang === 'es' ? '/es/' : '/'} class="btn btn-primary">{copy.home}</a>
+        <a href={lang === 'es' ? '/es/contact' : '/contact'} class="btn btn-ghost">{copy.contact}</a>
+      </div>
+      <p class="nf__note reveal reveal-delay-3">{copy.note} <a href="mailto:hello@crosspals.com">hello@crosspals.com</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf { background: var(--avo-950); padding: 180px 0 140px; }
+  .nf__inner { max-width: 620px; }
+  .nf__title {
+    font-family: var(--font-serif); font-size: clamp(30px, 5vw, 54px);
+    font-weight: 600; line-height: 1.1; color: #fff; margin: var(--s3) 0 var(--s5);
+  }
+  .nf__title :global(em) { font-style: italic; color: var(--avo-300); }
+  .nf__body { font-size: 16px; line-height: 1.72; color: rgba(255,255,255,.62); margin-bottom: var(--s6); }
+  .nf__cta { display: flex; gap: var(--s3); flex-wrap: wrap; }
+  .nf__note { margin-top: var(--s6); font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,.42); }
+  .nf__note a { color: var(--avo-300); text-decoration: underline; }
+</style>

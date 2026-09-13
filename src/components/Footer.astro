@@ -18,7 +18,7 @@ const company = [
 <footer class="footer grain" style="position:relative;">
   <div class="footer__top container">
     <div class="footer__brand">
-      <Logo variant="light" size="md" />
+      <Logo layout="stacked" size="md" />
       <p>{t('footer_tagline')}</p>
       <div class="footer__social">
         <a href="https://wa.me/yourwhatsapp" aria-label="WhatsApp" class="soc">
@@ -67,44 +67,44 @@ const company = [
 </footer>
 
 <style>
-  .footer { background:var(--avo-950); color:rgba(255,255,255,0.55); overflow:hidden; }
+  .footer { background:var(--warm-100); color:var(--text-body); overflow:hidden; }
 
   .footer__top {
     display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:var(--s8); padding:var(--s9) 0 var(--s8);
-    border-bottom:1px solid rgba(255,255,255,0.07);
+    gap:var(--s6); padding:var(--s7) 0 var(--s6);
+    border-bottom:1px solid var(--border-light);
   }
 
   .footer__brand { display:flex; flex-direction:column; gap:var(--s4); }
-  .footer__brand p { font-size:13px; color:rgba(255,255,255,0.45); max-width:240px; line-height:1.6; }
+  .footer__brand p { font-size:13px; color:var(--text-muted); max-width:240px; line-height:1.6; }
 
   .footer__social { display:flex; gap:var(--s2); margin-top:var(--s2); }
   .soc {
     width:36px; height:36px; border-radius:0;
-    background:rgba(255,255,255,0.07); color:rgba(255,255,255,0.45);
+    background:rgba(28,33,20,.05); color:var(--avo-800);
     display:flex; align-items:center; justify-content:center;
     text-decoration:none; transition:var(--t-fast);
-    border:1px solid rgba(255,255,255,0.08);
+    border:1px solid var(--border-light);
   }
   .soc:hover { background:var(--seal); color:#fff; border-color:var(--seal); transform:translateY(-2px); }
 
   .footer__col h5 {
     font-family:var(--font-mono); font-size:10px; font-weight:500;
     letter-spacing:0.12em; text-transform:uppercase;
-    color:rgba(255,255,255,0.85); margin-bottom:var(--s5);
+    color:var(--avo-900); margin-bottom:var(--s4);
     display:flex; align-items:center; gap:var(--s2);
   }
   .footer__col h5::after { content:''; flex:1; height:1px; background:rgba(190,58,46,.35); }
   .footer__col ul { list-style:none; display:flex; flex-direction:column; gap:var(--s3); }
-  .footer__col a { font-size:13px; color:rgba(255,255,255,0.45); text-decoration:none; transition:color var(--t-fast); }
-  .footer__col a:hover { color:var(--seal-soft); }
+  .footer__col a { font-size:13px; color:var(--text-body); text-decoration:none; transition:color var(--t-fast); }
+  .footer__col a:hover { color:var(--seal); }
 
-  .footer__contact { margin-top:var(--s5); padding-top:var(--s4); border-top:1px solid rgba(190,58,46,.3); }
-  .footer__contact a { color:var(--seal-soft); font-family:var(--font-mono); font-size:13px; letter-spacing:0.02em; }
+  .footer__contact { margin-top:var(--s4); padding-top:var(--s3); border-top:1px solid rgba(190,58,46,.25); }
+  .footer__contact a { color:var(--seal); font-family:var(--font-mono); font-size:13px; letter-spacing:0.02em; }
 
-  .footer__bar { padding:var(--s4) 0 var(--s5); border-top:1px solid rgba(190,58,46,.25); }
+  .footer__bar { padding:var(--s4) 0; border-top:1px solid var(--border-light); }
   .footer__bar-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--s2); }
-  .footer__bar p { font-size:12px; color:rgba(255,255,255,0.25); font-family:var(--font-mono); letter-spacing:0.04em; }
+  .footer__bar p { font-size:12px; color:var(--text-muted); font-family:var(--font-mono); letter-spacing:0.04em; }
   .footer__made { font-style:normal; text-transform:uppercase; }
 
   @media(max-width:900px) {

@@ -22,6 +22,7 @@ interface Props {
   seed?: number;         // picsum 随机种子（固定同一张图）
   objectFit?: 'cover' | 'contain' | 'fill';
   rounded?: boolean;
+  priority?: boolean;    // 首屏主图：eager + fetchpriority=high（改善 LCP）
 }
 
 const {
@@ -35,6 +36,7 @@ const {
   seed = 10,
   objectFit = 'cover',
   rounded = false,
+  priority = false,
 } = Astro.props;
 
 // 生成占位图 URL（picsum.photos 稳定服务）
@@ -58,7 +60,10 @@ const paddingTop = ratioParts.length === 2
     <img
       src={finalSrc}
       alt={alt}
-      loading="lazy"
+      width={width}
+      height={height}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : undefined}
       decoding="async"
       style={`object-fit: ${objectFit}`}
     />

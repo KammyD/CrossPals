@@ -120,6 +120,14 @@ img { max-width: 100%; display: block; }
 
 /* ── Layout ── */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 var(--s5); }
+
+/* 跳转链接（键盘可达性）：聚焦时才出现 */
+.skiplink {
+  position: absolute; left: -9999px; top: 0; z-index: 2000;
+  background: var(--avo-950); color: #fff; padding: 10px 18px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none;
+}
+.skiplink:focus { left: 0; }
 .section    { padding: var(--section-y) var(--s5); }
 .section--tight { padding: var(--section-y-sm) var(--s5); }
 .section--dark    { background: var(--avo-950); }
@@ -172,6 +180,25 @@ img { max-width: 100%; display: block; }
 
 .arrow-icon { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2.5; transition:transform var(--t-fast); flex-shrink:0; }
 .btn:hover .arrow-icon { transform: translateX(3px); }
+
+/* ── Lede row：正文与 CTA 并排（按钮永远贴在文字的一侧，不单独占行） ── */
+.lede-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+  flex-wrap: wrap;
+}
+.lede-row > p,
+.lede-row > .lede-row__text { flex: 1 1 240px; margin: 0; }
+.lede-row > a,
+.lede-row > .btn { flex: 0 0 auto; }
+/* 窄屏：按钮换行落到文字下方并左对齐 */
+@media (max-width: 640px) {
+  .lede-row { gap: var(--s4); }
+  .lede-row > a,
+  .lede-row > .btn { width: 100%; justify-content: center; }
+}
 
 /* ── Tag / Badge（仅小标签用胶囊） ── */
 .tag {
@@ -294,9 +321,9 @@ img { max-width: 100%; display: block; }
 
 /* ── 数据证明 Section：大号关键数字 + 右侧事实列表 ── */
 .statband { background: var(--avo-950); color: #fff; }
-.statband__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--s8); align-items: center; }
+.statband__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--s6); align-items: center; }
 .statband__overline { color: rgba(255,255,255,.45); }
-.statband__nums { display: flex; flex-wrap: wrap; gap: var(--s7) var(--s8); }
+.statband__nums { display: flex; flex-wrap: wrap; gap: var(--s6) var(--s7); }
 .statband__num b {
   display: block; font-family: var(--font-serif); font-weight: 600;
   font-size: clamp(40px, 5vw, 68px); line-height: .9; letter-spacing: -.02em; color: #fff;
@@ -322,6 +349,8 @@ img { max-width: 100%; display: block; }
 .guarantee__item:last-child { border-right: none; padding-right: 0; }
 .guarantee__item + .guarantee__item { padding-left: var(--s5); }
 .guarantee__icon { color: var(--seal); margin-bottom: var(--s4); display: flex; }
+.guarantee__img { margin: 0 0 var(--s4); }
+.guarantee__img img { transition: transform .5s cubic-bezier(.16,1,.3,1); }
 .guarantee__item h4 { font-size: 16px; margin-bottom: var(--s2); }
 .guarantee__item p { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 .guarantee__item .guarantee__n { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; color: var(--seal); display: block; margin-bottom: var(--s3); }
@@ -384,5 +413,5 @@ img { max-width: 100%; display: block; }
   .guarantee__item + .guarantee__item { padding-left: 0; }
   .regionwall { grid-template-columns: repeat(2, 1fr); }
   .bento { grid-template-columns: repeat(2, 1fr); }
-  .banner-cta { flex-direction: column; align-items: flex-start; }
+  .banner-cta__inner { flex-direction: column; align-items: flex-start; gap: var(--s4); }
 }

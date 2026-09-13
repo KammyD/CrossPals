@@ -2,8 +2,8 @@
 interface Props { lang?: 'en' | 'es'; }
 const { lang = 'en' } = Astro.props;
 const L = {
-  en: { name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours' },
-  es: { name:'Tu Nombre', email:'Correo Electrónico', country:'Tu País', product:'Producto que quieres importar', budget:'Presupuesto Estimado (USD)', msg:'Detalles adicionales (opcional)', submit:'Enviar Consulta', np:'Alex Johnson', ep:'alex@ejemplo.com', cp:'México, Brasil, Argentina…', bp:'$500 – $5,000', pp:'Ej. Fundas para teléfonos, 500 unidades…', mp:'Plazos, requisitos, preguntas…', note:'Respuesta típica en 24 horas' },
+  en: { name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours', fb:'Prefer email?' },
+  es: { name:'Tu Nombre', email:'Correo Electrónico', country:'Tu País', product:'Producto que quieres importar', budget:'Presupuesto Estimado (USD)', msg:'Detalles adicionales (opcional)', submit:'Enviar Consulta', np:'Alex Johnson', ep:'alex@ejemplo.com', cp:'México, Brasil, Argentina…', bp:'$500 – $5,000', pp:'Ej. Fundas para teléfonos, 500 unidades…', mp:'Plazos, requisitos, preguntas…', note:'Respuesta típica en 24 horas', fb:'¿Prefieres correo?' },
 };
 const l = L[lang];
 ---
@@ -47,10 +47,13 @@ const l = L[lang];
     </button>
     <p class="cform__note">🌿 {l.note}</p>
   </div>
+  <p class="cform__fallback">{l.fb} <a href="mailto:hello@crosspals.com">hello@crosspals.com</a></p>
 </form>
 
 <style>
   .cform { display:flex; flex-direction:column; gap:var(--s5); }
+  .cform__fallback { font-family:var(--font-mono); font-size:12px; letter-spacing:.02em; color:var(--text-muted); }
+  .cform__fallback a { color:var(--seal); text-decoration:underline; text-underline-offset:2px; }
   .cform__row { display:grid; grid-template-columns:1fr 1fr; gap:var(--s4); }
   .cform__field { display:flex; flex-direction:column; gap:6px; }
   .cform__field label { font-size:12px; font-weight:600; color:var(--warm-950); letter-spacing:0.04em; text-transform:uppercase; font-family:var(--font-mono); }

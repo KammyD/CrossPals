@@ -1,34 +1,48 @@
 ---
+/**
+ * CrossPals logo — real artwork.
+ *  · layout="horizontal" → /img/logo-horizontal.png (509×208) — header / nav bar
+ *  · layout="stacked"    → /img/logo-stacked.png    (954×826) — footer brand block
+ * Sizing is height-driven: the image keeps its own aspect ratio (`width:auto`).
+ */
 interface Props {
-  variant?: 'dark' | 'light';
+  layout?: 'horizontal' | 'stacked';
   size?: 'sm' | 'md' | 'lg';
+  href?: string;
 }
-const { variant = 'dark', size = 'md' } = Astro.props;
-const hs = { sm: 30, md: 38, lg: 52 };
-const h = hs[size];
-const wordColor = variant === 'light' ? '#ffffff' : 'var(--avo-800)';
-const markColor = variant === 'light' ? 'var(--seal)' : 'var(--seal)';
+const { layout = 'horizontal', size = 'md', href = '/' } = Astro.props;
+
+const isStacked = layout === 'stacked';
+const src = isStacked ? '/img/logo-stacked.png' : '/img/logo-horizontal.png';
+const nat = isStacked ? { w: 954, h: 826 } : { w: 509, h: 208 };
+const heights = isStacked
+  ? { sm: 68, md: 88, lg: 112 }
+  : { sm: 30, md: 36, lg: 46 };
+const h = heights[size];
 ---
-<a href="/" class:list={['logo', `logo--${variant}`]} aria-label="CrossPals Home" style={`--lw:${h}px;--lwc:${wordColor};--lmc:${markColor};`}>
-  <span class="logo__mark" aria-hidden="true">
-    <svg viewBox="0 0 32 32" width={h} height={h} fill="none">
-      <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M9 23V9h9M9 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
-      <circle cx="23.5" cy="11" r="2.4" fill="currentColor"/>
-    </svg>
-  </span>
-  <span class="logo__word">Cross<span class="logo__word-em">Pals</span></span>
+<a href={href} class:list={['logo', `logo--${layout}`]} aria-label="CrossPals — Home">
+  <img
+    src={src}
+    alt="CrossPals"
+    width={nat.w}
+    height={nat.h}
+    decoding="async"
+    style={`--logo-h:${h}px;`}
+  />
 </a>
 
 <style>
-  .logo { display:inline-flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; transition:opacity .2s; }
-  .logo:hover { opacity:.85; }
-  .logo__mark { color: var(--lmc); display:inline-flex; line-height:0; }
-  .logo__word {
-    font-family: var(--font-serif);
-    font-size: calc(var(--lw) * 0.52);
-    font-weight: 600; font-optical-sizing: auto;
-    letter-spacing: -0.01em; color: var(--lwc); line-height: 1;
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: opacity .2s var(--ease-in-out);
   }
-  .logo__word-em { color: var(--lmc); font-style: italic; font-weight: 400; }
+  .logo:hover { opacity: .82; }
+  .logo img {
+    height: var(--logo-h);
+    width: auto;
+    display: block;
+  }
 </style>

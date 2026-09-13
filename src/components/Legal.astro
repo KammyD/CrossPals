@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import { legalContent } from '../data/legal';
+import type { LegalKind } from '../data/legal';
+
+interface Props { lang: 'en' | 'es'; kind: LegalKind }
+const { lang, kind } = Astro.props;
+const doc = legalContent[lang][kind];
+const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
+---
+
+<BaseLayout title={doc.title} description={doc.intro} lang={lang}>
+  <PageHero overline={doc.overline} title={doc.title} subtitle={doc.intro} />
+
+  <section class="section">
+    <div class="container legal">
+      <p class="legal__updated">{doc.updated}</p>
+      {doc.sections.map(s => (
+        <div class="legal__block">
+          <h2>{s.h}</h2>
+          {s.p.map(par => <p>{par}</p>)}
+        </div>
+      ))}
+      <div class="legal__foot">
+        <a href={lang === 'en' ? '/' : '/es/'} class="btn btn-outline">{homeLabel}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal { max-width: 760px; margin: 0 auto; }
+  .legal__updated {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--warm-400); padding-bottom: var(--s4); margin-bottom: var(--s6);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .legal__block { margin-bottom: var(--s6); }
+  .legal__block h2 { font-size: clamp(18px, 2.1vw, 23px); margin-bottom: var(--s3); }
+  .legal__block p { font-size: 15px; line-height: 1.75; color: var(--text-body); margin-bottom: var(--s3); }
+  .legal__block p:last-child { margin-bottom: 0; }
+  .legal__foot { padding-top: var(--s5); border-top: 1px solid var(--border-light); }
+  @media (max-width: 640px) {
+    .legal__block h2 { font-size: 18px; }
+  }
+</style>

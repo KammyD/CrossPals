@@ -38,7 +38,10 @@ const blogPosts = [
   { cat: 'Business Tips',  title: '5 Products That Are Cheaper in China and Sell Well Everywhere',    slug: 'cheap-china-products', time: '6 min', seed: 103, hint: '热销商品展示/产品陈列' },
 ];
 
-const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 'Bogotá', 'Cairo', 'Yiwu → World', '1688 Sourcing', 'QC Inspected', 'DDP Shipping', 'Verified Suppliers'];
+const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
+const blogImg: Record<number,string> = {101:'sourcing-1688',102:'shipping',103:'blog-products'};
+const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
+const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 'Bogotá', 'Cairo', 'HeBei · BaoDing → World', '1688 Sourcing', 'QC Inspected', 'DDP Shipping', 'Verified Suppliers'];
 ---
 <BaseLayout
   title="Trusted China Sourcing for Global Entrepreneurs"
@@ -93,13 +96,12 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
     <!-- Right full-bleed photo with caption strip -->
     <div class="hero__right">
       <div class="hero__photo-fill">
-        <ImgPlaceholder seed={42} width={900} height={1100} ratio="9/11"
-          alt="China factory warehouse — CrossPals sourcing"
-          hint="建议：工厂车间 / 仓库货架 / 产品特写，竖向构图" />
+        <ImgPlaceholder src="/img/hero-warehouse.webp" seed={42} width={900} height={1100} ratio="9/11" priority
+          alt="China factory warehouse — CrossPals sourcing" />
       </div>
       <div class="hero__cap">
         <span class="hero__cap-label">Fig. 01</span>
-        <span class="hero__cap-text">Yiwu International Trade Market, Zhejiang</span>
+        <span class="hero__cap-text">HeBei · BaoDing, China</span>
         <span class="seal seal--sm" aria-hidden="true"><span>Verified</span><span>Agent</span></span>
       </div>
     </div>
@@ -136,7 +138,7 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
       </div>
     </div>
     <ul class="statband__list reveal reveal-delay-1">
-      <li><span><b>Sourcing</b> across 1688, Alibaba &amp; direct factory networks in Yiwu, Guangzhou and Shenzhen.</span></li>
+      <li><span><b>Sourcing</b> across 1688, Alibaba &amp; direct factory networks in HeBei · BaoDing, Guangzhou and Shenzhen.</span></li>
       <li><span><b>Inspection</b> photographed and signed off at the factory before anything ships.</span></li>
       <li><span><b>Payment</b> released to verified suppliers only — never wired to strangers.</span></li>
       <li><span><b>Delivery</b> door-to-door DDP, customs handled, live tracking included.</span></li>
@@ -156,20 +158,21 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 
     <ol class="svc__list">
       {services.map(s => (
-        <li class:list={['svc-row reveal', {'svc-row--featured': s.featured}, `reveal-delay-${s.delay}`]}>
+        <li class:list={['svc-row reveal', `reveal-delay-${s.delay}`]}>
           <div class="svc-row__num"><span class="indexnum">{s.n}</span></div>
           <div class="svc-row__thumb">
-            <ImgPlaceholder seed={s.seed} width={360} height={240} ratio="3/2" alt={s.title} hint={s.hint} />
+            <ImgPlaceholder src={'/img/'+svcImg[s.seed]+'.webp'} seed={s.seed} width={360} height={240} ratio="3/2" alt={s.title} />
           </div>
           <div class="svc-row__body">
             <div class="svc-row__top">
               <h3>{s.title}</h3>
-              {s.featured && <span class="tag tag-seal">Most requested</span>}
             </div>
-            <p>{s.body}</p>
-            <a href="/services" class="svc-row__link">Learn more
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
-            </a>
+            <div class="lede-row">
+              <p>{s.body}</p>
+              <a href="/services" class="svc-row__link">Learn more
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              </a>
+            </div>
           </div>
         </li>
       ))}
@@ -225,10 +228,12 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 
     <div class="testi__row">
       <blockquote class="pq-sm reveal reveal-delay-1">
-        <p>"Got my Yiwu supplier in 48 hours. QC photos, DHL shipping — I never left Lagos."</p>
+        <img class="pq-sm__avatar" src="/img/avatar-nigeria.webp" alt="CrossPals customer in Lagos, Nigeria" loading="lazy" decoding="async" width="56" height="56" />
+        <p>"Got my supplier in HeBei · BaoDing within 48 hours. QC photos, DHL shipping — I never left Lagos."</p>
         <footer><span>🇳🇬 Nigeria</span><span class="text-seal">40% lower cost</span></footer>
       </blockquote>
       <blockquote class="pq-sm reveal reveal-delay-2">
+        <img class="pq-sm__avatar" src="/img/avatar-mexico.webp" alt="CrossPals customer in Mexico" loading="lazy" decoding="async" width="56" height="56" />
         <p>"Ongoing reorder support means I always stay competitive. 12 orders and counting."</p>
         <footer><span>🇲🇽 Mexico</span><span class="text-seal">12 reorders &amp; growing</span></footer>
       </blockquote>
@@ -264,12 +269,14 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
       <p class="overline">Why CrossPals</p>
       <h2>We Solved the Hard Parts<br/><em>So You Don't Have To</em></h2>
       <div class="divider" style="margin:var(--s6) 0;"></div>
-      <p style="font-size:16px;line-height:1.8;">Most entrepreneurs fail at China sourcing because of language barriers, payment risk, and quality uncertainty. CrossPals eliminates all three.</p>
-      <ImgPlaceholder seed={15} width={560} height={420} ratio="4/3" alt="CrossPals team" hint="团队合影/中国市场实景/创始人工作照" />
-      <a href="/contact" class="btn btn-primary" style="margin-top:var(--s6);">
-        Start for Free
-        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
-      </a>
+      <div class="lede-row">
+        <p style="font-size:15px;line-height:1.72;">Most entrepreneurs fail at China sourcing because of language barriers, payment risk, and quality uncertainty. CrossPals eliminates all three.</p>
+        <a href="/contact" class="btn btn-primary">
+          Start for Free
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </a>
+      </div>
+      <ImgPlaceholder src="/img/team-wide.webp" seed={15} width={560} height={420} ratio="4/3" alt="CrossPals team" />
     </div>
 
     <div class="why__right">
@@ -299,33 +306,26 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
     </div>
 
     <div class="blog-prev__grid">
-      <a href={`/blog/${blogPosts[0].slug}`} class="bcard bcard--feat reveal">
-        <ImgPlaceholder seed={blogPosts[0].seed} width={720} height={460} ratio="16/10" alt={blogPosts[0].title} hint={blogPosts[0].hint} />
-        <div class="bcard__body">
-          <span class="bcard__cat">{blogPosts[0].cat}</span>
-          <h3>{blogPosts[0].title}</h3>
-          <div class="bcard__foot">
-            <div class="bcard__time"><Icon name="clock" size={12} color="var(--warm-400)" /><span>{blogPosts[0].time} read</span></div>
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <div class="blog-prev__side">
-        {blogPosts.slice(1).map((post, i) => (
-          <a href={`/blog/${post.slug}`} class:list={['bcard bcard--sm reveal', `reveal-delay-${i + 1}`]}>
-            <ImgPlaceholder seed={post.seed} width={320} height={200} ratio="16/10" alt={post.title} hint={post.hint} />
-            <div class="bcard__body">
-              <span class="bcard__cat">{post.cat}</span>
-              <h4>{post.title}</h4>
-              <div class="bcard__foot">
-                <div class="bcard__time"><Icon name="clock" size={12} color="var(--warm-400)" /><span>{post.time} read</span></div>
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
-              </div>
+      {blogPosts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
+          <ImgPlaceholder
+            src={'/img/' + blogImg[post.seed] + '.webp'}
+            seed={post.seed}
+            width={i === 0 ? 720 : 640}
+            height={i === 0 ? 960 : 360}
+            ratio={i === 0 ? '3/4' : '16/9'}
+            alt={post.title}
+          />
+          <div class="bcard__body">
+            <span class="bcard__cat">{post.cat}</span>
+            {i === 0 ? <h3>{post.title}</h3> : <h4>{post.title}</h4>}
+            <div class="bcard__foot">
+              <div class="bcard__time"><Icon name="clock" size={12} color="var(--warm-400)" /><span>{post.time} read</span></div>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
             </div>
-          </a>
-        ))}
-      </div>
+          </div>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -342,6 +342,7 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
         <div class="guarantee__item">
           <span class="guarantee__n">{String(i + 1).padStart(2, '0')}</span>
           <div class="guarantee__icon"><Icon name={g.icon} size={26} color="var(--seal)" /></div>
+          <ImgPlaceholder class="guarantee__img" src={'/img/' + guarImg[g.icon] + '.webp'} seed={600 + i} width={480} height={320} ratio="3/2" alt={g.title} />
           <h4>{g.title}</h4>
           <p>{g.body}</p>
         </div>
@@ -419,16 +420,19 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 .svc-row__num .indexnum{font-size:40px;}
 .svc-row__thumb :global(.img-ph){border:1px solid var(--border-light);}
 .svc-row__top{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s2);flex-wrap:wrap;}
+.svc-row__body .lede-row{margin-top:var(--s2);}
 .svc-row__body h3{font-size:clamp(19px,2.1vw,25px);}
-.svc-row__body p{font-size:14px;line-height:1.65;margin:var(--s2) 0 var(--s3);max-width:520px;}
+.svc-row__body p{font-size:14px;line-height:1.65;margin:0;max-width:520px;}
 .svc-row__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);}
 .svc-row__link:hover{gap:10px;}
-.svc-row--featured{background:var(--avo-950);padding:var(--s5);margin:var(--s3) 0;border-top:none;border-bottom:none;}
-.svc-row--featured + .svc-row{border-top:none;}
-.svc-row--featured .svc-row__body h3{color:#fff;}
-.svc-row--featured .svc-row__body p{color:rgba(255,255,255,.62);}
-.svc-row--featured .svc-row__num .indexnum{color:var(--avo-300);}
-.svc-row--featured .svc-row__thumb :global(.img-ph){border-color:rgba(255,255,255,.15);}
+.svc-row{transition:background var(--t-med),color var(--t-med);}
+.svc-row:hover{background:var(--avo-950);}
+.svc-row:hover .svc-row__body h3{color:#fff;}
+.svc-row:hover .svc-row__body p{color:rgba(255,255,255,.62);}
+.svc-row:hover .svc-row__num .indexnum{color:var(--avo-300);}
+.svc-row:hover .svc-row__thumb :global(.img-ph){border-color:rgba(255,255,255,.15);}
+.svc-row:hover .svc-row__link{color:var(--avo-300);}
+.svc-row__body h3,.svc-row__body p,.svc-row__link,.svc-row__num .indexnum{transition:color var(--t-med);}
 
 /* 地区 Logo 墙（模板：客户 Logo 墙） */
 .regionwrap{padding:var(--section-y-sm) var(--s5);background:var(--bg-page);}
@@ -462,6 +466,7 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 .pullquote__result{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--seal);}
 .testi__row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s5);}
 .pq-sm{margin:0;padding:var(--s4) 0;border-top:1px solid var(--border-light);}
+.pq-sm__avatar{width:56px;height:56px;object-fit:cover;object-position:50% 24%;display:block;border:1px solid var(--border-light);background:var(--warm-100);margin-bottom:var(--s4);}
 .pq-sm p{font-family:var(--font-serif);font-style:italic;font-size:16px;line-height:1.5;color:var(--text-primary);margin-bottom:var(--s3);}
 .pq-sm footer{display:flex;flex-direction:column;gap:4px;}
 .pq-sm footer span:first-child{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
@@ -473,7 +478,7 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 
 /* WHY */
 .why{background:var(--warm-100);}
-.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s7);align-items:start;}
+.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s7);align-items:center;}
 .why h2 em{font-style:italic;color:var(--avo-600);}
 .why__right{display:flex;flex-direction:column;}
 .why-item{display:grid;grid-template-columns:64px 1fr;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid var(--border-light);}
@@ -488,9 +493,8 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 .blog-prev{background:var(--bg-page);}
 .blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--head-gap);}
 .blog-prev__head h2 em{font-style:italic;color:var(--avo-600);}
-.blog-prev__grid{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--s5);}
-.blog-prev__side{display:flex;flex-direction:column;gap:var(--s5);}
-.bcard{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--bg-surface);border:1px solid var(--border-light);transition:var(--t-med);}
+.blog-prev__grid{column-count:2;column-gap:var(--s5);}
+.bcard{display:block;break-inside:avoid;margin-bottom:var(--s5);text-decoration:none;color:inherit;background:var(--bg-surface);border:1px solid var(--border-light);transition:var(--t-med);}
 .bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
 .bcard--feat :global(.img-ph){border-bottom:1px solid var(--border-light);}
 .bcard__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
@@ -522,12 +526,12 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
   .manifest__col{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
   .manifest__stamp{display:none;}
   .testi__row{grid-template-columns:1fr;}
-  .blog-prev__grid{grid-template-columns:1fr;}
+  .blog-prev__grid{column-count:1;}
 }
 @media(max-width:860px){
   .hero__grid{grid-template-columns:1fr;}
   .hero__right{display:none;}
-  .hero__left{padding:120px var(--s5) var(--s7);}
+  .hero__left{padding:100px var(--s5) var(--s6);}
 }
 @media(max-width:640px){
   .svc-row{grid-template-columns:48px 1fr;gap:var(--s4);}

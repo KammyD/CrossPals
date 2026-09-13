@@ -7,13 +7,54 @@ interface Props {
   title: string;
   description?: string;
   lang?: 'en' | 'es';
+  /** 文章页传入后输出 Article 结构化数据 */
+  article?: { published: string; section?: string };
 }
 const {
   title,
   description = 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.',
   lang = 'en',
+  article,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://crosspals.com');
+const SITE = Astro.site ?? new URL('https://crosspals.com');
+const canonical = new URL(Astro.url.pathname, SITE);
+const ogImage   = new URL('/og-image.png', SITE);
+
+// 双语页面集合：只有这些路径有对应的另一种语言版本，才输出 hreflang
+const bilingual = ['/', '/services/', '/about/', '/contact/', '/blog/', '/privacy/', '/terms/'];
+const pathNoLang = lang === 'es' ? (Astro.url.pathname.replace(/^\/es/, '') || '/') : Astro.url.pathname;
+const hasTwin = bilingual.includes(pathNoLang);
+const enUrl = hasTwin ? new URL(pathNoLang, SITE) : null;
+const esUrl = hasTwin ? new URL('/es' + (pathNoLang === '/' ? '/' : pathNoLang), SITE) : null;
+
+const ORG = {
+  '@type': 'Organization',
+  name: 'CrossPals',
+  url: SITE.href.replace(/\/$/, '/'),
+  logo: new URL('/img/logo-stacked.png', SITE).href,
+  email: 'hello@crosspals.com',
+  description: 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
+  areaServed: ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
+};
+const jsonLd = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: title,
+      datePublished: article.published,
+      dateModified: article.published,
+      articleSection: article.section,
+      inLanguage: lang,
+      image: [ogImage.href],
+      mainEntityOfPage: canonical.href,
+      publisher: ORG,
+    }
+  : Astro.url.pathname === '/'
+    ? {
+        '@context': 'https://schema.org',
+        '@graph': [ORG, { '@type': 'WebSite', name: 'CrossPals', url: SITE.href, inLanguage: ['en', 'es'] }],
+      }
+    : null;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -23,14 +64,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://crosspals.c
     <title>{title} | CrossPals</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
+    {enUrl && <link rel="alternate" hreflang="x-default" href={enUrl} />}
     <meta property="og:title"       content={`${title} | CrossPals`} />
     <meta property="og:description" content={description} />
-    <meta property="og:type"        content="website" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type"        content={article ? 'article' : 'website'} />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:site_name"   content="CrossPals" />
+    <meta property="og:locale"      content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card"        content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f4ede0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
+    <a href="#main" class="skiplink">Skip to content</a>
     <Header />
     <main id="main">{/* @ts-ignore */}<slot /></main>
     <Footer />
