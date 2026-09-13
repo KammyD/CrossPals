@@ -69,6 +69,11 @@
   --s5: 24px;  --s6: 32px;  --s7: 48px;  --s8: 64px;
   --s9: 96px;  --s10: 128px;
 
+  /* ── 垂直节奏（压缩版：每屏信息量优先） ── */
+  --section-y: 56px;      /* 全站 section 上下留白（原 96px） */
+  --section-y-sm: 40px;   /* 紧凑 section */
+  --head-gap: 36px;       /* section 标题→内容间距（原 64px） */
+
   /* ── Radii：锐角为主 ── */
   --r1: 0;  --r2: 2px;  --r3: 0;  --r4: 4px;  --rfull: 9999px;
 
@@ -104,18 +109,19 @@ h1, h2, h3, h4, h5 {
   font-optical-sizing: auto;
 }
 
-h1 { font-size: clamp(40px, 5.5vw, 76px); font-weight: 600; }
-h2 { font-size: clamp(30px, 4.2vw, 56px); font-weight: 560; }
-h3 { font-size: clamp(21px, 2.1vw, 30px); font-weight: 560; }
-h4 { font-size: 19px; font-weight: 560; }
+h1 { font-size: clamp(36px, 4.8vw, 64px); font-weight: 600; }
+h2 { font-size: clamp(28px, 3.6vw, 46px); font-weight: 560; }
+h3 { font-size: clamp(20px, 2vw, 28px); font-weight: 560; }
+h4 { font-size: 18px; font-weight: 560; }
 
-p  { font-size: 16px; color: var(--text-body); line-height: 1.78; }
+p  { font-size: 16px; color: var(--text-body); line-height: 1.68; }
 a  { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
 /* ── Layout ── */
 .container { max-width: 1180px; margin: 0 auto; padding: 0 var(--s5); }
-.section    { padding: var(--s9) var(--s5); }
+.section    { padding: var(--section-y) var(--s5); }
+.section--tight { padding: var(--section-y-sm) var(--s5); }
 .section--dark    { background: var(--avo-950); }
 .section--mid     { background: var(--avo-100); }
 .section--subtle  { background: var(--bg-subtle); }
@@ -267,3 +273,116 @@ img { max-width: 100%; display: block; }
 .bg-parchment{ background: var(--warm-100); }
 .text-serif  { font-family: var(--font-serif); }
 .text-mono   { font-family: var(--font-mono); }
+
+/* ================================================================
+   模板结构原语（源自《网站基础选型样式模板集》）
+   用法：与 .section 组合，保持反 AI 视觉语言（发丝线/锐角/无卡片）
+   ================================================================ */
+
+/* ── 公告提醒 Banner（细条，不打断浏览） ── */
+.announce {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 9px var(--s5);
+  background: var(--seal-soft); border-bottom: 1px solid #e3c4bc;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--seal-deep);
+}
+.announce__dot { width: 6px; height: 6px; background: var(--seal); flex-shrink: 0; transform: rotate(45deg); }
+.announce strong { font-weight: 500; }
+.announce__arrow { margin-left: auto; transition: transform var(--t-fast); }
+.announce:hover .announce__arrow { transform: translateX(3px); }
+
+/* ── 数据证明 Section：大号关键数字 + 右侧事实列表 ── */
+.statband { background: var(--avo-950); color: #fff; }
+.statband__grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--s8); align-items: center; }
+.statband__overline { color: rgba(255,255,255,.45); }
+.statband__nums { display: flex; flex-wrap: wrap; gap: var(--s7) var(--s8); }
+.statband__num b {
+  display: block; font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(40px, 5vw, 68px); line-height: .9; letter-spacing: -.02em; color: #fff;
+}
+.statband__num b em { font-style: italic; font-weight: 400; color: var(--seal); }
+.statband__num span {
+  display: block; margin-top: var(--s3);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.45);
+}
+.statband__list { list-style: none; display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,.12); }
+.statband__list li {
+  display: grid; grid-template-columns: 18px 1fr; gap: var(--s4);
+  padding: var(--s4) 0; border-bottom: 1px solid rgba(255,255,255,.12);
+  font-size: 14px; line-height: 1.6; color: rgba(255,255,255,.6);
+}
+.statband__list li::before { content: '↳'; color: var(--seal); font-family: var(--font-mono); font-size: 13px; }
+.statband__list li b { color: #fff; font-weight: 500; }
+
+/* ── 保障模块网格：3–4 条并列保障（转化/疑虑消除） ── */
+.guarantee { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border-light); }
+.guarantee__item { padding: var(--s5) var(--s5) var(--s5) 0; border-right: 1px solid var(--border-light); }
+.guarantee__item:last-child { border-right: none; padding-right: 0; }
+.guarantee__item + .guarantee__item { padding-left: var(--s5); }
+.guarantee__icon { color: var(--seal); margin-bottom: var(--s4); display: flex; }
+.guarantee__item h4 { font-size: 16px; margin-bottom: var(--s2); }
+.guarantee__item p { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+.guarantee__item .guarantee__n { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; color: var(--seal); display: block; margin-bottom: var(--s3); }
+
+/* ── 通栏行动 Banner：左利益点 + 右按钮 ── */
+.banner-cta {
+  padding: var(--s6) 0; background: var(--bg-surface);
+  border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
+}
+.banner-cta--dark { background: var(--avo-900); border-color: rgba(255,255,255,.1); }
+.banner-cta__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s6); flex-wrap: wrap; }
+.banner-cta__text { display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap; }
+.banner-cta__eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--seal);
+}
+.banner-cta__head { font-family: var(--font-serif); font-size: clamp(19px, 2.2vw, 26px); font-weight: 560; color: var(--text-primary); line-height: 1.15; }
+.banner-cta--dark .banner-cta__head { color: #fff; }
+.banner-cta__note { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.banner-cta--dark .banner-cta__note { color: rgba(255,255,255,.45); }
+
+/* ── 地区/客户 Logo 墙（灰度 → hover 恢复） ── */
+.regionwall { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--border-light); border-left: 1px solid var(--border-light); }
+.regionwall span {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: var(--s4) var(--s3); border-right: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-faint); transition: var(--t-fast); text-align: center;
+}
+.regionwall span:hover { color: var(--seal); background: var(--bg-surface); }
+
+/* ── 流程步骤连接线（编号 + 动态线） ── */
+.stepsline { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s5); }
+.stepsline__dot {
+  width: 30px; height: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-mid); font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);
+}
+.stepsline__dot--on { border-color: var(--seal); color: var(--seal); }
+.stepsline__bar { flex: 1; height: 1px; background: var(--border-light); }
+.stepsline__bar--on { background: var(--seal); }
+
+/* ── Bento 不等分网格（作品/能力展示） ── */
+.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: var(--s4); }
+.bento__cell { position: relative; overflow: hidden; background: var(--bg-surface); border: 1px solid var(--border-light); }
+.bento__cell--lg { grid-column: span 2; grid-row: span 2; }
+.bento__cell--wide { grid-column: span 2; }
+.bento__body { position: absolute; left: 0; right: 0; bottom: 0; padding: var(--s4); background: linear-gradient(0deg, rgba(28,33,20,.85), transparent); }
+.bento__body h4 { color: #fff; font-size: 16px; }
+.bento__body span { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.6); }
+
+@media (max-width: 980px) {
+  .statband__grid { grid-template-columns: 1fr; gap: var(--s6); }
+  .guarantee { grid-template-columns: repeat(2, 1fr); }
+  .guarantee__item:nth-child(2) { border-right: none; }
+  .regionwall { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 620px) {
+  .guarantee { grid-template-columns: 1fr; }
+  .guarantee__item { border-right: none; padding: var(--s4) 0; }
+  .guarantee__item + .guarantee__item { padding-left: 0; }
+  .regionwall { grid-template-columns: repeat(2, 1fr); }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .banner-cta { flex-direction: column; align-items: flex-start; }
+}

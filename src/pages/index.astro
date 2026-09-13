@@ -25,6 +25,13 @@ const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }
   { icon: 'transparent',  n: '04', title: 'Transparent Costs',     body: 'Supplier price + shipping + our fee. You see everything before committing.' },
 ];
 
+const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
+  { icon: 'trust',      title: 'Verified suppliers only', body: 'Every supplier is vetted for licenses, capacity, and export history before we ever quote.' },
+  { icon: 'inspection', title: 'QC before shipping',      body: 'Physical inspection with a photo report and a clear pass/fail before your money moves.' },
+  { icon: 'payment',    title: 'Payment protection',      body: 'We pay suppliers directly and release funds only as milestones clear. No wires to strangers.' },
+  { icon: 'shipping',   title: 'DDP door delivery',       body: 'Customs and last-mile handled end-to-end. You get tracking and goods, not paperwork.' },
+];
+
 const blogPosts = [
   { cat: 'Sourcing Guide', title: 'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', slug: 'find-suppliers-1688', time: '5 min', seed: 101, hint: '1688平台/中国电商/供应商市场' },
   { cat: 'Shipping',       title: 'Air vs Sea Freight: Which to Choose for Your First Order?',        slug: 'air-vs-sea-freight',  time: '4 min', seed: 102, hint: '货运飞机/集装箱码头' },
@@ -37,6 +44,13 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
   title="Trusted China Sourcing for Global Entrepreneurs"
   description="CrossPals helps overseas entrepreneurs find, verify, and ship quality products from China."
 >
+
+<!-- ═══ 公告提醒 Banner（模板：公告提醒） ═══ -->
+<a href="/contact" class="announce">
+  <span class="announce__dot" aria-hidden="true"></span>
+  <span><strong>New:</strong> free sourcing consultation for first-time importers — supplier shortlist in 48h</span>
+  <span class="announce__arrow" aria-hidden="true">→</span>
+</a>
 
 <!-- ═══ MASTHEAD ISSUE LINE ═══ -->
 <div class="masthead">
@@ -98,6 +112,37 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
     {[...tickerItems, ...tickerItems].map(t => <span class="ticker__item">{t}</span>)}
   </div>
 </div>
+
+<!-- ═══ 地区 Logo 墙（模板：客户 Logo 墙） ═══ -->
+<section class="regionwrap" aria-label="Regions we serve">
+  <div class="container">
+    <p class="overline" style="margin-bottom:var(--s4);">Trusted by entrepreneurs in</p>
+    <div class="regionwall reveal">
+      {['Nigeria','Brazil','Mexico','Philippines','Kenya','Colombia','Egypt','Vietnam','Peru','Ghana','Chile','Indonesia'].map(r => <span>{r}</span>)}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 数据证明 Section（模板：数据证明） ═══ -->
+<section class="section--tight statband grain" style="position:relative;overflow:hidden;">
+  <div class="container statband__grid">
+    <div class="reveal">
+      <p class="overline statband__overline">By the Numbers</p>
+      <div class="statband__nums">
+        <div class="statband__num"><b>500<em>+</em></b><span>Entrepreneurs served</span></div>
+        <div class="statband__num"><b>30<em>+</em></b><span>Countries reached</span></div>
+        <div class="statband__num"><b>48<em>h</em></b><span>Supplier shortlist</span></div>
+        <div class="statband__num"><b>0</b><span>Hidden fees</span></div>
+      </div>
+    </div>
+    <ul class="statband__list reveal reveal-delay-1">
+      <li><span><b>Sourcing</b> across 1688, Alibaba &amp; direct factory networks in Yiwu, Guangzhou and Shenzhen.</span></li>
+      <li><span><b>Inspection</b> photographed and signed off at the factory before anything ships.</span></li>
+      <li><span><b>Payment</b> released to verified suppliers only — never wired to strangers.</span></li>
+      <li><span><b>Delivery</b> door-to-door DDP, customs handled, live tracking included.</span></li>
+    </ul>
+  </div>
+</section>
 
 <!-- ═══ SERVICES — 杂志目录式编号索引 ═══ -->
 <section class="section svc ledger">
@@ -197,6 +242,21 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
   </div>
 </section>
 
+<!-- ═══ 通栏行动 Banner（模板：通栏行动） ═══ -->
+<section class="banner-cta banner-cta--dark">
+  <div class="container banner-cta__inner">
+    <div class="banner-cta__text">
+      <span class="banner-cta__eyebrow">Limited slots</span>
+      <h3 class="banner-cta__head">Free sourcing consultation for first-time importers</h3>
+      <span class="banner-cta__note">No commitment · Reply within 24h</span>
+    </div>
+    <a href="/contact" class="btn btn-primary">
+      Book my slot
+      <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+    </a>
+  </div>
+</section>
+
 <!-- ═══ WHY — 刊边批注编号列表 ═══ -->
 <section class="section why bg-parchment">
   <div class="container why__grid">
@@ -270,6 +330,26 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
   </div>
 </section>
 
+<!-- ═══ 保障模块网格（模板：保障模块网格） ═══ -->
+<section class="section--tight">
+  <div class="container">
+    <div class="guar-head reveal">
+      <p class="overline">Our Guarantees</p>
+      <h2>What You Get, <em>Every Order</em></h2>
+    </div>
+    <div class="guarantee reveal">
+      {guarantees.map((g, i) => (
+        <div class="guarantee__item">
+          <span class="guarantee__n">{String(i + 1).padStart(2, '0')}</span>
+          <div class="guarantee__icon"><Icon name={g.icon} size={26} color="var(--seal)" /></div>
+          <h4>{g.title}</h4>
+          <p>{g.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FINAL CTA — 盖章 manifesto ═══ -->
 <section class="cta-final grain" style="position:relative;overflow:hidden;">
   <div class="container cta-final__inner">
@@ -303,16 +383,16 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 .masthead__rule{flex:1;height:1px;background:rgba(255,255,255,.1);}
 
 /* HERO */
-.hero{background:var(--avo-950);min-height:100vh;display:flex;flex-direction:column;}
+.hero{background:var(--avo-950);min-height:min(78vh,680px);display:flex;flex-direction:column;}
 .hero__grid{display:grid;grid-template-columns:1.05fr 0.95fr;flex:1;min-height:0;}
-.hero__left{display:flex;align-items:center;padding:120px var(--s8) var(--s8) var(--s7);}
+.hero__left{display:flex;align-items:center;padding:84px var(--s7) var(--s7) var(--s7);}
 .hero__left-inner{max-width:560px;}
-.hero__title{color:#fff;font-size:clamp(40px,5.4vw,72px);line-height:1.04;margin:var(--s3) 0 var(--s5);font-weight:560;}
+.hero__title{color:#fff;font-size:clamp(34px,4.4vw,58px);line-height:1.05;margin:var(--s2) 0 var(--s4);font-weight:560;}
 .hero__title em{font-style:italic;color:var(--seal);font-weight:400;}
-.hero__lead{color:rgba(255,255,255,.62);font-size:17px;line-height:1.75;max-width:460px;margin-bottom:var(--s5);}
-.hero__sidenote{font-family:var(--font-mono);font-size:11px;line-height:1.6;color:rgba(255,255,255,.4);border-left:1px solid var(--seal);padding-left:var(--s3);max-width:420px;margin-bottom:var(--s7);}
-.hero__actions{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s7);}
-.hero__index{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s5);padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.1);}
+.hero__lead{color:rgba(255,255,255,.62);font-size:16px;line-height:1.7;max-width:460px;margin-bottom:var(--s4);}
+.hero__sidenote{font-family:var(--font-mono);font-size:11px;line-height:1.6;color:rgba(255,255,255,.4);border-left:1px solid var(--seal);padding-left:var(--s3);max-width:420px;margin-bottom:var(--s5);}
+.hero__actions{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s5);}
+.hero__index{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s5);padding-top:var(--s4);border-top:1px solid rgba(255,255,255,.1);}
 .hero__index li{display:flex;align-items:baseline;gap:6px;font-family:var(--font-serif);font-size:15px;color:rgba(255,255,255,.7);}
 .hero__index li span{font-family:var(--font-mono);font-size:10px;color:var(--seal);letter-spacing:.08em;}
 
@@ -328,95 +408,102 @@ const tickerItems = ['Lagos', 'São Paulo', 'Mexico City', 'Manila', 'Nairobi', 
 
 /* SERVICES — 目录式 */
 .svc{background:var(--bg-page);}
-.svc__wrap{display:grid;grid-template-columns:300px 1fr;gap:var(--s9);align-items:start;}
+.svc__wrap{display:grid;grid-template-columns:300px 1fr;gap:var(--s7);align-items:start;}
 .svc__aside{position:sticky;top:100px;}
 .svc__h em{font-style:italic;color:var(--avo-600);}
-.svc__intro{font-size:15px;line-height:1.75;color:var(--text-body);margin:var(--s5) 0;}
+.svc__intro{font-size:15px;line-height:1.7;color:var(--text-body);margin:var(--s4) 0;}
 .svc__all{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--seal);text-transform:uppercase;}
 .svc__list{list-style:none;display:flex;flex-direction:column;}
-.svc-row{display:grid;grid-template-columns:64px 200px 1fr;gap:var(--s5);align-items:center;padding:var(--s6) 0;border-top:1px solid var(--border-light);}
+.svc-row{display:grid;grid-template-columns:56px 180px 1fr;gap:var(--s5);align-items:center;padding:var(--s5) 0;border-top:1px solid var(--border-light);}
 .svc-row:last-child{border-bottom:1px solid var(--border-light);}
-.svc-row__num .indexnum{font-size:48px;}
+.svc-row__num .indexnum{font-size:40px;}
 .svc-row__thumb :global(.img-ph){border:1px solid var(--border-light);}
 .svc-row__top{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s2);flex-wrap:wrap;}
-.svc-row__body h3{font-size:clamp(20px,2.4vw,28px);}
-.svc-row__body p{font-size:14px;line-height:1.7;margin:var(--s2) 0 var(--s4);max-width:520px;}
+.svc-row__body h3{font-size:clamp(19px,2.1vw,25px);}
+.svc-row__body p{font-size:14px;line-height:1.65;margin:var(--s2) 0 var(--s3);max-width:520px;}
 .svc-row__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);}
 .svc-row__link:hover{gap:10px;}
-.svc-row--featured{background:var(--avo-950);padding:var(--s6);margin:var(--s4) 0;border-top:none;border-bottom:none;}
+.svc-row--featured{background:var(--avo-950);padding:var(--s5);margin:var(--s3) 0;border-top:none;border-bottom:none;}
 .svc-row--featured + .svc-row{border-top:none;}
 .svc-row--featured .svc-row__body h3{color:#fff;}
 .svc-row--featured .svc-row__body p{color:rgba(255,255,255,.62);}
 .svc-row--featured .svc-row__num .indexnum{color:var(--avo-300);}
 .svc-row--featured .svc-row__thumb :global(.img-ph){border-color:rgba(255,255,255,.15);}
 
+/* 地区 Logo 墙（模板：客户 Logo 墙） */
+.regionwrap{padding:var(--section-y-sm) var(--s5);background:var(--bg-page);}
+
+/* 保障模块标题 */
+.guar-head{margin-bottom:var(--s6);}
+.guar-head h2 em{font-style:italic;color:var(--avo-600);}
+
 /* HOW IT WORKS — manifest */
 .hiw{background:var(--avo-950);}
-.hiw__head{margin-bottom:var(--s8);}
+.hiw__head{margin-bottom:var(--head-gap);}
 .hiw__head h2 em{font-style:italic;color:var(--avo-300);}
 .manifest{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.15);position:relative;}
-.manifest__col{padding:var(--s6) var(--s5) var(--s7) 0;border-right:1px solid rgba(255,255,255,.08);}
-.manifest__day{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:var(--s4);}
-.manifest__n{display:block;font-family:var(--font-serif);font-size:64px;font-weight:600;color:rgba(255,255,255,.1);line-height:1;margin-bottom:var(--s3);}
-.manifest__title{color:#fff;font-size:19px;margin-bottom:var(--s3);}
+.manifest__col{padding:var(--s5) var(--s5) var(--s6) 0;border-right:1px solid rgba(255,255,255,.08);}
+.manifest__day{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:var(--s3);}
+.manifest__n{display:block;font-family:var(--font-serif);font-size:46px;font-weight:600;color:rgba(255,255,255,.1);line-height:1;margin-bottom:var(--s2);}
+.manifest__title{color:#fff;font-size:18px;margin-bottom:var(--s2);}
 .manifest__body{font-size:14px;color:rgba(255,255,255,.5);}
 .manifest__stamp{position:absolute;right:0;top:-10px;}
-.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s8);}
+.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6);}
 
 /* TESTIMONIALS — pull-quote */
 .testi{background:var(--warm-100);}
-.testi__head{margin-bottom:var(--s7);}
+.testi__head{margin-bottom:var(--head-gap);}
 .testi__head h2 em{font-style:italic;color:var(--avo-600);}
-.pullquote{position:relative;margin:0 0 var(--s7);padding:var(--s5) 0 var(--s5) var(--s7);border-left:2px solid var(--seal);}
-.pullquote__mark{position:absolute;left:-6px;top:-26px;font-family:var(--font-serif);font-size:96px;line-height:1;color:var(--seal);opacity:.25;}
-.pullquote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(22px,3vw,34px);line-height:1.4;color:var(--text-primary);max-width:820px;}
-.pullquote footer{display:flex;align-items:center;gap:var(--s5);margin-top:var(--s5);flex-wrap:wrap;}
+.pullquote{position:relative;margin:0 0 var(--s6);padding:var(--s4) 0 var(--s4) var(--s6);border-left:2px solid var(--seal);}
+.pullquote__mark{position:absolute;left:-6px;top:-22px;font-family:var(--font-serif);font-size:80px;line-height:1;color:var(--seal);opacity:.25;}
+.pullquote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(20px,2.5vw,29px);line-height:1.4;color:var(--text-primary);max-width:820px;}
+.pullquote footer{display:flex;align-items:center;gap:var(--s5);margin-top:var(--s4);flex-wrap:wrap;}
 .pullquote__region{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
 .pullquote__result{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--seal);}
 .testi__row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s5);}
-.pq-sm{margin:0;padding:var(--s5) 0;border-top:1px solid var(--border-light);}
-.pq-sm p{font-family:var(--font-serif);font-style:italic;font-size:17px;line-height:1.5;color:var(--text-primary);margin-bottom:var(--s4);}
+.pq-sm{margin:0;padding:var(--s4) 0;border-top:1px solid var(--border-light);}
+.pq-sm p{font-family:var(--font-serif);font-style:italic;font-size:16px;line-height:1.5;color:var(--text-primary);margin-bottom:var(--s3);}
 .pq-sm footer{display:flex;flex-direction:column;gap:4px;}
 .pq-sm footer span:first-child{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
 .pq-sm footer span:last-child{font-family:var(--font-mono);font-size:12px;font-weight:500;}
-.testi__stat{background:var(--avo-950);padding:var(--s6);display:flex;flex-direction:column;}
+.testi__stat{background:var(--avo-950);padding:var(--s5);display:flex;flex-direction:column;}
 .testi__stat p{color:rgba(255,255,255,.55);font-size:14px;}
-.testi__bignum{font-family:var(--font-serif);font-size:64px;font-weight:600;color:#fff;line-height:1;margin:var(--s3) 0;}
+.testi__bignum{font-family:var(--font-serif);font-size:52px;font-weight:600;color:#fff;line-height:1;margin:var(--s2) 0;}
 .testi__bignum span{color:var(--avo-300);}
 
 /* WHY */
 .why{background:var(--warm-100);}
-.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s10);align-items:start;}
+.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s7);align-items:start;}
 .why h2 em{font-style:italic;color:var(--avo-600);}
 .why__right{display:flex;flex-direction:column;}
-.why-item{display:grid;grid-template-columns:72px 1fr;gap:var(--s5);padding:var(--s6) 0;border-bottom:1px solid var(--border-light);}
+.why-item{display:grid;grid-template-columns:64px 1fr;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid var(--border-light);}
 .why-item:first-child{padding-top:0;}
 .why-item:last-child{border-bottom:none;}
-.why-item__n{font-size:44px;}
-.why-item__body h4{font-size:19px;margin-bottom:var(--s2);}
+.why-item__n{font-size:36px;}
+.why-item__body h4{font-size:18px;margin-bottom:var(--s2);}
 .why-item__body p{font-size:14px;}
-.why-item__note{margin-top:var(--s3);}
+.why-item__note{margin-top:var(--s2);}
 
 /* BLOG */
 .blog-prev{background:var(--bg-page);}
-.blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--s8);}
+.blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--head-gap);}
 .blog-prev__head h2 em{font-style:italic;color:var(--avo-600);}
-.blog-prev__grid{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--s6);}
-.blog-prev__side{display:flex;flex-direction:column;gap:var(--s6);}
+.blog-prev__grid{display:grid;grid-template-columns:1.4fr 1fr;gap:var(--s5);}
+.blog-prev__side{display:flex;flex-direction:column;gap:var(--s5);}
 .bcard{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--bg-surface);border:1px solid var(--border-light);transition:var(--t-med);}
 .bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
 .bcard--feat :global(.img-ph){border-bottom:1px solid var(--border-light);}
 .bcard__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
 .bcard__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--avo-600);}
-.bcard--feat h3{font-size:clamp(22px,2.6vw,30px);line-height:1.25;flex:1;transition:color var(--t-fast);}
+.bcard--feat h3{font-size:clamp(21px,2.4vw,27px);line-height:1.25;flex:1;transition:color var(--t-fast);}
 .bcard--feat:hover h3{color:var(--avo-700);}
-.bcard--sm h4{font-size:17px;line-height:1.3;flex:1;}
+.bcard--sm h4{font-size:16px;line-height:1.3;flex:1;}
 .bcard__foot{display:flex;justify-content:space-between;align-items:center;padding-top:var(--s4);border-top:1px solid var(--border-light);margin-top:auto;}
 .bcard__time{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--warm-400);font-family:var(--font-mono);}
 
 /* CTA FINAL */
-.cta-final{background:var(--avo-950);padding:var(--s9) var(--s5);position:relative;overflow:hidden;}
-.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s8);flex-wrap:wrap;}
+.cta-final{background:var(--avo-950);padding:var(--section-y) var(--s5);position:relative;overflow:hidden;}
+.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s7);flex-wrap:wrap;}
 .cta-final__text{position:relative;max-width:560px;}
 .cta-final__seal{position:absolute;top:-30px;right:0;background:rgba(28,33,20,.5);border-color:var(--seal);color:#fff;}
 .cta-final__form{display:flex;flex-direction:column;gap:var(--s3);min-width:360px;}
