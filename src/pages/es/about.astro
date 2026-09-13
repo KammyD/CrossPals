@@ -1,26 +1,171 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
-import ContactForm from '../../components/ContactForm.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+
+const values: Array<{ icon: IconName; n: string; title: string; body: string }> = [
+  { icon: 'trust',        n: '01', title: 'Confianza Primero',     body: 'Solo recomendamos proveedores que hemos verificado personalmente. Tu dinero está seguro porque tratamos cada transacción como propia.' },
+  { icon: 'global',       n: '02', title: 'Perspectiva Global',    body: 'Nuestro equipo abarca China y varios continentes. Entendemos el contexto cultural de ambos lados de cada trato.' },
+  { icon: 'transparent',  n: '03', title: 'Transparencia Radical',  body: 'Precio de proveedor, costo de envío, nuestra tarifa — ves cada número antes de comprometerte. Sin recargos ocultos.' },
+  { icon: 'endtoend',     n: '04', title: 'Propiedad de Extremo a Extremo', body: 'Desde la primera consulta hasta la confirmación de entrega, un agente dedicado maneja todo tu recorrido. No te transferimos.' },
+];
+
+const team = [
+  { name: 'Wei Zhang',     role: 'Jefe de Abastecimiento, Yiwu',        bio: '12 años buscando en mercados de Yiwu, Guangzhou y Shenzhen. Fluido en la psicología de proveedores.', seed: 301, hint: '专业人像照' },
+  { name: 'Amara Osei',   role: 'Éxito de Clientes, África y Medio Oriente', bio: 'Emprendedora que construyó su propia marca abastecida desde China. Ahora ayuda a otros a hacer lo mismo.', seed: 302, hint: '专业人像照' },
+  { name: 'Carlos Mendez', role: 'Operaciones Latinoamérica',          bio: 'Especialista en logística con conocimiento profundo de regulaciones de importación en México, Brasil y Colombia.', seed: 303, hint: '专业人像照' },
+];
+
+const gallery = [
+  { seed: 401, hint: '义乌小商品市场/广交会' },
+  { seed: 402, hint: '工厂生产线/质检' },
+  { seed: 403, hint: '装箱打包/出发' },
+  { seed: 404, hint: '收货开箱/使用' },
+];
 ---
-<!-- This file is intentionally minimal — see EN version for full content -->
 <BaseLayout title="Sobre Nosotros" description="CrossPals fue creado por traders y emprendedores." lang="es">
   <PageHero overline="Nuestra Historia" title="Un Equipo que<br /><em style='font-style:italic;color:var(--avo-300)'>Une Mundos</em>" subtitle="Construimos el socio que deseábamos tener cuando empezamos." />
+
   <section class="section">
-    <div class="container" style="max-width:720px;">
-      <p class="overline">Por Qué Existimos</p>
-      <h2 style="margin-bottom:var(--s5);">Construido desde la<br /><em style="color:var(--avo-600);font-style:italic;">Frustración</em></h2>
-      <p style="font-size:17px;line-height:1.8;margin-bottom:var(--s5);">CrossPals fue fundado por veteranos del comercio y emprendedores que vieron lo difícil que era para startups en el exterior acceder a proveedores chinos confiables. Las barreras idiomáticas, el riesgo de fraude y los precios opacos arruinaban demasiados negocios.</p>
-      <p style="font-size:17px;line-height:1.8;margin-bottom:var(--s8);">Creamos CrossPals para ser el socio de confianza que desearíamos haber tenido — combinando redes de proveedores en China con la transparencia que merecen los emprendedores internacionales.</p>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);margin-bottom:var(--s8);">
-        {[{n:'500+',l:'Emprendedores atendidos'},{n:'$2M+',l:'Mercancía abastecida'},{n:'30+',l:'Países alcanzados'},{n:'98%',l:'Satisfacción en primeros pedidos'}].map(s=>(
-          <div style="padding:var(--s6);background:var(--avo-50);border:1px solid var(--avo-200);border-radius:var(--r3);">
-            <strong style="display:block;font-family:var(--font-serif);font-size:48px;font-weight:700;color:var(--avo-700);line-height:1;margin-bottom:6px;">{s.n}</strong>
-            <span style="font-size:13px;color:var(--text-body);font-family:var(--font-mono);">{s.l}</span>
+    <div class="container about-grid">
+      <div class="about-text reveal">
+        <p class="overline">Por Qué Existimos</p>
+        <h2>Construido desde la<br/><em>Frustración, con Propósito</em></h2>
+        <div class="divider" style="margin:var(--s5) 0;"></div>
+        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">CrossPals fue fundado por veteranos del comercio y emprendedores que vieron lo difícil que era para startups en el exterior acceder a proveedores chinos confiables. Las barreras idiomáticas, el riesgo de fraude y los precios opacos arruinaban demasiados negocios.</p>
+        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">Creamos CrossPals para ser el socio de confianza que desearíamos haber tenido — combinando redes de proveedores en China con la transparencia que merecen los emprendedores internacionales.</p>
+        <p class="sidenote" style="margin-bottom:var(--s7);">Hoy servimos a emprendedores en 30+ países, de Lagos a São Paulo a Manila.</p>
+        <ImgPlaceholder seed={200} width={900} height={500} ratio="16/9" alt="Equipo CrossPals" hint="团队工作照/办公室" />
+        <div class="mission-card reveal reveal-delay-2">
+          <div class="mission-card__icon"><Icon name="compass" size={24} color="var(--seal)" /></div>
+          <div>
+            <strong>Nuestra Misión</strong>
+            <p>Hacer que el abastecimiento desde China sea accesible, seguro y rentable para todo emprendedor del mundo — sin importar experiencia o presupuesto.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="about-stats reveal reveal-delay-1">
+        {[{ n:'500+', l:'Emprendedores atendidos' },{ n:'$2M+', l:'Mercancía abastecida' },{ n:'30+', l:'Países alcanzados' },{ n:'98%', l:'Satisfacción en primeros pedidos' }].map(s => (
+          <div class="astat"><strong>{s.n}</strong><span>{s.l}</span></div>
+        ))}
+      </aside>
+    </div>
+  </section>
+
+  <section class="section bg-parchment">
+    <div class="container">
+      <div class="section-hd reveal" style="max-width:560px;margin-bottom:var(--s8);">
+        <p class="overline">Qué Defendemos</p>
+        <h2>Cuatro Valores,<br/><em>un Estándar</em></h2>
+      </div>
+      <ol class="vals">
+        {values.map((v, i) => (
+          <li class:list={['val-row reveal', `reveal-delay-${i}`]}>
+            <span class="indexnum val-row__n">{v.n}</span>
+            <div class="val-row__body">
+              <h4>{v.title}</h4>
+              <p>{v.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-hd reveal" style="max-width:480px;margin-bottom:var(--s8);">
+        <p class="overline">Las Personas</p>
+        <h2>Conoce al<br/><em>Equipo CrossPals</em></h2>
+      </div>
+      <div class="team">
+        {team.map((m, i) => (
+          <figure class:list={['team-card reveal', `reveal-delay-${i}`]}>
+            <ImgPlaceholder seed={m.seed} width={400} height={500} ratio="4/5" alt={m.name} hint={m.hint} />
+            <figcaption class="team-card__info">
+              <h4>{m.name}</h4>
+              <p class="team-card__role">{m.role}</p>
+              <p>{m.bio}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-parchment" style="padding-top:0;">
+    <div class="container">
+      <div class="section-hd reveal" style="padding-top:var(--s9);margin-bottom:var(--s6);">
+        <p class="overline">Sobre el Terreno</p>
+        <h2 style="font-size:clamp(24px,3vw,36px);">Del Piso de la<br/><em>Fábrica a tu Puerta</em></h2>
+      </div>
+      <div class="gallery-strip">
+        {gallery.map((g, i) => (
+          <div class:list={['gallery-item reveal', `reveal-delay-${i}`]}>
+            <ImgPlaceholder seed={g.seed} width={400} height={533} ratio="3/4" alt="CrossPals en acción" hint={g.hint} />
           </div>
         ))}
       </div>
-      <a href="/es/contact" class="btn btn-primary">Cotización Gratis <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <p class="overline overline--light reveal">Trabaja Con Nosotros</p>
+      <h2 style="color:#fff;margin-bottom:var(--s5);" class="reveal reveal-delay-1">¿Listo para tu<br/><em style="color:var(--avo-300)">Viaje de Abastecimiento?</em></h2>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s7);" class="reveal reveal-delay-2">Envíanos tu primera consulta — sin compromiso. Te mostraremos exactamente cómo puede verse abastecer desde China para tu negocio.</p>
+      <a href="/es/contact" class="btn btn-primary reveal reveal-delay-3">Cotización Gratis
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg></a>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  h2 em{font-style:italic;color:var(--avo-600);}
+  .about-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:var(--s10);align-items:start;}
+  .about-text h2{margin-bottom:var(--s5);}
+  .mission-card{display:flex;gap:var(--s4);background:var(--avo-50);border:1px solid var(--avo-200);border-left:2px solid var(--seal);padding:var(--s5);margin-top:var(--s7);}
+  .mission-card__icon{flex-shrink:0;}
+  .mission-card strong{display:block;font-family:var(--font-serif);font-size:16px;color:var(--avo-800);margin-bottom:6px;}
+  .mission-card p{font-size:14px;margin:0;}
+  .about-stats{display:flex;flex-direction:column;position:sticky;top:100px;border-top:2px solid var(--seal);}
+  .astat{padding:var(--s6) 0;border-bottom:1px solid var(--border-light);}
+  .astat:last-child{border-bottom:none;}
+  .astat strong{display:block;font-family:var(--font-serif);font-size:clamp(40px,5vw,60px);font-weight:600;color:var(--avo-600);line-height:1;margin-bottom:6px;}
+  .astat span{font-size:13px;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:.04em;}
+  .section-hd h2 em{font-style:italic;color:var(--avo-600);}
+  .vals{list-style:none;display:flex;flex-direction:column;}
+  .val-row{display:grid;grid-template-columns:80px 1fr;gap:var(--s6);padding:var(--s6) 0;border-top:1px solid var(--border-light);align-items:start;}
+  .val-row:last-child{border-bottom:1px solid var(--border-light);}
+  .val-row__n{font-size:48px;}
+  .val-row__body h4{font-size:clamp(20px,2.4vw,28px);margin-bottom:var(--s2);}
+  .val-row__body p{font-size:15px;max-width:640px;}
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);}
+  .team-card{margin:0;display:flex;flex-direction:column;}
+  .team-card :global(.img-ph){border:1px solid var(--border-light);}
+  .team-card__info{padding:var(--s5) 0 0;}
+  .team-card h4{font-size:21px;margin-bottom:4px;}
+  .team-card__role{font-size:11px;font-weight:600;color:var(--seal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4);font-family:var(--font-mono);}
+  .team-card p{font-size:14px;}
+  .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);}
+  .gallery-item{overflow:hidden;}
+  .gallery-item :global(img){transition:transform .5s var(--ease-out);}
+  .gallery-item:hover :global(img){transform:scale(1.06);}
+  @media(max-width:960px){
+    .about-grid{grid-template-columns:1fr;gap:var(--s7);}
+    .about-stats{position:static;flex-direction:row;flex-wrap:wrap;}
+    .astat{flex:1;min-width:140px;border-bottom:none;border-right:1px solid var(--border-light);padding:var(--s5);}
+    .astat:last-child{border-right:none;}
+    .team{grid-template-columns:1fr;max-width:380px;}
+    .gallery-strip{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:540px){
+    .vals{grid-template-columns:1fr;}
+    .val-row{grid-template-columns:56px 1fr;gap:var(--s4);}
+    .astat{border-right:none;border-bottom:1px solid var(--border-light);}
+    .about-stats{flex-direction:column;}
+    .gallery-strip{grid-template-columns:1fr;}
+  }
+</style>

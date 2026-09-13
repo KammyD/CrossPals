@@ -1,0 +1,99 @@
+{
+  "siteId": "crosspals",
+  "analyzedAt": "2026-09-11T01:33:39.260Z",
+  "contentSources": [],
+  "codeSources": [
+    {
+      "name": "components",
+      "label": "组件",
+      "path": "src/components",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "confidence": 0.99,
+      "confidenceSource": "ai-high",
+      "reason": "包含网站的各类可复用组件",
+      "lockedByUser": false
+    },
+    {
+      "name": "i18n",
+      "label": "国际化",
+      "path": "src/i18n",
+      "type": "code",
+      "fileTypes": [
+        ".ts"
+      ],
+      "confidence": 0.95,
+      "confidenceSource": "ai-high",
+      "reason": "包含多语言翻译文件和工具函数",
+      "lockedByUser": false
+    },
+    {
+      "name": "layouts",
+      "label": "布局",
+      "path": "src/layouts",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "confidence": 0.99,
+      "confidenceSource": "ai-high",
+      "reason": "包含网站的基础布局模板",
+      "lockedByUser": false
+    },
+    {
+      "name": "pages",
+      "label": "页面",
+      "path": "src/pages",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "confidence": 0.99,
+      "confidenceSource": "ai-high",
+      "reason": "包含网站的路由页面文件",
+      "lockedByUser": false
+    },
+    {
+      "name": "blog",
+      "label": "博客页面",
+      "path": "src/pages/blog",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "confidence": 0.98,
+      "confidenceSource": "ai-high",
+      "reason": "包含博客列表和详情页的模板",
+      "lockedByUser": false
+    },
+    {
+      "name": "es",
+      "label": "西班牙语页面",
+      "path": "src/pages/es",
+      "type": "unknown",
+      "fileTypes": [
+        ".astro"
+      ],
+      "confidence": 0.5,
+      "confidenceSource": "ai-low",
+      "reason": "可能是内容也可能是代码，需要更多信息",
+      "lockedByUser": false
+    },
+    {
+      "name": "styles",
+      "label": "样式",
+      "path": "src/styles",
+      "type": "code",
+      "fileTypes": [
+        ".css"
+      ],
+      "confidence": 0.99,
+      "confidenceSource": "ai-high",
+      "reason": "包含全局样式文件",
+      "lockedByUser": false
+    }
+  ],
+  "unknownSources": []
+}

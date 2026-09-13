@@ -13,23 +13,23 @@ const values: Array<{ icon: IconName; n: string; title: string; body: string }> 
 ];
 
 const team = [
-  { name: 'Wei Zhang',     role: 'Head of Sourcing, Yiwu',              bio: '12 years sourcing across Yiwu, Guangzhou, and Shenzhen markets. Fluent in supplier psychology.', seed: 301, hint: '建议：专业人像照，中国市场背景' },
-  { name: 'Amara Osei',    role: 'Client Success, Africa & Middle East', bio: 'Former entrepreneur who built her own China-sourced brand. Now she helps others do the same.', seed: 302, hint: '建议：专业人像照，温暖自信的表情' },
-  { name: 'Carlos Mendez', role: 'Latin America Operations',             bio: 'Logistics specialist with deep knowledge of import regulations across Mexico, Brazil, and Colombia.', seed: 303, hint: '建议：专业人像照，商务风格' },
+  { name: 'Wei Zhang',     role: 'Head of Sourcing, Yiwu',              bio: '12 years sourcing across Yiwu, Guangzhou, and Shenzhen markets. Fluent in supplier psychology.', seed: 301, hint: '专业人像照，中国市场背景' },
+  { name: 'Amara Osei',    role: 'Client Success, Africa & Middle East', bio: 'Former entrepreneur who built her own China-sourced brand. Now she helps others do the same.', seed: 302, hint: '专业人像照，温暖自信' },
+  { name: 'Carlos Mendez', role: 'Latin America Operations',             bio: 'Logistics specialist with deep knowledge of import regulations across Mexico, Brazil, and Colombia.', seed: 303, hint: '专业人像照，商务风格' },
 ];
 
 const gallery = [
-  { seed: 401, hint: '建议：义乌小商品市场/广交会现场' },
-  { seed: 402, hint: '建议：工厂生产线/质检现场' },
-  { seed: 403, hint: '建议：装箱打包/货物出发' },
-  { seed: 404, hint: '建议：客户收货开箱/产品使用场景' },
+  { seed: 401, hint: '义乌小商品市场/广交会现场' },
+  { seed: 402, hint: '工厂生产线/质检现场' },
+  { seed: 403, hint: '装箱打包/货物出发' },
+  { seed: 404, hint: '客户收货开箱/产品使用场景' },
 ];
 ---
 <BaseLayout title="About Us" description="CrossPals was built by traders and entrepreneurs who wanted to make China sourcing accessible for everyone.">
 
   <PageHero overline="Our Story" title="A Team That<br /><em style='font-style:italic;color:var(--avo-300)'>Bridges Worlds</em>" subtitle="We built the sourcing partner we wished existed when we started." />
 
-  <!-- Story -->
+  <!-- Story — 非对称编辑式 -->
   <section class="section">
     <div class="container about-grid">
       <div class="about-text reveal">
@@ -38,18 +38,12 @@ const gallery = [
         <div class="divider" style="margin:var(--s5) 0;"></div>
         <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">CrossPals was founded by a team of trade veterans and entrepreneurs who witnessed how difficult it was for overseas startups to access reliable Chinese suppliers. Language barriers, fraud risk, and opaque pricing were killing promising businesses before they started.</p>
         <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s5);">We built CrossPals to be the trusted partner we wished we had — combining deep supplier networks in China with the transparency that international entrepreneurs deserve.</p>
-        <p style="font-size:16px;line-height:1.8;margin-bottom:var(--s7);">Today we serve entrepreneurs across 30+ countries, from Lagos to São Paulo to Manila.</p>
+        <p class="sidenote" style="margin-bottom:var(--s7);">Today we serve entrepreneurs across 30+ countries, from Lagos to São Paulo to Manila.</p>
 
-        <!-- 📸 Company photo -->
-        <ImgPlaceholder seed={200} width={900} height={500} ratio="16/9"
-          alt="CrossPals team at work"
-          hint="建议：团队工作照/办公室全景/中国市场调研，横向16:9"
-          rounded={true} />
+        <ImgPlaceholder seed={200} width={900} height={500} ratio="16/9" alt="CrossPals team at work" hint="团队工作照/办公室全景/中国市场调研" />
 
         <div class="mission-card reveal reveal-delay-2">
-          <div class="mission-card__icon">
-            <Icon name="compass" size={24} color="#4d6330" />
-          </div>
+          <div class="mission-card__icon"><Icon name="compass" size={24} color="var(--seal)" /></div>
           <div>
             <strong>Our Mission</strong>
             <p>Make China sourcing accessible, safe, and profitable for every entrepreneur in the world — regardless of experience or budget.</p>
@@ -57,7 +51,7 @@ const gallery = [
         </div>
       </div>
 
-      <div class="about-stats reveal reveal-delay-1">
+      <aside class="about-stats reveal reveal-delay-1">
         {[
           { n:'500+', label:'Entrepreneurs served' },
           { n:'$2M+', label:'In goods sourced & delivered' },
@@ -69,58 +63,54 @@ const gallery = [
             <span>{s.label}</span>
           </div>
         ))}
-      </div>
+      </aside>
     </div>
   </section>
 
-  <!-- Values — SVG icons replacing emoji -->
+  <!-- Values — 编号编辑式（非卡片网格） -->
   <section class="section bg-parchment">
     <div class="container">
-      <div class="section-hd reveal" style="text-align:center;max-width:560px;margin:0 auto var(--s8);">
+      <div class="section-hd reveal" style="max-width:560px;margin-bottom:var(--s8);">
         <p class="overline">What We Stand For</p>
         <h2>Four Values,<br/><em>One Standard</em></h2>
       </div>
-      <div class="vals-grid">
+      <ol class="vals">
         {values.map((v, i) => (
-          <div class:list={['val-card reveal', `reveal-delay-${i}`]}>
-            <div class="val-card__top">
-              <div class="val-card__icon-bg">
-                <Icon name={v.icon} size={22} color="#637d3e" />
-              </div>
-              <span class="val-card__n">{v.n}</span>
+          <li class:list={['val-row reveal', `reveal-delay-${i}`]}>
+            <span class="indexnum val-row__n">{v.n}</span>
+            <div class="val-row__body">
+              <h4>{v.title}</h4>
+              <p>{v.body}</p>
             </div>
-            <h4>{v.title}</h4>
-            <p>{v.body}</p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 
-  <!-- Team — photo placeholders -->
+  <!-- Team — 横向刊头式（非卡片网格） -->
   <section class="section">
     <div class="container">
       <div class="section-hd reveal" style="max-width:480px;margin-bottom:var(--s8);">
         <p class="overline">The People</p>
         <h2>Meet the<br/><em>CrossPals Team</em></h2>
       </div>
-      <div class="team-grid">
+      <div class="team">
         {team.map((m, i) => (
-          <div class:list={['team-card reveal', `reveal-delay-${i}`]}>
-            <ImgPlaceholder seed={m.seed} width={400} height={400} ratio="1/1"
-              alt={m.name} hint={m.hint} />
-            <div class="team-card__info">
+          <figure class:list={['team-card reveal', `reveal-delay-${i}`]}>
+            <ImgPlaceholder seed={m.seed} width={400} height={500} ratio="4/5" alt={m.name} hint={m.hint} />
+            <figcaption class="team-card__info">
               <h4>{m.name}</h4>
               <p class="team-card__role">{m.role}</p>
               <p>{m.bio}</p>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Gallery strip -->
+  <!-- Gallery strip — 全出血 -->
   <section class="section bg-parchment" style="padding-top:0;">
     <div class="container">
       <div class="section-hd reveal" style="padding-top:var(--s9);margin-bottom:var(--s6);">
@@ -130,8 +120,7 @@ const gallery = [
       <div class="gallery-strip">
         {gallery.map((g, i) => (
           <div class:list={['gallery-item reveal', `reveal-delay-${i}`]}>
-            <ImgPlaceholder seed={g.seed} width={400} height={533} ratio="3/4"
-              alt="CrossPals in action" hint={g.hint} rounded={true} />
+            <ImgPlaceholder seed={g.seed} width={400} height={533} ratio="3/4" alt="CrossPals in action" hint={g.hint} />
           </div>
         ))}
       </div>
@@ -159,39 +148,52 @@ const gallery = [
 
 <style>
   h2 em{font-style:italic;color:var(--avo-600);}
-  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--s10);align-items:start;}
+  .about-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:var(--s10);align-items:start;}
   .about-text h2{margin-bottom:var(--s5);}
-  .mission-card{display:flex;gap:var(--s4);background:var(--avo-50);border:1px solid var(--avo-200);border-radius:var(--r3);padding:var(--s5);margin-top:var(--s7);}
-  .mission-card__icon{width:44px;height:44px;background:var(--avo-100);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mission-card{display:flex;gap:var(--s4);background:var(--avo-50);border:1px solid var(--avo-200);border-left:2px solid var(--seal);padding:var(--s5);margin-top:var(--s7);}
+  .mission-card__icon{flex-shrink:0;}
   .mission-card strong{display:block;font-family:var(--font-serif);font-size:16px;color:var(--avo-800);margin-bottom:6px;}
   .mission-card p{font-size:14px;margin:0;}
-  .about-stats{display:flex;flex-direction:column;position:sticky;top:100px;}
+  .about-stats{display:flex;flex-direction:column;position:sticky;top:100px;border-top:2px solid var(--seal);}
   .astat{padding:var(--s6) 0;border-bottom:1px solid var(--border-light);}
   .astat:last-child{border-bottom:none;}
-  .astat strong{display:block;font-family:var(--font-serif);font-size:clamp(40px,5vw,60px);font-weight:700;color:var(--avo-600);line-height:1;margin-bottom:6px;}
+  .astat strong{display:block;font-family:var(--font-serif);font-size:clamp(40px,5vw,60px);font-weight:600;color:var(--avo-600);line-height:1;margin-bottom:6px;}
   .astat span{font-size:13px;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:.04em;}
+
   .section-hd h2 em{font-style:italic;color:var(--avo-600);}
-  .vals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);}
-  .val-card{background:var(--bg-surface);border-radius:var(--r3);padding:var(--s7) var(--s5);border:1px solid var(--border-light);transition:var(--t-med);}
-  .val-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
-  .val-card__top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s5);}
-  .val-card__icon-bg{width:44px;height:44px;border-radius:10px;background:var(--avo-100);display:flex;align-items:center;justify-content:center;}
-  .val-card__n{font-family:var(--font-mono);font-size:11px;color:var(--warm-400);}
-  .val-card h4{font-size:17px;margin-bottom:var(--s3);}
-  .val-card p{font-size:14px;}
-  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);}
-  .team-card{background:var(--bg-surface);border-radius:var(--r3);border:1px solid var(--border-light);overflow:hidden;transition:var(--t-med);}
-  .team-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
-  .team-card :global(.img-ph){border-radius:0;}
-  .team-card :global(.img-ph__wrap){border-radius:0;}
-  .team-card__info{padding:var(--s5);}
-  .team-card h4{font-size:19px;margin-bottom:4px;}
-  .team-card__role{font-size:11px;font-weight:600;color:var(--avo-600);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4);font-family:var(--font-mono);}
+  .vals{list-style:none;display:flex;flex-direction:column;}
+  .val-row{display:grid;grid-template-columns:80px 1fr;gap:var(--s6);padding:var(--s6) 0;border-top:1px solid var(--border-light);align-items:start;}
+  .val-row:last-child{border-bottom:1px solid var(--border-light);}
+  .val-row__n{font-size:48px;}
+  .val-row__body h4{font-size:clamp(20px,2.4vw,28px);margin-bottom:var(--s2);}
+  .val-row__body p{font-size:15px;max-width:640px;}
+
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);}
+  .team-card{margin:0;display:flex;flex-direction:column;}
+  .team-card :global(.img-ph){border:1px solid var(--border-light);}
+  .team-card__info{padding:var(--s5) 0 0;}
+  .team-card h4{font-size:21px;margin-bottom:4px;}
+  .team-card__role{font-size:11px;font-weight:600;color:var(--seal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s4);font-family:var(--font-mono);}
   .team-card p{font-size:14px;}
+
   .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);}
-  .gallery-item{overflow:hidden;border-radius:var(--r3);}
+  .gallery-item{overflow:hidden;}
   .gallery-item :global(img){transition:transform .5s var(--ease-out);}
   .gallery-item:hover :global(img){transform:scale(1.06);}
-  @media(max-width:960px){.about-grid{grid-template-columns:1fr}.about-stats{position:static;flex-direction:row;flex-wrap:wrap}.astat{flex:1;min-width:140px;border-bottom:none;border-right:1px solid var(--border-light);padding:var(--s5)}.astat:last-child{border-right:none}.vals-grid{grid-template-columns:repeat(2,1fr)}.team-grid{grid-template-columns:1fr;max-width:380px}.gallery-strip{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:540px){.vals-grid{grid-template-columns:1fr}.about-stats{flex-direction:column}.astat{border-right:none;border-bottom:1px solid var(--border-light)}.gallery-strip{grid-template-columns:1fr}}
+
+  @media(max-width:960px){
+    .about-grid{grid-template-columns:1fr;gap:var(--s7);}
+    .about-stats{position:static;flex-direction:row;flex-wrap:wrap;}
+    .astat{flex:1;min-width:140px;border-bottom:none;border-right:1px solid var(--border-light);padding:var(--s5);}
+    .astat:last-child{border-right:none;}
+    .team{grid-template-columns:1fr;max-width:380px;}
+    .gallery-strip{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:540px){
+    .vals{grid-template-columns:1fr;}
+    .val-row{grid-template-columns:56px 1fr;gap:var(--s4);}
+    .astat{border-right:none;border-bottom:1px solid var(--border-light);}
+    .about-stats{flex-direction:column;}
+    .gallery-strip{grid-template-columns:1fr;}
+  }
 </style>

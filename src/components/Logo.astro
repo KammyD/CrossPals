@@ -4,17 +4,31 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 const { variant = 'dark', size = 'md' } = Astro.props;
-const hs = { sm: 34, md: 42, lg: 56 };
+const hs = { sm: 30, md: 38, lg: 52 };
 const h = hs[size];
+const wordColor = variant === 'light' ? '#ffffff' : 'var(--avo-800)';
+const markColor = variant === 'light' ? 'var(--seal)' : 'var(--seal)';
 ---
-<a href="/" class="logo" aria-label="CrossPals Home">
-  <img
-    src={variant === 'light' ? '/img/logo-light.png' : '/img/logo-dark.png'}
-    alt="CrossPals"
-    height={h}
-  />
+<a href="/" class:list={['logo', `logo--${variant}`]} aria-label="CrossPals Home" style={`--lw:${h}px;--lwc:${wordColor};--lmc:${markColor};`}>
+  <span class="logo__mark" aria-hidden="true">
+    <svg viewBox="0 0 32 32" width={h} height={h} fill="none">
+      <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M9 23V9h9M9 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="square"/>
+      <circle cx="23.5" cy="11" r="2.4" fill="currentColor"/>
+    </svg>
+  </span>
+  <span class="logo__word">Cross<span class="logo__word-em">Pals</span></span>
 </a>
+
 <style>
-  .logo { display:inline-flex; align-items:center; text-decoration:none; flex-shrink:0; transition:opacity .2s; }
+  .logo { display:inline-flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; transition:opacity .2s; }
   .logo:hover { opacity:.85; }
+  .logo__mark { color: var(--lmc); display:inline-flex; line-height:0; }
+  .logo__word {
+    font-family: var(--font-serif);
+    font-size: calc(var(--lw) * 0.52);
+    font-weight: 600; font-optical-sizing: auto;
+    letter-spacing: -0.01em; color: var(--lwc); line-height: 1;
+  }
+  .logo__word-em { color: var(--lmc); font-style: italic; font-weight: 400; }
 </style>

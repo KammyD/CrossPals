@@ -378,14 +378,14 @@ function active(href: string) {
 .hdr__cta {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 20px;
-  background: var(--avo-500);
+  background: var(--seal);
   color: #fff;
-  border-radius: 6px;
+  border-radius: 0;
   font-family: var(--font-sans);
   font-size: 14px; font-weight: 600;
   letter-spacing: .02em;
   text-decoration: none; border: none; cursor: pointer;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 2px 0 var(--avo-700);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 2px 0 var(--seal-deep);
   transition: background .18s, transform .18s, box-shadow .18s;
   white-space: nowrap;
 }
@@ -394,11 +394,11 @@ function active(href: string) {
 .hdr__cta:hover svg { transform: translateX(3px); }
 
 .hdr__cta:hover {
-  background: var(--avo-400);
+  background: var(--seal-deep);
   transform: translateY(-1px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 var(--avo-700), var(--shadow-avo);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 4px 0 #7a221a;
 }
-.hdr__cta:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 var(--avo-700); }
+.hdr__cta:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 var(--seal-deep); }
 
 /* ═══════════════════════════════════════════
    MOBILE BURGER
