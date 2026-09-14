@@ -4,10 +4,27 @@ import PageHero from '../../../components/PageHero.astro';
 import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
 
-// Los casos viven en src/content/case-studies/*.md — los campos *Es del frontmatter se usan aquí.
+/* Los casos viven en src/content/case-studies/*.md; la traducción completa, si existe,
+   en src/content/case-studies-es/<mismo-slug>.md. Orden de resolución:
+   traducción -es → campo *Es del inglés → inglés. */
+const esBySlug = new Map((await getCollection('case-studies-es')).map(c => [c.slug, c]));
 const cases = (await getCollection('case-studies'))
   .filter(c => !c.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(c => {
+    const es = esBySlug.get(c.slug);
+    return {
+      slug: c.slug,
+      date: c.data.date,
+      cover: c.data.cover,
+      title:   es?.data.title   ?? c.data.titleEs   ?? c.data.title,
+      client:  es?.data.client  ?? c.data.clientEs  ?? c.data.client,
+      summary: es?.data.summary ?? c.data.summaryEs ?? c.data.summary,
+      results: es
+        ? es.data.results
+        : c.data.results.map((r, i) => ({ v: r.v, l: c.data.resultsEs?.[i] ?? r.l })),
+    };
+  });
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
 const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
@@ -25,28 +42,28 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES',
       <div class="cases">
         {cases.map((c, i) => (
           <a href={`/es/case-studies/${c.slug}`} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
-            <ImgPlaceholder src={c.data.cover} width={800} height={600} ratio="4/3" alt={c.data.titleEs ?? c.data.title} />
+            <ImgPlaceholder src={c.cover} width={800} height={600} ratio="4/3" alt={c.title} />
 
             <div class="ccard__body">
               <div class="ccard__head">
                 <span class="indexnum ccard__n">{num(i)}</span>
-                <span class="ccard__client">{c.data.clientEs ?? c.data.client}</span>
+                <span class="ccard__client">{c.client}</span>
               </div>
 
-              <h3>{c.data.titleEs ?? c.data.title}</h3>
-              <p class="ccard__sum">{c.data.summaryEs ?? c.data.summary}</p>
+              <h3>{c.title}</h3>
+              <p class="ccard__sum">{c.summary}</p>
 
               <div class="ccard__results">
-                {c.data.results.map((r, ri) => (
+                {c.results.map(r => (
                   <div class="ccard__res">
                     <strong>{r.v}</strong>
-                    <span>{c.data.resultsEs?.[ri] ?? r.l}</span>
+                    <span>{r.l}</span>
                   </div>
                 ))}
               </div>
 
               <div class="ccard__foot">
-                <time>{fmt(c.data.date)}</time>
+                <time>{fmt(c.date)}</time>
                 <span class="ccard__more">Ver el caso →</span>
               </div>
             </div>
@@ -55,7 +72,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES',
       </div>
 
       <p class="esnote reveal">
-        Cada caso incluye una narrativa completa en inglés. Si necesitas alguno en español, escríbenos y lo traducimos.
+        Cada caso incluye la narrativa completa en español: la situación, el problema, lo que hicimos y el resultado.
       </p>
     </div>
   </section>

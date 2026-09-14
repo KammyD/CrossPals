@@ -7,10 +7,26 @@ import { getCollection } from 'astro:content';
 
 // Mismos artículos que el blog en inglés (los textos están redactados en inglés).
 // El contenido vive en src/content/blog/*.md — los campos *Es del frontmatter, si existen, se usan aquí.
+/* Los artículos viven en src/content/blog/*.md; la traducción completa, si existe,
+   en src/content/blog-es/<mismo-slug>.md. Orden de resolución:
+   traducción -es → campo *Es del inglés → inglés. */
+const esBySlug = new Map((await getCollection('blog-es')).map(p => [p.slug, p]));
 const posts = (await getCollection('blog'))
   .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.date.localeCompare(a.data.date));
-
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .map(p => {
+    const es = esBySlug.get(p.slug);
+    return {
+      slug: p.slug,
+      date: p.data.date,
+      cover: p.data.cover,
+      title:       es?.data.title       ?? p.data.titleEs       ?? p.data.title,
+      description: es?.data.description ?? p.data.descriptionEs ?? p.data.description,
+      category:    es?.data.category    ?? p.data.categoryEs    ?? p.data.category,
+      readTime:    es?.data.readTime    ?? p.data.readTime,
+      translated:  Boolean(es),
+    };
+  });
 const first = posts[0]?.slug;
 ---
 <BaseLayout title="Recursos" description="Guías prácticas para vendedores de Amazon y Shopify que abastecen desde China." lang="es">
@@ -20,21 +36,21 @@ const first = posts[0]?.slug;
   <section class="section">
     <div class="container">
       <p class="esnote reveal">
-        Por ahora todos los artículos están redactados en inglés. Si necesitas alguno en español, escríbenos y lo traducimos.
+        Los artículos marcados con «Leer en español» están traducidos; el resto aparece en inglés. Si necesitas alguno en español, escríbenos y lo traducimos.
       </p>
 
       <div class="alist">
         {posts.map((post, i) => (
-          <a href={`/blog/${post.slug}`} class:list={['arow reveal', { 'arow--feat': post.slug === first }, `reveal-delay-${Math.min(i,3)}`]}>
+          <a href={`/es/blog/${post.slug}`} class:list={['arow reveal', { 'arow--feat': post.slug === first }, `reveal-delay-${Math.min(i,3)}`]}>
             <div class="arow__thumb">
-              <ImgPlaceholder src={post.data.cover} width={480} height={300} ratio="8/5" alt={post.data.title} />
+              <ImgPlaceholder src={post.cover} width={480} height={300} ratio="8/5" alt={post.title} />
             </div>
             <div class="arow__body">
-              <span class="arow__cat">{post.data.categoryEs ?? post.data.category}</span>
-              <h3>{post.data.titleEs ?? post.data.title}</h3>
+              <span class="arow__cat">{post.category}</span>
+              <h3>{post.title}</h3>
               <div class="arow__foot">
-                <span class="arow__time"><Icon name="clock" size={12} color="var(--warm-400)" />{post.data.readTime} de lectura</span>
-                <span class="arow__read">Leer en inglés →</span>
+                <span class="arow__time"><Icon name="clock" size={12} color="var(--warm-400)" />{post.readTime} de lectura</span>
+                <span class="arow__read">{post.translated ? 'Leer en español →' : 'Leer en inglés →'}</span>
               </div>
             </div>
           </a>

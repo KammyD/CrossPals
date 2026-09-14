@@ -6,7 +6,7 @@ export const en = {
   nav_cases:    'Case Studies',
   nav_contact:  'Contact',
   nav_cta:      'Get a Quote',
-  footer_tagline:  'Trusted China sourcing for global entrepreneurs.',
+  footer_tagline:  'Sourcing, inspecting and prepping your products for FBA.',
   footer_services: 'Services',
   footer_company:  'Company',
   footer_legal:    'Legal',

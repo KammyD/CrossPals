@@ -3,16 +3,31 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
 
-// Detalle del caso: el texto proviene de src/content/case-studies/*.md (redactado en inglés).
+/* Detalle del caso.
+   Narrativa: primero se busca la traducción en src/content/case-studies-es/<mismo-slug>.md;
+   si no existe, se cae al inglés de src/content/case-studies/ y se avisa en la página.
+   Metadatos (título, cliente, resumen…): traducción -es → campo *Es del inglés → inglés. */
 export async function getStaticPaths() {
   const cases = await getCollection('case-studies');
+  const esCases = await getCollection('case-studies-es');
+  const esBySlug = new Map(esCases.map(c => [c.slug, c]));
   return cases
     .filter(c => !c.data.draft)
-    .map(c => ({ params: { slug: c.slug }, props: { item: c } }));
+    .map(c => ({ params: { slug: c.slug }, props: { item: c, es: esBySlug.get(c.slug) ?? null } }));
 }
 
-const { item } = Astro.props;
-const { Content } = await item.render();
+const { item, es } = Astro.props;
+const { Content } = await (es ?? item).render();
+
+/* Un único punto de resolución: traducción completa → campo *Es → inglés */
+const title    = es?.data.title    ?? item.data.titleEs    ?? item.data.title;
+const client   = es?.data.client   ?? item.data.clientEs   ?? item.data.client;
+const summary  = es?.data.summary  ?? item.data.summaryEs  ?? item.data.summary;
+const problem  = es?.data.problem  ?? item.data.problemEs  ?? item.data.problem;
+const action   = es?.data.action   ?? item.data.actionEs   ?? item.data.action;
+const results  = es
+  ? es.data.results
+  : item.data.results.map((r, i) => ({ v: r.v, l: item.data.resultsEs?.[i] ?? r.l }));
 
 const all = (await getCollection('case-studies'))
   .filter(c => !c.data.draft)
@@ -23,14 +38,14 @@ const others = all.filter(c => c.slug !== item.slug).slice(0, 3);
 const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 <BaseLayout
-  title={item.data.titleEs ?? item.data.title}
-  description={item.data.summaryEs ?? item.data.summary}
+  title={title}
+  description={summary}
   lang="es"
   article={{ published: item.data.date, section: 'Caso de Éxito' }}
 >
 
   <div class="cs-cover" style="padding-top:var(--hdr-h);">
-    <ImgPlaceholder src={item.data.cover} width={1680} height={720} ratio="21/9" priority alt={item.data.titleEs ?? item.data.title} />
+    <ImgPlaceholder src={item.data.cover} width={1680} height={720} ratio="21/9" priority alt={title} />
   </div>
 
   <header class="cs-hdr">
@@ -38,9 +53,9 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES',
       <a href="/es/case-studies" class="back">← Todos los casos</a>
       <div class="cs-hdr__top">
         <span class="indexnum cs-n">{String(idx + 1).padStart(2, '0')}</span>
-        <span class="cs-client">{item.data.clientEs ?? item.data.client}</span>
+        <span class="cs-client">{client}</span>
       </div>
-      <h1>{item.data.titleEs ?? item.data.title}</h1>
+      <h1>{title}</h1>
       <div class="cs-meta">
         <time>{fmt(item.data.date)}</time>
         <span>·</span><span>Cliente anonimizado</span>
@@ -53,10 +68,10 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES',
 
       <div class="cs-main">
         <div class="cs-results reveal">
-          {item.data.results.map((r, ri) => (
+          {results.map(r => (
             <div class="cs-res">
               <strong>{r.v}</strong>
-              <span>{item.data.resultsEs?.[ri] ?? r.l}</span>
+              <span>{r.l}</span>
             </div>
           ))}
         </div>
@@ -65,15 +80,15 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('es-ES',
         <div class="cs-brief reveal reveal-delay-1">
           <div class="cs-brief__col">
             <h4>El problema</h4>
-            <p>{item.data.problemEs ?? item.data.problem}</p>
+            <p>{problem}</p>
           </div>
           <div class="cs-brief__col">
             <h4>Lo que hicimos</h4>
-            <p>{item.data.actionEs ?? item.data.action}</p>
+            <p>{action}</p>
           </div>
         </div>
 
-        <p class="esnote reveal">El informe completo del caso está redactado en inglés.</p>
+        {!es && <p class="esnote reveal">Todavía no hemos traducido este caso al español; el informe aparece en inglés.</p>}
 
         <div class="prose reveal reveal-delay-2"><Content /></div>
       </div>

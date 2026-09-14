@@ -32,6 +32,7 @@ export const GET: APIRoute = async ({ site }) => {
     ...cases.map(c => ({ path: `/es/case-studies/${c.slug}/`, priority: '0.6' })),
     { path: '/es/contact/',               priority: '0.8' },
     { path: '/es/blog/',                  priority: '0.6' },
+    ...posts.map(p => ({ path: `/es/blog/${p.slug}/`,           priority: '0.6' })),
     { path: '/es/privacy/',               priority: '0.3' },
     { path: '/es/terms/',                 priority: '0.3' },
   ];

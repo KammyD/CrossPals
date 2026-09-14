@@ -63,4 +63,37 @@ const caseStudies = defineCollection({
   }),
 });
 
-export const collections = { blog, caseStudies };
+/* ── 西语正文（镜像 collection） ───────────────────────────
+   英文正文写在 blog / case-studies；西语正文写在 blog-es / case-studies-es，
+   文件名（slug）必须与英文版一一对应。
+   西语页渲染逻辑：先找 -es 版本，没有就回退英文正文（并在页面上注明）。
+   这样加一篇西语文章 = 往 -es 目录丢一个同名 .md，不改任何代码。 */
+const blogEs = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    category: z.string(),
+    date: dateStr,
+    readTime: z.string(),
+    cover: z.string(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+const caseStudiesEs = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    client: z.string(),
+    summary: z.string(),
+    problem: z.string(),
+    action: z.string(),
+    results,
+    cover: z.string(),
+    date: dateStr,
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, caseStudies, blogEs, caseStudiesEs };

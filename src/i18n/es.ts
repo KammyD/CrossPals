@@ -6,7 +6,7 @@ export const es = {
   nav_cases:    'Casos de Éxito',
   nav_contact:  'Contacto',
   nav_cta:      'Pedir presupuesto',
-  footer_tagline:  'Abastecimiento confiable desde China para emprendedores globales.',
+  footer_tagline:  'Buscamos, inspeccionamos y preparamos tus productos para FBA.',
   footer_services: 'Servicios',
   footer_company:  'Empresa',
   footer_legal:    'Legal',

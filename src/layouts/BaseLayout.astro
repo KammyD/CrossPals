@@ -11,12 +11,17 @@ interface Props {
   /** 文章页传入后输出 Article 结构化数据 */
   article?: { published: string; section?: string };
 }
+const DEFAULT_DESC = {
+  en: 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.',
+  es: 'CrossPals — abastecimiento en China de confianza para emprendedores. Búsqueda de productos, inspección de calidad, compra y envío.',
+};
 const {
   title,
-  description = 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.',
+  description = DEFAULT_DESC[lang],
   lang = 'en',
   article,
 } = Astro.props;
+const isEs = lang === 'es';
 const SITE = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
@@ -24,9 +29,10 @@ const ogImage   = new URL('/og-image.png', SITE);
 // 双语页面集合：只有这些路径有对应的另一种语言版本，才输出 hreflang
 const bilingual = ['/', '/services/', '/about/', '/contact/', '/blog/', '/privacy/', '/terms/', '/case-studies/'];
 const pathNoLang = lang === 'es' ? (Astro.url.pathname.replace(/^\/es/, '') || '/') : Astro.url.pathname;
-// 案例详情页是动态路由（/case-studies/<slug>/ 与 /es/case-studies/<slug>/ 成对存在），单独判定
+// 详情页是动态路由（/case-studies/<slug>/ 与 /es/case-studies/<slug>/、/blog/<slug>/ 与 /es/blog/<slug>/ 成对存在），单独判定
 const isCaseDetail = /^\/case-studies\/[^/]+\/$/.test(pathNoLang);
-const hasTwin = bilingual.includes(pathNoLang) || isCaseDetail;
+const isBlogDetail = /^\/blog\/[^/]+\/$/.test(pathNoLang);
+const hasTwin = bilingual.includes(pathNoLang) || isCaseDetail || isBlogDetail;
 const enUrl = hasTwin ? new URL(pathNoLang, SITE) : null;
 const esUrl = hasTwin ? new URL('/es' + (pathNoLang === '/' ? '/' : pathNoLang), SITE) : null;
 
@@ -44,8 +50,12 @@ const ORG = {
     addressRegion: COMPANY.addressParts.region,
     addressCountry: COMPANY.addressParts.country,
   },
-  description: 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
-  areaServed: ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
+  description: isEs
+    ? 'Socio de abastecimiento en China para emprendedores: búsqueda de productos, verificación de proveedores, inspección de calidad, compra y envío puerta a puerta.'
+    : 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
+  areaServed: isEs
+    ? ['África', 'América Latina', 'Sudeste Asiático', 'Oriente Medio']
+    : ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
 };
 const jsonLd = article
   ? {
@@ -98,7 +108,7 @@ const jsonLd = article
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <a href="#main" class="skiplink">Skip to content</a>
+    <a href="#main" class="skiplink">{isEs ? 'Saltar al contenido' : 'Skip to content'}</a>
     <Header />
     <main id="main">{/* @ts-ignore */}<slot /></main>
     <Footer />
