@@ -3,22 +3,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
 
-// Mismos artículos que el blog en inglés (el contenido está redactado en inglés).
-const posts = [
-  { slug:'find-suppliers-1688',    title:'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', cat:'Guía de compras', time:'5 min', date:'2024-11-12', featured:true, seed:501 },
-  { slug:'air-vs-sea-freight',     title:'Air vs Sea Freight: Which Should You Choose for Your First Order?', cat:'Envío',        time:'4 min', date:'2024-10-28', seed:502 },
-  { slug:'cheap-china-products',   title:'5 Products That Are Cheaper in China and Sell Well Everywhere', cat:'Consejos',     time:'6 min', date:'2024-10-05', seed:503 },
-  { slug:'avoid-alibaba-scams',    title:'How to Avoid the 7 Most Common Alibaba Scams', cat:'Seguridad',     time:'7 min', date:'2024-09-20', seed:504 },
-  { slug:'custom-packaging-guide', title:'Custom Packaging from China: A Beginner\'s Complete Guide', cat:'Marca',        time:'5 min', date:'2024-09-08', seed:505 },
-  { slug:'payment-methods-suppliers', title:'The Safest Ways to Pay Chinese Suppliers', cat:'Pagos',        time:'4 min', date:'2024-08-22', seed:506 },
-];
+// Mismos artículos que el blog en inglés (los textos están redactados en inglés).
+// El contenido vive en src/content/blog/*.md — los campos *Es del frontmatter, si existen, se usan aquí.
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
 
-const blogImg: Record<number,string> = {501:'sourcing-1688',502:'shipping',503:'blog-products',504:'blog-safety',505:'blog-packaging',506:'payment'};
+const first = posts[0]?.slug;
 ---
-<BaseLayout title="Recursos" description="Guías prácticas para emprendedores que importan desde China." lang="es">
+<BaseLayout title="Recursos" description="Guías prácticas para vendedores de Amazon y Shopify que abastecen desde China." lang="es">
 
-  <PageHero overline="Recursos" title="Base de<br /><em style='font-style:italic;color:var(--avo-300)'>Conocimiento</em>" subtitle="Guías prácticas para emprendedores que importan desde China." />
+  <PageHero overline="Recursos" title="Para<br /><em style='font-style:italic;color:var(--avo-300)'>Vendedores Amazon</em>" subtitle="Guías de abastecimiento, inspección y preparación FBA — escritas para vendedores de Amazon y Shopify." />
 
   <section class="section">
     <div class="container">
@@ -28,15 +25,15 @@ const blogImg: Record<number,string> = {501:'sourcing-1688',502:'shipping',503:'
 
       <div class="alist">
         {posts.map((post, i) => (
-          <a href={`/blog/${post.slug}`} class:list={['arow reveal', { 'arow--feat': post.featured }, `reveal-delay-${Math.min(i,3)}`]}>
+          <a href={`/blog/${post.slug}`} class:list={['arow reveal', { 'arow--feat': post.slug === first }, `reveal-delay-${Math.min(i,3)}`]}>
             <div class="arow__thumb">
-              <ImgPlaceholder src={'/img/'+blogImg[post.seed]+'.webp'} seed={post.seed} width={480} height={300} ratio="8/5" alt={post.title} />
+              <ImgPlaceholder src={post.data.cover} width={480} height={300} ratio="8/5" alt={post.data.title} />
             </div>
             <div class="arow__body">
-              <span class="arow__cat">{post.cat}</span>
-              <h3>{post.title}</h3>
+              <span class="arow__cat">{post.data.categoryEs ?? post.data.category}</span>
+              <h3>{post.data.titleEs ?? post.data.title}</h3>
               <div class="arow__foot">
-                <span class="arow__time"><Icon name="clock" size={12} color="var(--warm-400)" />{post.time} de lectura</span>
+                <span class="arow__time"><Icon name="clock" size={12} color="var(--warm-400)" />{post.data.readTime} de lectura</span>
                 <span class="arow__read">Leer en inglés →</span>
               </div>
             </div>

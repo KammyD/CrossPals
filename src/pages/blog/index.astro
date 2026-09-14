@@ -2,44 +2,42 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
 
-const posts = [
-  { slug:'find-suppliers-1688',    title:'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', excerpt:'A step-by-step guide to China\'s largest B2B platform — screenshots, template messages, and search tricks included.', cat:'Sourcing Guide', time:'5 min', date:'2024-11-12', featured:true,  seed:501, hint:'建议：1688网站界面 / 义乌商品城' },
-  { slug:'air-vs-sea-freight',     title:'Air vs Sea Freight: Which Should You Choose for Your First Order?', excerpt:'Cost-benefit breakdown for first-time importers. When speed matters more than savings.', cat:'Shipping',      time:'4 min', date:'2024-10-28', seed:502, hint:'建议：货运飞机 / 集装箱码头' },
-  { slug:'cheap-china-products',   title:'5 Products That Are Cheaper in China and Sell Well Everywhere', excerpt:'Practical product categories with proven margins across Africa, Latin America, and Southeast Asia.', cat:'Business Tips', time:'6 min', date:'2024-10-05', seed:503, hint:'建议：热销商品 / 产品陈列' },
-  { slug:'avoid-alibaba-scams',    title:'How to Avoid the 7 Most Common Alibaba Scams', excerpt:'Protect your money by learning the red flags that experienced importers always watch for.', cat:'Safety',       time:'7 min', date:'2024-09-20', seed:504, hint:'建议：警示/安全/合同场景' },
-  { slug:'custom-packaging-guide', title:'Custom Packaging from China: A Beginner\'s Complete Guide', excerpt:'Your logo on boxes, bags, and labels — MOQs, lead times, costs, and what to watch out for.', cat:'Branding',     time:'5 min', date:'2024-09-08', seed:505, hint:'建议：定制包装盒 / 品牌印刷' },
-  { slug:'payment-methods-suppliers', title:'The Safest Ways to Pay Chinese Suppliers', excerpt:'From Alibaba Trade Assurance to wire transfers — how to protect your money on every order.', cat:'Payments',     time:'4 min', date:'2024-08-22', seed:506, hint:'建议：网上支付 / 银行转账场景' },
-];
+/* 文章列表来自 src/content/blog/*.md —— 新增一篇文章只需新建一个 md 文件 */
+const all = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
 
-const blogImg: Record<number,string> = {501:'sourcing-1688',502:'shipping',503:'blog-products',504:'blog-safety',505:'blog-packaging',506:'payment'};
-const featured = posts.find(p => p.featured)!;
-const rest = posts.filter(p => !p.featured);
-const cats = ['All', ...Array.from(new Set(posts.map(p => p.cat)))];
+const featured = all.find(p => p.data.featured) ?? all[0];
+const rest = all.filter(p => p.slug !== featured.slug);
+const cats = ['All', ...Array.from(new Set(all.map(p => p.data.category)))];
+
+const fmtLong  = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long',  day: 'numeric', year: 'numeric' });
+const fmtShort = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
-<BaseLayout title="Blog" description="Practical guides for global entrepreneurs sourcing from China.">
+<BaseLayout title="Blog" description="Practical guides for Amazon and Shopify sellers sourcing and importing from China.">
 
-  <PageHero overline="Resources" title="The Sourcing<br /><em style='font-style:italic;color:var(--avo-300)'>Knowledge Base</em>" subtitle="Practical guides for global entrepreneurs importing from China." />
+  <PageHero overline="Resources" title="For Amazon<br /><em style='font-style:italic;color:var(--avo-300)'>Sellers</em>" subtitle="Sourcing, inspection and FBA prep guides — written for Amazon and Shopify sellers, not general importers." />
 
   <section class="section">
     <div class="container">
 
       <!-- Featured with large cover image -->
       <a href={`/blog/${featured.slug}`} class="featured reveal">
-        {/* 📸 SLOT I: 精选文章封面图 — 建议：4:3 横向，与文章主题高度相关（左栏） */}
         <div class="featured__img">
-          <ImgPlaceholder src={'/img/'+blogImg[featured.seed]+'.webp'} seed={featured.seed} width={1000} height={750} ratio="4/3" priority alt={featured.title} />
+          <ImgPlaceholder src={featured.data.cover} width={1000} height={750} ratio="4/3" priority alt={featured.data.title} />
         </div>
         <div class="featured__body">
           <div class="featured__tags">
             <span class="tag tag-green">Featured</span>
-            <span class="featured__cat">{featured.cat}</span>
+            <span class="featured__cat">{featured.data.category}</span>
           </div>
-          <h2>{featured.title}</h2>
-          <p>{featured.excerpt}</p>
+          <h2>{featured.data.title}</h2>
+          <p>{featured.data.description}</p>
           <div class="featured__meta">
-            <time>{new Date(featured.date).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</time>
-            <span>· {featured.time} read</span>
+            <time>{fmtLong(featured.data.date)}</time>
+            <span>· {featured.data.readTime} read</span>
             <span class="featured__read">Read article →</span>
           </div>
         </div>
@@ -48,23 +46,22 @@ const cats = ['All', ...Array.from(new Set(posts.map(p => p.cat)))];
       <!-- Filter -->
       <div class="cat-bar" id="catBar">
         {cats.map(c => (
-          <button class:list={['cat-btn', {'cat-btn--on': c === 'All'}]} data-cat={c}>{c}</button>
+          <button class:list={['cat-btn', { 'cat-btn--on': c === 'All' }]} data-cat={c}>{c}</button>
         ))}
       </div>
 
       <!-- Post grid with cover images -->
       <div class="posts" id="postsGrid">
-        {rest.map((post,i) => (
-          <a href={`/blog/${post.slug}`} class:list={['pcard reveal', `reveal-delay-${i % 3}`]} data-cat={post.cat}>
-            {/* 📸 SLOT J–N: 文章封面图 — 16:9横向，与文章主题相关 */}
-            <ImgPlaceholder src={'/img/'+blogImg[post.seed]+'.webp'} seed={post.seed} width={640} height={360} ratio="16/9" alt={post.title} />
+        {rest.map((post, i) => (
+          <a href={`/blog/${post.slug}`} class:list={['pcard reveal', `reveal-delay-${i % 3}`]} data-cat={post.data.category}>
+            <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
             <div class="pcard__body">
-              <span class="pcard__cat">{post.cat}</span>
-              <h4>{post.title}</h4>
-              <p>{post.excerpt}</p>
+              <span class="pcard__cat">{post.data.category}</span>
+              <h4>{post.data.title}</h4>
+              <p>{post.data.description}</p>
               <div class="pcard__foot">
-                <time>{new Date(post.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</time>
-                <span>{post.time} read →</span>
+                <time>{fmtShort(post.data.date)}</time>
+                <span>{post.data.readTime} read →</span>
               </div>
             </div>
           </a>

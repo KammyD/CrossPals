@@ -1,120 +1,205 @@
 {
-  "siteId": "crosspals",
-  "analyzedAt": "2026-09-13T17:44:30.457Z",
+  "siteId": "crosspals-com",
+  "analyzedAt": "2026-09-14T06:33:10.046Z",
   "contentSources": [
     {
-      "name": "data",
-      "label": "法律文档",
-      "path": "src/data",
+      "name": "content",
+      "label": "content",
+      "path": "src/content",
       "type": "content",
-      "fileTypes": [],
-      "confidence": 0.8,
-      "confidenceSource": "ai-high",
-      "reason": "包含法律条款等可能需要非技术人员维护的内容",
+      "fileTypes": [
+        ".md",
+        ".ts"
+      ],
+      "fileCount": 9,
+      "confidence": 0.72,
+      "confidenceSource": "rule-heuristic",
+      "reason": "目录名含内容关键词\"content\"且文件格式以内容格式为主",
+      "lockedByUser": false
+    },
+    {
+      "name": "blog",
+      "label": "blog",
+      "path": "src/content/blog",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
+      "lockedByUser": false
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/content/case-studies",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
       "lockedByUser": false
     }
   ],
   "codeSources": [
     {
       "name": "components",
-      "label": "组件",
+      "label": "components",
       "path": "src/components",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 1,
-      "confidenceSource": "ai-high",
-      "reason": "包含 Astro 组件文件，属于技术实现部分",
+      "fileCount": 8,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false
+    },
+    {
+      "name": "config",
+      "label": "config",
+      "path": "src/config",
+      "type": "code",
+      "fileTypes": [
+        ".ts"
+      ],
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false
+    },
+    {
+      "name": "data",
+      "label": "data",
+      "path": "src/data",
+      "type": "code",
+      "fileTypes": [
+        ".ts"
+      ],
+      "fileCount": 1,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
       "lockedByUser": false
     },
     {
       "name": "i18n",
-      "label": "国际化",
+      "label": "i18n",
       "path": "src/i18n",
-      "type": "content",
+      "type": "code",
       "fileTypes": [
         ".ts"
       ],
-      "confidence": 0.85,
-      "confidenceSource": "ai-high",
-      "reason": "包含多语言翻译，可能需要运营人员维护",
+      "fileCount": 3,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
       "lockedByUser": false
     },
     {
       "name": "layouts",
-      "label": "布局",
+      "label": "layouts",
       "path": "src/layouts",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 1,
-      "confidenceSource": "ai-high",
-      "reason": "包含基础布局文件，属于技术实现部分",
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
       "lockedByUser": false
     },
     {
       "name": "pages",
-      "label": "页面路由",
+      "label": "pages",
       "path": "src/pages",
       "type": "code",
       "fileTypes": [
-        ".astro"
+        ".astro",
+        ".ts"
       ],
-      "confidence": 1,
-      "confidenceSource": "ai-high",
-      "reason": "包含路由文件，属于框架结构部分",
+      "fileCount": 21,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
       "lockedByUser": false
     },
     {
       "name": "blog",
-      "label": "博客路由",
+      "label": "blog",
       "path": "src/pages/blog",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.95,
-      "confidenceSource": "ai-high",
-      "reason": "包含博客页面模板，实际内容通常由 CMS 管理",
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/pages/case-studies",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
       "lockedByUser": false
     },
     {
       "name": "es",
-      "label": "西班牙语页面",
+      "label": "es",
       "path": "src/pages/es",
       "type": "code",
       "fileTypes": [
         ".astro"
       ],
-      "confidence": 0.9,
-      "confidenceSource": "ai-high",
-      "reason": "多语言页面路由，属于框架结构",
+      "fileCount": 9,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/pages/es/case-studies",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
       "lockedByUser": false
     },
     {
       "name": "styles",
-      "label": "样式",
+      "label": "styles",
       "path": "src/styles",
       "type": "code",
       "fileTypes": [
         ".css"
       ],
-      "confidence": 1,
-      "confidenceSource": "ai-high",
-      "reason": "包含全局样式文件，属于技术实现",
-      "lockedByUser": false
-    },
-    {
-      "name": "config",
-      "label": "配置",
-      "path": "src/config",
-      "type": "code",
-      "fileTypes": [],
-      "confidence": 0.9,
-      "confidenceSource": "ai-high",
-      "reason": "通常包含站点配置，属于技术设置",
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
       "lockedByUser": false
     }
   ],

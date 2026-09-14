@@ -3,6 +3,7 @@ export const en = {
   nav_services: 'Services',
   nav_about:    'About',
   nav_blog:     'Blog',
+  nav_cases:    'Case Studies',
   nav_contact:  'Contact',
   nav_cta:      'Get a Quote',
   footer_tagline:  'Trusted China sourcing for global entrepreneurs.',

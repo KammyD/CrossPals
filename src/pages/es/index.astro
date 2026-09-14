@@ -4,6 +4,7 @@ import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import Icon from '../../components/Icon.astro';
 import type { IconName } from '../../components/Icon.astro';
 import { PHONE } from '../../config/site';
+import { getCollection } from 'astro:content';
 
 const services: Array<{ icon: IconName; n: string; title: string; body: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
   { icon: 'sourcing',   n: '01', title: 'Búsqueda de Productos', body: 'Buscamos entre miles de proveedores chinos para encontrar la mejor opción según tu presupuesto y estándares de calidad.', seed: 10, hint: '义乌商品城/供应商展会', delay: 0 },
@@ -33,14 +34,20 @@ const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
   { icon: 'shipping',   title: 'Entrega DDP a puerta',         body: 'Aduanas y última milla gestionadas, con rastreo en vivo.' },
 ];
 
-const blogPosts = [
-  { cat: 'Guía de Abastecimiento', title: 'How to Find Reliable Suppliers on 1688 Without Speaking Chinese', slug: 'find-suppliers-1688', time: '5 min', seed: 101, hint: '1688/电商' },
-  { cat: 'Envío',                 title: 'Air vs Sea Freight: Which to Choose for Your First Order?',        slug: 'air-vs-sea-freight',  time: '4 min', seed: 102, hint: '货运飞机/码头' },
-  { cat: 'Tips de Negocio',       title: '5 Products That Are Cheaper in China and Sell Well Everywhere',    slug: 'cheap-china-products', time: '6 min', seed: 103, hint: '热销商品' },
-];
+/* Recursos: los 3 artículos más recientes (src/content/blog/*.md — al añadir un artículo aparece solo) */
+const blogPosts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 3)
+  .map(p => ({
+    slug: p.slug,
+    cat: p.data.categoryEs ?? p.data.category,
+    title: p.data.titleEs ?? p.data.title,
+    time: p.data.readTime,
+    cover: p.data.cover,
+  }));
 
 const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
-const blogImg: Record<number,string> = {101:'sourcing-1688',102:'shipping',103:'blog-products'};
 const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
 const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi','Bogotá','El Cairo','HeBei · BaoDing → Mundo','Búsqueda 1688','Inspeccionado QC','Envío DDP','Proveedores Verificados'];
 ---
@@ -265,8 +272,7 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
       {blogPosts.map((post, i) => (
         <a href={`/blog/${post.slug}`} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
           <ImgPlaceholder
-            src={'/img/' + blogImg[post.seed] + '.webp'}
-            seed={post.seed}
+            src={post.cover}
             width={i === 0 ? 720 : 640}
             height={i === 0 ? 960 : 360}
             ratio={i === 0 ? '3/4' : '16/9'}
@@ -465,6 +471,8 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
   .hero__grid{grid-template-columns:1fr;}
   .hero__right{display:none;}
   .hero__left{padding:100px var(--s5) var(--s6);}
+  /* 手机/竖屏平板：WHY 两栏改单列。原来不塌陷，窄屏下右栏会被裁掉 */
+  .why__grid{grid-template-columns:1fr;gap:var(--s6);}
 }
 @media(max-width:640px){
   .svc-row{grid-template-columns:48px 1fr;gap:var(--s4);}
@@ -473,5 +481,12 @@ const tickerItems = ['Lagos','São Paulo','Ciudad de México','Manila','Nairobi'
   .cta-final__inner{flex-direction:column;text-align:center;}
   .cta-final__form{min-width:unset;width:100%;}
   .quick-form{flex-direction:column;}
+}
+@media(max-width:560px){
+  .why-item{grid-template-columns:44px 1fr;gap:var(--s4);}
+  .why-item__n{font-size:30px;}
+  .blog-prev__head{flex-direction:column;align-items:flex-start;gap:var(--s4);}
+  .masthead__inner{gap:var(--s3);font-size:10px;letter-spacing:.08em;}
+  .masthead__rule{display:none;}
 }
 </style>

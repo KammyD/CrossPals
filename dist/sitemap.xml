@@ -2,102 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.crosspals.com/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/services/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/about/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.crosspals.com/case-studies/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.crosspals.com/contact/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/blog/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/find-suppliers-1688/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <loc>https://www.crosspals.com/blog/avoid-fba-rejections/</loc>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/air-vs-sea-freight/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://www.crosspals.com/blog/read-inspection-report/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/cheap-china-products/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://www.crosspals.com/blog/1688-vs-alibaba/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/avoid-alibaba-scams/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://www.crosspals.com/blog/get-fba-ready/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/custom-packaging-guide/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://www.crosspals.com/case-studies/kitchen-defects-caught/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.crosspals.com/blog/payment-methods-suppliers/</loc>
-    <lastmod>2026-09-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://www.crosspals.com/case-studies/first-private-label-zero-rejections/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/case-studies/supplier-vanished-deposit/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/case-studies/fba-shipment-relabelled/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/privacy/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/terms/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/services/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/about/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/es/case-studies/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/es/case-studies/kitchen-defects-caught/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/es/case-studies/first-private-label-zero-rejections/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/es/case-studies/supplier-vanished-deposit/</loc>
+    <lastmod>2026-09-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.crosspals.com/es/case-studies/fba-shipment-relabelled/</loc>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/contact/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/blog/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/privacy/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://www.crosspals.com/es/terms/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-09-14</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>

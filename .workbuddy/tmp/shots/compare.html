@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+  body{margin:0;background:#faf6ef;font-family:"Instrument Sans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#2b2620;padding:24px;width:1040px;box-sizing:border-box;}
+  h1{font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:.01em;}
+  p.sub{font-size:12.5px;color:#7a6848;margin:0 0 20px;line-height:1.6;}
+  .grp{margin-bottom:24px;}
+  .lbl{font-size:11px;font-family:ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#b8a07a;margin:0 0 6px;}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
+  .cell{border:1px solid #e8d8c0;background:#fff;overflow:hidden;}
+  .tag{font-size:10.5px;font-family:ui-monospace,monospace;letter-spacing:.1em;padding:5px 8px;border-bottom:1px solid #e8d8c0;background:#f4ede0;color:#7a6848;}
+  .tag.now{background:#be3a2e;color:#fff;border-color:#be3a2e;}
+  img{display:block;width:100%;}
+  .stack .cell + .cell{margin-top:8px;}
+</style>
+</head>
+<body>
+  <h1>CrossPals · 顶栏渐变　改前 / 改后</h1>
+  <p class="sub">同一宽度、同一位置截图。改前：实心白平台在 x≈130 处收出一条看得见的硬边（左图里那块白明显有边界）；改后：一条连续坡，找不到"从这儿开始变"的那条线。</p>
+
+  <div class="grp">
+    <p class="lbl">页面顶部 · 1000px</p>
+    <div class="pair">
+      <div class="cell"><div class="tag">改前 BEFORE</div><img src="hdrw_1000.png"></div>
+      <div class="cell"><div class="tag now">改后 AFTER</div><img src="new_hdr_top_1000.png"></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <p class="lbl">滚动后（浮在内容之上）· 1000px</p>
+    <div class="pair">
+      <div class="cell"><div class="tag">改前 BEFORE</div><img src="hdr_scrolled_cs_1000.png"></div>
+      <div class="cell"><div class="tag now">改后 AFTER</div><img src="new_hdr_scrolled_1000.png"></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <p class="lbl">宽屏 1440px</p>
+    <div class="pair stack">
+      <div class="cell"><div class="tag">改前 BEFORE</div><img src="hdr_1440.png"></div>
+      <div class="cell"><div class="tag now">改后 AFTER</div><img src="new_hdr_top_1440.png"></div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <p class="lbl">案例卡头部 · 标签另起一行</p>
+    <div class="pair stack">
+      <div class="cell"><div class="tag">改前 BEFORE（你截的图）</div><img src="file:///C:/Users/Lenovo/.workbuddy/clipboard-images/clipboard-2026-09-14T06-39-10-810Z-5d9b308c.png"></div>
+      <div class="cell"><div class="tag now">改后 AFTER · 990px 两列</div><img src="new_cards_head.png"></div>
+    </div>
+  </div>
+</body>
+</html>

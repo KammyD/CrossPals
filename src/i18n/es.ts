@@ -3,6 +3,7 @@ export const es = {
   nav_services: 'Servicios',
   nav_about:    'Nosotros',
   nav_blog:     'Blog',
+  nav_cases:    'Casos de Éxito',
   nav_contact:  'Contacto',
   nav_cta:      'Pedir presupuesto',
   footer_tagline:  'Abastecimiento confiable desde China para emprendedores globales.',

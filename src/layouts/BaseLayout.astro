@@ -22,9 +22,11 @@ const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
 
 // 双语页面集合：只有这些路径有对应的另一种语言版本，才输出 hreflang
-const bilingual = ['/', '/services/', '/about/', '/contact/', '/blog/', '/privacy/', '/terms/'];
+const bilingual = ['/', '/services/', '/about/', '/contact/', '/blog/', '/privacy/', '/terms/', '/case-studies/'];
 const pathNoLang = lang === 'es' ? (Astro.url.pathname.replace(/^\/es/, '') || '/') : Astro.url.pathname;
-const hasTwin = bilingual.includes(pathNoLang);
+// 案例详情页是动态路由（/case-studies/<slug>/ 与 /es/case-studies/<slug>/ 成对存在），单独判定
+const isCaseDetail = /^\/case-studies\/[^/]+\/$/.test(pathNoLang);
+const hasTwin = bilingual.includes(pathNoLang) || isCaseDetail;
 const enUrl = hasTwin ? new URL(pathNoLang, SITE) : null;
 const esUrl = hasTwin ? new URL('/es' + (pathNoLang === '/' ? '/' : pathNoLang), SITE) : null;
 

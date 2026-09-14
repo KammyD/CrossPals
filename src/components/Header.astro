@@ -12,6 +12,7 @@ const nav = [
   { key: 'nav_services', href: '/services'  },
   { key: 'nav_about',    href: '/about'     },
   { key: 'nav_blog',     href: '/blog'      },
+  { key: 'nav_cases',    href: '/case-studies' },
   { key: 'nav_contact',  href: '/contact'   },
 ] as const;
 
@@ -225,32 +226,44 @@ function active(href: string) {
 .hdr {
   position: fixed; inset: 0 0 auto; z-index: 1000;
 
-  /* 左白 → 右墨绿（avo-950，页面主色）：两层渐变交叉淡出（白层淡出 / 墨绿层淡入），中间不会出现灰带。
-     下面先给一条"两停靠点"的兜底声明（老浏览器 / calc 不受支持时生效），
-     再给带缓动的多停靠点版本——后一条若被判定无效会被整体丢弃，兜底仍在。 */
+  /* 左白 → 右墨绿（avo-950，页面主色）：一条连续的坡，没有"实心白平台"的硬拐点。
+     下面先给一条"两停靠点"的兜底声明（老浏览器 / clamp·calc 不受支持时生效），
+     再给带缓动的多停靠点版本——后一条若被判定无效会被整体丢弃，兜底仍在。
+     系数来自 f(t) = 1 - smoothstep(t)^0.6（白层，t 从 --hdr-wp 起算）与 smoothstep(u)（墨绿层）：
+     起步与收尾斜率都是 0，任何位置都看不出"从这里开始变"的那条线。 */
   background:
     linear-gradient(90deg,
       rgba(255, 255, 255, var(--hdr-w-a)) 0,
-      rgba(255, 255, 255, var(--hdr-w-a)) calc(var(--hdr-wz) - var(--hdr-fade)),
-      rgba(255, 255, 255, 0) var(--hdr-wz)),
+      rgba(255, 255, 255, 0) calc(var(--hdr-wp) + var(--hdr-wf))),
     linear-gradient(90deg,
-      rgba(28, 33, 20, 0) calc(var(--hdr-wz) - var(--hdr-fade)),
-      rgba(28, 33, 20, var(--hdr-k-a)) calc(var(--hdr-wz) + var(--hdr-fade) * .4),
+      rgba(28, 33, 20, 0) 0,
+      rgba(28, 33, 20, var(--hdr-k-a)) var(--hdr-kz),
       rgba(28, 33, 20, var(--hdr-k-a)) 100%);
 
-  /* 缓动版：白层收得慢、墨绿层铺得匀，中段过渡更"软"，没有一处凭手感能看出边界 */
+  /* 缓动版：11 个停靠点铺出连续曲率，整条栏是一个坡而不是三段拼接 */
   background:
     linear-gradient(90deg,
       rgba(255, 255, 255, var(--hdr-w-a)) 0,
-      rgba(255, 255, 255, var(--hdr-w-a)) calc(var(--hdr-wz) - var(--hdr-fade)),
-      rgba(255, 255, 255, calc(var(--hdr-w-a) * .72)) calc(var(--hdr-wz) - var(--hdr-fade) * .58),
-      rgba(255, 255, 255, calc(var(--hdr-w-a) * .28)) calc(var(--hdr-wz) - var(--hdr-fade) * .24),
-      rgba(255, 255, 255, 0) var(--hdr-wz)),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .883)) calc(var(--hdr-wp) + var(--hdr-wf) * .1),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .743)) calc(var(--hdr-wp) + var(--hdr-wf) * .2),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .601)) calc(var(--hdr-wp) + var(--hdr-wf) * .3),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .466)) calc(var(--hdr-wp) + var(--hdr-wf) * .4),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .340)) calc(var(--hdr-wp) + var(--hdr-wf) * .5),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .229)) calc(var(--hdr-wp) + var(--hdr-wf) * .6),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .136)) calc(var(--hdr-wp) + var(--hdr-wf) * .7),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .064)) calc(var(--hdr-wp) + var(--hdr-wf) * .8),
+      rgba(255, 255, 255, calc(var(--hdr-w-a) * .017)) calc(var(--hdr-wp) + var(--hdr-wf) * .9),
+      rgba(255, 255, 255, 0) calc(var(--hdr-wp) + var(--hdr-wf))),
     linear-gradient(90deg,
-      rgba(28, 33, 20, 0) calc(var(--hdr-wz) - var(--hdr-fade)),
-      rgba(28, 33, 20, calc(var(--hdr-k-a) * .24)) calc(var(--hdr-wz) - var(--hdr-fade) * .5),
-      rgba(28, 33, 20, calc(var(--hdr-k-a) * .66)) calc(var(--hdr-wz) - var(--hdr-fade) * .14),
-      rgba(28, 33, 20, var(--hdr-k-a)) calc(var(--hdr-wz) + var(--hdr-fade) * .4),
+      rgba(28, 33, 20, 0) 0,
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .043)) calc(var(--hdr-kz) * .125),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .156)) calc(var(--hdr-kz) * .25),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .316)) calc(var(--hdr-kz) * .375),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .5))   calc(var(--hdr-kz) * .5),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .684)) calc(var(--hdr-kz) * .625),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .844)) calc(var(--hdr-kz) * .75),
+      rgba(28, 33, 20, calc(var(--hdr-k-a) * .957)) calc(var(--hdr-kz) * .875),
+      rgba(28, 33, 20, var(--hdr-k-a)) var(--hdr-kz),
       rgba(28, 33, 20, var(--hdr-k-a)) 100%);
 
   border-bottom: 1px solid var(--hdr-line);
@@ -573,8 +586,8 @@ function active(href: string) {
 @media (max-width: 900px) {
   .hdr__nav, .hdr__end { display: none; }
   .hdr__burger { display: flex; }
-  /* 移动端只留 logo + 汉堡：白区收到刚好盖住 logo，淡出走一小段 */
-  .hdr { --hdr-wz: 200px; --hdr-fade: 82px; }
+  /* 移动端只留 logo + 汉堡：白区盖住 logo 后顺着坡淡出去 */
+  .hdr { --hdr-wp: clamp(130px, 34%, 300px); --hdr-wf: clamp(160px, 42%, 420px); --hdr-kz: 190px; }
   .hdr__bar :global(.logo img) { height: 36px; }
 }
 </style>
