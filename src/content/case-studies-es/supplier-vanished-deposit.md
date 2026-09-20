@@ -1,4 +1,5 @@
 ---
+seoTitle: "Proveedor desaparecido: recuperamos tu pedido con seguridad"
 title: "Un proveedor desapareció tras el anticipo — reconstruimos el pedido con seguridad"
 client: "Amazon y Shopify · Reino Unido · Hogar y Jardín"
 summary: "Un anticipo perdido con un proveedor que dejó de responder. Verificamos una fábrica de reemplazo y estructuramos los pagos por hitos."

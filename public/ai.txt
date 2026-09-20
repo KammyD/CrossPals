@@ -1,0 +1,9 @@
+# AI bot 访问策略（Cloudflare Agent-Ready）
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: OAI-SearchBot
+Disallow: /

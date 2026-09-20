@@ -1,0 +1,313 @@
+{
+  "$schema": "./cms-core/site-config.schema.json",
+  "version": "1.0",
+  "project": {
+    "type": "astro",
+    "name": "crosspals-com"
+  },
+  "site": {
+    "name": "CrossPals.com",
+    "domain": "https://www.crosspals.com",
+    "locales": [
+      {
+        "code": "en",
+        "default": true
+      },
+      {
+        "code": "es",
+        "default": false
+      }
+    ],
+    "i18n": {
+      "strategy": "directory"
+    }
+  },
+  "branding": {
+    "logo": "public/img/logo-horizontal-light.png",
+    "logoDark": null,
+    "favicon": "public/apple-touch-icon.png",
+    "defaultOgImage": "public/og-image.png"
+  },
+  "settings": {
+    "files": [
+      {
+        "key": "site-data",
+        "label": "公司信息",
+        "path": "src/config/site.ts",
+        "enabled": true
+      }
+    ]
+  },
+  "content": {
+    "blog": {
+      "label": "文章",
+      "path": "src/content/blog",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/blog",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "textarea",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "readTime": {
+          "type": "string",
+          "required": true,
+          "help": "'6 min'"
+        },
+        "cover": {
+          "type": "image",
+          "required": true,
+          "help": "'/img/xxx.webp'"
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "titleEs": {
+          "type": "string",
+          "help": "西语覆盖（可选）"
+        },
+        "descriptionEs": {
+          "type": "textarea"
+        },
+        "categoryEs": {
+          "type": "string"
+        }
+      },
+      "order": 10
+    },
+    "case-studies": {
+      "label": "客户案例",
+      "path": "src/content/case-studies",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/case-studies",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "client": {
+          "type": "string",
+          "required": true,
+          "help": "'Amazon seller · United States · Kitchen & Dining'"
+        },
+        "summary": {
+          "type": "textarea",
+          "required": true,
+          "help": "列表卡摘要（一两句）"
+        },
+        "problem": {
+          "type": "string",
+          "required": true
+        },
+        "action": {
+          "type": "string",
+          "required": true
+        },
+        "results": {
+          "type": "array",
+          "required": true,
+          "help": "3 条结果指标"
+        },
+        "cover": {
+          "type": "image",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "order": {
+          "type": "number",
+          "default": 99,
+          "help": "列表排序，越小越前"
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "titleEs": {
+          "type": "string",
+          "help": "西语覆盖（可选）"
+        },
+        "clientEs": {
+          "type": "string"
+        },
+        "summaryEs": {
+          "type": "textarea"
+        },
+        "problemEs": {
+          "type": "string"
+        },
+        "actionEs": {
+          "type": "string"
+        },
+        "resultsEs": {
+          "type": "array",
+          "help": "只覆盖每条指标的说明文字，顺序对应"
+        }
+      },
+      "order": 10,
+      "astroCollection": "caseStudies"
+    },
+    "blog-es": {
+      "label": "文章（ES）",
+      "path": "src/content/blog-es",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/blog",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "textarea",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "readTime": {
+          "type": "string",
+          "required": true
+        },
+        "cover": {
+          "type": "image",
+          "required": true
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "order": 10,
+      "astroCollection": "blogEs",
+      "lang": "es",
+      "translationOf": "blog"
+    },
+    "case-studies-es": {
+      "label": "客户案例（ES）",
+      "path": "src/content/case-studies-es",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/case-studies",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "client": {
+          "type": "string",
+          "required": true
+        },
+        "summary": {
+          "type": "textarea",
+          "required": true
+        },
+        "problem": {
+          "type": "string",
+          "required": true
+        },
+        "action": {
+          "type": "string",
+          "required": true
+        },
+        "results": {
+          "type": "array",
+          "required": true
+        },
+        "cover": {
+          "type": "image",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "order": 10,
+      "astroCollection": "caseStudiesEs",
+      "lang": "es",
+      "translationOf": "case-studies"
+    }
+  },
+  "media": {
+    "root": "public",
+    "publicPrefix": "/",
+    "folders": {
+      "img": "public/img",
+      "general": "public/uploads/general"
+    }
+  },
+  "writable": {
+    "allow": [
+      "site.config.json",
+      "src/data/**",
+      "src/content/**",
+      "public/branding/**",
+      "public/uploads/**",
+      "public/img/**"
+    ],
+    "deny": [
+      "src/components/**",
+      "src/layouts/**",
+      "src/pages/**",
+      "src/**/*.astro",
+      "src/**/*.ts",
+      "src/**/*.js",
+      "astro.config.*",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "wrangler.toml",
+      ".git/**",
+      "node_modules/**"
+    ]
+  },
+  "deploy": {
+    "provider": "cloudflare-pages",
+    "productionDomain": "https://www.crosspals.com",
+    "previewDomain": ""
+  },
+  "git": {
+    "branch": "main",
+    "remote": "origin",
+    "repo": "KammyD/crosspals"
+  },
+  "meta": {
+    "generatedBy": "cms-core/init-site.js",
+    "generatedAt": "2026-09-18T09:02:11.066Z"
+  }
+}

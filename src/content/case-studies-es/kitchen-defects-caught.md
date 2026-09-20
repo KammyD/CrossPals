@@ -1,4 +1,5 @@
 ---
+seoTitle: "30% defectos en pedido de cocina — Detectado a tiempo"
 title: "Un 30% de defectos en un pedido de 500 unidades — detectado antes de embarcar"
 client: "Vendedor Amazon · Estados Unidos · Cocina y Hogar"
 summary: "Un pedido repetido que el vendedor iba a lanzar a ciegas: misma fábrica, sin inspección. Inspeccionamos primero y el lote no pasó."

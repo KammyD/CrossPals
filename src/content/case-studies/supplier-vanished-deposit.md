@@ -1,4 +1,6 @@
 ---
+
+description: "UK seller lost 30% deposit to unresponsive supplier. Found a verified factory, secured payments via milestones, & safely rebuilt the order. Learn how."
 title: "A supplier vanished after the deposit — so we rebuilt the order safely"
 client: "Amazon & Shopify · United Kingdom · Home & Garden"
 summary: "A deposit lost to a supplier who stopped replying. We verified a replacement factory, structured the payments around milestones, and paid nothing until each one cleared."

@@ -1,0 +1,25 @@
+{
+  "company": {
+    "name": "保定职航科技有限公司",
+    "nameZh": "保定职航科技有限公司",
+    "nameEn": "Baoding Zhihang Technology Co., Ltd.",
+    "shortName": "CrossPals"
+  },
+  "contact": {
+    "email": "hello@crosspals.com",
+    "emailEs": "hola@crosspals.com",
+    "phone": "+86 151 0026 8521",
+    "phoneTel": "+8615100268521",
+    "whatsapp": "https://wa.me/8615100268521",
+    "address": "Baoding, Hebei Province, China",
+    "addressEs": "Baoding, provincia de Hebei, China",
+    "addressZh": "中国 河北省 保定市"
+  },
+  "social": {},
+  "branding": {
+    "domain": "https://www.crosspals.com",
+    "siteName": "CrossPals"
+  },
+  "legal": {},
+  "seo": {}
+}

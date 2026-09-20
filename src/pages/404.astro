@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getLangFromUrl } from '../i18n/utils';
+import { EMAIL } from '../config/site';
 
 const lang = getLangFromUrl(Astro.url);
+// 邮箱取自 src/data/site.json（CMS 可改），不要在页面里写死
+const mail = EMAIL[lang === 'es' ? 'es' : 'en'];
 const copy = lang === 'es'
   ? {
       overline: 'Error 404',
@@ -22,7 +25,7 @@ const copy = lang === 'es'
     };
 ---
 
-<BaseLayout title="404" description="Page not found." lang={lang}>
+<BaseLayout title="404 Page Not Found | Help & Solutions" description="Oops! Page not found. Browse our help center for solutions or return to the homepage for quick assistance." lang={lang}>
   <section class="section nf grain" style="position:relative;">
     <div class="container nf__inner">
       <p class="overline overline--light reveal">{copy.overline}</p>
@@ -32,7 +35,7 @@ const copy = lang === 'es'
         <a href={lang === 'es' ? '/es/' : '/'} class="btn btn-primary">{copy.home}</a>
         <a href={lang === 'es' ? '/es/contact' : '/contact'} class="btn btn-ghost">{copy.contact}</a>
       </div>
-      <p class="nf__note reveal reveal-delay-3">{copy.note} <a href="mailto:hello@crosspals.com">hello@crosspals.com</a></p>
+      <p class="nf__note reveal reveal-delay-3">{copy.note} <a href={`mailto:${mail}`}>{mail}</a></p>
     </div>
   </section>
 </BaseLayout>

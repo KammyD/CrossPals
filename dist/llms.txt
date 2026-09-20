@@ -1,0 +1,8 @@
+# www.CrossPals.com
+
+> 本站面向 AI Agent 的 Markdown 内容索引（Markdown for Agents）。
+
+## 主要页面
+- [首页](https://www.CrossPals.com/)
+- [关于我们](https://www.CrossPals.com/about)
+- [联系我们](https://www.CrossPals.com/contact)
