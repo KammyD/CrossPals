@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: 1688-vs-alibaba
 featured: true
 title: "1688 vs Alibaba: Which Is Better for Private Label Sellers?"
 description: "Prices, MOQs, English support and export ability — a straight comparison for private label sellers."

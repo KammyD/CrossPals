@@ -1,0 +1,376 @@
+{
+  "siteId": "crosspals-com",
+  "analyzedAt": "2026-09-21T19:42:10.142Z",
+  "contentSources": [
+    {
+      "name": "content",
+      "label": "content",
+      "path": "src/content",
+      "type": "content",
+      "fileTypes": [
+        ".md",
+        ".ts"
+      ],
+      "fileCount": 17,
+      "confidence": 0.72,
+      "confidenceSource": "rule-heuristic",
+      "reason": "目录名含内容关键词\"content\"且文件格式以内容格式为主",
+      "lockedByUser": false,
+      "lang": "en",
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "blog",
+      "label": "blog",
+      "path": "src/content/blog",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
+      "lockedByUser": false,
+      "lang": "en",
+      "translationGroup": "blog",
+      "translationRole": "base",
+      "langLayout": "dir",
+      "kind": "content"
+    },
+    {
+      "name": "blog-es",
+      "label": "blog-es",
+      "path": "src/content/blog-es",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
+      "lockedByUser": false,
+      "lang": "es",
+      "translationGroup": "blog",
+      "translationRole": "variant",
+      "langLayout": "dir",
+      "kind": "content"
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/content/case-studies",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
+      "lockedByUser": false,
+      "lang": "en",
+      "translationGroup": "case-studies",
+      "translationRole": "base",
+      "langLayout": "dir",
+      "kind": "content"
+    },
+    {
+      "name": "case-studies-es",
+      "label": "case-studies-es",
+      "path": "src/content/case-studies-es",
+      "type": "content",
+      "fileTypes": [
+        ".md"
+      ],
+      "fileCount": 4,
+      "confidence": 0.97,
+      "confidenceSource": "rule-strong",
+      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
+      "lockedByUser": false,
+      "lang": "es",
+      "translationGroup": "case-studies",
+      "translationRole": "variant",
+      "langLayout": "dir",
+      "kind": "content"
+    },
+    {
+      "name": "i18n-en",
+      "label": "i18n · EN",
+      "path": "src/i18n/en.ts",
+      "type": "content",
+      "fileTypes": [
+        ".ts"
+      ],
+      "fileCount": 1,
+      "confidence": 0.95,
+      "confidenceSource": "rule-strong",
+      "reason": "多语言词典文件（同目录 ≥2 个语言码文件名）",
+      "lockedByUser": false,
+      "lang": "en",
+      "translationGroup": "src/i18n",
+      "translationRole": "base",
+      "kind": "dictionary",
+      "langLayout": "file"
+    },
+    {
+      "name": "i18n-es",
+      "label": "i18n · ES",
+      "path": "src/i18n/es.ts",
+      "type": "content",
+      "fileTypes": [
+        ".ts"
+      ],
+      "fileCount": 1,
+      "confidence": 0.95,
+      "confidenceSource": "rule-strong",
+      "reason": "多语言词典文件（同目录 ≥2 个语言码文件名）",
+      "lockedByUser": false,
+      "lang": "es",
+      "translationGroup": "src/i18n",
+      "translationRole": "variant",
+      "kind": "dictionary",
+      "langLayout": "file"
+    }
+  ],
+  "codeSources": [
+    {
+      "name": "components",
+      "label": "components",
+      "path": "src/components",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 8,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "config",
+      "label": "config",
+      "path": "src/config",
+      "type": "code",
+      "fileTypes": [
+        ".ts"
+      ],
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "layouts",
+      "label": "layouts",
+      "path": "src/layouts",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "pages",
+      "label": "pages",
+      "path": "src/pages",
+      "type": "code",
+      "fileTypes": [
+        ".astro",
+        ".ts"
+      ],
+      "fileCount": 22,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "blog",
+      "label": "blog",
+      "path": "src/pages/blog",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/pages/case-studies",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "es",
+      "label": "es",
+      "path": "src/pages/es",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 10,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "blog",
+      "label": "blog",
+      "path": "src/pages/es/blog",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 1,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "case-studies",
+      "label": "case-studies",
+      "path": "src/pages/es/case-studies",
+      "type": "code",
+      "fileTypes": [
+        ".astro"
+      ],
+      "fileCount": 2,
+      "confidence": 0.88,
+      "confidenceSource": "rule-strong",
+      "reason": "100% 的文件是代码文件",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "styles",
+      "label": "styles",
+      "path": "src/styles",
+      "type": "code",
+      "fileTypes": [
+        ".css"
+      ],
+      "fileCount": 1,
+      "confidence": 0.99,
+      "confidenceSource": "rule-strong",
+      "reason": "符合 Astro 约定的代码目录命名",
+      "lockedByUser": false,
+      "lang": null,
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    },
+    {
+      "name": "data",
+      "label": "data",
+      "path": "src/data",
+      "type": "code",
+      "fileTypes": [
+        ".ts",
+        ".json"
+      ],
+      "fileCount": 2,
+      "confidence": 0,
+      "confidenceSource": "user-defined",
+      "reason": "没有规则能确认该目录的用途",
+      "lockedByUser": true,
+      "lang": "en",
+      "translationGroup": null,
+      "translationRole": null,
+      "kind": "content"
+    }
+  ],
+  "unknownSources": [],
+  "langGroups": [
+    {
+      "base": "blog",
+      "path": "src/content/blog",
+      "lang": "en",
+      "langs": [
+        "en",
+        "es"
+      ],
+      "variants": [
+        {
+          "lang": "es",
+          "path": "src/content/blog-es",
+          "name": "blog-es"
+        }
+      ]
+    },
+    {
+      "base": "case-studies",
+      "path": "src/content/case-studies",
+      "lang": "en",
+      "langs": [
+        "en",
+        "es"
+      ],
+      "variants": [
+        {
+          "lang": "es",
+          "path": "src/content/case-studies-es",
+          "name": "case-studies-es"
+        }
+      ]
+    }
+  ]
+}

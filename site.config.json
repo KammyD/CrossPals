@@ -11,10 +11,15 @@
       {
         "code": "en",
         "default": true
+      },
+      {
+        "code": "ja",
+        "label": "日本語"
       }
     ],
     "i18n": {
-      "strategy": "none"
+      "strategy": "directory",
+      "source": "en"
     }
   },
   "branding": {

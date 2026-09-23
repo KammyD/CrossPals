@@ -1,6 +1,6 @@
 {
   "siteId": "crosspals-com",
-  "verifiedSignature": "1f5d7418b12df87e",
+  "verifiedSignature": "ca68ced472a48c1f",
   "entries": [
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/404.astro",
@@ -25,46 +25,6 @@
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/contact.astro",
       "url": "/contact",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/about.astro",
-      "url": "/es/about",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/blog.astro",
-      "url": "/es/blog",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/case-studies/index.astro",
-      "url": "/es/case-studies",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/contact.astro",
-      "url": "/es/contact",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/index.astro",
-      "url": "/es",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/privacy.astro",
-      "url": "/es/privacy",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/services.astro",
-      "url": "/es/services",
-      "source": "static-strong"
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/es/terms.astro",
-      "url": "/es/terms",
       "source": "static-strong"
     },
     {
@@ -114,38 +74,6 @@
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
       "url": "/blog/read-inspection-report",
-      "source": "static-heuristic",
-      "slugCandidates": [
-        "read-inspection-report"
-      ]
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
-      "url": "/es/blog/1688-vs-alibaba",
-      "source": "static-heuristic",
-      "slugCandidates": [
-        "1688-vs-alibaba"
-      ]
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections.md",
-      "url": "/es/blog/avoid-fba-rejections",
-      "source": "static-heuristic",
-      "slugCandidates": [
-        "avoid-fba-rejections"
-      ]
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
-      "url": "/es/blog/get-fba-ready",
-      "source": "static-heuristic",
-      "slugCandidates": [
-        "get-fba-ready"
-      ]
-    },
-    {
-      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
-      "url": "/es/blog/read-inspection-report",
       "source": "static-heuristic",
       "slugCandidates": [
         "read-inspection-report"
