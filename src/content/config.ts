@@ -5,14 +5,16 @@ import { defineCollection, z } from 'astro:content';
  * ────────────────────────────────
  * 加内容 = 往对应目录丢一个 .md 文件，不需要改任何 .astro 代码。
  *
- * 目录：
- *   src/content/blog/*.md           →  /blog/<文件名>/   （英文详情页；西语列表 es/blog 复用它）
- *   src/content/case-studies/*.md   →  /case-studies/<文件名>/ 与 /es/case-studies/<文件名>/
+ * 目录（**单语言站点，只有英语**）：
+ *   src/content/blog/*.md           →  /blog/<文件名>/
+ *   src/content/case-studies/*.md   →  /case-studies/<文件名>/
  *
  * 命名规则：
  *   - 文件名即 URL slug，用英文小写 + 连字符（例：avoid-fba-rejections.md）
- *   - frontmatter 里的 *Es 字段是可选的西语覆盖，留空则西语页回退显示英文
  *   - draft: true 的文章不会进列表、不会被构建
+ *
+ * 历史：曾有一对西语镜像集合（blog-es / case-studies-es）+ 一组 *Es 覆盖字段，
+ * 已于 2026-09-23 随西语站点一并移除（原版在 git 历史里）。
  */
 
 /** 日期统一用 'YYYY-MM-DD' 字符串（引号包起来，避免 YAML 自动转成日期对象产生时区偏移） */
@@ -30,10 +32,6 @@ const blog = defineCollection({
     cover: z.string(),             // '/img/xxx.webp'
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    // 西语覆盖（可选）
-    titleEs: z.string().optional(),
-    descriptionEs: z.string().optional(),
-    categoryEs: z.string().optional(),
   }),
 });
 
@@ -53,47 +51,7 @@ const caseStudies = defineCollection({
     date: dateStr,
     order: z.number().default(99), // 列表排序，越小越前
     draft: z.boolean().default(false),
-    // 西语覆盖（可选）
-    titleEs: z.string().optional(),
-    clientEs: z.string().optional(),
-    summaryEs: z.string().optional(),
-    problemEs: z.string().optional(),
-    actionEs: z.string().optional(),
-    resultsEs: z.array(z.string()).optional(), // 只覆盖每条指标的说明文字，顺序对应
   }),
 });
 
-/* ── 西语正文（镜像 collection） ───────────────────────────
-   英文正文写在 blog / case-studies；西语正文写在 blog-es / case-studies-es，
-   文件名（slug）必须与英文版一一对应。
-   西语页渲染逻辑：先找 -es 版本，没有就回退英文正文（并在页面上注明）。
-   这样加一篇西语文章 = 往 -es 目录丢一个同名 .md，不改任何代码。 */
-const blogEs = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    category: z.string(),
-    date: dateStr,
-    readTime: z.string(),
-    cover: z.string(),
-    draft: z.boolean().default(false),
-  }),
-});
-
-const caseStudiesEs = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    client: z.string(),
-    summary: z.string(),
-    problem: z.string(),
-    action: z.string(),
-    results,
-    cover: z.string(),
-    date: dateStr,
-    draft: z.boolean().default(false),
-  }),
-});
-
-export const collections = { blog, caseStudies, blogEs, caseStudiesEs };
+export const collections = { blog, caseStudies };

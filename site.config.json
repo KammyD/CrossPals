@@ -11,14 +11,10 @@
       {
         "code": "en",
         "default": true
-      },
-      {
-        "code": "es",
-        "default": false
       }
     ],
     "i18n": {
-      "strategy": "directory"
+      "strategy": "none"
     }
   },
   "branding": {
@@ -79,16 +75,6 @@
         "draft": {
           "type": "boolean",
           "default": false
-        },
-        "titleEs": {
-          "type": "string",
-          "help": "西语覆盖（可选）"
-        },
-        "descriptionEs": {
-          "type": "textarea"
-        },
-        "categoryEs": {
-          "type": "string"
         }
       },
       "order": 10,
@@ -145,124 +131,10 @@
         "draft": {
           "type": "boolean",
           "default": false
-        },
-        "titleEs": {
-          "type": "string",
-          "help": "西语覆盖（可选）"
-        },
-        "clientEs": {
-          "type": "string"
-        },
-        "summaryEs": {
-          "type": "textarea"
-        },
-        "problemEs": {
-          "type": "string"
-        },
-        "actionEs": {
-          "type": "string"
-        },
-        "resultsEs": {
-          "type": "array",
-          "help": "只覆盖每条指标的说明文字，顺序对应"
         }
       },
       "order": 10,
       "astroCollection": "caseStudies",
-      "mediaFolder": "public/img"
-    },
-    "blog-es": {
-      "label": "文章（ES）",
-      "path": "src/content/blog-es",
-      "format": "markdown",
-      "itemLayout": "file",
-      "routeBase": "/blog",
-      "enabled": true,
-      "schema": {
-        "title": {
-          "type": "string",
-          "required": true
-        },
-        "description": {
-          "type": "textarea",
-          "required": true
-        },
-        "category": {
-          "type": "string",
-          "required": true
-        },
-        "date": {
-          "type": "date",
-          "required": true
-        },
-        "readTime": {
-          "type": "string",
-          "required": true
-        },
-        "cover": {
-          "type": "image",
-          "required": true
-        },
-        "draft": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "order": 10,
-      "astroCollection": "blogEs",
-      "lang": "es",
-      "translationOf": "blog",
-      "mediaFolder": "public/img"
-    },
-    "case-studies-es": {
-      "label": "客户案例（ES）",
-      "path": "src/content/case-studies-es",
-      "format": "markdown",
-      "itemLayout": "file",
-      "routeBase": "/case-studies",
-      "enabled": true,
-      "schema": {
-        "title": {
-          "type": "string",
-          "required": true
-        },
-        "client": {
-          "type": "string",
-          "required": true
-        },
-        "summary": {
-          "type": "textarea",
-          "required": true
-        },
-        "problem": {
-          "type": "string",
-          "required": true
-        },
-        "action": {
-          "type": "string",
-          "required": true
-        },
-        "results": {
-          "type": "array",
-          "required": true
-        },
-        "cover": {
-          "type": "image",
-          "required": true
-        },
-        "date": {
-          "type": "date",
-          "required": true
-        },
-        "draft": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "order": 10,
-      "astroCollection": "caseStudiesEs",
-      "lang": "es",
-      "translationOf": "case-studies",
       "mediaFolder": "public/img"
     }
   },

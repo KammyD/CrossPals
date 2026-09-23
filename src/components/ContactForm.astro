@@ -1,15 +1,14 @@
 ---
 import { EMAIL } from '../config/site';
 
-interface Props { lang?: 'en' | 'es'; }
+interface Props { lang?: 'en' }
 const { lang = 'en' } = Astro.props;
+void lang; // 单语言站点：值恒为 'en'，保留解析只为兼容各页面调用点
 // 邮箱取自 src/data/site.json（CMS 可改），不要在组件里写死
-const mail = EMAIL[lang] ?? EMAIL.en;
-const L = {
-  en: { name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours', fb:'Prefer email?' },
-  es: { name:'Tu Nombre', email:'Correo Electrónico', country:'Tu País', product:'Producto que quieres importar', budget:'Presupuesto Estimado (USD)', msg:'Detalles adicionales (opcional)', submit:'Enviar Consulta', np:'Alex Johnson', ep:'alex@ejemplo.com', cp:'México, Brasil, Argentina…', bp:'$500 – $5,000', pp:'Ej. Fundas para teléfonos, 500 unidades…', mp:'Plazos, requisitos, preguntas…', note:'Respuesta típica en 24 horas', fb:'¿Prefieres correo?' },
+const mail = EMAIL.en;
+const l = {
+  name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours', fb:'Prefer email?',
 };
-const l = L[lang];
 ---
 <form class="cform" action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />

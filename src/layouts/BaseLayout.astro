@@ -7,34 +7,21 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
-  lang?: 'en' | 'es';
+  /** 单语言站点，值恒为 'en'；保留该 prop 是为了不动各页面的调用点 */
+  lang?: 'en';
   /** 文章页传入后输出 Article 结构化数据 */
   article?: { published: string; section?: string };
 }
-const DEFAULT_DESC = {
-  en: 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.',
-  es: 'CrossPals — abastecimiento en China de confianza para emprendedores. Búsqueda de productos, inspección de calidad, compra y envío.',
-};
+const DEFAULT_DESC = 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.';
 const {
   title,
-  description = DEFAULT_DESC[lang],
+  description = DEFAULT_DESC,
   lang = 'en',
   article,
 } = Astro.props;
-const isEs = lang === 'es';
 const SITE = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
-
-// 双语页面集合：只有这些路径有对应的另一种语言版本，才输出 hreflang
-const bilingual = ['/', '/services/', '/about/', '/contact/', '/blog/', '/privacy/', '/terms/', '/case-studies/'];
-const pathNoLang = lang === 'es' ? (Astro.url.pathname.replace(/^\/es/, '') || '/') : Astro.url.pathname;
-// 详情页是动态路由（/case-studies/<slug>/ 与 /es/case-studies/<slug>/、/blog/<slug>/ 与 /es/blog/<slug>/ 成对存在），单独判定
-const isCaseDetail = /^\/case-studies\/[^/]+\/$/.test(pathNoLang);
-const isBlogDetail = /^\/blog\/[^/]+\/$/.test(pathNoLang);
-const hasTwin = bilingual.includes(pathNoLang) || isCaseDetail || isBlogDetail;
-const enUrl = hasTwin ? new URL(pathNoLang, SITE) : null;
-const esUrl = hasTwin ? new URL('/es' + (pathNoLang === '/' ? '/' : pathNoLang), SITE) : null;
 
 const ORG = {
   '@type': 'Organization',
@@ -50,12 +37,8 @@ const ORG = {
     addressRegion: COMPANY.addressParts.region,
     addressCountry: COMPANY.addressParts.country,
   },
-  description: isEs
-    ? 'Socio de abastecimiento en China para emprendedores: búsqueda de productos, verificación de proveedores, inspección de calidad, compra y envío puerta a puerta.'
-    : 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
-  areaServed: isEs
-    ? ['África', 'América Latina', 'Sudeste Asiático', 'Oriente Medio']
-    : ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
+  description: 'China sourcing partner for global entrepreneurs: product finding, supplier verification, quality inspection, purchasing, and door-to-door shipping.',
+  areaServed: ['Africa', 'Latin America', 'Southeast Asia', 'Middle East'],
 };
 const jsonLd = article
   ? {
@@ -65,7 +48,7 @@ const jsonLd = article
       datePublished: article.published,
       dateModified: article.published,
       articleSection: article.section,
-      inLanguage: lang,
+      inLanguage: 'en',
       image: [ogImage.href],
       mainEntityOfPage: canonical.href,
       publisher: ORG,
@@ -73,7 +56,7 @@ const jsonLd = article
   : Astro.url.pathname === '/'
     ? {
         '@context': 'https://schema.org',
-        '@graph': [ORG, { '@type': 'WebSite', name: 'CrossPals', url: SITE.href, inLanguage: ['en', 'es'] }],
+        '@graph': [ORG, { '@type': 'WebSite', name: 'CrossPals', url: SITE.href, inLanguage: 'en' }],
       }
     : null;
 ---
@@ -85,16 +68,12 @@ const jsonLd = article
     <title>{title} | CrossPals</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {enUrl && <link rel="alternate" hreflang="en" href={enUrl} />}
-    {esUrl && <link rel="alternate" hreflang="es" href={esUrl} />}
-    {enUrl && <link rel="alternate" hreflang="x-default" href={enUrl} />}
     <meta property="og:title"       content={`${title} | CrossPals`} />
     <meta property="og:description" content={description} />
     <meta property="og:type"        content={article ? 'article' : 'website'} />
     <meta property="og:url"         content={canonical} />
     <meta property="og:site_name"   content="CrossPals" />
-    <meta property="og:locale"      content={lang === 'es' ? 'es_ES' : 'en_US'} />
-    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
+    <meta property="og:locale"      content="en_US" />
     <meta property="og:image"       content={ogImage} />
     <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
@@ -108,7 +87,7 @@ const jsonLd = article
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <a href="#main" class="skiplink">{isEs ? 'Saltar al contenido' : 'Skip to content'}</a>
+    <a href="#main" class="skiplink">Skip to content</a>
     <Header />
     <main id="main">{/* @ts-ignore */}<slot /></main>
     <Footer />

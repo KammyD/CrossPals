@@ -6,9 +6,6 @@ category: "Sourcing"
 date: "2026-07-06"
 readTime: "6 min"
 cover: "/img/sourcing-1688.webp"
-titleEs: "1688 vs Alibaba: ¿cuál conviene más a los vendedores de marca privada?"
-descriptionEs: "Precios, MOQ, soporte en inglés y capacidad de exportación — una comparación directa."
-categoryEs: "Compras"
 ---
 
 Alibaba.com and 1688.com are both run by Alibaba Group, and both sell to businesses. They are not, however, the same market. If you are building a private label, knowing which to use — and when — saves real money.

@@ -34,7 +34,6 @@ export const PHONE = {
 
 export const EMAIL = {
   en: get('contact.email', 'hello@crosspals.com'),
-  es: get('contact.emailEs', 'hola@crosspals.com'),
 };
 
 export const COMPANY = {
@@ -47,8 +46,6 @@ export const COMPANY = {
   ),
   address: {
     en: get('contact.address', 'Baoding, Hebei Province, China'),
-    es: get('contact.addressEs', 'Baoding, provincia de Hebei, China'),
-    zh: get('contact.addressZh', '中国 河北省 保定市'),
   },
   /** 结构化数据用 */
   addressParts: {

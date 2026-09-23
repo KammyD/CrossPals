@@ -1,5 +1,6 @@
 /**
- * 法务页文案（隐私政策 / 服务条款），英西双语。
+ * 法务页文案（隐私政策 / 服务条款），仅英语。
+ * 西语版已于 2026-09-23 随西语站点一并移除（原版在 git 历史里）。
  * ⚠️ 通用模板，上线前建议律师复核；公司主体名称、地址、注册信息按需补充。
  */
 
@@ -16,15 +17,15 @@ export interface LegalDoc {
   sections: LegalSection[];
 }
 
-const UPDATED = { en: 'Last updated: September 2026', es: 'Última actualización: septiembre de 2026' };
+const UPDATED = 'Last updated: September 2026';
 
-export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
+export const legalContent: Record<'en', Record<LegalKind, LegalDoc>> = {
   en: {
     privacy: {
       title: 'Privacy Policy',
       overline: 'Legal',
       intro: 'How CrossPals collects, uses, and protects the information you share with us.',
-      updated: UPDATED.en,
+      updated: UPDATED,
       sections: [
         {
           h: '1. Who we are',
@@ -85,7 +86,7 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
       title: 'Terms of Service',
       overline: 'Legal',
       intro: 'The terms that govern our website and the sourcing services we provide.',
-      updated: UPDATED.en,
+      updated: UPDATED,
       sections: [
         {
           h: '1. Scope',
@@ -150,158 +151,19 @@ export const legalContent: Record<'en' | 'es', Record<LegalKind, LegalDoc>> = {
       ],
     },
   },
-  es: {
-    privacy: {
-      title: 'Política de Privacidad',
-      overline: 'Legal',
-      intro: 'Cómo CrossPals recopila, usa y protege la información que compartes con nosotros.',
-      updated: UPDATED.es,
-      sections: [
-        {
-          h: '1. Quiénes somos',
-          p: [
-            `CrossPals es el nombre comercial de ${COMPANY.nameEn} (${COMPANY.nameZh}), con domicilio en ${COMPANY.address.es}. Ayudamos a emprendedores internacionales a encontrar, verificar y enviar productos de proveedores chinos. En esta política, "nosotros" se refiere a esa empresa y al servicio que opera.`,
-            `Para cualquier consulta de privacidad, o para ejercer los derechos descritos abajo, escribe a ${EMAIL.es} o contáctanos en ${PHONE.display}.`,
-          ],
-        },
-        {
-          h: '2. Información que recopilamos',
-          p: [
-            'Información que nos das: nombre, correo electrónico, país, contacto de mensajería y los detalles de producto o pedido que envías por formulario o correo.',
-            'Información recopilada automáticamente: páginas vistas, origen de referencia, ubicación aproximada a nivel de país, tipo de dispositivo y navegador, y marcas de tiempo.',
-            'Información de terceros: confirmaciones de pago, actualizaciones de proveedores o logística e informes de inspección de tu pedido.',
-          ],
-        },
-        {
-          h: '3. Para qué la usamos',
-          p: [
-            'Para responder tu consulta y preparar una cotización; para buscar, comprar, inspeccionar y enviar mercancía según tus instrucciones; para informarte del estado del pedido; para llevar registros contables; para mejorar el sitio y el servicio; y para detectar y prevenir fraudes.',
-            'Nos basamos en tu consentimiento para mensajes de marketing, en la ejecución de nuestro acuerdo para gestionar pedidos, y en nuestro interés legítimo en operar y proteger el servicio.',
-          ],
-        },
-        {
-          h: '4. Con quién la compartimos',
-          p: [
-            'Compartimos solo lo necesario: proveedores y fábricas que cotizan o producen tu mercancía, agentes de carga y mensajería, servicios de inspección y proveedores que alojan el sitio o envían nuestros correos. Podemos revelar información cuando la ley lo exija.',
-            'No vendemos tus datos personales ni compartimos tus contactos con proveedores para su propio marketing.',
-          ],
-        },
-        {
-          h: '5. Cuánto tiempo la conservamos',
-          p: [
-            'Los registros de consultas se conservan hasta 24 meses después del último contacto. Los registros de pedidos, pagos y envíos se conservan mientras lo exijan las normas contables y aduaneras. Puedes pedirnos que eliminemos datos que ya no necesitemos.',
-          ],
-        },
-        {
-          h: '6. Tus derechos',
-          p: [
-            `Puedes pedir una copia de tus datos, solicitar su corrección o eliminación, u oponerte a ciertos usos como el marketing. Escribe a ${EMAIL.es} o llama al ${PHONE.display} y responderemos en un plazo de 30 días.`,
-          ],
-        },
-        {
-          h: '7. Cookies y analítica',
-          p: [
-            'El sitio usa cookies esenciales para recordar tu idioma y preferencias básicas, y puede usar analítica respetuosa con la privacidad para entender qué páginas resultan útiles. Puedes bloquear o borrar cookies en tu navegador; algunas funciones esenciales podrían dejar de funcionar.',
-          ],
-        },
-        {
-          h: '8. Cambios en esta política',
-          p: [
-            'Podemos actualizar esta política cuando cambien nuestros servicios. La fecha en la parte superior muestra siempre la versión vigente. Los cambios importantes se anunciarán en este sitio.',
-          ],
-        },
-      ],
-    },
-    terms: {
-      title: 'Términos del Servicio',
-      overline: 'Legal',
-      intro: 'Las condiciones que rigen nuestro sitio web y los servicios de abastecimiento que prestamos.',
-      updated: UPDATED.es,
-      sections: [
-        {
-          h: '1. Alcance',
-          p: [
-            `Estos términos son entre tú y ${COMPANY.nameEn} (${COMPANY.nameZh}), con domicilio en ${COMPANY.address.es}, que opera el servicio CrossPals. Al usar crosspals.com o al encargarnos buscar, comprar, inspeccionar o enviar mercancía, aceptas estos términos. Si no estás de acuerdo, no utilices el servicio.`,
-          ],
-        },
-        {
-          h: '2. Nuestro rol',
-          p: [
-            'Actuamos como tu agente de abastecimiento y compra. Negociamos con proveedores chinos independientes en tu nombre; no somos el fabricante ni somos dueños de las fábricas con las que trabajamos. La calidad, el cumplimiento y la propiedad intelectual de los productos corresponden al fabricante y a las especificaciones del comprador.',
-          ],
-        },
-        {
-          h: '3. Cotizaciones y precios',
-          p: [
-            'Las cotizaciones detallan por separado el precio del proveedor, el costo de envío y nuestra comisión, y suelen ser válidas por 7 días. Los precios pueden variar con el tipo de cambio, el costo de materias primas y la disponibilidad de proveedores; confirmamos el importe final contigo antes de cualquier pago.',
-          ],
-        },
-        {
-          h: '4. Pedidos y pago',
-          p: [
-            'La producción suele iniciar tras un anticipo (habitualmente el 30% del costo del proveedor). El saldo se paga antes del envío, una vez que el pedido pasa la inspección. Pagamos directamente a proveedores y agentes; no pedimos transferencias a cuentas desconocidas.',
-          ],
-        },
-        {
-          h: '5. Inspección',
-          p: [
-            'Antes del envío inspeccionamos la mercancía y te enviamos un informe fotográfico con veredicto claro. La inspección cubre cantidad, aspecto, funcionamiento y embalaje frente a la especificación acordada. El comprador sigue siendo responsable de confirmar que la mercancía cumple las normas de importación, seguridad y etiquetado de su país.',
-          ],
-        },
-        {
-          h: '6. Envío, riesgo y retrasos',
-          p: [
-            'El envío se organiza según los Incoterms indicados en tu cotización. El riesgo se transfiere según esos términos. Los retrasos por aduanas, capacidad de transporte, clima o fuerza mayor están fuera de nuestro control, pero te mantendremos informado y ayudaremos a resolverlos.',
-          ],
-        },
-        {
-          h: '7. Reclamaciones',
-          p: [
-            'Informa cualquier faltante o defecto dentro de los 7 días posteriores a la entrega, con fotos o video de la mercancía y el embalaje. Si la reclamación se acepta, gestionaremos reposición, crédito o reembolso a nuestra discreción. Se excluyen daños en tránsito, mal uso y mercancía incautada por aduanas.',
-          ],
-        },
-        {
-          h: '8. Tu marca y tus archivos',
-          p: [
-            'Si nos envías logos, artes o archivos de embalaje, confirmas que tienes derecho a usarlos. Tratamos tus archivos de forma confidencial y los usamos solo para cumplir tu pedido.',
-          ],
-        },
-        {
-          h: '9. Responsabilidad',
-          p: [
-            'Nuestra responsabilidad total por un pedido se limita a la comisión que cobramos por ese pedido. No somos responsables de pérdidas indirectas, incluidos lucro cesante u oportunidades de venta perdidas.',
-          ],
-        },
-        {
-          h: '10. Cambios y contacto',
-          p: [
-            `Podemos actualizar estos términos; la versión publicada en esta página aplica desde la fecha indicada arriba. Consultas: ${EMAIL.es} · ${PHONE.display}.`,
-          ],
-        },
-      ],
-    },
-  },
 };
 
 /**
  * 主体信息块 —— 法务页顶部展示（公司主体 / 注册地址 / 联系方式）。
  * 数据来自 src/config/site.ts，改那一处即可。
  */
-export const legalEntity: Record<'en' | 'es', { h: string; lines: string[] }> = {
+export const legalEntity: Record<'en', { h: string; lines: string[] }> = {
   en: {
     h: 'Registered company',
     lines: [
       `${COMPANY.nameEn} — ${COMPANY.nameZh}`,
       COMPANY.address.en,
       `${PHONE.display} · ${EMAIL.en}`,
-    ],
-  },
-  es: {
-    h: 'Empresa registrada',
-    lines: [
-      `${COMPANY.nameEn} — ${COMPANY.nameZh}`,
-      COMPANY.address.es,
-      `${PHONE.display} · ${EMAIL.es}`,
     ],
   },
 };

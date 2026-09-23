@@ -14,15 +14,6 @@ results:
 cover: "/img/case-pet-fba.webp"
 date: "2026-07-14"
 order: 2
-titleEs: "Un primer pedido de marca privada que pasó FBA sin rechazos"
-clientEs: "Amazon FBA · España · Artículos para Mascotas"
-summaryEs: "Un vendedor que nunca había importado nada. Tres fábricas evaluadas, una muestra confirmada y una caja que pasó la recepción de Amazon a la primera."
-problemEs: "Un vendedor primerizo nunca había importado. Necesitaba una fábrica verificada, una muestra fiable y una caja que pasara la recepción de Amazon a la primera."
-actionEs: "Evaluamos tres fábricas, confirmamos la muestra según la especificación, hicimos la inspección completa y gestionamos etiquetado FNSKU, bolsas, pesos y etiquetas de caja."
-resultsEs:
-  - "unidades, primer pedido"
-  - "rechazos de FBA"
-  - "puerta a puerta"
 ---
 
 <!-- 提示：以下案例数字为示意稿，上线前请替换为真实订单数据。 -->

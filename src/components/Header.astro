@@ -1,7 +1,6 @@
 ---
 import Logo from './Logo.astro';
 import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
-import type { Lang } from '../i18n/utils';
 
 const lang    = getLangFromUrl(Astro.url);
 const t       = useTranslations(lang);
@@ -14,12 +13,6 @@ const nav = [
   { key: 'nav_blog',     href: '/blog'      },
   { key: 'nav_cases',    href: '/case-studies' },
   { key: 'nav_contact',  href: '/contact'   },
-] as const;
-
-// 只列真实存在的语言：fr/ar/pt 暂无页面，先不展示（避免 404）
-const languages = [
-  { code: 'en', label: 'English',    native: 'English',    flag: '🇺🇸' },
-  { code: 'es', label: 'Spanish',    native: 'Español',    flag: '🇪🇸' },
 ] as const;
 
 function active(href: string) {
@@ -49,48 +42,6 @@ function active(href: string) {
 
     <!-- Right side -->
     <div class="hdr__end">
-
-      <!-- Language dropdown -->
-      <div class="lang" id="langWrap">
-        <button class="lang__btn" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
-          <!-- Globe SVG -->
-          <svg class="lang__globe" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <circle cx="10" cy="10" r="8.5"/>
-            <path d="M10 1.5C10 1.5 6.5 5 6.5 10s3.5 8.5 3.5 8.5"/>
-            <path d="M10 1.5C10 1.5 13.5 5 13.5 10s-3.5 8.5-3.5 8.5"/>
-            <path d="M1.5 10h17"/>
-            <path d="M2.5 6.5h15M2.5 13.5h15"/>
-          </svg>
-          <span class="lang__code">{lang.toUpperCase()}</span>
-          <!-- Chevron SVG -->
-          <svg class="lang__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M4 6l4 4 4-4"/>
-          </svg>
-        </button>
-
-        <div class="lang__dropdown" id="langDropdown" role="listbox" aria-label="Select language">
-          <div class="lang__dropdown-title">Language</div>
-          {languages.map(l => (
-            <a
-              href={l.code === 'en' ? '/' : `/${l.code}`}
-              class:list={['lang__option', { 'lang__option--on': l.code === lang }]}
-              role="option"
-              aria-selected={l.code === lang}
-            >
-              <span class="lang__flag" aria-hidden="true">{l.flag}</span>
-              <span class="lang__info">
-                <span class="lang__name">{l.label}</span>
-                <span class="lang__native">{l.native}</span>
-              </span>
-              {l.code === lang && (
-                <svg class="lang__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                  <polyline points="3 8 6.5 11.5 13 5"/>
-                </svg>
-              )}
-            </a>
-          ))}
-        </div>
-      </div>
 
       <!-- CTA -->
       <a href={localePath(lang, '/contact')} class="hdr__cta">
@@ -130,18 +81,6 @@ function active(href: string) {
     </nav>
 
     <div class="drawer__foot">
-      <!-- Lang list in drawer -->
-      <div class="drawer__lang-list">
-        {languages.map(l => (
-          <a
-            href={l.code === 'en' ? '/' : `/${l.code}`}
-            class:list={['drawer__lang-item', { 'drawer__lang-item--on': l.code === lang }]}
-          >
-            <span>{l.flag}</span>
-            <span>{l.label}</span>
-          </a>
-        ))}
-      </div>
       <a href={localePath(lang, '/contact')} class="hdr__cta drawer__cta">
         {t('nav_cta')}
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
@@ -156,10 +95,7 @@ function active(href: string) {
   const hdr     = document.getElementById('hdr')!;
   const burger  = document.getElementById('burgerBtn')!;
   const drawer  = document.getElementById('drawer')!;
-  const trigger = document.getElementById('langTrigger')!;
-  const dropdown= document.getElementById('langDropdown')!;
   let menuOpen  = false;
-  let langOpen  = false;
 
   // ── 滚动状态：下滚收起 / 上滚滑出 ──
   const TOP_ZONE  = 140;   // 这个位置以内始终显示
@@ -175,8 +111,8 @@ function active(href: string) {
 
     hdr.classList.toggle('hdr--solid', y > 24);
 
-    // 菜单/语言面板开着、或者回到顶部附近：始终显示
-    if (menuOpen || langOpen || y <= TOP_ZONE) {
+    // 菜单开着、或者回到顶部附近：始终显示
+    if (menuOpen || y <= TOP_ZONE) {
       hdr.classList.remove('hdr--hide');
       acc = 0;
       return;
@@ -205,17 +141,8 @@ function active(href: string) {
   burger.addEventListener('click', () => setMenu(!menuOpen));
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-  // ── Language dropdown ──
-  const setLang = (v: boolean) => {
-    langOpen = v;
-    trigger.setAttribute('aria-expanded', String(v));
-    dropdown.classList.toggle('lang__dropdown--open', v);
-    trigger.classList.toggle('lang__btn--open', v);
-  };
-  trigger.addEventListener('click', (e) => { e.stopPropagation(); setLang(!langOpen); });
-  document.addEventListener('click', () => { if (langOpen) setLang(false); });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { setLang(false); setMenu(false); }
+    if (e.key === 'Escape') setMenu(false);
   });
 </script>
 
@@ -341,98 +268,6 @@ function active(href: string) {
 }
 
 /* ═══════════════════════════════════════════
-   LANGUAGE DROPDOWN
-═══════════════════════════════════════════ */
-.lang { position: relative; }
-
-.lang__btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 10px;
-  /* 深色体系下不再做独立灰盒子：默认透明，hover 才浮出 */
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 0;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 13px; font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--hdr-fg);
-  transition: background .18s, border-color .18s, color .18s;
-  white-space: nowrap;
-}
-
-.lang__btn:hover,
-.lang__btn--open {
-  background: var(--hdr-hover);
-  border-color: var(--hdr-line-2);
-  color: #fff;
-}
-
-.lang__globe { width: 14px; height: 14px; flex-shrink: 0; opacity: .5; }
-.lang__code  { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
-
-.lang__chevron {
-  width: 11px; height: 11px; flex-shrink: 0; opacity: .45;
-  transition: transform .22s var(--ease-out);
-}
-.lang__btn--open .lang__chevron { transform: rotate(180deg); }
-
-/* Dropdown panel */
-.lang__dropdown {
-  position: absolute;
-  top: calc(100% + 10px); right: 0;
-  width: 210px;
-  background: #20271b;
-  border: 1px solid var(--hdr-line-2);
-  border-radius: 0;
-  overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.28);
-
-  /* Hidden state */
-  opacity: 0;
-  transform: translateY(-6px) scale(0.97);
-  pointer-events: none;
-  transition: opacity .2s var(--ease-out), transform .2s var(--ease-out);
-  transform-origin: top right;
-}
-
-.lang__dropdown--open {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-.lang__dropdown-title {
-  padding: 10px 14px 8px;
-  font-family: var(--font-mono);
-  font-size: 10px; font-weight: 500;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: rgba(232,229,218,.45);
-  border-bottom: 1px solid var(--hdr-line);
-}
-
-.lang__option {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px;
-  text-decoration: none;
-  transition: background .14s;
-  cursor: pointer;
-}
-.lang__option:hover      { background: var(--hdr-hover); }
-.lang__option--on        { background: rgba(255,255,255,.08); }
-.lang__option:last-child { border-radius: 0; }
-
-.lang__flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
-.lang__info { display: flex; flex-direction: column; flex: 1; }
-.lang__name { font-size: 14px; font-weight: 500; color: var(--hdr-fg); }
-.lang__native { font-size: 11px; color: rgba(232,229,218,.5); margin-top: 1px; }
-
-.lang__check {
-  width: 14px; height: 14px;
-  stroke: var(--seal); flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════════
    CTA BUTTON
 ═══════════════════════════════════════════ */
 .hdr__cta {
@@ -550,37 +385,16 @@ function active(href: string) {
   display: flex; flex-direction: column; gap: var(--s3);
 }
 
-.drawer__lang-list {
-  display: flex; flex-wrap: wrap; gap: var(--s2);
-  padding-bottom: var(--s4);
-  border-bottom: 1px solid var(--hdr-line);
-}
-
-.drawer__lang-item {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 14px;
-  background: transparent;
-  border: 1px solid var(--hdr-line-2);
-  border-radius: 0;
-  font-size: 13px; font-weight: 500;
-  color: rgba(232,229,218,.7);
-  text-decoration: none;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.drawer__lang-item:hover     { background: var(--hdr-hover); color: var(--hdr-fg); }
-.drawer__lang-item--on       { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); color: #fff; }
-
 .drawer__cta { width: 100%; justify-content: center; padding: 15px; font-size: 16px; border-radius: 0; }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
-/* Tablet: 收紧导航间距，保证 5 项 + 语言 + CTA 仍能一行放下 */
+/* Tablet: 收紧导航间距，保证 6 项 + CTA 仍能一行放下 */
 @media (max-width: 1120px) and (min-width: 901px) {
   .hdr__nav   { gap: 26px; margin-right: var(--s5); }
   .hdr__link  { font-size: 15px; }
   .hdr__cta   { font-size: 14px; height: 46px; padding: 0 20px; }
-  .lang__btn  { padding: 8px 8px; }
 }
 
 @media (max-width: 900px) {

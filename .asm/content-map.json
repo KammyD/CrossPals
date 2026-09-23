@@ -1,6 +1,6 @@
 {
   "siteId": "crosspals-com",
-  "analyzedAt": "2026-09-18T17:42:47.721Z",
+  "analyzedAt": "2026-09-23T05:58:51.390Z",
   "contentSources": [
     {
       "name": "content",
@@ -11,7 +11,7 @@
         ".md",
         ".ts"
       ],
-      "fileCount": 17,
+      "fileCount": 9,
       "confidence": 0.72,
       "confidenceSource": "rule-heuristic",
       "reason": "目录名含内容关键词\"content\"且文件格式以内容格式为主",
@@ -32,37 +32,9 @@
       "lockedByUser": false
     },
     {
-      "name": "blog-es",
-      "label": "blog-es",
-      "path": "src/content/blog-es",
-      "type": "content",
-      "fileTypes": [
-        ".md"
-      ],
-      "fileCount": 4,
-      "confidence": 0.97,
-      "confidenceSource": "rule-strong",
-      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
-      "lockedByUser": false
-    },
-    {
       "name": "case-studies",
       "label": "case-studies",
       "path": "src/content/case-studies",
-      "type": "content",
-      "fileTypes": [
-        ".md"
-      ],
-      "fileCount": 4,
-      "confidence": 0.97,
-      "confidenceSource": "rule-strong",
-      "reason": "Astro Content Collections 注册目录，文件格式为内容格式",
-      "lockedByUser": false
-    },
-    {
-      "name": "case-studies-es",
-      "label": "case-studies-es",
-      "path": "src/content/case-studies-es",
       "type": "content",
       "fileTypes": [
         ".md"
@@ -111,7 +83,7 @@
       "fileTypes": [
         ".ts"
       ],
-      "fileCount": 3,
+      "fileCount": 2,
       "confidence": 0.88,
       "confidenceSource": "rule-strong",
       "reason": "100% 的文件是代码文件",
@@ -140,7 +112,7 @@
         ".astro",
         ".ts"
       ],
-      "fileCount": 22,
+      "fileCount": 12,
       "confidence": 0.88,
       "confidenceSource": "rule-strong",
       "reason": "100% 的文件是代码文件",
@@ -164,48 +136,6 @@
       "name": "case-studies",
       "label": "case-studies",
       "path": "src/pages/case-studies",
-      "type": "code",
-      "fileTypes": [
-        ".astro"
-      ],
-      "fileCount": 2,
-      "confidence": 0.88,
-      "confidenceSource": "rule-strong",
-      "reason": "100% 的文件是代码文件",
-      "lockedByUser": false
-    },
-    {
-      "name": "es",
-      "label": "es",
-      "path": "src/pages/es",
-      "type": "code",
-      "fileTypes": [
-        ".astro"
-      ],
-      "fileCount": 10,
-      "confidence": 0.88,
-      "confidenceSource": "rule-strong",
-      "reason": "100% 的文件是代码文件",
-      "lockedByUser": false
-    },
-    {
-      "name": "blog",
-      "label": "blog",
-      "path": "src/pages/es/blog",
-      "type": "code",
-      "fileTypes": [
-        ".astro"
-      ],
-      "fileCount": 1,
-      "confidence": 0.88,
-      "confidenceSource": "rule-strong",
-      "reason": "100% 的文件是代码文件",
-      "lockedByUser": false
-    },
-    {
-      "name": "case-studies",
-      "label": "case-studies",
-      "path": "src/pages/es/case-studies",
       "type": "code",
       "fileTypes": [
         ".astro"

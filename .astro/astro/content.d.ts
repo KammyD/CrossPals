@@ -170,44 +170,6 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
-"blog-es": {
-"1688-vs-alibaba.md": {
-	id: "1688-vs-alibaba.md";
-  slug: "1688-vs-alibaba";
-  body: string;
-  collection: "blog-es";
-  data: any
-} & { render(): Render[".md"] };
-"avoid-fba-rejections.md": {
-	id: "avoid-fba-rejections.md";
-  slug: "avoid-fba-rejections";
-  body: string;
-  collection: "blog-es";
-  data: any
-} & { render(): Render[".md"] };
-"get-fba-ready.md": {
-	id: "get-fba-ready.md";
-  slug: "get-fba-ready";
-  body: string;
-  collection: "blog-es";
-  data: any
-} & { render(): Render[".md"] };
-"read-inspection-report.md": {
-	id: "read-inspection-report.md";
-  slug: "read-inspection-report";
-  body: string;
-  collection: "blog-es";
-  data: any
-} & { render(): Render[".md"] };
-};
-"blogEs": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "blogEs";
-  data: InferEntrySchema<"blogEs">;
-  render(): Render[".md"];
-}>;
 "case-studies": {
 "fba-shipment-relabelled.md": {
 	id: "fba-shipment-relabelled.md";
@@ -238,50 +200,12 @@ declare module 'astro:content' {
   data: any
 } & { render(): Render[".md"] };
 };
-"case-studies-es": {
-"fba-shipment-relabelled.md": {
-	id: "fba-shipment-relabelled.md";
-  slug: "fba-shipment-relabelled";
-  body: string;
-  collection: "case-studies-es";
-  data: any
-} & { render(): Render[".md"] };
-"first-private-label-zero-rejections.md": {
-	id: "first-private-label-zero-rejections.md";
-  slug: "first-private-label-zero-rejections";
-  body: string;
-  collection: "case-studies-es";
-  data: any
-} & { render(): Render[".md"] };
-"kitchen-defects-caught.md": {
-	id: "kitchen-defects-caught.md";
-  slug: "kitchen-defects-caught";
-  body: string;
-  collection: "case-studies-es";
-  data: any
-} & { render(): Render[".md"] };
-"supplier-vanished-deposit.md": {
-	id: "supplier-vanished-deposit.md";
-  slug: "supplier-vanished-deposit";
-  body: string;
-  collection: "case-studies-es";
-  data: any
-} & { render(): Render[".md"] };
-};
 "caseStudies": Record<string, {
   id: string;
   slug: string;
   body: string;
   collection: "caseStudies";
   data: InferEntrySchema<"caseStudies">;
-  render(): Render[".md"];
-}>;
-"caseStudiesEs": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "caseStudiesEs";
-  data: InferEntrySchema<"caseStudiesEs">;
   render(): Render[".md"];
 }>;
 

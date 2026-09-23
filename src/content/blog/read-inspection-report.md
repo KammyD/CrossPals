@@ -5,9 +5,6 @@ category: "Quality"
 date: "2026-07-29"
 readTime: "5 min"
 cover: "/img/inspection.webp"
-titleEs: "Qué revisar en un informe de inspección de calidad en China"
-descriptionEs: "Tamaño de muestra, niveles AQL, clases de defecto y evidencia fotográfica — cómo leer un informe de inspección."
-categoryEs: "Calidad"
 ---
 
 A pre-shipment inspection report is only useful if you can read it. A vague "looks good" tells you nothing; a structured report tells you exactly how much risk you are about to accept. Here is what to look for, in order.

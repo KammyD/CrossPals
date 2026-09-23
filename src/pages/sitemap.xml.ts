@@ -25,16 +25,6 @@ export const GET: APIRoute = async ({ site }) => {
     ...cases.map(c => ({ path: `/case-studies/${c.slug}/`,    priority: '0.7' })),
     { path: '/privacy/',                  priority: '0.3' },
     { path: '/terms/',                    priority: '0.3' },
-    { path: '/es/',                       priority: '0.9' },
-    { path: '/es/services/',              priority: '0.8' },
-    { path: '/es/about/',                 priority: '0.6' },
-    { path: '/es/case-studies/',          priority: '0.7' },
-    ...cases.map(c => ({ path: `/es/case-studies/${c.slug}/`, priority: '0.6' })),
-    { path: '/es/contact/',               priority: '0.8' },
-    { path: '/es/blog/',                  priority: '0.6' },
-    ...posts.map(p => ({ path: `/es/blog/${p.slug}/`,           priority: '0.6' })),
-    { path: '/es/privacy/',               priority: '0.3' },
-    { path: '/es/terms/',                 priority: '0.3' },
   ];
 
   const urls = routes

@@ -16,15 +16,6 @@ results:
 cover: "/img/case-supplier-verify.webp"
 date: "2026-06-20"
 order: 3
-titleEs: "Un proveedor desapareció tras el anticipo — reconstruimos el pedido con seguridad"
-clientEs: "Amazon y Shopify · Reino Unido · Hogar y Jardín"
-summaryEs: "Un anticipo perdido con un proveedor que dejó de responder. Verificamos una fábrica de reemplazo y estructuramos los pagos por hitos."
-problemEs: "Un vendedor ya había perdido un anticipo con un proveedor que dejó de responder. Necesitaba reiniciar sin repetir el mismo riesgo."
-actionEs: "Verificamos la fábrica de reemplazo — licencia, dirección, historial de exportación y una visita por vídeo en directo — y estructuramos los pagos por hitos, con nuestra propia inspección antes de liberar el pago final."
-resultsEs:
-  - "del pago liberado por hitos"
-  - "pedidos completados"
-  - "perdido con el nuevo proveedor"
 ---
 
 <!-- 提示：以下案例数字为示意稿，上线前请替换为真实订单数据。 -->

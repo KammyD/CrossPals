@@ -4,14 +4,14 @@ import PageHero from './PageHero.astro';
 import { legalContent, legalEntity } from '../data/legal';
 import type { LegalKind } from '../data/legal';
 
-interface Props { lang: 'en' | 'es'; kind: LegalKind }
-const { lang, kind } = Astro.props;
-const doc = legalContent[lang][kind];
-const entity = legalEntity[lang];
-const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
+interface Props { lang?: 'en'; kind: LegalKind }
+const { kind } = Astro.props;   // 单语言站点：文案恒取英语（lang 仅为兼容调用点而保留）
+const doc = legalContent.en[kind];
+const entity = legalEntity.en;
+const homeLabel = 'Back to home';
 ---
 
-<BaseLayout title={doc.title} description={doc.intro} lang={lang}>
+<BaseLayout title={doc.title} description={doc.intro} lang="en">
   <PageHero overline={doc.overline} title={doc.title} subtitle={doc.intro} />
 
   <section class="section">
@@ -30,7 +30,7 @@ const homeLabel = lang === 'en' ? 'Back to home' : 'Volver al inicio';
         </div>
       ))}
       <div class="legal__foot">
-        <a href={lang === 'en' ? '/' : '/es/'} class="btn btn-outline">{homeLabel}</a>
+        <a href="/" class="btn btn-outline">{homeLabel}</a>
       </div>
     </div>
   </section>

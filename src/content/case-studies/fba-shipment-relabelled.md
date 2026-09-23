@@ -14,15 +14,6 @@ results:
 cover: "/img/case-relabel.webp"
 date: "2026-05-28"
 order: 4
-titleEs: "Un envío a FBA camino del rechazo, reetiquetado a tiempo"
-clientEs: "Amazon · Canadá · Accesorios Electrónicos"
-summaryEs: "2.000 unidades etiquetadas con la especificación incorrecta, ya empacadas. Lo detectamos en la revisión de etiquetas FBA y reetiquetamos todo el envío."
-problemEs: "Un envío de 2.000 unidades estaba etiquetado con la especificación incorrecta y podía ser rechazado en el almacén de Amazon — un viaje de ida y vuelta caro hasta China."
-actionEs: "Detectamos el problema de etiquetado en la revisión de etiquetas FBA, reetiquetamos cada caja, corregimos la lista de empaque y volvimos a medir cada bulto antes de que saliera."
-resultsEs:
-  - "unidades reetiquetadas"
-  - "pasó la recepción"
-  - "de reenvío evitados"
 ---
 
 <!-- 提示：以下案例数字为示意稿，上线前请替换为真实订单数据。 -->

@@ -5,9 +5,6 @@ category: "Amazon FBA"
 date: "2026-06-15"
 readTime: "5 min"
 cover: "/img/blog-packaging.webp"
-titleEs: "Cómo dejar tu producto listo para FBA antes de que salga de China"
-descriptionEs: "Etiquetas FNSKU, bolsas, agrupaciones, etiquetas de caja, pesos y dimensiones — la lista completa."
-categoryEs: "Amazon FBA"
 ---
 
 FBA prep is not glamorous. It is, however, the difference between a shipment that clears receiving in a day and one that is refused and shipped back at your expense. Here is the full checklist — in the order it should happen at the factory.

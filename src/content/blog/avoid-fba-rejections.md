@@ -6,9 +6,6 @@ date: "2026-08-18"
 readTime: "6 min"
 cover: "/img/blog-safety.webp"
 featured: true
-titleEs: "Cómo evitar el rechazo de envíos FBA procedentes de China"
-descriptionEs: "Los errores de etiquetado, empaque y documentación que hacen que Amazon rechace un envío — y cómo evitarlos."
-categoryEs: "Amazon FBA"
 ---
 
 An FBA shipment leaving China is a chain of small, unforgiving requirements. Miss one — a barcode that won't scan, a bag without a suffocation warning, a carton over the weight limit — and Amazon refuses the whole shipment. It goes back, or it sits. Either way, you pay.

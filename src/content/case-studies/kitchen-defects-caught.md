@@ -14,15 +14,6 @@ results:
 cover: "/img/case-kitchen-qc.webp"
 date: "2026-08-02"
 order: 1
-titleEs: "Un 30% de defectos en un pedido de 500 unidades — detectado antes de embarcar"
-clientEs: "Vendedor Amazon · Estados Unidos · Cocina y Hogar"
-summaryEs: "Un pedido repetido que el vendedor iba a lanzar a ciegas: misma fábrica, sin inspección. Inspeccionamos primero y el lote no pasó."
-problemEs: "El pedido anterior de 500 unidades de un vendedor llegó con aproximadamente un 30% de defectos. Estaba a punto de repetir con la misma fábrica sin ningún control."
-actionEs: "Realizamos una inspección completa antes del embarque en la fábrica, contamos los defectos de todo el lote y exigimos al proveedor una corrección antes del empaque. Después preparamos la mercancía según la especificación FBA."
-resultsEs:
-  - "unidades defectuosas detectadas"
-  - "de fábrica a listo para FBA"
-  - "pedidos repetidos"
 ---
 
 <!-- 提示：以下案例数字为示意稿，上线前请替换为真实订单数据。 -->
