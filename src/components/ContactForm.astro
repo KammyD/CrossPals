@@ -1,12 +1,14 @@
 ---
 import { EMAIL } from '../config/site';
 
-interface Props { lang?: 'en' }
+interface Props { lang?: string }
 const { lang = 'en' } = Astro.props;
-void lang; // 单语言站点：值恒为 'en'，保留解析只为兼容各页面调用点
 // 邮箱取自 src/data/site.json（CMS 可改），不要在组件里写死
-const mail = EMAIL.en;
-const l = {
+const mail = lang === 'ja' ? (EMAIL.ja ?? EMAIL.en) : EMAIL.en;
+
+const l = lang === 'ja' ? {
+  name:'お名前', email:'メールアドレス', country:'国', product:'調達したい製品', budget:'予算目安（USD）', msg:'補足情報（任意）', submit:'お問い合わせを送信', np:'山田 太郎', ep:'taro@example.com', cp:'日本、ブラジル、メキシコ…', bp:'$500 – $5,000', pp:'例：スマホケース、500個、オリジナルパッケージ…', mp:'納期、要件、ご質問など…', note:'通常24時間以内に返信します', fb:'メールをご希望の方',
+} : {
   name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours', fb:'Prefer email?',
 };
 ---

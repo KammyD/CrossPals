@@ -1,0 +1,526 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+
+/* ── 核心服务包（主推产品）：一条龙 ── */
+const coreIncludes: Array<{ n: string; title: string; body: string }> = [
+  { n: '01', title: 'サプライヤー探索', body: '見積り前に審査済みの3〜5社をご提示。ライセンス、工場所在地、輸出実績を確認済み。' },
+  { n: '02', title: 'サンプル確認', body: '本格発注前に、お客様の仕様とエンドユーザーの期待に照らしてサンプルを発注・評価します。' },
+  { n: '03', title: '全数検品', body: '出荷前に工場で品質検査：外観、寸法、機能、梱包、FBAラベルの確認。' },
+  { n: '04', title: 'FBA向け準備', body: 'FNSKUラベル貼り、ポリ袋詰め、セット梱包、Amazon規格に合わせた計量・採寸。' },
+  { n: '05', title: '輸送コーディネート', body: '航空・海運・エクスプレスを比較し、通関書類を手配。ライブ追跡付きのDDPドアツードア。' },
+];
+
+/* ── 附加服务：单独可选 ── */
+const addOns: Array<{ icon: IconName; title: string; problem: string; process: string; pricing: string; seed: number }> = [
+  { icon: 'package', title: 'オリジナルブランド＆パッケージ設計', seed: 71,
+    problem: '製品はただの輸入品ではなく、ブランドに見せる必要があります。弱いパッケージはコンバージョンを落とします。',
+    process: 'ロゴ配置、箱・袋・ラベルのデザイン、同梱カード、パッケージ工場とのMOQ交渉。',
+    pricing: '定額のデザイン料＋工場原価でのパッケージ。MOQは通常300〜1,000個。' },
+  { icon: 'transparent', title: '商品撮影', seed: 72,
+    problem: 'Amazon は白背景基準を満たさないメイン画像の出品を埋もれさせる——あるいはブロックします。',
+    process: 'Amazon のメイン画像規格に合わせた白背景撮影に加え、要望に応じて暮らしシーンや図解バリエーションも対応。',
+    pricing: '画像単価（量に応じて割引）。SKUごとの定額も可。' },
+  { icon: 'sourcing', title: '1688 購入代行', seed: 73,
+    problem: '最安値は1688にありますが、サイトは中国語専用で海外発送に対応していません。',
+    process: '製品のリンクや写真をお送りください。当社が1688出品者から購入し、検品・集荷してお届けします。',
+    pricing: 'ご注文金額の数％＋少額の最低手数料。中国語は不要です。' },
+  { icon: 'shipping', title: '倉庫保管＆輸送', seed: 74,
+    problem: '複数のサプライヤーから購入すると国際送料が複数発生し、かつ誰も商品をチェックしません。',
+    process: '当社の倉庫で複数のご注文を受取り、検品・再梱包し、1つの shipment にまとめます。',
+    pricing: '1立方メートルあたりの日額保管料＋ご注文ごとの集荷手数料。' },
+];
+
+const svcImg: Record<number,string> = {71:'blog-packaging',72:'blog-products',73:'sourcing-1688',74:'shipping'};
+const steps: Array<{ day: string; title: string; body: string }> = [
+  { day: 'Day 1',    title: '製品のご提出',    body: 'お問い合わせフォームから製品詳細、数量、品質基準、予算をお送りいただきます。' },
+  { day: 'Day 2',    title: 'サプライヤー候補のご提示',   body: '見積りと概要付きの審査済み3〜5社をご確認いただける形でお送りします。' },
+  { day: 'Day 3–5',  title: 'サンプル＆交渉',       body: 'サンプルを確認し、中国語で条件を合意、発注書を発行、内金を安全に支払います。' },
+  { day: 'Day 7–20', title: '生産＆検品',    body: '製品を製造します。出荷前に全数検品し、QC写真レポートをお送りします。' },
+  { day: 'Day 21+',  title: 'FBA完了、配送',    body: '商品は Amazon 規格でラベル・梱包され、通関済み、ライブ追跡付きで中国を出荷します。' },
+];
+
+const pricingFees: Array<{ label: string; value: string; note: string }> = [
+  { label: '手数料',  value: 'ご注文金額の5〜8%', note: '$10,000のご注文＝$600の手数料' },
+  { label: '検品', value: '$150 / 日',          note: '多くのご注文は半日で完了' },
+  { label: 'FBA準備',   value: '単価',            note: '見積りに明細として計上' },
+  { label: '送料',    value: '運送会社の見積り通り',    note: '運賃の上乗せは一切なし' },
+];
+
+const faqs = [
+  { q: 'FBA調達＆検品パッケージには何が含まれますか？', a: 'サプライヤー探索、サンプル確認、全数検品、FBA準備（ラベル・袋詰め・計量・採寸）、輸送コーディネート——責任を持つ一人のエージェント、一つの見積り。' },
+  { q: '手数料はいくらですか？',                            a: '手数料はご注文金額の5〜8%です。検品は$150/日（多くのご注文は半日で完了）。FBA準備は単価制。すべてご依頼前に見積りに明細として計上されます。' },
+  { q: '最低注文量は？',                         a: '厳格な最低量はありませんが、$300以上のご注文で最もスムーズに進みます。小口の場合、選択できるサプライヤーが少なくなることがあります。' },
+  { q: '検品で不合格になったら？',                           a: '出荷前にサプライヤーと協力して解決——手直し、交換、または返金——します。ご承認なしに最終支払いを行うことはありません。' },
+  { q: 'FBA準備とラベル貼りに対応していますか？',                 a: 'はい。FNSKUラベル、ポリ袋詰め、セット梱包、外箱ラベル、Amazon規格の重量・寸法——だからこそ初回で検品通関を通過します。' },
+  { q: 'ロゴ入りのオリジナルパッケージは作れますか？',                 a: 'はい——それがオリジナルブランド＆パッケージの追加サービスです。箱、袋、ラベル、タグ。MOQはサプライヤーにより異なり、通常300〜1,000個です。' },
+];
+
+/* ── Our Guarantees, in full ── */
+type GuaranteeModule = {
+  icon: IconName; n: string; title: string; promise: string;
+  img: string; alt: string;
+  steps: Array<{ t: string; time: string; d: string }>;
+  checksLabel: string;
+  checks: Array<{ k: string; v: string }>;
+  fail: string;
+};
+const guaranteeModules: GuaranteeModule[] = [
+  {
+    icon: 'trust', n: '01', title: '審査済みサプライヤーのみ',
+    promise: '1セント払う前に、すべてのサプライヤーを審査します。',
+    img: '/img/g-market.webp', alt: 'Walking the wholesale market floor to vet suppliers in person',
+    steps: [
+      { t: 'ショートリスト', time: 'Day 1–2', d: '自社の工場ネットワークと1688から、お客様の製品仕様に合わせた候補を3〜5社抽出します。' },
+      { t: '書類確認', time: 'Day 2–3', d: '営業許可証、登記住所、生産能力、輸出実績——販売ページではなく、工場そのものと照合して確認します。' },
+      { t: 'ライブ工場見学', time: 'Day 3–5', d: '工場内をビデオ通話で案内：本物のライン、在庫、サンプル。' },
+    ],
+    checksLabel: '確認項目',
+    checks: [
+      { k: '許可証＆法人', v: 'インボイスに記載される名前と一致する営業許可証。' },
+      { k: '住所と工場', v: '登記住所と、実際に製品が作られている場所を照合します。' },
+      { k: '生産能力＆納期', v: 'ご注文量、納期、再注文に対応できるかを確認します。' },
+      { k: '輸出実績', v: '過去の出荷と既存クライアント——すでに海外へ販売している相手先。' },
+      { k: '稼働中の生産ライン', v: '1ドルでもお支払い前に、映像で確認します。' },
+    ],
+    fail: '書類確認を通過できない、あるいはライブ見学を拒否した工場は、見積りに載りません。引き続き探します。',
+  },
+  {
+    icon: 'inspection', n: '02', title: '出荷前検品',
+    promise: 'ご入金前に写真レポート＋合否判定。',
+    img: '/img/g-production.webp', alt: 'Inspector checking goods on the production floor before shipment',
+    steps: [
+      { t: '検品の手配', time: 'ロット完了前日', d: '出荷日ではなく生産終了日に合わせて手配——手直しの時間を残します。' },
+      { t: '現場全数検査', time: '通常半日', d: '工場に立ち会い、自ら点数・計測・テスト・撮影を行います。' },
+      { t: 'レポート＆判定', time: '当日', d: '明確な合否、不良数、使用したサンプリング基準を記載した写真レポートをお受け取りいただきます。' },
+      { t: '手直しまたは交換', time: '3〜7日', d: '不合格はそのままサプライヤーへ手直しまたは交換へ——梱包前に再検品します。' },
+    ],
+    checksLabel: '確認項目',
+    checks: [
+      { k: '外観', v: '表面、色、仕上げ、縫製、印刷、目視損傷——承認サンプルに対して。' },
+      { k: '寸法', v: '仕様通りの重量と測定値。許容差外の単位は個別にフラグします。' },
+      { k: '機能', v: 'サンプル各単位を、お客様が使うのと同じように通電・組立・使用して確認。' },
+      { k: '梱包', v: '小売箱、ポリ袋、窒息警告、同梱物、外箱強度。' },
+      { k: 'FBAラベル', v: 'FNSKUバーコードの読み取り、外箱ラベルの正確さ、Amazon規格の重量・寸法。' },
+    ],
+    fail: 'ロットが不合格なら出荷しません。サプライヤーが手直しまたは交換し、合格するまで残金は当社で保管します。',
+  },
+  {
+    icon: 'payment', n: '03', title: '入金保護',
+    promise: 'マイルストーンを通過するまで資金を保管。見知らぬ相手への送金はなし。',
+    img: '/img/payment-escrow.webp', alt: 'Funds held against sealed cartons until each milestone clears',
+    steps: [
+      { t: 'マイルストーン付発注書', time: 'Day 1', d: '内金、生産、検品、出荷を、開始前に別々の支払いポイントとして固定します。' },
+      { t: '内金支払い', time: 'Day 1–2', d: '合意した内金のみを支払い、しかも書面での承認後だけです。' },
+      { t: '検品ゲート', time: 'QC時', d: '生産残金は、検品レポートが合格と返るまで支払われません。' },
+      { t: '最終決済', time: 'ご承認時', d: 'ご承認後に残金を決済し、インボイスに書面の領収書を添えます。' },
+    ],
+    checksLabel: '資金の保管方法',
+    checks: [
+      { k: '各支払いをご承認', v: 'そのマイルストーンでの書面承認なしでは、一切の支払いは動きません。' },
+      { k: 'サプライヤーへの支払いは当社経由', v: '当社が工場へ直接支払うため、未知の口座へ送金することはありません。' },
+      { k: '個人口座なし', v: '資金が個人の銀行口座や第三者ウォレットに渡ることはありません。' },
+      { k: '全額前払いなし', v: '誰も100%を前払いで受け取ることはありません——サプライヤーも当社も。' },
+      { k: '各送金に領収書', v: '各支払いは文書化され、ご注文に対して明細化されます。' },
+    ],
+    fail: 'マイルストーンを通過できなければ、注文を停止し、資金はお客様のまま——行われなかった作業に対して誰も支払われません。',
+  },
+  {
+    icon: 'shipping', n: '04', title: 'DDPドア配送',
+    promise: '書類ではなく、追跡と商品を。',
+    img: '/img/g-packing.webp', alt: 'Cartons sealed, labelled and ready for door delivery',
+    steps: [
+      { t: '予約＆集荷', time: 'Day 1–2', d: '運送会社を選び、スペースを予約し、複数の箱を1つの shipment にまとめます。' },
+      { t: '輸出＆書類', time: '2〜3日', d: '輸出申告、パッキングリスト、商用インボイス——当社側で作成・提出します。' },
+      { t: '輸送＆通関', time: '航空5〜8日・海運25〜35日', d: '航空または海上輸送。関税と通関はDDPで済ませ、お客様への請求は一切なし。' },
+      { t: 'ドア配送', time: '1〜3日', d: '最終区間をお客様の住所へ、あるいはAmazonへ直送。端から端まで追跡。' },
+    ],
+    checksLabel: '含まれるもの',
+    checks: [
+      { k: 'ドアツードア DDP', v: '工場からお客様の扉まで一つの価格——予期せぬ関税請求はなし。' },
+      { k: '関税＆税金', v: '見積りに含み、個別に明細化して確認できます。' },
+      { k: 'ライブ追跡', v: '出発から配達まで使える追跡番号。' },
+      { k: 'パッキングリスト＆インボイス', v: 'Amazonやフォワーダーが求める書類。' },
+      { k: 'FBAまたはお客様の住所', v: 'Amazon倉庫またはお客様へ——予約時に選択。' },
+    ],
+    fail: '配送が遅延・保留・紛失した場合、当社が運送会社を追い、クレームを提出します。書類闘争は当社の責任、お客様ではありません。',
+  },
+];
+---
+<BaseLayout lang="ja" title="サービス | CrossPals" description="FBA調達＆検品——サプライヤー探索、サンプル確認、全数検品、FBA準備、輸送コーディネートに加え、オリジナルブランド、撮影、1688、倉庫の追加サービス。透明な料金体系。" ogImage="/img/case-relabel.webp">
+
+  <PageHero
+    overline="私たちができること"
+    title="FBA調達<br/><em style='font-style:italic;color:var(--avo-300)'>&amp; 検品</em>"
+    subtitle="サプライヤー探索からAmazon向け箱詰めまで、一つのパッケージ。必要に応じてオリジナルブランド、撮影、1688購入、倉庫を追加。"
+  />
+
+  <!-- ═══ 核心服务包 ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="core reveal">
+        <div class="core__aside">
+          <span class="tag tag-seal">コアパッケージ</span>
+          <h2>FBA調達<br/><em>&amp; 検品</em></h2>
+          <p class="core__lead">すべてのFBA出品者にお勧めする単一パッケージ。製品を売りたい」から、ラベル付き・検品済み・Amazon対応の箱になるまでに必要なすべてを、一人のエージェントが担当します。</p>
+          <div class="core__price">
+            <span class="core__price-label">料金体系</span>
+            <p>手数料5〜8%・検品$150/日・FBA準備は単価——すべて一つの見積りに明細化。</p>
+          </div>
+          <a href="/ja/contact" class="btn btn-primary">
+            無料見積もりを取得
+            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          </a>
+        </div>
+
+        <ol class="core__list">
+          {coreIncludes.map((c, i) => (
+            <li class:list={['core-step reveal', `reveal-delay-${i}`]}>
+              <span class="core-step__n">{c.n}</span>
+              <div>
+                <h4>{c.title}</h4>
+                <p>{c.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- $1,000 订单说明 -->
+      <div class="price-example price-example--inline reveal">
+        <p class="price-example__title">実例——$1,000のご注文</p>
+        <div class="price-example__rows">
+          <div class="price-example__row"><span>サプライヤー価格（商品）</span><span>$1,000</span></div>
+          <div class="price-example__row"><span>手数料（8%）</span><span>$80</span></div>
+          <div class="price-example__row"><span>送料</span><span>実際の見積り通り</span></div>
+          <div class="price-example__row price-example__row--total"><span>あなたの総コスト</span><span>隠れた費用なし</span></div>
+        </div>
+        <p class="price-example__foot">サプライヤー価格＋手数料＋送料＝お支払い総額。それ以外は一切なし。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 附加服务 ═══ -->
+  <section class="section bg-parchment">
+    <div class="container">
+      <div class="add-head reveal">
+        <p class="overline">追加サービス</p>
+        <h2>オプションの追加機能<br/><em>必要な時に</em></h2>
+        <p class="add-lead">各追加サービスは一つの具体的な課題を解決します。単品で取るか、コアパッケージに組み込むか。</p>
+      </div>
+
+      <div class="addons">
+        {addOns.map((a, i) => (
+          <article class:list={['addon reveal', `reveal-delay-${i}`]}>
+            <div class="addon__media">
+              <ImgPlaceholder src={'/img/'+svcImg[a.seed]+'.webp'} seed={a.seed} width={520} height={390} ratio="4/3" alt={a.title} />
+            </div>
+            <div class="addon__body">
+              <span class="addon__icon"><Icon name={a.icon} size={24} color="var(--seal)" /></span>
+              <h3>{a.title}</h3>
+              <dl class="addon__rows">
+                <div><dt>解決する課題</dt><dd>{a.problem}</dd></div>
+                <div><dt>当社の対応</dt><dd>{a.process}</dd></div>
+                <div><dt>料金体系</dt><dd>{a.pricing}</dd></div>
+              </dl>
+              <a href="/ja/contact" class="addon__link">この件を問い合わせ
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Process — ledger 时间线 ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="tl-head reveal">
+        <p class="overline">流れ</p>
+        <h2>標準的なご注文の<br/><em>進み方</em></h2>
+      </div>
+      <ol class="ledger-list">
+        {steps.map((step, i) => (
+          <li class:list={['ledger-item reveal', `reveal-delay-${Math.min(i, 3)}`]}>
+            <span class="ledger-item__day">{step.day}</span>
+            <span class="ledger-item__n">{String(i + 1).padStart(2, '0')}</span>
+            <div class="ledger-item__body">
+              <h4>{step.title}</h4>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ 独立定价区块 ═══ -->
+  <section class="section bg-parchment">
+    <div class="container pricing__wrap">
+      <div class="pricing__intro reveal">
+        <p class="overline">透明な料金</p>
+        <h2>「お問い合わせで料金」<br/><em>はなし</em></h2>
+        <p class="pricing__lead">ご入金前に、すべてのご注文を明細付きで見積りします。ここに料金体系を公開します。</p>
+      </div>
+
+      <div class="pricing__right">
+        <ul class="pricetable reveal reveal-delay-1">
+          {pricingFees.map(f => (
+            <li>
+              <span class="pricetable__label">{f.label}</span>
+              <span class="pricetable__value">{f.value}</span>
+              <span class="pricetable__note">{f.note}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Our Guarantees, in full —— 四个承诺各自展开（流程 / 标准 / 失败兜底） ═══ -->
+  <section class="section--tight" id="guarantees">
+    <div class="container">
+      <div class="guar-head reveal">
+        <p class="overline">約束、すべて</p>
+        <h2>各約束が<br/><em>実際に意味するもの</em></h2>
+        <p class="guar-lead">約束はホームページにあります。その裏にある仕組み——何ステップか、各ステップにかかる時間、守る正確な基準、そして失敗した日に何が起きるか——をここに示します。</p>
+      </div>
+
+      <div class="gmods">
+        {guaranteeModules.map((m, i) => (
+          <article class:list={['gmod reveal', i % 2 === 1 && 'gmod--flip']}>
+            <div class="gmod__media">
+              <ImgPlaceholder class="gmod__img" src={m.img} seed={700 + i} width={640} height={800} ratio="4/5" alt={m.alt} />
+              <span class="gmod__n">{m.n}</span>
+            </div>
+
+            <div class="gmod__body">
+              <span class="gmod__icon"><Icon name={m.icon} size={24} color="var(--seal)" /></span>
+              <h3>{m.title}</h3>
+              <p class="gmod__promise">{m.promise}</p>
+
+              <div class="gmod__cols">
+                <div class="gmod__col">
+                  <h4 class="gmod__label">仕組み</h4>
+                  <ol class="gmod__steps">
+                    {m.steps.map((s, j) => (
+                      <li>
+                        <span class="gmod__step-n">{String(j + 1).padStart(2, '0')}</span>
+                        <div>
+                          <span class="gmod__step-t">{s.t}</span>
+                          <span class="gmod__step-time">{s.time}</span>
+                          <p>{s.d}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div class="gmod__col">
+                  <h4 class="gmod__label">{m.checksLabel}</h4>
+                  <ul class="gmod__checks">
+                    {m.checks.map(c => (
+                      <li>
+                        <span class="gmod__check-k">{c.k}</span>
+                        <span class="gmod__check-v">{c.v}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <p class="gmod__fail"><span class="gmod__fail-tag">失敗した場合</span>{m.fail}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container faq-wrap">
+      <div class="faq-head reveal">
+        <p class="overline">よくある質問</p>
+        <h2>よくある<br/><em>質問</em></h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((faq, i) => (
+          <details class:list={['faq-item reveal', `reveal-delay-${i % 3}`]}>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <span class="seal cta-seal" aria-hidden="true"><span>今すぐ</span><span>開始</span></span>
+      <p class="overline overline--light reveal">はじめよう</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
+        最初のご注文を<br/><em style="color:var(--avo-300)">出す準備は？</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:420px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
+        製品をお送りいただければ、検証済みのサプライヤー候補——全体の価格内訳付き——を48時間以内にお返しします。
+      </p>
+      <a href="/ja/contact" class="btn btn-primary reveal reveal-delay-3">
+        無料見積もりを取得
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+
+  /* ── 核心服务包 ── */
+  .core{display:grid;grid-template-columns:0.9fr 1.1fr;gap:var(--s7);align-items:start;padding-bottom:var(--s6);border-bottom:1px solid var(--border-light);}
+  .core__aside{position:sticky;top:100px;}
+  .core__aside h2{font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:var(--s4) 0;}
+  .core__lead{font-size:15.5px;line-height:1.72;color:var(--text-body);max-width:440px;}
+  .core__price{margin:var(--s5) 0;padding:var(--s4) var(--s5);background:var(--bg-page);border-left:2px solid var(--seal);}
+  .core__price-label{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--seal);}
+  .core__price p{font-size:14px;line-height:1.6;color:var(--text-body);margin-top:6px;}
+  .core__list{list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--border-mid);}
+  .core-step{display:grid;grid-template-columns:56px 1fr;gap:var(--s4);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);}
+  .core-step__n{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--seal);padding-top:3px;}
+  .core-step h4{font-size:17px;margin-bottom:5px;}
+  .core-step p{font-size:14px;line-height:1.65;color:var(--text-body);}
+
+  /* $1,000 示例 */
+  .price-example{margin-top:var(--s6);background:var(--avo-950);padding:var(--s5) var(--s6);border-left:2px solid var(--seal);}
+  .price-example--inline{max-width:760px;margin-left:auto;margin-right:auto;}
+  .price-example__title{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-300);margin-bottom:var(--s4);}
+  .price-example__rows{display:flex;flex-direction:column;}
+  .price-example__row{display:flex;justify-content:space-between;gap:var(--s4);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14.5px;color:rgba(255,255,255,.7);}
+  .price-example__row span:last-child{font-family:var(--font-mono);color:#fff;}
+  .price-example__row--total{border-bottom:none;padding-top:var(--s4);margin-top:var(--s2);border-top:2px solid var(--seal);}
+  .price-example__row--total span{color:#fff;font-weight:600;}
+  .price-example__row--total span:last-child{color:var(--avo-300);}
+  .price-example__foot{margin-top:var(--s4);font-size:13px;color:rgba(255,255,255,.5);}
+
+  /* ── 附加服务 ── */
+  .add-head{margin-bottom:var(--head-gap);max-width:680px;}
+  .add-lead{font-size:15.5px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);}
+  .addons{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);}
+  .addon{display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border-light);}
+  .addon__media :global(.img-ph){border-bottom:1px solid var(--border-light);}
+  .addon__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+  .addon__icon{color:var(--seal);}
+  .addon h3{font-size:clamp(18px,2vw,22px);}
+  .addon__rows{display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s2);flex:1;}
+  .addon__rows dt{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:4px;}
+  .addon__rows dd{font-size:13.5px;line-height:1.62;color:var(--text-body);}
+  .addon__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);margin-top:var(--s3);}
+  .addon__link:hover{gap:10px;}
+
+  .guar-head { margin-bottom:var(--head-gap); }
+  .guar-head h2 em { font-style:italic; color:var(--avo-600); }
+  .guar-lead { font-size:15.5px; line-height:1.72; color:var(--text-muted); margin-top:var(--s4); max-width:620px; }
+
+  /* ── Our Guarantees, in full：四个展开模块 ── */
+  .gmods { display:flex; flex-direction:column; }
+  .gmod { display:grid; grid-template-columns:320px 1fr; gap:var(--s7); align-items:start; padding:var(--s7) 0; border-top:1px solid var(--border-light); }
+  .gmod:first-child { border-top:2px solid var(--seal); }
+  .gmod--flip { grid-template-columns:1fr 320px; }
+  .gmod--flip .gmod__media { order:2; }
+  .gmod__media { position:relative; }
+  .gmod__media :global(figure.img-ph) { border:1px solid var(--border-light); }
+  .gmod__n { position:absolute; top:-9px; left:-9px; z-index:1; background:var(--seal); color:#fff; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.08em; line-height:1; padding:5px 7px; }
+  .gmod__body { display:flex; flex-direction:column; min-width:0; }
+  .gmod__icon { color:var(--seal); display:flex; margin-bottom:var(--s3); }
+  .gmod h3 { font-size:clamp(20px,2.4vw,26px); margin-bottom:var(--s3); }
+  .gmod__promise { font-family:var(--font-serif); font-style:italic; font-size:16.5px; line-height:1.5; color:var(--avo-700); border-left:2px solid var(--seal); padding-left:var(--s4); margin-bottom:var(--s5); }
+  .gmod__cols { display:grid; grid-template-columns:1fr 1fr; gap:var(--s6); }
+  .gmod__label { font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--seal); padding-bottom:var(--s3); border-bottom:1px solid var(--border-mid); margin-bottom:var(--s2); }
+
+  .gmod__steps { list-style:none; display:flex; flex-direction:column; }
+  .gmod__steps li { display:grid; grid-template-columns:26px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--border-light); }
+  .gmod__steps li:last-child { border-bottom:none; padding-bottom:0; }
+  .gmod__step-n { font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--avo-300); padding-top:3px; }
+  .gmod__step-t { display:block; font-size:14.5px; font-weight:600; color:var(--text-primary); }
+  .gmod__step-time { display:inline-block; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--seal); margin:3px 0 5px; }
+  .gmod__steps p { font-size:13px; line-height:1.6; color:var(--text-muted); }
+
+  .gmod__checks { list-style:none; display:flex; flex-direction:column; }
+  .gmod__checks li { position:relative; padding:var(--s3) 0 var(--s3) 20px; border-bottom:1px solid var(--border-light); }
+  .gmod__checks li:last-child { border-bottom:none; padding-bottom:0; }
+  .gmod__checks li::before { content:'✓'; position:absolute; left:0; top:calc(var(--s3) + 1px); font-size:12px; line-height:1; color:var(--seal); }
+  .gmod__check-k { display:block; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--avo-800); }
+  .gmod__check-v { display:block; font-size:13px; line-height:1.6; color:var(--text-muted); margin-top:3px; }
+
+  .gmod__fail { margin-top:var(--s5); background:var(--bg-page); border-left:2px solid var(--seal); padding:var(--s4) var(--s5); font-size:13.5px; line-height:1.62; color:var(--text-body); }
+  .gmod__fail-tag { display:block; font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--seal); margin-bottom:5px; }
+
+  /* ── 定价区块 ── */
+  .pricing__wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:var(--s7);align-items:start;}
+  .pricing__lead{font-size:15px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:400px;}
+  .pricetable{list-style:none;display:flex;flex-direction:column;border-top:2px solid var(--seal);}
+  .pricetable li{display:grid;grid-template-columns:140px 1fr;gap:var(--s4) var(--s5);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);align-items:baseline;}
+  .pricetable__label{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-800);}
+  .pricetable__value{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--text-primary);}
+  .pricetable__note{grid-column:2;font-size:13px;color:var(--text-muted);}
+
+  .tl-head { margin-bottom:var(--head-gap); text-align:center; }
+  .tl-head h2 em { font-style:italic; color:var(--avo-600); }
+  .ledger-list { list-style:none; display:flex; flex-direction:column; border-top:1px solid var(--border-mid); max-width:820px; margin:0 auto; text-align:left; }
+  .ledger-item { display:grid; grid-template-columns:120px 64px 1fr; gap:var(--s5); align-items:baseline; padding:var(--s4) 0; border-bottom:1px solid var(--border-light); }
+  .ledger-item__day { font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--seal); }
+  .ledger-item__n { font-family:var(--font-serif); font-size:36px; font-weight:600; color:var(--avo-200); line-height:1; }
+  .ledger-item__body h4 { font-size:17px; margin-bottom:4px; }
+  .ledger-item__body p { font-size:14px; }
+
+  .faq-wrap { display:grid; grid-template-columns:260px 1fr; gap:var(--s6); align-items:start; }
+  .faq-head h2 em { font-style:italic; color:var(--avo-600); }
+  .faq-head { position:sticky; top:100px; }
+  .faq-list { display:flex; flex-direction:column; }
+  .faq-item { border-bottom:1px solid var(--border-light); }
+  .faq-item summary {
+    font-family:var(--font-serif); font-size:17px; font-weight:560;
+    color:var(--text-primary); list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:var(--s5); padding:var(--s4) 0; cursor:pointer; user-select:none; transition:color var(--t-fast);
+  }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::after { content:'+'; font-size:22px; font-weight:300; color:var(--seal); flex-shrink:0; transition:transform var(--t-med); }
+  .faq-item[open] summary { color:var(--avo-700); }
+  .faq-item[open] summary::after { transform:rotate(45deg); }
+  .faq-item > p { font-size:15px; color:var(--text-body); padding:0 0 var(--s4); line-height:1.68; }
+
+  .cta-seal { display:inline-flex; margin-bottom:var(--s4); background:rgba(28,33,20,.4); border-color:var(--seal); color:#fff; }
+
+  @media (max-width:960px) {
+    .core { grid-template-columns:1fr; gap:var(--s6); }
+    .core__aside { position:static; }
+    .addons { grid-template-columns:1fr; }
+    .pricing__wrap { grid-template-columns:1fr; gap:var(--s6); }
+    .gmod, .gmod--flip { grid-template-columns:1fr; gap:var(--s6); }
+    .gmod--flip .gmod__media { order:0; }
+    .gmod__media { max-width:360px; }
+  }
+  @media (max-width:900px) {
+    .faq-wrap { grid-template-columns:1fr; }
+    .faq-head { position:static; }
+    .ledger-item { grid-template-columns:90px 1fr; }
+    .ledger-item__n { display:none; }
+    .gmod__cols { grid-template-columns:1fr; gap:var(--s5); }
+  }
+  @media (max-width:560px) {
+    .core-step { grid-template-columns:40px 1fr; gap:var(--s4); }
+    .pricetable li { grid-template-columns:1fr; gap:4px; }
+    .pricetable__note { grid-column:1; }
+    .gmod { padding:var(--s6) 0; }
+    .gmod__media { max-width:270px; }
+    .gmod__steps li { grid-template-columns:22px 1fr; gap:var(--s2); }
+    .gmod__fail { padding:var(--s4); }
+  }
+</style>

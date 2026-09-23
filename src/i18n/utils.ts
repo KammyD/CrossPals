@@ -11,6 +11,7 @@
  */
 import { en } from './en';
 import type { TranslationKey } from './en';
+import { ja } from './ja';
 import siteConfig from '../../site.config.json';
 
 /** 语言码（由配置驱动，不再收窄成字面量联合——加语言不用改类型） */
@@ -100,10 +101,8 @@ export function isRtl(code: Lang): boolean {
 
 /* ── 词典 ──────────────────────────────────────────────────────── */
 
-/** 唯一的翻译函数：取英语字典，缺键时回落键名本身（保持原来的容错行为） */
-function t(key: TranslationKey): string {
-  return (en as Record<string, string>)[key] ?? key;
-}
+/** 每种语言的词典；加语言时在这里登记（键必须覆盖 TranslationKey） */
+const dictionaries: Record<string, Record<string, string>> = { en, ja };
 
 /** 曾按 URL 首段判定语言；现在按「已配置语言的前缀」判定，配置驱动 */
 export function getLangFromUrl(url?: URL): Lang {
@@ -112,8 +111,13 @@ export function getLangFromUrl(url?: URL): Lang {
   return hit ? hit.code : defaultLang;
 }
 
-export function useTranslations(_lang?: Lang) {
-  return t;
+/**
+ * 按语言取翻译函数：命中该语言词典则用之，否则回落英语，再否则回落键名本身
+ * （保持原来的容错行为，缺键不会白屏）。
+ */
+export function useTranslations(lang?: Lang): (key: TranslationKey) => string {
+  const dict = (lang && dictionaries[lang]) || dictionaries[defaultLang] || en;
+  return (key: TranslationKey) => dict[key] ?? en[key] ?? key;
 }
 
 /** 非默认语言加 `/{prefix}` 前缀；默认语言恒返回规范化后的原路径 */
@@ -135,10 +139,19 @@ export function basePathOf(pathname: string): string {
 /**
  * 导航/页脚落点：非默认语言只对「确实有该语言版」的页面加前缀，
  * 其余回落默认语言页面 —— 绝不渲染会 404 的链接。
- * 目前非默认语言只有 首页 与 博客列表 两个落点；
- * 以后补了某个页面的语言版（src/pages/<prefix>/...），把它的路径加进下面的清单即可。
+ * 已建好日语版（src/pages/ja/...）的页面全部登记进此清单；
+ * 以后补了某个页面的语言版，把它的路径加进下面的清单即可。
  */
-const localizedPages = new Set(['/', '/blog']);
+const localizedPages = new Set([
+  '/',                 // 首页
+  '/blog',             // 博客列表
+  '/about',            // 关于我们
+  '/services',         // 服务
+  '/contact',          // 联系
+  '/case-studies',     // 案例
+  '/privacy',          // 隐私政策
+  '/terms',            // 服务条款
+]);
 export function navPath(lang: Lang, href: string): string {
   const clean = href.startsWith('/') ? href : `/${href}`;
   if (lang === defaultLang) return clean;

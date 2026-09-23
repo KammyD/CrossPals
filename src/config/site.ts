@@ -34,6 +34,8 @@ export const PHONE = {
 
 export const EMAIL = {
   en: get('contact.email', 'hello@crosspals.com'),
+  /** 邮箱本身语言无关；日语页也用同一地址 */
+  ja: get('contact.email', 'hello@crosspals.com'),
 };
 
 export const COMPANY = {
@@ -44,8 +46,11 @@ export const COMPANY = {
     'company.nameEn',
     'Baoding Zhihang Technology Co., Ltd.',
   ),
+  /** 日本語向け主体名（登記名の漢字を日本用字体にそろえたもの） */
+  nameJa: get('company.nameJa', '保定職航科技有限公司'),
   address: {
     en: get('contact.address', 'Baoding, Hebei Province, China'),
+    ja: get('contact.addressJa', '中国 河北省保定市'),
   },
   /** 结构化数据用 */
   addressParts: {
