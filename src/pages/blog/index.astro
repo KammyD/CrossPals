@@ -3,10 +3,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang } from '../../i18n/utils';
 
-/* 文章列表来自 src/content/blog/*.md —— 新增一篇文章只需新建一个 md 文件 */
+/* 文章列表来自 src/content/blog/*.md —— 新增一篇文章只需新建一个 md 文件。
+   多语言译文（frontmatter 带 lang 的文件，如 x-ja.md）与原文同目录存放，
+   英文列表只渲染默认语言的条目，避免日语文章混进英文列表。 */
 const all = (await getCollection('blog'))
   .filter(p => !p.data.draft)
+  .filter(p => !p.data.lang || p.data.lang === defaultLang)
   .sort((a, b) => b.data.date.localeCompare(a.data.date));
 
 const featured = all.find(p => p.data.featured) ?? all[0];

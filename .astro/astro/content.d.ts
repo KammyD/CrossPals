@@ -141,6 +141,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"1688-vs-alibaba-ja.md": {
+	id: "1688-vs-alibaba-ja.md";
+  slug: "1688-vs-alibaba-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "1688-vs-alibaba.md": {
 	id: "1688-vs-alibaba.md";
   slug: "1688-vs-alibaba";

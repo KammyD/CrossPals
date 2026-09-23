@@ -7,10 +7,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
-  /** 单语言站点，值恒为 'en'；保留该 prop 是为了不动各页面的调用点 */
-  lang?: 'en';
+  /** 当前页语言码（默认语言的页面可不传）；多语言页传 site.config.json 里配置的码 */
+  lang?: string;
   /** 文章页传入后输出 Article 结构化数据 */
   article?: { published: string; section?: string };
+  /** hreflang 互指表：语言码 → 该语言版本的路径（只在真实存在对应版本时传，组必须完整） */
+  alternates?: Record<string, string>;
 }
 const DEFAULT_DESC = 'CrossPals — Trusted China sourcing for global entrepreneurs. Product finding, quality inspection, purchasing, and shipping.';
 const {
@@ -18,10 +20,21 @@ const {
   description = DEFAULT_DESC,
   lang = 'en',
   article,
+  alternates,
 } = Astro.props;
 const SITE = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
+
+/* og:locale 与 html lang 由当前页语言驱动（en_US / ja_JP …） */
+const OG_LOCALES: Record<string, string> = { en: 'en_US', ja: 'ja_JP', es: 'es_ES', zh: 'zh_CN', ko: 'ko_KR', fr: 'fr_FR', de: 'de_DE', pt: 'pt_BR' };
+const ogLocale = OG_LOCALES[lang] ?? `${lang}_${lang.toUpperCase()}`;
+
+/* hreflang：只在页面真有对应语言版本时输出（自指 + 双向互指 + x-default 兜底） */
+const altEntries = Object.entries(alternates ?? {});
+const altTags = altEntries.length >= 2
+  ? altEntries.map(([code, p]) => ({ code, href: new URL(p, SITE).href }))
+  : [];
 
 const ORG = {
   '@type': 'Organization',
@@ -48,7 +61,7 @@ const jsonLd = article
       datePublished: article.published,
       dateModified: article.published,
       articleSection: article.section,
-      inLanguage: 'en',
+      inLanguage: lang,
       image: [ogImage.href],
       mainEntityOfPage: canonical.href,
       publisher: ORG,
@@ -56,7 +69,7 @@ const jsonLd = article
   : Astro.url.pathname === '/'
     ? {
         '@context': 'https://schema.org',
-        '@graph': [ORG, { '@type': 'WebSite', name: 'CrossPals', url: SITE.href, inLanguage: 'en' }],
+        '@graph': [ORG, { '@type': 'WebSite', name: 'CrossPals', url: SITE.href, inLanguage: lang }],
       }
     : null;
 ---
@@ -68,12 +81,18 @@ const jsonLd = article
     <title>{title} | CrossPals</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {altTags.length >= 2 && altTags.map(a => (
+      <link rel="alternate" hreflang={a.code} href={a.href} />
+    ))}
+    {altTags.length >= 2 && (
+      <link rel="alternate" hreflang="x-default" href={altTags.find(a => a.code === 'en')?.href ?? canonical.href} />
+    )}
     <meta property="og:title"       content={`${title} | CrossPals`} />
     <meta property="og:description" content={description} />
     <meta property="og:type"        content={article ? 'article' : 'website'} />
     <meta property="og:url"         content={canonical} />
     <meta property="og:site_name"   content="CrossPals" />
-    <meta property="og:locale"      content="en_US" />
+    <meta property="og:locale"      content={ogLocale} />
     <meta property="og:image"       content={ogImage} />
     <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />

@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
-import { getLangFromUrl, useTranslations, localePath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localePath, languageList, isMultilingual, defaultLang, basePathOf, navPath } from '../i18n/utils';
+import { getCollection } from 'astro:content';
 
 const lang    = getLangFromUrl(Astro.url);
 const t       = useTranslations(lang);
@@ -16,9 +17,58 @@ const nav = [
 ] as const;
 
 function active(href: string) {
-  const full = localePath(lang, href);
-  if (href === '/') return path === full;
+  const full = navHref(href);
+  if (href === '/') return path === full || path === full + '/';
   return path === full || path.startsWith(full + '/');
+}
+
+/* 导航落点：见 i18n/utils.ts → navPath（有语言版才加前缀，否则回落默认语言页） */
+const navHref = (href: string) => navPath(lang, href);
+
+/* ── 语言切换器（语言清单 = site.config.json → site.locales，CMS 后台维护）──
+   链接策略：能落到「同一页的对应语言版」就落（博客详情有译文、列表有该语言文章），
+   没有对应版本的页面落该语言首页——绝不给 404 链接。 */
+const showLang = isMultilingual && languageList.length >= 2;
+const langTargets: Record<string, string> = {};
+
+if (showLang) {
+  const base = basePathOf(path);
+  const m = base.match(/^\/blog\/([^/]+)\/?$/);          // 博客详情
+  const isList = /^\/blog\/?$/.test(base);               // 博客列表
+
+  if (m || isList) {
+    const posts = await getCollection('blog');
+    const current = m
+      ? posts.find(p => p.slug === m[1] && (!p.data.lang || p.data.lang === defaultLang))
+      : null;
+
+    for (const l of languageList) {
+      if (l.code === lang) { langTargets[l.code] = path; continue; }
+      if (l.isDefault)     { langTargets[l.code] = base; continue; }
+
+      if (current) {
+        // 同一篇的译文：translationKey 相同，或文件名按约定带 -<语言码> 后缀
+        const alt = posts.find(p => p.data.lang === l.code && (
+          (p.data.translationKey && p.data.translationKey === current.data.translationKey) ||
+          p.slug === `${current.slug}-${l.code}`
+        ));
+        if (alt) {
+          const altSlug = alt.data.translationKey || alt.slug.replace(new RegExp(`-${l.code}$`), '');
+          langTargets[l.code] = localePath(l.code, `/blog/${altSlug}/`);
+          continue;
+        }
+      }
+      if (isList && posts.some(p => p.data.lang === l.code)) {
+        langTargets[l.code] = localePath(l.code, '/blog/');
+        continue;
+      }
+      langTargets[l.code] = localePath(l.code, '/');
+    }
+  } else {
+    for (const l of languageList) {
+      langTargets[l.code] = l.isDefault ? base : localePath(l.code, '/');
+    }
+  }
 }
 ---
 
@@ -32,7 +82,7 @@ function active(href: string) {
     <nav class="hdr__nav" aria-label="Primary">
       {nav.map(item => (
         <a
-          href={localePath(lang, item.href)}
+          href={navHref(item.href)}
           class:list={['hdr__link', { 'hdr__link--on': active(item.href) }]}
         >
           {t(item.key)}
@@ -43,8 +93,52 @@ function active(href: string) {
     <!-- Right side -->
     <div class="hdr__end">
 
+      {showLang && (
+      <!-- Language dropdown（语言清单来自 site.config.json，CMS 后台维护） -->
+      <div class="lang" id="langWrap">
+        <button class="lang__btn" id="langTrigger" aria-haspopup="listbox" aria-expanded="false">
+          <!-- Globe SVG -->
+          <svg class="lang__globe" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="10" cy="10" r="8.5"/>
+            <path d="M10 1.5C10 1.5 6.5 5 6.5 10s3.5 8.5 3.5 8.5"/>
+            <path d="M10 1.5C10 1.5 13.5 5 13.5 10s-3.5 8.5-3.5 8.5"/>
+            <path d="M1.5 10h17"/>
+            <path d="M2.5 6.5h15M2.5 13.5h15"/>
+          </svg>
+          <span class="lang__code">{lang.toUpperCase()}</span>
+          <!-- Chevron SVG -->
+          <svg class="lang__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6l4 4 4-4"/>
+          </svg>
+        </button>
+
+        <div class="lang__dropdown" id="langDropdown" role="listbox" aria-label="Select language">
+          <div class="lang__dropdown-title">Language</div>
+          {languageList.map(l => (
+            <a
+              href={langTargets[l.code] ?? localePath(l.code, '/')}
+              class:list={['lang__option', { 'lang__option--on': l.code === lang }]}
+              role="option"
+              aria-selected={l.code === lang}
+            >
+              <span class="lang__flag" aria-hidden="true">{l.flag}</span>
+              <span class="lang__info">
+                <span class="lang__name">{l.label}</span>
+                <span class="lang__native">{l.native}</span>
+              </span>
+              {l.code === lang && (
+                <svg class="lang__check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <polyline points="3 8 6.5 11.5 13 5"/>
+                </svg>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+      )}
+
       <!-- CTA -->
-      <a href={localePath(lang, '/contact')} class="hdr__cta">
+      <a href={navHref('/contact')} class="hdr__cta">
         {t('nav_cta')}
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M3 8h10M8 3l5 5-5 5"/>
@@ -67,7 +161,7 @@ function active(href: string) {
     <nav class="drawer__nav">
       {nav.map((item, i) => (
         <a
-          href={localePath(lang, item.href)}
+          href={navHref(item.href)}
           class:list={['drawer__link', { 'drawer__link--on': active(item.href) }]}
           style={`--i:${i}`}
         >
@@ -81,7 +175,21 @@ function active(href: string) {
     </nav>
 
     <div class="drawer__foot">
-      <a href={localePath(lang, '/contact')} class="hdr__cta drawer__cta">
+      {showLang && languageList.length > 1 && (
+      <div class="drawer__langs">
+        {languageList.map(l => (
+          <a
+            href={langTargets[l.code] ?? localePath(l.code, '/')}
+            class:list={['drawer__lang', { 'drawer__lang--on': l.code === lang }]}
+            aria-current={l.code === lang ? 'true' : undefined}
+          >
+            <span class="lang__flag">{l.flag}</span>
+            <span>{l.native}</span>
+          </a>
+        ))}
+      </div>
+      )}
+      <a href={navHref('/contact')} class="hdr__cta drawer__cta">
         {t('nav_cta')}
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M3 8h10M8 3l5 5-5 5"/>
@@ -95,7 +203,10 @@ function active(href: string) {
   const hdr     = document.getElementById('hdr')!;
   const burger  = document.getElementById('burgerBtn')!;
   const drawer  = document.getElementById('drawer')!;
+  const trigger = document.getElementById('langTrigger');
+  const dropdown= document.getElementById('langDropdown');
   let menuOpen  = false;
+  let langOpen  = false;
 
   // ── 滚动状态：下滚收起 / 上滚滑出 ──
   const TOP_ZONE  = 140;   // 这个位置以内始终显示
@@ -111,8 +222,8 @@ function active(href: string) {
 
     hdr.classList.toggle('hdr--solid', y > 24);
 
-    // 菜单开着、或者回到顶部附近：始终显示
-    if (menuOpen || y <= TOP_ZONE) {
+    // 菜单/语言面板开着、或者回到顶部附近：始终显示
+    if (menuOpen || langOpen || y <= TOP_ZONE) {
       hdr.classList.remove('hdr--hide');
       acc = 0;
       return;
@@ -141,8 +252,21 @@ function active(href: string) {
   burger.addEventListener('click', () => setMenu(!menuOpen));
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
+  // ── Language dropdown（多语言站才有这组元素）──
+  const setLang = (v: boolean) => {
+    langOpen = v;
+    if (!trigger || !dropdown) return;
+    trigger.setAttribute('aria-expanded', String(v));
+    dropdown.classList.toggle('lang__dropdown--open', v);
+    trigger.classList.toggle('lang__btn--open', v);
+  };
+  if (trigger && dropdown) {
+    trigger.addEventListener('click', (e) => { e.stopPropagation(); setLang(!langOpen); });
+    document.addEventListener('click', () => { if (langOpen) setLang(false); });
+  }
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setMenu(false);
+    if (e.key === 'Escape') { setLang(false); setMenu(false); }
   });
 </script>
 
@@ -268,6 +392,98 @@ function active(href: string) {
 }
 
 /* ═══════════════════════════════════════════
+   LANGUAGE DROPDOWN
+═══════════════════════════════════════════ */
+.lang { position: relative; }
+
+.lang__btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 10px;
+  /* 深色体系下不再做独立灰盒子：默认透明，hover 才浮出 */
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--hdr-fg);
+  transition: background .18s, border-color .18s, color .18s;
+  white-space: nowrap;
+}
+
+.lang__btn:hover,
+.lang__btn--open {
+  background: var(--hdr-hover);
+  border-color: var(--hdr-line-2);
+  color: #fff;
+}
+
+.lang__globe { width: 14px; height: 14px; flex-shrink: 0; opacity: .5; }
+.lang__code  { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
+
+.lang__chevron {
+  width: 11px; height: 11px; flex-shrink: 0; opacity: .45;
+  transition: transform .22s var(--ease-out);
+}
+.lang__btn--open .lang__chevron { transform: rotate(180deg); }
+
+/* Dropdown panel */
+.lang__dropdown {
+  position: absolute;
+  top: calc(100% + 10px); right: 0;
+  width: 210px;
+  background: #20271b;
+  border: 1px solid var(--hdr-line-2);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.28);
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  pointer-events: none;
+  transition: opacity .2s var(--ease-out), transform .2s var(--ease-out);
+  transform-origin: top right;
+}
+
+.lang__dropdown--open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.lang__dropdown-title {
+  padding: 10px 14px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(232,229,218,.45);
+  border-bottom: 1px solid var(--hdr-line);
+}
+
+.lang__option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition: background .14s;
+  cursor: pointer;
+}
+.lang__option:hover      { background: var(--hdr-hover); }
+.lang__option--on        { background: rgba(255,255,255,.08); }
+.lang__option:last-child { border-radius: 0; }
+
+.lang__flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
+.lang__info { display: flex; flex-direction: column; flex: 1; }
+.lang__name { font-size: 14px; font-weight: 500; color: var(--hdr-fg); }
+.lang__native { font-size: 11px; color: rgba(232,229,218,.5); margin-top: 1px; }
+
+.lang__check {
+  width: 14px; height: 14px;
+  stroke: var(--seal); flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
    CTA BUTTON
 ═══════════════════════════════════════════ */
 .hdr__cta {
@@ -386,6 +602,27 @@ function active(href: string) {
 }
 
 .drawer__cta { width: 100%; justify-content: center; padding: 15px; font-size: 16px; border-radius: 0; }
+
+/* 抽屉里的语言行（移动端没有顶部下拉，语言切换落在这里） */
+.drawer__langs {
+  display: flex; gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+
+.drawer__lang {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--hdr-line-2);
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--hdr-fg);
+  text-decoration: none;
+  transition: background .18s, border-color .18s;
+}
+.drawer__lang:hover,
+.drawer__lang--on { background: var(--hdr-hover); border-color: rgba(255,255,255,.3); }
+.drawer__lang .lang__flag { font-size: 15px; }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE

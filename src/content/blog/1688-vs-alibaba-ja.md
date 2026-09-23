@@ -3,13 +3,13 @@ featured: true
 title: "1688 vs Alibaba: プライベートラベル販売者にとってどちらが優れているか？"
 description: 1688とAlibabaのプライベートラベル販売者向け徹底比較。低価格・中国語のみの1688 vs 英語対応・輸出専門のAlibaba。仕入れコスト削減に最適なプラットフォーム選びのポイントを解説。
 category: Sourcing
-date: 2026-07-06
+date: "2026-07-06"
 readTime: 6 min
 cover: /img/sourcing-1688.webp
 lang: ja
 translationKey: 1688-vs-alibaba
 translationStatus: translated
-translatedAt: 2026-09-23
+translatedAt: "2026-09-23"
 translatedFrom: 8c9f27defd5720ad1e67ecb9cd2c0e79
 ---
 

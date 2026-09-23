@@ -2,12 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang, localePath, languageList } from '../../i18n/utils';
 
-/* 文章正文来自 src/content/blog/*.md */
+/* 文章正文来自 src/content/blog/*.md。
+   只为默认语言生成 /blog/{slug}/；带 lang 的译文（如 x-ja.md）由 /ja/blog/[slug] 负责。 */
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts
     .filter(p => !p.data.draft)
+    .filter(p => !p.data.lang || p.data.lang === defaultLang)
     .map(p => ({ params: { slug: p.slug }, props: { post: p } }));
 }
 
@@ -15,8 +18,25 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 const published = new Date(post.data.date + 'T00:00:00')
   .toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+/* hreflang 互指：找出这篇的各语言译文（translationKey 相同，或文件名 -<语言码> 后缀） */
+const alternates: Record<string, string> = { [defaultLang]: `/blog/${post.slug}/` };
+{
+  const siblings = await getCollection('blog');
+  for (const l of languageList) {
+    if (l.isDefault || l.code === defaultLang) continue;
+    const alt = siblings.find(p => p.data.lang === l.code && !p.data.draft && (
+      (p.data.translationKey && p.data.translationKey === post.data.translationKey) ||
+      p.slug === `${post.slug}-${l.code}`
+    ));
+    if (alt) {
+      const altSlug = alt.data.translationKey || alt.slug.replace(new RegExp(`-${l.code}$`), '');
+      alternates[l.code] = localePath(l.code, `/blog/${altSlug}/`);
+    }
+  }
+}
 ---
-<BaseLayout title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }}>
+<BaseLayout title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates}>
 
   <!-- Article hero with full-width cover image -->
   <div class="article-cover" style="padding-top:var(--hdr-h);">

@@ -1,0 +1,74 @@
+---
+/**
+ * 日本語ブログ一覧（/ja/blog/）。只列带 lang: ja 的译文，与英文列表互不混杂。
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { localePath, languageList, defaultLang } from '../../../i18n/utils';
+
+const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft && p.data.lang === jaCode)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const fmtDate = (d: string) => new Date(d + 'T00:00:00')
+  .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout lang={jaCode} title="ブログ | CrossPals" description="中国調達・仕入れの実践ノウハウを日本語で解説します。">
+
+  <section class="ja-hero">
+    <div class="container">
+      <p class="overline">Resources</p>
+      <h1>ブログ</h1>
+      <p class="ja-hero__sub">中国調達・検品・FBA準備の実践ガイド（日本語版）。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p class="ja-empty">日本語の記事は現在準備中です。英語版の<a href={localePath(defaultLang, '/blog/')}>ブログ</a>をご覧ください。</p>
+      ) : (
+        <div class="ja-posts">
+          {posts.map((post) => {
+            const slug = post.data.translationKey || post.slug.replace(new RegExp(`-${jaCode}$`), '');
+            return (
+              <a href={localePath(jaCode, `/blog/${slug}/`)} class="ja-card">
+                <div class="ja-card__img">
+                  <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
+                </div>
+                <div class="ja-card__body">
+                  <span class="ja-card__cat">{post.data.category}</span>
+                  <h4>{post.data.title}</h4>
+                  <p>{post.data.description}</p>
+                  <time>{fmtDate(post.data.date)}</time>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .ja-hero { padding: calc(var(--hdr-h) + var(--s7)) 0 var(--s6); background: var(--warm-100, #f4efe6); }
+  .ja-hero h1 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 46px); margin: 10px 0 14px; }
+  .ja-hero__sub { max-width: 620px; color: var(--warm-700, #4a4636); line-height: 1.9; }
+
+  .ja-posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s4); }
+  .ja-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--warm-200, #e6e0d2); text-decoration: none; color: inherit; transition: border-color .18s; }
+  .ja-card:hover { border-color: var(--avo-300, #a9b97a); }
+  .ja-card__img { aspect-ratio: 16 / 9; overflow: hidden; }
+  .ja-card__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .ja-card__cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--avo-600, #6b7c3e); }
+  .ja-card__body h4 { font-family: var(--font-serif); font-size: 19px; line-height: 1.4; }
+  .ja-card__body p { font-size: 14px; color: var(--warm-700, #4a4636); line-height: 1.8; }
+  .ja-card__body time { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,.45); margin-top: auto; }
+
+  .ja-empty { color: var(--warm-700, #4a4636); line-height: 1.9; }
+  .ja-empty a { color: var(--avo-600, #6b7c3e); }
+</style>

@@ -1,0 +1,88 @@
+---
+/**
+ * 日本語トップページ（/ja/）。
+ * 语言清单来自 site.config.json → site.locales；本页对应「非默认语言」的落点——
+ * 没有日语版的页面，语言切换器会把用户送到这里。
+ * UI 文案暂时手写在本页（i18n 词典仍只有 en）；文章只列带 lang: ja 的译文。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { localePath, languageList, defaultLang } from '../../i18n/utils';
+
+const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft && p.data.lang === jaCode)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const fmtDate = (d: string) => new Date(d + 'T00:00:00')
+  .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout lang={jaCode} title="CrossPals — 中国調達パートナー" description="製品探索から検品・購入・配送まで、グローバルな事業者向けの中国調達ガイド。">
+
+  <section class="ja-hero">
+    <div class="container">
+      <p class="overline">CrossPals</p>
+      <h1>中国調達を、<br /><em>もっと確実に。</em></h1>
+      <p class="ja-hero__sub">製品の探索、サプライヤー確認、品質検品、購入代行から国際配送まで——グローバルに事業を行う方向けの実践ガイドを日本語でお届けします。</p>
+      <a href={localePath(defaultLang, '/contact')} class="btn btn-primary">無料で相談する →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="overline">ブログ記事</p>
+      <h2 class="ja-h2">日本語の記事</h2>
+
+      {posts.length === 0 ? (
+        <p class="ja-empty">日本語の記事は現在準備中です。英語版の<a href={localePath(defaultLang, '/blog/')}>ブログ</a>をご覧ください。</p>
+      ) : (
+        <div class="ja-posts">
+          {posts.map((post) => {
+            const slug = post.data.translationKey || post.slug.replace(new RegExp(`-${jaCode}$`), '');
+            return (
+              <a href={localePath(jaCode, `/blog/${slug}/`)} class="ja-card">
+                <div class="ja-card__img">
+                  <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
+                </div>
+                <div class="ja-card__body">
+                  <span class="ja-card__cat">{post.data.category}</span>
+                  <h4>{post.data.title}</h4>
+                  <p>{post.data.description}</p>
+                  <time>{fmtDate(post.data.date)}</time>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      <p class="ja-more">
+        英語の記事は<a href={localePath(defaultLang, '/blog/')}>こちら（All Articles）</a>
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .ja-hero { padding: calc(var(--hdr-h) + var(--s8)) 0 var(--s7); background: var(--warm-100, #f4efe6); }
+  .ja-hero h1 { font-family: var(--font-serif); font-size: clamp(34px, 5vw, 56px); line-height: 1.15; margin: 12px 0 18px; }
+  .ja-hero h1 em { font-style: italic; color: var(--avo-600, #6b7c3e); }
+  .ja-hero__sub { max-width: 620px; color: var(--warm-700, #4a4636); line-height: 1.9; margin-bottom: 26px; }
+
+  .ja-h2 { font-family: var(--font-serif); margin: 10px 0 26px; }
+  .ja-posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--s4); }
+  .ja-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--warm-200, #e6e0d2); text-decoration: none; color: inherit; transition: border-color .18s; }
+  .ja-card:hover { border-color: var(--avo-300, #a9b97a); }
+  .ja-card__img { aspect-ratio: 16 / 9; overflow: hidden; }
+  .ja-card__body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .ja-card__cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--avo-600, #6b7c3e); }
+  .ja-card__body h4 { font-family: var(--font-serif); font-size: 19px; line-height: 1.4; }
+  .ja-card__body p { font-size: 14px; color: var(--warm-700, #4a4636); line-height: 1.8; }
+  .ja-card__body time { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,.45); margin-top: auto; }
+
+  .ja-empty, .ja-more { color: var(--warm-700, #4a4636); line-height: 1.9; }
+  .ja-more { margin-top: 30px; }
+  .ja-empty a, .ja-more a { color: var(--avo-600, #6b7c3e); }
+</style>
