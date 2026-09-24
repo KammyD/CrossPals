@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+
+/* 案例详情：正文来自 src/content/case-studies/*.md */
+export async function getStaticPaths() {
+  const cases = await getCollection('case-studies');
+  return cases
+    .filter(c => !c.data.draft)
+    .map(c => ({ params: { slug: c.slug }, props: { item: c } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+
+const all = (await getCollection('case-studies'))
+  .filter(c => !c.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+const idx = all.findIndex(c => c.slug === item.slug);
+const others = all.filter(c => c.slug !== item.slug).slice(0, 3);
+
+const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+<BaseLayout
+  title={item.data.title}
+  description={item.data.summary}
+  article={{ published: item.data.date, section: 'Case Study' }}
+ lang="hi">
+
+  <!-- Cover -->
+  <div class="cs-cover" style="padding-top:var(--hdr-h);">
+    <ImgPlaceholder src={item.data.cover} width={1680} height={720} ratio="21/9" priority alt={item.data.title} />
+  </div>
+
+  <header class="cs-hdr">
+    <div class="container cs-hdr__inner">
+      <a href="/hi/case-studies" class="back">← All case studies</a>
+      <div class="cs-hdr__top">
+        <span class="indexnum cs-n">{String(idx + 1).padStart(2, '0')}</span>
+        <span class="cs-client">{item.data.client}</span>
+      </div>
+      <h1>{item.data.title}</h1>
+      <div class="cs-meta">
+        <time>{fmt(item.data.date)}</time>
+        <span>·</span><span>Anonymised client</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container cs-grid">
+
+      <div class="cs-main">
+        <!-- 结果指标 -->
+        <div class="cs-results reveal">
+          {item.data.results.map(r => (
+            <div class="cs-res">
+              <strong>{r.v}</strong>
+              <span>{r.l}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- 案例正文（markdown） -->
+        <div class="prose reveal reveal-delay-1"><Content /></div>
+      </div>
+
+      <aside class="cs-aside reveal reveal-delay-2">
+        <div class="aside-cta">
+          <p class="overline">Need Help?</p>
+          <h4>Get a free quote</h4>
+          <p>Tell us your product. Verified suppliers and a full price breakdown in 48 hours.</p>
+          <a href="/hi/contact" class="btn btn-primary" style="margin-top:var(--s5);">Get a free quote <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <nav class="aside-nav">
+          <p class="overline">Explore</p>
+          <a href="/hi/services">FBA Sourcing &amp; Inspection →</a>
+          <a href="/hi/blog">Sourcing Guides →</a>
+          <a href="/hi/case-studies">All Case Studies →</a>
+        </nav>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- 其他案例 -->
+  {others.length > 0 && (
+    <section class="section bg-parchment">
+      <div class="container">
+        <p class="overline reveal">More cases</p>
+        <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">Other Orders, <em style="font-style:italic;color:var(--avo-600);">Other Problems</em></h2>
+        <div class="ocases">
+          {others.map((c, i) => (
+            <a href={`/case-studies/${c.slug}`} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
+              <div class="ocard__thumb">
+                <ImgPlaceholder src={c.data.cover} width={480} height={360} ratio="4/3" alt={c.data.title} />
+              </div>
+              <div class="ocard__body">
+                <span class="ocard__client">{c.data.client}</span>
+                <h4>{c.data.title}</h4>
+                <span class="ocard__more">Learn more →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <p class="overline overline--light reveal">Next case study</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
+        Let's Make Yours<br/><em style="color:var(--avo-300)">The Next One</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
+        Tell us what you want to source. We'll come back with verified suppliers and a full price breakdown within 48 hours.
+      </p>
+      <a href="/hi/contact" class="btn btn-primary reveal reveal-delay-3">
+        Get a free quote
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .cs-cover{max-height:calc(42vh + var(--hdr-h));min-height:240px;overflow:hidden;}
+  .cs-cover :global(.img-ph){border-radius:0;}
+  .cs-cover :global(.img-ph__wrap){border-radius:0;}
+
+  .cs-hdr{background:var(--warm-100);padding:var(--s6) 0 var(--s5);border-bottom:1px solid var(--border-light);}
+  .cs-hdr__inner{max-width:860px;}
+  .back{display:inline-block;font-size:13px;font-weight:600;font-family:var(--font-mono);color:var(--text-body);text-decoration:none;margin-bottom:var(--s3);transition:color var(--t-fast);letter-spacing:.04em;}
+  .back:hover{color:var(--seal);}
+  .cs-hdr__top{display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s2);}
+  .cs-n{font-size:34px;}
+  .cs-client{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
+  .cs-hdr h1{margin-bottom:var(--s3);max-width:800px;font-size:clamp(25px,3.4vw,42px);}
+  .cs-meta{display:flex;align-items:center;gap:var(--s3);font-size:12px;color:var(--warm-400);font-family:var(--font-mono);}
+
+  .cs-grid{display:grid;grid-template-columns:1fr 280px;gap:var(--s6);align-items:start;}
+  .cs-main{min-width:0;}
+  .cs-results{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);border-top:2px solid var(--seal);padding-top:var(--s4);margin-bottom:var(--s6);}
+  .cs-res strong{display:block;font-family:var(--font-serif);font-size:clamp(24px,3vw,34px);font-weight:600;color:var(--avo-700);line-height:1;margin-bottom:6px;}
+  .cs-res span{font-family:var(--font-mono);font-size:11.5px;line-height:1.5;color:var(--text-muted);}
+
+  /* 正文排版 */
+  .prose{font-size:16.5px;line-height:1.72;color:var(--text-body);max-width:660px;}
+  .prose :global(p){margin-bottom:var(--s4);}
+  .prose :global(h2){font-family:var(--font-serif);font-size:clamp(20px,2.2vw,25px);color:var(--warm-950);margin:var(--s6) 0 var(--s3);padding-top:var(--s5);border-top:2px solid var(--seal);}
+  .prose :global(h2:first-child){margin-top:0;border-top:none;padding-top:0;}
+  .prose :global(h3){font-family:var(--font-serif);font-size:19px;color:var(--warm-950);margin:var(--s5) 0 var(--s2);}
+  .prose :global(strong){color:var(--warm-950);}
+  .prose :global(a){color:var(--seal);font-weight:600;text-decoration:underline;}
+  .prose :global(ul),.prose :global(ol){margin:0 0 var(--s4) var(--s5);padding-left:var(--s4);}
+  .prose :global(li){margin-bottom:var(--s2);}
+  .prose :global(blockquote){border-left:2px solid var(--seal);padding:var(--s2) 0 var(--s2) var(--s4);margin:var(--s5) 0;font-family:var(--font-mono);font-size:13px;line-height:1.7;color:var(--text-muted);}
+
+  .cs-aside{position:sticky;top:84px;display:flex;flex-direction:column;gap:var(--s4);}
+  .aside-cta{background:var(--avo-950);border-left:2px solid var(--seal);padding:var(--s5);color:#fff;}
+  .aside-cta .overline{color:rgba(255,255,255,.45);margin-bottom:var(--s2);}
+  .aside-cta h4{color:#fff;font-size:16px;margin-bottom:var(--s2);}
+  .aside-cta>p{font-size:13.5px;color:rgba(255,255,255,.6);}
+  .aside-nav{background:var(--warm-100);border-top:2px solid var(--seal);padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s2);}
+  .aside-nav .overline{margin-bottom:var(--s2);}
+  .aside-nav a{font-size:14px;font-weight:600;color:var(--avo-800);text-decoration:none;transition:color var(--t-fast);}
+  .aside-nav a:hover{color:var(--seal);}
+
+  /* 其他案例 */
+  .ocases{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);}
+  .ocard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--warm-200);text-decoration:none;color:inherit;transition:var(--t-med);}
+  .ocard:hover{border-color:var(--avo-300);}
+  .ocard :global(.img-ph__wrap){border-radius:0;}
+  .ocard__body{padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s2);flex:1;}
+  .ocard__client{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--avo-600);}
+  .ocard h4{font-size:15.5px;line-height:1.34;transition:color var(--t-fast);}
+  .ocard:hover h4{color:var(--seal);}
+  .ocard__more{margin-top:auto;padding-top:var(--s3);font-family:var(--font-mono);font-size:11.5px;color:var(--seal);font-weight:600;}
+
+  @media(max-width:900px){
+    .cs-grid{grid-template-columns:1fr;}
+    .cs-aside{position:static;}
+    .ocases{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:620px){
+    .cs-results{grid-template-columns:1fr;gap:var(--s4);}
+    .cs-res strong{font-size:27px;}
+    .ocases{grid-template-columns:1fr;}
+  }
+</style>

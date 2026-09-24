@@ -1,0 +1,41 @@
+{
+  "en": {
+    "prefix": "",
+    "pages": [
+      "/",
+      "/blog",
+      "/about",
+      "/services",
+      "/contact",
+      "/case-studies",
+      "/privacy",
+      "/terms"
+    ]
+  },
+  "ja": {
+    "prefix": "ja",
+    "pages": [
+      "/",
+      "/blog",
+      "/about",
+      "/services",
+      "/contact",
+      "/case-studies",
+      "/privacy",
+      "/terms"
+    ]
+  },
+  "hi": {
+    "prefix": "hi",
+    "pages": [
+      "/about",
+      "/blog",
+      "/case-studies",
+      "/contact",
+      "/",
+      "/privacy",
+      "/services",
+      "/terms"
+    ]
+  }
+}
