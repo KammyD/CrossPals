@@ -16,6 +16,8 @@ image2: /img/g-production.webp
 
 The Hebei region in China has emerged as a strategic sourcing hub for global businesses, offering unique advantages that combine cost efficiency with industrial specialization. Bordering Beijing and Tianjin, this province provides a compelling alternative to traditional manufacturing centers.
 
+![Wholesale market in Hebei](/img/g-market.webp)
+
 ## Key Industrial Clusters in Hebei
 Hebei boasts specialized manufacturing clusters including:
 - Baoding's auto parts and renewable energy equipment
@@ -32,6 +34,8 @@ Compared to coastal provinces, Hebei offers:
 - Direct access to Beijing's international airports
 - Well-connected highway and rail networks
 - Proximity to Tianjin port (1.5 hours by road)
+
+![Production line in Hebei](/img/g-production.webp)
 
 ## Emerging Supplier Capabilities
 Modern Hebei suppliers demonstrate:
