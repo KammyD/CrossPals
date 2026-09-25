@@ -73,7 +73,7 @@ const socialRaw = {
 };
 const SOCIAL_LABELS: Record<string, string> = {
   facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', youtube: 'YouTube',
-  x: 'X', tiktok: 'TikTok', weibo: '微博', zhihu: '知乎', github: 'GitHub',
+  x: 'X', tiktok: 'TikTok', weibo: 'Weibo', zhihu: 'Zhihu', github: 'GitHub',
 };
 export const SOCIAL = Object.entries(socialRaw)
   .filter(([, href]) => !!href)

@@ -55,7 +55,7 @@ const company = [
       <div class="footer__contact">
         <a href={`tel:${PHONE.tel}`}>{PHONE.display}</a>
         <a href={`mailto:${EMAIL.en}`}>{EMAIL.en}</a>
-        {CONTACT.wechat && <span class="footer__extra">微信：{CONTACT.wechat}</span>}
+        {CONTACT.wechat && <span class="footer__extra">{t('footer_wechat')}: {CONTACT.wechat}</span>}
         {CONTACT.telegram && <a href={CONTACT.telegram} class="footer__extra" target="_blank" rel="noopener">Telegram</a>}
         {CONTACT.hours && <span class="footer__extra">{CONTACT.hours}</span>}
       </div>
