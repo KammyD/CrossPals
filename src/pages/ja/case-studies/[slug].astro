@@ -39,7 +39,7 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
 
   <header class="cs-hdr">
     <div class="container cs-hdr__inner">
-      <a href="/ja/case-studies" class="back">← All case studies</a>
+      <a href="/ja/case-studies" class="back">← すべてのケーススタディ</a>
       <div class="cs-hdr__top">
         <span class="indexnum cs-n">{String(idx + 1).padStart(2, '0')}</span>
         <span class="cs-client">{item.data.client}</span>
@@ -47,7 +47,7 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
       <h1>{item.data.title}</h1>
       <div class="cs-meta">
         <time>{fmt(item.data.date)}</time>
-        <span>·</span><span>Anonymised client</span>
+        <span>·</span><span>匿名化されたクライアント</span>
       </div>
     </div>
   </header>
@@ -72,16 +72,16 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
 
       <aside class="cs-aside reveal reveal-delay-2">
         <div class="aside-cta">
-          <p class="overline">Need Help?</p>
-          <h4>Get a free quote</h4>
-          <p>Tell us your product. Verified suppliers and a full price breakdown in 48 hours.</p>
-          <a href="/ja/contact" class="btn btn-primary" style="margin-top:var(--s5);">Get a free quote <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <p class="overline">ヘルプが必要ですか？</p>
+          <h4>無料見積もりを取得</h4>
+          <p>商品についてお知らせください。48時間以内に認証済みサプライヤーと詳細な価格内訳を提供します。</p>
+          <a href="/ja/contact" class="btn btn-primary" style="margin-top:var(--s5);">無料見積もりを取得<svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
         <nav class="aside-nav">
           <p class="overline">Explore</p>
-          <a href="/ja/services">FBA Sourcing &amp; Inspection →</a>
-          <a href="/ja/blog">Sourcing Guides →</a>
-          <a href="/ja/case-studies">All Case Studies →</a>
+          <a href="/ja/services">FBA調達 &amp; 検品 →</a>
+          <a href="/ja/blog">調達ガイド →</a>
+          <a href="/ja/case-studies">すべてのケーススタディ →</a>
         </nav>
       </aside>
 
@@ -92,8 +92,8 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
   {others.length > 0 && (
     <section class="section bg-parchment">
       <div class="container">
-        <p class="overline reveal">More cases</p>
-        <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">Other Orders, <em style="font-style:italic;color:var(--avo-600);">Other Problems</em></h2>
+        <p class="overline reveal">その他の事例</p>
+        <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">その他の注文, <em style="font-style:italic;color:var(--avo-600);">その他の問題</em></h2>
         <div class="ocases">
           {others.map((c, i) => (
             <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
@@ -103,7 +103,7 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
               <div class="ocard__body">
                 <span class="ocard__client">{c.data.client}</span>
                 <h4>{c.data.title}</h4>
-                <span class="ocard__more">Learn more →</span>
+                <span class="ocard__more">もっと詳しく →</span>
               </div>
             </a>
           ))}
@@ -115,15 +115,15 @@ const fmt = (d: string) => fmtDate(PAGE_LANG, d);
   <!-- CTA -->
   <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
     <div class="container">
-      <p class="overline overline--light reveal">Next case study</p>
+      <p class="overline overline--light reveal">次のケーススタディ</p>
       <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
-        Let's Make Yours<br/><em style="color:var(--avo-300)">The Next One</em>
+        あなたの事例を作りましょう<br/><em style="color:var(--avo-300)">次の事例</em>
       </h2>
       <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
-        Tell us what you want to source. We'll come back with verified suppliers and a full price breakdown within 48 hours.
+        調達したい商品をお知らせください。48時間以内に認証済みサプライヤーと詳細な価格内訳を提出します。
       </p>
       <a href="/ja/contact" class="btn btn-primary reveal reveal-delay-3">
-        Get a free quote
+        無料見積もりを取得
         <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
       </a>
     </div>

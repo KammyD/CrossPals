@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { languageList, defaultLang } from '../../../i18n/utils';
+
+/* 案例来自 src/content/case-studies/*.md —— 只列带 lang: ja 的译文（与博客一致） */
+const PAGE_LANG = 'ja';
+const cases = (await getCollection('case-studies'))
+  .filter(c => !c.data.draft && c.data.lang === PAGE_LANG)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const num = (i: number) => String(i + 1).padStart(2, '0');
+const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'short' });
+---
+<BaseLayout lang={PAGE_LANG} title="導入事例 | CrossPals" description="CrossPals が調達・検品・出荷準備を担った実際のご注文——課題、対応内容、その成果。">
+
+  <PageHero
+    overline="導入事例"
+    title="実際のご注文、<br/><em style='font-style:italic;color:var(--avo-300)'>実際の成果</em>"
+    subtitle="匿名化した実際のご注文：お客様が抱えていた課題、私たちの対応、そしてその結果。数字を先に、形容詞は後に。"
+  />
+
+  <section class="section">
+    <div class="container">
+      {cases.length === 0 ? (
+        <p class="ja-empty">日本語の導入事例は現在準備中です。英語版の<a href={`/case-studies/`}>導入事例</a>をご覧ください。</p>
+      ) : (
+        <div class="cases">
+          {cases.map((c, i) => (
+            <a href={`/case-studies/${c.slug}`} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
+              <ImgPlaceholder src={c.data.cover} width={800} height={600} ratio="4/3" alt={c.data.title} />
+
+              <div class="ccard__body">
+                <div class="ccard__head">
+                  <span class="indexnum ccard__n">{num(i)}</span>
+                  <span class="ccard__client">{c.data.client}</span>
+                </div>
+
+                <h3>{c.data.title}</h3>
+                <p class="ccard__sum">{c.data.summary}</p>
+
+                <div class="ccard__results">
+                  {c.data.results.map(r => (
+                    <div class="ccard__res">
+                      <strong>{r.v}</strong>
+                      <span>{r.l}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="ccard__foot">
+                  <time>{fmt(c.data.date)}</time>
+                  <span class="ccard__more">詳しく見る →</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA → 报价表单 -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <span class="seal cta-seal" aria-hidden="true"><span>次の</span><span>事例</span></span>
+      <p class="overline overline--light reveal">次の導入事例へ</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
+        あなたの事例を<br/><em style="color:var(--avo-300)">次の一つに</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
+        調達したい製品をお知らせください。48時間以内に、検証済みのサプライヤーと全体の価格内訳をお返しします。
+      </p>
+      <a href="/ja/contact" class="btn btn-primary reveal reveal-delay-3">
+        無料見積もりを取得
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* 卡片网格：图 + 概览 + 结果指标，右下角进详情页 */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);align-items:stretch;}
+  .ccard{background:#fff;border:1px solid var(--warm-200);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:var(--t-med);overflow:hidden;}
+  .ccard:hover{border-color:var(--avo-300);}
+  .ccard :global(.img-ph){border-radius:0;flex-shrink:0;}
+  .ccard :global(.img-ph__wrap){border-radius:0;}
+  .ccard__body{padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+  .ccard__head{display:block;}
+  .ccard__n{display:block;font-size:26px;}
+  .ccard__client{display:block;margin-top:9px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
+  .ccard h3{font-size:17px;line-height:1.34;transition:color var(--t-fast);}
+  .ccard:hover h3{color:var(--seal);}
+  .ccard__sum{font-size:13px;line-height:1.62;color:var(--text-body);}
+  .ccard__results{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);border-top:2px solid var(--seal);padding-top:var(--s3);}
+  .ccard__res strong{display:block;font-family:var(--font-serif);font-size:19px;font-weight:600;color:var(--avo-700);line-height:1.1;margin-bottom:3px;}
+  .ccard__res span{font-family:var(--font-mono);font-size:9.5px;line-height:1.45;color:var(--text-muted);display:block;}
+  .ccard__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);font-size:11px;color:var(--warm-400);font-family:var(--font-mono);padding-top:var(--s3);border-top:1px solid var(--warm-200);margin-top:auto;}
+  .ccard__more{color:var(--seal);font-weight:600;}
+  .cta-seal{display:inline-flex;margin-bottom:var(--s4);background:rgba(28,33,20,.4);border-color:var(--seal);color:#fff;}
+
+  .ja-empty{color:var(--warm-700);line-height:1.9;font-size:15px;}
+  .ja-empty a{color:var(--avo-600);}
+
+  @media(max-width:1000px){.cases{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){
+    .cases{grid-template-columns:1fr;}
+    .ccard__results{grid-template-columns:repeat(3,1fr);gap:var(--s2);}
+    .ccard__res strong{font-size:17px;}
+  }
+</style>

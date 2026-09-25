@@ -1,6 +1,6 @@
 {
   "siteId": "crosspals-com",
-  "verifiedSignature": "ca68ced472a48c1f",
+  "verifiedSignature": "406dc806b4b8c437",
   "entries": [
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/404.astro",
@@ -28,8 +28,128 @@
       "source": "static-strong"
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/about.astro",
+      "url": "/hi/about",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/blog/index.astro",
+      "url": "/hi/blog",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/case-studies/index.astro",
+      "url": "/hi/case-studies",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/contact.astro",
+      "url": "/hi/contact",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/index.astro",
+      "url": "/hi",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/privacy.astro",
+      "url": "/hi/privacy",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/services.astro",
+      "url": "/hi/services",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/hi/terms.astro",
+      "url": "/hi/terms",
+      "source": "static-strong"
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/index.astro",
       "url": "/",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/about.astro",
+      "url": "/ja/about",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/blog/index.astro",
+      "url": "/ja/blog",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/case-studies/index.astro",
+      "url": "/ja/case-studies",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/contact.astro",
+      "url": "/ja/contact",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/index.astro",
+      "url": "/ja",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/privacy.astro",
+      "url": "/ja/privacy",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/services.astro",
+      "url": "/ja/services",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ja/terms.astro",
+      "url": "/ja/terms",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/about.astro",
+      "url": "/ko/about",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/blog/index.astro",
+      "url": "/ko/blog",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/case-studies/index.astro",
+      "url": "/ko/case-studies",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/contact.astro",
+      "url": "/ko/contact",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/index.astro",
+      "url": "/ko",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/privacy.astro",
+      "url": "/ko/privacy",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/services.astro",
+      "url": "/ko/services",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ko/terms.astro",
+      "url": "/ko/terms",
       "source": "static-strong"
     },
     {
@@ -48,11 +168,123 @@
       "source": "static-strong"
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
+      "url": "/blog/1688-vs-alibaba-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ja.md",
+      "url": "/blog/1688-vs-alibaba-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ko.md",
+      "url": "/blog/1688-vs-alibaba-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ko"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
       "url": "/blog/1688-vs-alibaba",
       "source": "static-heuristic",
       "slugCandidates": [
         "1688-vs-alibaba"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md",
+      "url": "/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md",
+      "url": "/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md",
+      "url": "/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md",
+      "url": "/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md",
+      "url": "/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md",
+      "url": "/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md",
+      "url": "/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md",
+      "url": "/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
+      "url": "/blog/avoid-fba-rejections-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ja.md",
+      "url": "/blog/avoid-fba-rejections-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ko.md",
+      "url": "/blog/avoid-fba-rejections-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ko"
       ]
     },
     {
@@ -64,6 +296,30 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
+      "url": "/blog/get-fba-ready-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ja.md",
+      "url": "/blog/get-fba-ready-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ko.md",
+      "url": "/blog/get-fba-ready-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ko"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
       "url": "/blog/get-fba-ready",
       "source": "static-heuristic",
@@ -72,8 +328,608 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
+      "url": "/blog/read-inspection-report-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ja.md",
+      "url": "/blog/read-inspection-report-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ko.md",
+      "url": "/blog/read-inspection-report-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ko"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
       "url": "/blog/read-inspection-report",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
+      "url": "/hi/blog/1688-vs-alibaba-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ja.md",
+      "url": "/hi/blog/1688-vs-alibaba-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ko.md",
+      "url": "/hi/blog/1688-vs-alibaba-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
+      "url": "/hi/blog/1688-vs-alibaba",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md",
+      "url": "/hi/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md",
+      "url": "/hi/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md",
+      "url": "/hi/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md",
+      "url": "/hi/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md",
+      "url": "/hi/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md",
+      "url": "/hi/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md",
+      "url": "/hi/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md",
+      "url": "/hi/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
+      "url": "/hi/blog/avoid-fba-rejections-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ja.md",
+      "url": "/hi/blog/avoid-fba-rejections-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ko.md",
+      "url": "/hi/blog/avoid-fba-rejections-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections.md",
+      "url": "/hi/blog/avoid-fba-rejections",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
+      "url": "/hi/blog/get-fba-ready-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ja.md",
+      "url": "/hi/blog/get-fba-ready-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ko.md",
+      "url": "/hi/blog/get-fba-ready-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
+      "url": "/hi/blog/get-fba-ready",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
+      "url": "/hi/blog/read-inspection-report-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ja.md",
+      "url": "/hi/blog/read-inspection-report-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ko.md",
+      "url": "/hi/blog/read-inspection-report-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
+      "url": "/hi/blog/read-inspection-report",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
+      "url": "/ja/blog/1688-vs-alibaba-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ja.md",
+      "url": "/ja/blog/1688-vs-alibaba-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ko.md",
+      "url": "/ja/blog/1688-vs-alibaba-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
+      "url": "/ja/blog/1688-vs-alibaba",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md",
+      "url": "/ja/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md",
+      "url": "/ja/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md",
+      "url": "/ja/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md",
+      "url": "/ja/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md",
+      "url": "/ja/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md",
+      "url": "/ja/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md",
+      "url": "/ja/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md",
+      "url": "/ja/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
+      "url": "/ja/blog/avoid-fba-rejections-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ja.md",
+      "url": "/ja/blog/avoid-fba-rejections-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ko.md",
+      "url": "/ja/blog/avoid-fba-rejections-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections.md",
+      "url": "/ja/blog/avoid-fba-rejections",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
+      "url": "/ja/blog/get-fba-ready-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ja.md",
+      "url": "/ja/blog/get-fba-ready-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ko.md",
+      "url": "/ja/blog/get-fba-ready-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
+      "url": "/ja/blog/get-fba-ready",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
+      "url": "/ja/blog/read-inspection-report-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ja.md",
+      "url": "/ja/blog/read-inspection-report-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ko.md",
+      "url": "/ja/blog/read-inspection-report-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
+      "url": "/ja/blog/read-inspection-report",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
+      "url": "/ko/blog/1688-vs-alibaba-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ja.md",
+      "url": "/ko/blog/1688-vs-alibaba-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ko.md",
+      "url": "/ko/blog/1688-vs-alibaba-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
+      "url": "/ko/blog/1688-vs-alibaba",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md",
+      "url": "/ko/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md",
+      "url": "/ko/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md",
+      "url": "/ko/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md",
+      "url": "/ko/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md",
+      "url": "/ko/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md",
+      "url": "/ko/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md",
+      "url": "/ko/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md",
+      "url": "/ko/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
+      "url": "/ko/blog/avoid-fba-rejections-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ja.md",
+      "url": "/ko/blog/avoid-fba-rejections-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ko.md",
+      "url": "/ko/blog/avoid-fba-rejections-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections.md",
+      "url": "/ko/blog/avoid-fba-rejections",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
+      "url": "/ko/blog/get-fba-ready-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ja.md",
+      "url": "/ko/blog/get-fba-ready-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ko.md",
+      "url": "/ko/blog/get-fba-ready-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
+      "url": "/ko/blog/get-fba-ready",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
+      "url": "/ko/blog/read-inspection-report-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ja.md",
+      "url": "/ko/blog/read-inspection-report-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ko.md",
+      "url": "/ko/blog/read-inspection-report-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
+      "url": "/ko/blog/read-inspection-report",
       "source": "static-heuristic",
       "slugCandidates": [
         "read-inspection-report"

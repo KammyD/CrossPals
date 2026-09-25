@@ -13,9 +13,9 @@ const cases = entriesForLang((await getCollection('case-studies')).filter(c => !
   .sort((a, b) => a.data.order - b.data.order);
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
-const fmt = (d: string) => fmtDate(PAGE_LANG, d, 'monthYear');
+const fmt = (d: string) => fmtDate(PAGE_LANG, d, 'माहवर्ष');
 ---
-<BaseLayout title="केस स्टडीज" description="CrossPals द्वारा Amazon FBA विक्रेताओं के लिए सोर्स, निरीक्षण और तैयार किए गए वास्तविक ऑर्डर — समस्या, हमने क्या किया, और परिणाम।" lang="hi">
+<BaseLayout title="केस स्टडीज" description="Amazon FBA विक्रेताओं के लिए CrossPals द्वारा सोर्स, जाँच एवं तैयार किए गए वास्तविक ऑर्डर — समस्या, हमने क्या किया, और परिणाम।" lang="hi">
 
   <PageHero
     overline="केस स्टडीज"

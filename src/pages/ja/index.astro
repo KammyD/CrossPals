@@ -17,10 +17,10 @@ const PAGE_LANG = 'ja';
 
 /* ── 服务（每项带一条独立定价说明） ── */
 const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
-  { icon: 'sourcing',    n: '01', title: '製品探索（ソーシング）',     body: '中国の数千のサプライヤー——1688、Alibaba、そして工場直結のネットワーク——から、ご予算と品質基準にぴったり合う製品を探し出します。', price: '<b>$1,000</b> のご注文 → ソーシング手数料 <b>$80</b>（8%）。単価を下げ、上乗せマージンは一切いただきません。', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
-  { icon: 'inspection',  n: '02', title: '品質検品',   body: '出荷前に工場で実地検品を実施。詳細な写真レポート、不良品数、明確な合否判定で、不安な出荷はさせません。', price: '<b>$1,000</b> のご注文 → 検品費用定額 <b>$150</b>（半日）。写真レポート一式込み。', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
-  { icon: 'payment',     n: '03', title: '購入・代金支払い', body: '中国語で交渉し、確認済みサプライヤーへのすべての支払いを代行。各段階で資金を保護し、見知らぬ相手への送金は一切ありません。', price: '<b>$1,000</b> のご注文 → 前金30%／検品後70%。手数料 <b>5–8%</b>、隠れた上乗せなし。', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
-  { icon: 'shipping',    n: '04', title: '国際配送・物流', body: '世界中へドア・ツー・ドア。航空・海上・エクスプレスを比較し、通関書類を代行し、リアルタイムの追跡情報をお届けします。', price: '<b>$1,000</b> のご注文 → 運賃はキャリアの実勢見積もり。上乗せ <b>$0</b>。', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
+  { icon: 'sourcing',    n: '01', title: '製品探索（ソーシング）',     body: '中国の数千のサプライヤー——1688、Alibaba、そして工場直結のネットワーク——から、ご予算と品質基準にぴったり合う製品を探し出します。', price: '<b>$1,000</b> のご注文 → 調達手数料 <b>$80</b>（8%）。単価を引き下げ、隠れたマージンは一切加算しません。', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: '品質検品',   body: '出荷前に工場で実地検品を実施。詳細な写真レポート、不良品数、明確な合否判定で、不安な出荷はさせません。', price: '<b>$1,000</b> のご注文 → 商品検査費用定額 <b>$150</b>（半日）。写真レポート一式を含みます。', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: '購入・代金支払い', body: '中国語で交渉し、確認済みサプライヤーへのすべての支払いを代行。各段階で資金を保護し、見知らぬ相手への送金は一切ありません。', price: '<b>$1,000</b> のご注文 → 前金30%／検査後70%。手数料 <b>5–8%</b>、追加費用一切なし。', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: '国際配送・物流', body: '世界中へドア・ツー・ドア。航空・海上・エクスプレスを比較し、通関書類を代行し、リアルタイムの追跡情報をお届けします。', price: '<b>$1,000</b> のご注文 → 運賃は運送会社の実際の見積もり通り。追加費用 <b>$0</b>。', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
 ];
 
 /* ── 三个真实 FBA 卖家场景（Facebook 群组每天都在发的帖） ── */
@@ -31,9 +31,9 @@ const scenarios: Array<{ quote: string; tag: string; title: string; body: string
   { quote: '代金を払ったらサプライヤーが消えた。', tag: '支払い前に確認', title: 'サプライヤー確認',
     body: '確認していないサプライヤーには送金しません。営業許可証、工場住所、輸出実績、そしてライブ動画の現地案内——前金を払う前に、すべてを確認します。',
     cta: 'サプライヤー審査の方法を見る' },
-  { quote: '自分の製品がFBAの要件を満たしているか分からない。', tag: '出荷前にFBA対応', title: 'FBA向け前処理',
-    body: 'Amazonの仕様に合わせてラベル貼り、ポリ袋詰め、セット梱包、計量、採寸——そして初回から検品を通過する送り状ラベルと梱包明細をお渡しします。',
-    cta: 'FBA前処理を見る' },
+  { quote: '自分の商品がFBAの要件を満たしているか不安な場合。', tag: '出荷前のFBA対応', title: 'FBA向け事前処理',
+    body: 'Amazonの規格に準拠したラベリング、ポリ袋包装、セット梱包、重量・寸法測定——初回検査合格に向けた送り状ラベルと梱包明細書を提供します。',
+    cta: 'FBA事前処理の詳細を見る' },
 ];
 
 /* ── 独立质检模块：5 项质检标准 ── */
@@ -42,33 +42,33 @@ const inspectionStandards: Array<{ n: string; title: string; body: string }> = [
   { n: '02', title: '寸法',      body: 'ノギスとはかりで長さ・幅・重量・許容差を測定します。' },
   { n: '03', title: '機能テスト',   body: '抽出したすべての単位を、お客様が使う通りに電源投入・組立・使用します。' },
   { n: '04', title: '梱包',      body: '小売箱、中敷き、ポリ袋の完全性——さらに輸送落下への耐性を確認します。' },
-  { n: '05', title: 'FBAラベル確認', body: 'FNSKU、外装箱ラベル、窒息警告表示、Amazonバーコードの読み取り可否を確認します。' },
+  { n: '05', title: 'FBAラベル確認', body: 'FNSKU、外装箱ラベル、窒息警告表示、Amazonバーコードの読み取り可否を検査します。' },
 ];
 
 const steps: Array<{ day: string; title: string; body: string }> = [
   { day: 'Day 1',    title: '製品をご提出',      body: '簡単なフォームから、製品・数量・品質基準・ご予算をお知らせください。' },
   { day: 'Day 2',    title: '審査済みサプライヤー案',  body: '価格とプロフィール付きの確認済みサプライヤーを3〜5社、48時間以内にご送付します。' },
-  { day: 'Day 7–20', title: '当社で購入・検品',         body: '当社がサプライヤーへ支払い、生産を管理し、出荷前に完全なQC写真レポートをお送りします。' },
-  { day: 'Day 21+',  title: 'FBA対応・配送完了',     body: 'Amazon仕様でラベル貼り・梱包された商品が通関を経て、追跡可能な状態で配送されます。' },
+  { day: 'Day 7–20', title: '当社で購入・検品',         body: '当社がサプライヤーへの支払いと生産管理を担当し、出荷前の完全な品質検査写真レポートをご提供します。' },
+  { day: 'Day 21+',  title: 'FBA対応・配送完了',     body: 'Amazon規格に沿ったラベル貼り・梱包済み商品が通関手続きを経て、追跡可能な状態で配送されます。' },
 ];
 
 /* ── 证言：FBA 卖家格式（品类 / 订单 / 问题 / 结果） ── */
 const testiFeatured = {
-  quote: 'アメリカのAmazonでキッチン用品を販売しています。CrossPalsが主力商品をソーシングし、出荷前に不良品15個を見つけ、すべてを18日でFBA対応にしてくれました。以来2回リピート注文しています。',
-  name: 'Marcus T.', meta: 'Amazon出品者 · アメリカ · キッチン・ダイニング',
-  result: '出荷前に不良15個を発見 · 18日でFBA対応', avatar: '/img/avatar-nigeria.webp',
+  quote: '米国Amazonでキッチン用品を販売中。CrossPalsが主力商品の調達を担当し、出荷前に不良品15点を発見。全ての商品を18日間でFBA対応に仕上げました。以降2回のリピート注文実績あり。',
+  name: 'マーカス T.', meta: 'Amazon出品者 · アメリカ · キッチン・ダイニング',
+  result: '出荷前に不良品15個を発見 · 18日でFBA対応完了', avatar: '/img/avatar-nigeria.webp',
 };
 const testiSmall = [
-  { quote: '初めてのプライベートラベル注文——ペット用品800個。工場を確認し、梱包の問題を見つけ、一度もリジェクトされずにFBAに納品されました。',
-    name: 'Ana R.', meta: 'Amazon FBA · スペイン · ペット用品', result: 'FBAリジェクト 0件', avatar: '/img/avatar-mexico.webp' },
-  { quote: '前のサプライヤーは前金を払ったら音信不通に。CrossPalsが新しい相手を審査し、自らQCを実施してくれたおかげで、見知らぬ相手に二度と送金する必要がなくなりました。',
-    name: 'David O.', meta: 'Amazon & Shopify · イギリス · ホーム・ガーデン', result: 'リピート注文 2回', avatar: '/img/avatar-uk.webp' },
+  { quote: '初めてのプライベートブランド注文（ペット用品800点）。工場チェック実施、包装問題を発見し、一度もリジェクトされずFBA納品を達成。',
+    name: 'アナ R.', meta: 'Amazon FBA · スペイン · ペット用品', result: 'FBAリジェクトゼロ件', avatar: '/img/avatar-mexico.webp' },
+  { quote: '前サプライヤーは前金支払い後消息不明に。CrossPalsが新サプライヤーを審査し自社QCを実施したため、見知らぬ業者への送金リスクが解消。',
+    name: 'デイビッド O.', meta: 'Amazon & Shopify · イギリス · ホーム&ガーデン', result: 'リピート注文 2回', avatar: '/img/avatar-uk.webp' },
 ];
 
 const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
   { icon: 'global',       n: '01', title: '言語の壁なし',  body: '中国語で直接交渉するため、観光客価格ではなく工場価格をご提供します。' },
   { icon: 'trust',        n: '02', title: '明確な責任所在',   body: '専任エージェントがご注文を管理。対応はチケット待ちではなく、一人の担当者が責任を持ちます。' },
-  { icon: 'handshake',    n: '03', title: 'FBA出品者向け設計', body: '私たちのすべての対応はAmazon対応の箱に行き着きます。ソーシング・検品・ラベル貼り・梱包。' },
+  { icon: 'handshake',    n: '03', title: 'FBA出品者向け設計', body: '当社の全プロセスはAmazon対応梱包に集約。調達・検品・ラベリング・梱包まで一貫対応。' },
   { icon: 'transparent',  n: '04', title: '透明な費用',     body: 'サプライヤー価格＋運賃＋当社手数料。ご契約前にすべての数字が見えます。' },
 ];
 
@@ -83,7 +83,7 @@ const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
 const pricingFees: Array<{ label: string; value: string; note: string }> = [
   { label: 'エージェント手数料',     value: '注文額の5〜8%', note: '注文額$10,000 ＝ 手数料$600' },
   { label: '検品',    value: '1日$150',          note: '多くの注文は半日で完了' },
-  { label: 'FBA前処理',      value: '単位あたり',            note: '見積もりに項目ごと明記' },
+  { label: 'FBA事前処理',      value: '単位あたり',            note: '見積もりに項目ごと明記' },
   { label: '運賃',       value: 'キャリア見積もり通り',          note: 'キャリア価格への上乗せなし' },
 ];
 
@@ -106,7 +106,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
 <BaseLayout
   lang={PAGE_LANG}
   title="Amazon出品者が信頼する調達パートナー"
-  description="CrossPalsはFBA向けに製品を探索・検品・前処理します——サプライヤー確認、出荷前QC、FBA前処理で、サプライヤーではなく販売に集中できます。"
+  description="CrossPalsがFBA向けに製品の探索・検品・事前処理を実施——サプライヤー選定、出荷前品質検査、FBA事前処理を行い、販売に集中できる環境を提供。"
 >
 
 <!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══ -->
@@ -133,9 +133,9 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
       <div class="hero__left-inner">
         <p class="overline overline--light">FBA出品者のための中国調達</p>
         <h1 class="hero__title">Amazon出品者が信頼する調達パートナー——<em>品質検品付き。</em></h1>
-        <p class="hero__lead">製品をFBA向けにソーシング・検品・前処理するから、サプライヤーではなく販売に集中できます。</p>
+        <p class="hero__lead">FBA向けの製品調達・検品・前処理を代行するため、サプライヤー管理ではなく販売活動に集中できます。</p>
 
-        <p class="hero__sidenote">図00 — 多くのFBA出品者は言語の壁・偽サプライヤー・見えない出荷で損をします。私たちはこの3つをすべて解決します。</p>
+        <p class="hero__sidenote">図00 — 多くのFBA出品者は言語の壁・偽物サプライヤー・不可視な出荷状況によって損失を被っています。当社はこの3課題を全て解決します。</p>
 
         <div class="hero__actions">
           <a href={localePath(PAGE_LANG, '/contact')} class="btn btn-primary">
@@ -148,7 +148,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
         <ul class="hero__index">
           <li><span>01</span> 探索</li>
           <li><span>02</span> 検品</li>
-          <li><span>03</span> FBA前処理</li>
+          <li><span>03</span>FBA前処理</li>
           <li><span>04</span> 配送</li>
         </ul>
       </div>
@@ -178,12 +178,12 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
 <!-- ═══ 信任带：服务场景标识 + 数字指标（替代原来的国家旗帜列表） ═══ -->
 <section class="trustbar" aria-label="取り扱い分野と対象のお客様">
   <div class="container">
-    <p class="overline" style="margin-bottom:var(--s4);">Amazon・Shopify出品者のためにソーシング・検品・前処理を行うカテゴリー：</p>
+    <p class="overline" style="margin-bottom:var(--s4);">Amazon・Shopify出品者向け 調達・検品・前処理サービスのカテゴリー：</p>
     <div class="regionwall reveal">
       {categories.map(c => <span>{c}</span>)}
     </div>
     <ul class="trustmetrics reveal reveal-delay-1">
-      <li><b>47</b><span>対応Amazon出品者</span></li>
+      <li><b>47</b><span>対応可能なAmazon出品者</span></li>
       <li><b>$2.3M<em>+</em></b><span>調達商品総額</span></li>
       <li><b>98<em>%</em></b><span>期日内配送</span></li>
     </ul>
@@ -233,7 +233,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
   <div class="container">
     <div class="hiw__head reveal">
       <p class="overline overline--light">プロセス</p>
-      <h2 class="text-white">サプライヤーから<br/><em style="color:var(--avo-300)">4ステップでFBA対応</em></h2>
+      <h2 class="text-white">サプライヤーから<br/><em style="color:var(--avo-300)">4ステップで完了するFBA対応</em></h2>
     </div>
 
     <div class="manifest reveal reveal-delay-1">
@@ -262,8 +262,8 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
   <div class="container">
     <div class="scen__head reveal">
       <p class="overline">解決する課題</p>
-      <h2>あらゆる<br/><em>Amazon出品者が書く3つの投稿</em></h2>
-      <p class="scen__lead">これらはAmazon出品者グループに毎日投稿されるスレッドです。それぞれへの私たちの回答をご紹介します。</p>
+      <h2>あらゆる<br/><em>Amazon出品者が投稿する3つのよくある質問</em></h2>
+      <p class="scen__lead">これらはAmazon出品者グループで日々投稿される代表的なスレッドです。各質問に対する当社の回答をご紹介します。</p>
     </div>
 
     <div class="scen__list">
@@ -272,7 +272,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
           <div class="scen-item__quote">
             <span class="scen-item__mark" aria-hidden="true">“</span>
             <p>{s.quote}</p>
-            <span class="scen-item__src">— FBA出品者フォーラムの投稿</span>
+            <span class="scen-item__src">— FBA出品者フォーラム投稿より</span>
           </div>
           <div class="scen-item__sol">
             <span class="tag tag-seal">{s.tag}</span>
@@ -313,8 +313,8 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
       <!-- 样例质检报告（客户/供应商信息打码） -->
       <div class="qcreport reveal reveal-delay-2">
         <div class="qcreport__head">
-          <span class="qcreport__brand">CrossPals · 出荷前検品</span>
-          <span class="qcreport__no">Report № CP-2026-0418</span>
+          <span class="qcreport__brand">CrossPals · 出荷前検品サービス</span>
+          <span class="qcreport__no">レポート№ CP-2026-0418</span>
         </div>
         <dl class="qcreport__grid">
           <div><dt>製品</dt><dd>ステンレス製キッチンツール</dd></div>
@@ -327,7 +327,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
           <li><span>寸法</span><span class="ok">合格</span></li>
           <li><span>機能テスト</span><span class="ok">合格</span></li>
           <li><span>梱包</span><span class="warn">12個手直し</span></li>
-          <li><span>FBAラベル確認</span><span class="ok">合格</span></li>
+          <li><span>FBAラベル検証</span><span class="ok">合格</span></li>
         </ul>
         <div class="qcreport__result">
           <span class="qcreport__verdict">PASS</span>
@@ -344,7 +344,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
   <div class="container">
     <div class="testi__head reveal">
       <p class="overline">成功事例</p>
-      <h2>Amazon出品者、<br/><em>実際の注文</em></h2>
+      <h2>Amazon出品者<br/><em>実際の注文</em></h2>
     </div>
 
     <!-- 精选证言：文本左、头像右 -->
@@ -376,7 +376,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
       <div class="testi__stat reveal reveal-delay-1">
         <p class="overline overline--avo">これまでの実績</p>
         <div class="testi__bignum">47<span>+</span></div>
-        <p>対応Amazon出品者数、$2.3M+の調達商品額、98%の期日内配送率。</p>
+        <p>Amazon出品者対応数、230万ドル以上の調達商品金額、98%の期日内配送率を達成。</p>
         <a href={localePath(PAGE_LANG, '/case-studies')} class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">事例を見る →</a>
       </div>
     </div>
@@ -440,7 +440,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
       <h2>難しい部分は<br/><em>私たちが解決します</em></h2>
       <div class="divider" style="margin:var(--s6) 0;"></div>
       <div class="lede-row">
-        <p style="font-size:15px;line-height:1.72;">多くの出品者は言語の壁・支払いリスク・品質の不確実さのせいで中国調達に失敗します。CrossPalsはこの3つをすべて排除します。</p>
+        <p style="font-size:15px;line-height:1.72;">多くの出品者は言語の壁・支払いリスク・品質の不安定性により中国からの調達に失敗しています。CrossPalsはこれら3つの問題を全て解決します。</p>
         <a href={localePath(PAGE_LANG, '/contact')} class="btn btn-primary">
           無料見積もりを取得
           <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
@@ -456,7 +456,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
           <div class="why-item__body">
             <h4>{w.title}</h4>
             <p>{w.body}</p>
-            <p class="sidenote why-item__note">CrossPalsの標準——大きな注文だけでなく、すべてのご注文に適用されます。</p>
+            <p class="sidenote why-item__note">CrossPalsの基準——大口注文だけでなく、あらゆる注文に適用されます。</p>
           </div>
         </div>
       ))}
@@ -532,7 +532,7 @@ const categories = ['キッチン・ダイニング', 'ホーム・ガーデン'
 <section class="cta-final grain" style="position:relative;overflow:hidden;">
   <div class="container cta-final__inner">
     <div class="cta-final__text reveal">
-      <span class="seal cta-final__seal" aria-hidden="true"><span>準備</span><span>48h</span></span>
+      <span class="seal cta-final__seal" aria-hidden="true"><span>準備</span><span>48時間</span></span>
       <p class="overline overline--light">準備はできましたか？</p>
       <h2 class="text-white" style="margin:var(--s3) 0 var(--s4);font-size:clamp(30px,4.4vw,56px);">
         最初のサプライヤーは<br/><em style="color:var(--avo-300)">あと48時間</em>

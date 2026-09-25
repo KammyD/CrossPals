@@ -14,11 +14,11 @@ const cases = (await getCollection('case-studies'))
 const num = (i: number) => String(i + 1).padStart(2, '0');
 const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'short' });
 ---
-<BaseLayout lang={PAGE_LANG} title="導入事例 | CrossPals" description="CrossPals が調達・検品・出荷準備を担った実際のご注文——課題、対応内容、その成果。">
+<BaseLayout lang={PAGE_LANG} title="導入事例 | CrossPals" description="CrossPalsが仕入れ・検品・出荷準備を担当した実際の注文——課題、取り組み、そして成果。">
 
   <PageHero
     overline="導入事例"
-    title="実際のご注文、<br/><em style='font-style:italic;color:var(--avo-300)'>実際の成果</em>"
+    title="実際の注文、<br/><em style='font-style:italic;color:var(--avo-300)'>実際の成果</em>"
     subtitle="匿名化した実際のご注文：お客様が抱えていた課題、私たちの対応、そしてその結果。数字を先に、形容詞は後に。"
   />
 

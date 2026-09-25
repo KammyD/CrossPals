@@ -169,6 +169,62 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md": {
+	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md";
+  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md": {
+	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md";
+  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md": {
+	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md";
+  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md": {
+	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md";
+  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md": {
+	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md";
+  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md": {
+	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md";
+  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md": {
+	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md";
+  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md": {
+	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md";
+  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "avoid-fba-rejections-hi.md": {
 	id: "avoid-fba-rejections-hi.md";
   slug: "avoid-fba-rejections-hi";

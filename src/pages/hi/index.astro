@@ -12,74 +12,74 @@ const PAGE_LANG = 'hi';
 
 /* ── 服务（每项带一条独立定价说明） ── */
 const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
-  { icon: 'sourcing',    n: '01', title: 'Product Sourcing',     body: 'We search thousands of Chinese suppliers — 1688, Alibaba, and direct factory networks — to find the exact match for your budget and standards.', price: '<b>$1,000</b> order → <b>$80</b> sourcing fee (8%). We push the unit price down and add no markup to it.', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
-  { icon: 'inspection',  n: '02', title: 'Quality Inspection',   body: 'Physical inspection at the factory before your goods ship. Detailed photo report, defect counts, and a clear pass/fail so you never ship blind.', price: '<b>$1,000</b> order → <b>$150</b> flat inspection (half-day). Full photo report included.', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
-  { icon: 'payment',     n: '03', title: 'Purchasing & Payment', body: 'We negotiate in Chinese and handle all payments to verified suppliers. Your money is protected at every step — no wires to strangers.', price: '<b>$1,000</b> order → 30% deposit / 70% after QC. <b>5–8%</b> handling, no hidden markups.', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
-  { icon: 'shipping',    n: '04', title: 'Shipping & Logistics', body: 'Door-to-door worldwide. We compare air, sea, and express options, then handle customs docs and give you real-time tracking.', price: '<b>$1,000</b> order → freight at the carrier\'s live quote. <b>$0</b> added on top.', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
+  { icon: 'sourcing',    n: '01', title: 'उत्पाद सोर्सिंग',     body: 'हम आपके बजट और मानकों के लिए सटीक मिलान खोजने के लिए हजारों चीनी आपूर्तिकर्ताओं — 1688, Alibaba, और सीधे फैक्ट्री नेटवर्क — को खोजते हैं।', price: '<b>$1,000</b> ऑर्डर → <b>$80</b> सोर्सिंग शुल्क (8%)। हम यूनिट कीमत को कम करते हैं और उसमें कोई मार्कअप नहीं जोड़ते।', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: 'गुणवत्ता निरीक्षण',   body: 'आपके माल की शिपिंग से पहले फैक्ट्री में भौतिक निरीक्षण। विस्तृत फोटो रिपोर्ट, दोष गिनती, और एक स्पष्ट पास/फेल ताकि आप कभी अंधाधुंध शिप न करें।', price: '<b>$1,000</b> ऑर्डर → <b>$150</b> फ्लैट निरीक्षण (आधा दिन)। पूरी फोटो रिपोर्ट शामिल।', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: 'खरीदारी और भुगतान', body: 'हम चीनी में बातचीत करते हैं और सत्यापित आपूर्तिकर्ताओं को सभी भुगतान संभालते हैं। आपका पैसा हर कदम पर सुरक्षित रहता है — अजनबियों को कोई वायर नहीं।', price: '<b>$1,000</b> ऑर्डर → 30% डिपॉजिट / QC के बाद 70%। <b>5–8%</b> हैंडलिंग, कोई छुपा हुआ मार्कअप नहीं।', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: 'शिपिंग और लॉजिस्टिक्स', body: 'दरवाजे से दरवाजे तक विश्वव्यापी। हम हवाई, समुद्री और एक्सप्रेस विकल्पों की तुलना करते हैं, फिर कस्टम दस्तावेज़ संभालते हैं और आपको रीयल-टाइम ट्रैकिंग देते हैं।', price: '<b>$1,000</b> ऑर्डर → कैरियर के लाइव कोट पर फ्रेट। <b>$0</b> शीर्ष पर जोड़ा गया।', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
 ];
 
 /* ── 三个真实 FBA 卖家场景（Facebook 群组每天都在发的帖） ── */
 const scenarios: Array<{ quote: string; tag: string; title: string; body: string; cta: string }> = [
-  { quote: 'I ordered 500 units and got 30% defects.', tag: 'Inspected before it ships', title: 'Quality Inspection',
-    body: 'We check the whole batch at the factory — measuring, testing, and counting defects on camera. If the pass rate falls short, the supplier reworks or replaces before a single box leaves China.',
-    cta: 'See how inspection works' },
-  { quote: 'My supplier disappeared after I paid.', tag: 'Verified before you pay', title: 'Supplier Verification',
-    body: 'We never wire a supplier we have not verified. Business licence, factory address, export history, and a live video walkthrough — checked before you release a deposit, not after.',
-    cta: 'See how we vet suppliers' },
-  { quote: 'I don\'t know if my product meets FBA requirements.', tag: 'FBA-ready before it leaves', title: 'FBA Prep',
-    body: 'We label, poly-bag, bundle, weigh, and measure to Amazon\'s exact spec — then hand you carton labels and a packing list that clears receiving the first time.',
-    cta: 'See FBA prep' },
+  { quote: 'मैंने 500 यूनिट ऑर्डर की थी और 30% दोषपूर्ण मिले।', tag: 'शिपिंग से पहले निरीक्षण किया गया', title: 'गुणवत्ता निरीक्षण',
+    body: 'हम फैक्ट्री में पूरी बैच की जांच करते हैं — मापन, परीक्षण और कैमरे पर दोषों की गिनती। यदि पास दर कम होती है, तो आपूर्तिकर्ता चीन से एक बॉक्स भी निकलने से पहले फिर से काम करता है या बदल देता है।',
+    cta: 'देखें कि निरीक्षण कैसे काम करता है' },
+  { quote: 'मेरे भुगतान के बाद मेरा आपूर्तिकर्ता गायब हो गया।', tag: 'भुगतान से पहले सत्यापित', title: 'आपूर्तिकर्ता सत्यापन',
+    body: 'हम कभी भी किसी ऐसे सप्लायर को पैसे नहीं भेजते जिसकी हमने पुष्टि न की हो। व्यावसायिक लाइसेंस, फैक्ट्री का पता, निर्यात का इतिहास, और एक लाइव वीडियो वॉकथ्रू — जमा राशि जारी करने से पहले जांचे जाते हैं, बाद में नहीं।',
+    cta: 'देखें हम सप्लायर्स की जांच कैसे करते हैं' },
+  { quote: 'मुझे नहीं पता कि मेरा उत्पाद FBA आवश्यकताओं को पूरा करता है या नहीं।', tag: 'FBA-तैयार जब यह छोड़ता है', title: 'FBA प्रीप',
+    body: 'हम अमेज़न के सटीक स्पेक के अनुसार लेबल, पॉली-बैग, बंडल, वजन और माप करते हैं — फिर आपको कार्टन लेबल और एक पैकिंग सूची सौंपते हैं जो पहली बार में प्राप्ति को पास करती है।',
+    cta: 'FBA प्रीप देखें' },
 ];
 
 /* ── 独立质检模块：5 项质检标准 ── */
 const inspectionStandards: Array<{ n: string; title: string; body: string }> = [
-  { n: '01', title: 'Appearance',      body: 'Surface, colour, print and finish checked against your approved sample.' },
-  { n: '02', title: 'Dimensions',      body: 'Length, width, weight and tolerances measured with calipers and scales.' },
-  { n: '03', title: 'Function test',   body: 'Every sampled unit powered on, assembled or used the way your customer will.' },
-  { n: '04', title: 'Packaging',       body: 'Retail box, inserts and poly-bag integrity — plus transit-drop readiness.' },
-  { n: '05', title: 'FBA label check', body: 'FNSKU, carton labels, suffocation warnings, and Amazon barcode scannability.' },
+  { n: '01', title: 'दिखावट',      body: 'सतह, रंग, प्रिंट और फिनिश आपके अनुमोदित नमूने के विरुद्ध जांचे जाते हैं।' },
+  { n: '02', title: 'आयाम',      body: 'लंबाई, चौड़ाई, वजन और सहनशीलता को कैलिपर्स और तराजू से मापा जाता है।' },
+  { n: '03', title: 'फंक्शन टेस्ट',   body: 'हर नमूना यूनिट को चालू किया जाता है, असेंबल किया जाता है या उस तरीके से इस्तेमाल किया जाता है जैसे आपका ग्राहक करेगा।' },
+  { n: '04', title: 'पैकेजिंग',       body: 'रिटेल बॉक्स, इंसर्ट और पॉली-बैग की अखंडता — साथ ही ट्रांजिट-ड्रॉप की तैयारी।' },
+  { n: '05', title: 'FBA लेबल चेक', body: 'FNSKU, कार्टन लेबल, दम घुटने की चेतावनियाँ, और अमेज़न बारकोड स्कैन करने की क्षमता।' },
 ];
 
 const steps: Array<{ day: string; title: string; body: string }> = [
-  { day: 'Day 1',    title: 'Submit your product',      body: 'Tell us the product, quantity, quality bar, and budget via our simple form.' },
-  { day: 'Day 2',    title: 'Vetted supplier options',  body: '3–5 verified suppliers with pricing and profiles, in your inbox within 48 hours.' },
-  { day: 'Day 7–20', title: 'We buy & inspect',         body: 'We pay the supplier, oversee production, and send a full QC photo report before anything ships.' },
-  { day: 'Day 21+',  title: 'FBA-ready, delivered',     body: 'Goods leave China labelled and packed to Amazon spec, customs handled, with tracking.' },
+  { day: 'दिन 1',    title: 'अपना उत्पाद सबमिट करें',      body: 'हमारे सरल फॉर्म के माध्यम से हमें उत्पाद, मात्रा, गुणवत्ता मानक और बजट बताएं।' },
+  { day: 'दिन 2',    title: 'सत्यापित आपूर्तिकर्ता विकल्प',  body: 'आपके इनबॉक्स में 48 घंटों के भीतर मूल्य और प्रोफाइल के साथ 3-5 सत्यापित आपूर्तिकर्ता।' },
+  { day: 'दिन 7–20', title: 'हम खरीदते हैं और निरीक्षण करते हैं',         body: 'हम आपूर्तिकर्ता को भुगतान करते हैं, उत्पादन की निगरानी करते हैं, और शिपमेंट से पहले एक पूर्ण QC फोटो रिपोर्ट भेजते हैं।' },
+  { day: 'दिन 21+',  title: 'FBA-तैयार, वितरित',     body: 'माल चीन से Amazon विनिर्देश के अनुसार लेबल और पैक किया हुआ छोड़ता है, सीमा शुल्क संभाला जाता है, और ट्रैकिंग उपलब्ध होती है।' },
 ];
 
 /* ── 证言：FBA 卖家格式（品类 / 订单 / 问题 / 结果） ── */
 const testiFeatured = {
-  quote: 'I sell kitchen gadgets on Amazon US. CrossPals sourced my hero product, caught 15 defective units before shipping, and got everything FBA-ready in 18 days. Reordered twice since.',
-  name: 'Marcus T.', meta: 'Amazon seller · United States · Kitchen & Dining',
-  result: '15 defects caught pre-ship · FBA-ready in 18 days', avatar: '/img/avatar-nigeria.webp',
+  quote: 'मैं Amazon US पर किचन गैजेट्स बेचता हूँ। CrossPals ने मेरे मुख्य उत्पाद को सोर्स किया, शिपमेंट से पहले 15 दोषपूर्ण यूनिट्स को पकड़ा, और 18 दिनों में सब कुछ FBA-तैयार कर दिया। तब से दोबारा ऑर्डर दिया है।',
+  name: 'मार्कस टी.', meta: 'Amazon विक्रेता · संयुक्त राज्य अमेरिका · किचन और डाइनिंग',
+  result: 'शिपमेंट से पहले 15 दोष पकड़े · 18 दिनों में FBA-तैयार', avatar: '/img/avatar-nigeria.webp',
 };
 const testiSmall = [
-  { quote: 'First private-label order — 800 units of pet supplies. They verified the factory, caught a packaging problem, and it hit FBA without a single rejection.',
-    name: 'Ana R.', meta: 'Amazon FBA · Spain · Pet Supplies', result: '0 FBA rejections', avatar: '/img/avatar-mexico.webp' },
-  { quote: 'My previous supplier ghosted me after the deposit. CrossPals vetted a new one, ran the QC themselves, and I never sent money to a stranger again.',
-    name: 'David O.', meta: 'Amazon & Shopify · United Kingdom · Home & Garden', result: '2 reorders', avatar: '/img/avatar-uk.webp' },
+  { quote: 'पहला प्राइवेट-लेबल ऑर्डर — पालतू आपूर्तियों की 800 यूनिट्स। उन्होंने फैक्टरी को सत्यापित किया, एक पैकेजिंग समस्या को पकड़ा, और यह FBA तक बिना किसी अस्वीकृति के पहुँचा।',
+    name: 'अना आर.', meta: 'Amazon FBA · स्पेन · पेट सप्लाईज़', result: '0 FBA अस्वीकृतियाँ', avatar: '/img/avatar-mexico.webp' },
+  { quote: 'मेरे पिछले आपूर्तिकर्ता ने डिपॉजिट लेने के बाद मुझे अनदेखा कर दिया। CrossPals ने एक नए को सत्यापित किया, स्वयं QC किया, और मैंने फिर कभी किसी अजनबी को पैसे नहीं भेजे।',
+    name: 'डेविड ओ.', meta: 'Amazon और Shopify · यूनाइटेड किंगडम · होम और गार्डन', result: '2 पुनः आर्डर', avatar: '/img/avatar-uk.webp' },
 ];
 
 const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
-  { icon: 'global',       n: '01', title: 'No Language Barrier',  body: 'We negotiate directly in Chinese — you get factory prices, not tourist prices.' },
-  { icon: 'trust',        n: '02', title: 'Real Accountability',   body: 'A dedicated agent manages your order. You get one person, not a ticket queue.' },
-  { icon: 'handshake',    n: '03', title: 'Built for FBA Sellers', body: 'Everything we do ends in an Amazon-ready carton: sourced, inspected, labelled, packed.' },
-  { icon: 'transparent',  n: '04', title: 'Transparent Costs',     body: 'Supplier price + freight + our fee. You see every number before committing.' },
+  { icon: 'global',       n: '01', title: 'कोई भाषा बाधा नहीं',  body: 'हम सीधे चीनी में बातचीत करते हैं — आपको फैक्ट्री कीमतें मिलती हैं, पर्यटक कीमतें नहीं।' },
+  { icon: 'trust',        n: '02', title: 'वास्तविक जवाबदेही',   body: 'एक समर्पित एजेंट आपके ऑर्डर का प्रबंधन करता है। आपको एक व्यक्ति मिलता है, टिकट कतार नहीं।' },
+  { icon: 'handshake',    n: '03', title: 'FBA सेलर्स के लिए बनाया गया', body: 'हम जो कुछ भी करते हैं वह एक अमेज़न-तैयार कार्टन में समाप्त होता है: सोर्स किया गया, जांचा गया, लेबल लगाया गया, पैक किया गया।' },
+  { icon: 'transparent',  n: '04', title: 'पारदर्शी लागत',     body: 'सप्लायर कीमत + माल ढुलाई + हमारी फीस। आप प्रतिबद्ध होने से पहले हर नंबर देखते हैं।' },
 ];
 
 /* 首页只给承诺（结果），不说过程；过程全部放到 Services 页的展开模块 */
 const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
-  { icon: 'trust',      title: 'Verified suppliers only', body: 'We vet every supplier before you pay a cent.' },
-  { icon: 'inspection', title: 'QC before shipping',      body: 'Photo report + pass/fail before your money moves.' },
-  { icon: 'payment',    title: 'Payment protection',      body: 'We hold funds until milestones clear. No wires to strangers.' },
-  { icon: 'shipping',   title: 'DDP door delivery',       body: 'Tracking and goods — not paperwork.' },
+  { icon: 'trust',      title: 'केवल सत्यापित सप्लायर्स', body: 'आप एक सेंट भुगतान करने से पहले हम हर सप्लायर की जाँच करते हैं।' },
+  { icon: 'inspection', title: 'शिपिंग से पहले QC',      body: 'फोटो रिपोर्ट + पास/फेल आपके पैसे ट्रांसफर होने से पहले।' },
+  { icon: 'payment',    title: 'भुगतान सुरक्षा',      body: 'हम धन रोककर रखते हैं जब तक माइलस्टोन पूरे न हो जाएँ। अजनबियों को वायर ट्रांसफर नहीं।' },
+  { icon: 'shipping',   title: 'DDP दरवाजा डिलीवरी',       body: 'ट्रैकिंग और सामान — कागजी कार्रवाई नहीं।' },
 ];
 
 const pricingFees: Array<{ label: string; value: string; note: string }> = [
-  { label: 'Agent fee',     value: '5–8% of order value', note: '$10,000 order = $600 agent fee' },
-  { label: 'Inspection',    value: '$150 / day',          note: 'Most orders finish in half a day' },
-  { label: 'FBA Prep',      value: 'Per unit',            note: 'Itemised line-by-line on your quote' },
-  { label: 'Freight',       value: 'At carrier quote',    note: 'Nothing added on top of the carrier price' },
+  { label: 'एजेंट फीस',     value: 'ऑर्डर मूल्य का 5–8%', note: '$10,000 ऑर्डर = $600 एजेंट फीस' },
+  { label: 'निरीक्षण',    value: '$150 / दिन',          note: 'अधिकांश ऑर्डर आधे दिन में पूरे हो जाते हैं' },
+  { label: 'FBA तैयारी',      value: 'प्रति यूनिट',            note: 'आपके कोटेशन पर आइटमाइज्ड लाइन-बाय-लाइन' },
+  { label: 'माल ढुलाई',       value: 'कैरियर कोटेशन पर',    note: 'कैरियर कीमत के ऊपर कुछ नहीं जोड़ा गया' },
 ];
 
 /* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
@@ -90,12 +90,12 @@ const blogPosts = entriesForLang((await getCollection('blog')).filter(p => !p.da
 
 const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
 const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
-const tickerItems = ['FBA Prep', 'Pre-Shipment QC', '1688 Sourcing', 'Supplier Verification', 'DDP Shipping', 'Private Label', 'Product Photography', 'Amazon FBA', 'HeBei · BaoDing → World', 'QC Photo Reports', 'No Hidden Fees'];
-const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys & Games', 'Sports & Outdoors', 'Beauty & Personal Care', 'Electronics Accessories', 'Office Products'];
+const tickerItems = ['FBA तैयारी', 'पूर्व-शिपमेंट QC', '1688 सोर्सिंग', 'आपूर्तिकर्ता सत्यापन', 'DDP शिपिंग', 'प्राइवेट लेबल', 'उत्पाद फोटोग्राफी', 'Amazon FBA', 'हैबी · बाओडिंग → विश्व', 'QC फोटो रिपोर्ट्स', 'कोई छुपे हुए शुल्क नहीं'];
+const categories = ['रसोई और भोजन कक्ष', 'घर और उद्यान', 'पालतू जानवरों की आपूर्ति', 'खिलौने और खेल', 'खेल और बाहरी गतिविधियाँ', 'सौंदर्य और व्यक्तिगत देखभाल', 'इलेक्ट्रॉनिक्स एक्सेसरीज़', 'कार्यालय उत्पाद'];
 ---
 <BaseLayout
-  title="Amazon सेलर्स का विश्वसनीय सोर्सिंग पार्टनर"
-  description="CrossPals, FBA के लिए उत्पादों को सोर्स, निरीक्षण और तैयार करता है — सप्लायर वेरिफिकेशन, प्री-शिपमेंट QC, और FBA प्रीप, ताकि आप सप्लायर्स पर नहीं बल्कि सेलिंग पर ध्यान दे सकें।"
+  title="Amazon विक्रेताओं का विश्वसनीय सोर्सिंग साझेदार"
+  description="CrossPals, FBA के लिए उत्पाद सोर्सिंग, निरीक्षण और तैयारी करता है — आपूर्तिकर्ता सत्यापन, प्री-शिपमेंट गुणवत्ता नियंत्रण और FBA तैयारी, ताकि आप आपूर्तिकर्ताओं के बजाय बिक्री पर ध्यान केंद्रित कर सकें।"
  lang="hi">
 
 <!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══ -->
@@ -137,7 +137,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
         <ul class="hero__index">
           <li><span>01</span> Source</li>
           <li><span>02</span> Inspect</li>
-          <li><span>03</span> FBA के लिए तैयारी</li>
+          <li><span>03</span>FBA के लिए तैयारी</li>
           <li><span>04</span> Deliver</li>
         </ul>
       </div>
@@ -146,7 +146,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
     <div class="hero__right">
       <div class="hero__photo-fill">
         <ImgPlaceholder src="/img/hero-warehouse.webp" seed={42} width={900} height={1100} ratio="9/11" priority
-          alt="चीन फैक्टरी वेयरहाउस — CrossPals सोर्सिंग" />
+          alt="चीन फैक्ट्री वेयरहाउस — CrossPals सोर्सिंग" />
       </div>
       <div class="hero__cap">
         <span class="hero__cap-label">चित्र. 01</span>
@@ -332,7 +332,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
   <div class="container">
     <div class="testi__head reveal">
       <p class="overline">सफलता की कहानियाँ</p>
-      <h2>Amazon विक्रेता,<br/><em>वास्तविक ऑर्डर</em></h2>
+      <h2>Amazon विक्रेता<br/><em>वास्तविक ऑर्डर</em></h2>
     </div>
 
     <!-- 精选证言：文本左、头像右 -->
@@ -364,7 +364,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       <div class="testi__stat reveal reveal-delay-1">
         <p class="overline overline--avo">हमारा ट्रैक रिकॉर्ड</p>
         <div class="testi__bignum">47<span>+</span></div>
-        <p>Amazon विक्रेताओं को सेवा, $2.3M+ की सोर्स्ड गुड्स, 98% समय पर डिलीवरी।</p>
+        <p>Amazon विक्रेताओं को सेवा, $2.3M+ सोर्स्ड सामान, 98% समय पर डिलीवरी</p>
         <a href="/hi/case-studies" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">केस स्टडी देखें →</a>
       </div>
     </div>
@@ -422,11 +422,11 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section why bg-parchment">
   <div class="container why__grid">
     <div class="why__left reveal">
-      <p class="overline">CrossPals क्यों?</p>
+      <p class="overline">CrossPals क्यों चुनें?</p>
       <h2>हमने मुश्किल हिस्से हल कर दिए हैं<br/><em>ताकि आपको न करना पड़े</em></h2>
       <div class="divider" style="margin:var(--s6) 0;"></div>
       <div class="lede-row">
-        <p style="font-size:15px;line-height:1.72;">अधिकांश विक्रेता चीन से सोर्सिंग में भाषा बाधाओं, भुगतान जोखिम और गुणवत्ता की अनिश्चितता के कारण असफल होते हैं। CrossPals इन तीनों को समाप्त करता है।</p>
+        <p style="font-size:15px;line-height:1.72;">अधिकांश विक्रेता चीन से सोर्सिंग में भाषा अवरोध, भुगतान जोखिम और गुणवत्ता अनिश्चितता के कारण असफल होते हैं। CrossPals इन तीनों समस्याओं का समाधान करता है।</p>
         <a href="/hi/contact" class="btn btn-primary">निःशुल्क उद्धरण प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
         </a>
       </div>
@@ -440,7 +440,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
           <div class="why-item__body">
             <h4>{w.title}</h4>
             <p>{w.body}</p>
-            <p class="sidenote why-item__note">CrossPals मानक — हर ऑर्डर पर लागू, सिर्फ बड़े ऑर्डर पर नहीं।</p>
+            <p class="sidenote why-item__note">CrossPals मानक — प्रत्येक ऑर्डर पर लागू, केवल बड़े ऑर्डर तक सीमित नहीं</p>
           </div>
         </div>
       ))}
@@ -524,7 +524,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
         <button type="submit" class="btn btn-primary">क्वोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
         </button>
       </form>
-      <p class="cta-final__note">Or <a href={PHONE.wa}>WhatsApp पर चैट करें</a> · निःशुल्क, कोई प्रतिबद्धता नहीं</p>
+      <p class="cta-final__note">Or <a href={PHONE.wa}>WhatsApp पर संवाद करें</a> · निःशुल्क, कोई प्रतिबद्धता नहीं</p>
     </div>
   </div>
 </section>

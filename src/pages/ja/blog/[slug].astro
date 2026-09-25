@@ -54,7 +54,7 @@ const alternates: Record<string, string> = { [PAGE_LANG]: Astro.url.pathname };
       <div class="article-meta">
         <time>{published}</time>
         <span>·</span><span>{post.data.readTime}</span>
-        <span>·</span><span>CrossPals Team</span>
+        <span>·</span><span>CrossPalsチーム</span>
       </div>
     </div>
   </header>
@@ -72,8 +72,8 @@ const alternates: Record<string, string> = { [PAGE_LANG]: Astro.url.pathname };
         </div>
         <nav class="aside-nav">
           <p class="overline">Explore</p>
-          <a href={localePath(defaultLang, '/services')}>FBA Sourcing &amp; Inspection →</a>
-          <a href={localePath(defaultLang, '/case-studies')}>Case Studies →</a>
+          <a href={localePath(defaultLang, '/services')}>FBA調達・検品 →</a>
+          <a href={localePath(defaultLang, '/case-studies')}>事例紹介 →</a>
           <a href={localePath(PAGE_LANG, '/blog/')}>ブログ一覧 →</a>
         </nav>
       </aside>

@@ -12,74 +12,74 @@ const PAGE_LANG = 'ko';
 
 /* ── 服务（每项带一条独立定价说明） ── */
 const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
-  { icon: 'sourcing',    n: '01', title: 'Product Sourcing',     body: 'We search thousands of Chinese suppliers — 1688, Alibaba, and direct factory networks — to find the exact match for your budget and standards.', price: '<b>$1,000</b> order → <b>$80</b> sourcing fee (8%). We push the unit price down and add no markup to it.', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
-  { icon: 'inspection',  n: '02', title: 'Quality Inspection',   body: 'Physical inspection at the factory before your goods ship. Detailed photo report, defect counts, and a clear pass/fail so you never ship blind.', price: '<b>$1,000</b> order → <b>$150</b> flat inspection (half-day). Full photo report included.', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
-  { icon: 'payment',     n: '03', title: 'Purchasing & Payment', body: 'We negotiate in Chinese and handle all payments to verified suppliers. Your money is protected at every step — no wires to strangers.', price: '<b>$1,000</b> order → 30% deposit / 70% after QC. <b>5–8%</b> handling, no hidden markups.', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
-  { icon: 'shipping',    n: '04', title: 'Shipping & Logistics', body: 'Door-to-door worldwide. We compare air, sea, and express options, then handle customs docs and give you real-time tracking.', price: '<b>$1,000</b> order → freight at the carrier\'s live quote. <b>$0</b> added on top.', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
+  { icon: 'sourcing',    n: '01', title: '제품 조달',     body: '당신의 예산과 기준에 맞는 완벽한 제품을 찾기 위해 수천 개의 중국 공급업체(1688, Alibaba, 직접 공장 네트워크)를 검색합니다.', price: '<b>$1,000</b> 주문 → <b>$80</b> 조달 수수료(8%). 단가를 낮추고 별도 마크업을 추가하지 않습니다.', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: '품질 검수',   body: '상품 출하 전 공장에서 실물 검수. 상세한 사진 보고서, 불량품 수량, 합격/불합격 결과를 제공하여 안전하게 출하합니다.', price: '<b>$1,000</b> 주문 → <b>$150</b> 고정 검수비(반일 소요). 풀 사진 보고서 포함.', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: '구매 및 결제', body: '중국어로 협상하고 인증된 공급업체에 대한 모든 결제를 처리합니다. 모든 단계에서 자금이 보호됩니다.', price: '<b>$1,000</b> 주문 → 30% 선금 / QC 후 70%. <b>5–8%</b> 수수료, 숨겨진 마크업 없음.', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: '배송 및 물류', body: '전 세계 도어-to-도어 서비스. 항공, 해상, 특송 옵션 비교 후 통관 서류 처리 및 실시간 추적 제공.', price: '<b>$1,000</b> 주문 → 운송사 실시간 견적 적용. <b>$0</b> 추가 비용 없음.', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
 ];
 
 /* ── 三个真实 FBA 卖家场景（Facebook 群组每天都在发的帖） ── */
 const scenarios: Array<{ quote: string; tag: string; title: string; body: string; cta: string }> = [
-  { quote: 'I ordered 500 units and got 30% defects.', tag: 'Inspected before it ships', title: 'Quality Inspection',
-    body: 'We check the whole batch at the factory — measuring, testing, and counting defects on camera. If the pass rate falls short, the supplier reworks or replaces before a single box leaves China.',
-    cta: 'See how inspection works' },
-  { quote: 'My supplier disappeared after I paid.', tag: 'Verified before you pay', title: 'Supplier Verification',
-    body: 'We never wire a supplier we have not verified. Business licence, factory address, export history, and a live video walkthrough — checked before you release a deposit, not after.',
-    cta: 'See how we vet suppliers' },
-  { quote: 'I don\'t know if my product meets FBA requirements.', tag: 'FBA-ready before it leaves', title: 'FBA Prep',
-    body: 'We label, poly-bag, bundle, weigh, and measure to Amazon\'s exact spec — then hand you carton labels and a packing list that clears receiving the first time.',
-    cta: 'See FBA prep' },
+  { quote: '500개 주문했는데 30% 불량품이었어요', tag: '출하 전 검수 완료', title: '품질 검수',
+    body: '공장에서 전체 배치를 검수합니다(측정, 테스트, 불량품 카운팅 영상 촬영). 합격률 미달 시 중국 출발 전 공급업체가 재작업 또는 교체합니다.',
+    cta: '검수 과정 확인하기' },
+  { quote: '결제 후 공급업체가 연락이 안 돼요', tag: '결제 전 인증 완료', title: '공급업체 검증',
+    body: '검증되지 않은 공급업체에는 결제를 진행하지 않습니다. 사업자 등록증, 공장 주소, 수출 이력, 라이브 영상 시설 투어 — 보증금 지급 전에 모든 항목을 확인합니다.',
+    cta: '공급업체 검증 과정 살펴보기' },
+  { quote: '제품이 FBA 요구사항을 충족하는지 모르겠습니다.', tag: '출고 전 FBA 준비 완료', title: 'FBA 사전 준비',
+    body: '아마존 정확한 사양에 따라 라벨 부착, 폴리백 포장, 번들링, 무게 및 치수 측정 후 — 첫 수령 시 통과되는 카톤 라벨과 패킹 리스트를 제공합니다.',
+    cta: 'FBA 준비 과정 확인하기' },
 ];
 
 /* ── 独立质检模块：5 项质检标准 ── */
 const inspectionStandards: Array<{ n: string; title: string; body: string }> = [
-  { n: '01', title: 'Appearance',      body: 'Surface, colour, print and finish checked against your approved sample.' },
-  { n: '02', title: 'Dimensions',      body: 'Length, width, weight and tolerances measured with calipers and scales.' },
-  { n: '03', title: 'Function test',   body: 'Every sampled unit powered on, assembled or used the way your customer will.' },
-  { n: '04', title: 'Packaging',       body: 'Retail box, inserts and poly-bag integrity — plus transit-drop readiness.' },
-  { n: '05', title: 'FBA label check', body: 'FNSKU, carton labels, suffocation warnings, and Amazon barcode scannability.' },
+  { n: '01', title: '외관',      body: '승인된 샘플 대비 표면, 색상, 인쇄 및 마감 상태 점검.' },
+  { n: '02', title: '치수',      body: '버니어 캘리퍼와 저울로 길이, 폭, 무게 및 공차 측정.' },
+  { n: '03', title: '기능 테스트',   body: '샘플링된 모든 제품을 전원 조작, 조립 또는 최종 고객 사용 방식으로 검증.' },
+  { n: '04', title: '패키징',       body: '소매용 박스, 내부 삽입물 및 폴리백 견고성 — 추가로 운송 낙하 테스트 완료.' },
+  { n: '05', title: 'FBA 라벨 점검', body: 'FNSKU, 카톤 라벨, 질식 경고 라벨 및 아마존 바코드 스캔 가능성 확인.' },
 ];
 
 const steps: Array<{ day: string; title: string; body: string }> = [
-  { day: 'Day 1',    title: 'Submit your product',      body: 'Tell us the product, quantity, quality bar, and budget via our simple form.' },
-  { day: 'Day 2',    title: 'Vetted supplier options',  body: '3–5 verified suppliers with pricing and profiles, in your inbox within 48 hours.' },
-  { day: 'Day 7–20', title: 'We buy & inspect',         body: 'We pay the supplier, oversee production, and send a full QC photo report before anything ships.' },
-  { day: 'Day 21+',  title: 'FBA-ready, delivered',     body: 'Goods leave China labelled and packed to Amazon spec, customs handled, with tracking.' },
+  { day: '첫날',    title: '제품 등록하기',      body: '간편한 양식으로 제품 정보, 수량, 품질 기준 및 예산을 알려주세요.' },
+  { day: '2일차',    title: '검증된 공급업체 옵션',  body: '48시간 이내로 가격 및 프로필이 포함된 검증된 공급업체 3-5개를 이메일로 받아보세요.' },
+  { day: '7-20일차', title: '구매 및 검수',         body: '공급업체에 지불하고 생산을 감독하며, 출고 전 완전한 QC(품질 관리) 사진 보고서를 제공합니다.' },
+  { day: '21일차 이후',  title: 'FBA 준비 완료, 배송',     body: '상품은 중국에서 아마존 규격에 맞게 라벨링 및 포장되어 출고되며, 통관 처리 및 추적이 제공됩니다.' },
 ];
 
 /* ── 证言：FBA 卖家格式（品类 / 订单 / 问题 / 结果） ── */
 const testiFeatured = {
-  quote: 'I sell kitchen gadgets on Amazon US. CrossPals sourced my hero product, caught 15 defective units before shipping, and got everything FBA-ready in 18 days. Reordered twice since.',
-  name: 'Marcus T.', meta: 'Amazon seller · United States · Kitchen & Dining',
-  result: '15 defects caught pre-ship · FBA-ready in 18 days', avatar: '/img/avatar-nigeria.webp',
+  quote: '저는 미국 아마존에서 주방 용품을 판매합니다. CrossPals는 핵심 제품을 공급해주었고, 출고 전 15개의 불량품을 발견했으며, 18일 만에 모든 제품을 FBA 준비 완료 상태로 만들었습니다. 이후 두 번 재주문했습니다.',
+  name: '마커스 T.', meta: '아마존 셀러 · 미국 · 주방 및 다이닝',
+  result: '출고 전 15개 불량품 발견 · 18일 만에 FBA 준비 완료', avatar: '/img/avatar-nigeria.webp',
 };
 const testiSmall = [
-  { quote: 'First private-label order — 800 units of pet supplies. They verified the factory, caught a packaging problem, and it hit FBA without a single rejection.',
-    name: 'Ana R.', meta: 'Amazon FBA · Spain · Pet Supplies', result: '0 FBA rejections', avatar: '/img/avatar-mexico.webp' },
-  { quote: 'My previous supplier ghosted me after the deposit. CrossPals vetted a new one, ran the QC themselves, and I never sent money to a stranger again.',
-    name: 'David O.', meta: 'Amazon & Shopify · United Kingdom · Home & Garden', result: '2 reorders', avatar: '/img/avatar-uk.webp' },
+  { quote: '첫 번째 프라이빗 라벨 주문 — 펫 용품 800개. 공장을 검증하고 포장 문제를 발견했으며, FBA에 단 한 건의 반품도 없이 도착했습니다.',
+    name: '아나 R.', meta: '아마존 FBA · 스페인 · 펫 용품', result: 'FBA 반품 0건', avatar: '/img/avatar-mexico.webp' },
+  { quote: '이전 공급업체는 입금 후 연락을 끊었습니다. CrossPals는 새로운 공급업체를 검증하고 직접 QC를 진행했으며, 저는 다시는 낯선 사람에게 돈을 보내지 않게 되었습니다.',
+    name: '데이비드 O.', meta: '아마존 & Shopify · 영국 · 홈 & 가든', result: '재주문 2회', avatar: '/img/avatar-uk.webp' },
 ];
 
 const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
-  { icon: 'global',       n: '01', title: 'No Language Barrier',  body: 'We negotiate directly in Chinese — you get factory prices, not tourist prices.' },
-  { icon: 'trust',        n: '02', title: 'Real Accountability',   body: 'A dedicated agent manages your order. You get one person, not a ticket queue.' },
-  { icon: 'handshake',    n: '03', title: 'Built for FBA Sellers', body: 'Everything we do ends in an Amazon-ready carton: sourced, inspected, labelled, packed.' },
-  { icon: 'transparent',  n: '04', title: 'Transparent Costs',     body: 'Supplier price + freight + our fee. You see every number before committing.' },
+  { icon: 'global',       n: '01', title: '언어 장벽 없음',  body: '중국어로 직접 협상합니다. 관광객 가격이 아닌 공장 가격을 제공받으세요.' },
+  { icon: 'trust',        n: '02', title: '진정한 책임감',   body: '전담 에이전트가 주문을 관리합니다. 번호표 대기열이 아닌 한 사람과 소통하세요.' },
+  { icon: 'handshake',    n: '03', title: 'FBA 판매자 전용', body: '저희가 하는 모든 작업은 아마존 준비 완료 카톤으로 끝납니다: 조달, 검사, 라벨링, 포장.' },
+  { icon: 'transparent',  n: '04', title: '투명한 비용',     body: '공급업체 가격 + 운송비 + 저희 수수료. 결제 전 모든 금액을 확인하세요.' },
 ];
 
 /* 首页只给承诺（结果），不说过程；过程全部放到 Services 页的展开模块 */
 const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
-  { icon: 'trust',      title: 'Verified suppliers only', body: 'We vet every supplier before you pay a cent.' },
-  { icon: 'inspection', title: 'QC before shipping',      body: 'Photo report + pass/fail before your money moves.' },
-  { icon: 'payment',    title: 'Payment protection',      body: 'We hold funds until milestones clear. No wires to strangers.' },
-  { icon: 'shipping',   title: 'DDP door delivery',       body: 'Tracking and goods — not paperwork.' },
+  { icon: 'trust',      title: '검증된 공급업체만', body: '한 푼도 지불하기 전에 모든 공급업체를 검증합니다.' },
+  { icon: 'inspection', title: '출고 전 품질 관리',      body: '사진 보고서 + 합격/불합격 보고 후에 결제가 진행됩니다.' },
+  { icon: 'payment',    title: '결제 보호',      body: '중요 단계 완료 시까지 자금을 보관합니다. 모르는 사람에게 송금하지 않아도 됩니다.' },
+  { icon: 'shipping',   title: 'DDP 문앞 배송',       body: '추적 정보와 상품만 — 서류 작업 없이.' },
 ];
 
 const pricingFees: Array<{ label: string; value: string; note: string }> = [
-  { label: 'Agent fee',     value: '5–8% of order value', note: '$10,000 order = $600 agent fee' },
-  { label: 'Inspection',    value: '$150 / day',          note: 'Most orders finish in half a day' },
-  { label: 'FBA Prep',      value: 'Per unit',            note: 'Itemised line-by-line on your quote' },
-  { label: 'Freight',       value: 'At carrier quote',    note: 'Nothing added on top of the carrier price' },
+  { label: '에이전트 수수료',     value: '주문 금액의 5–8%', note: '10,000달러 주문 = 600달러 에이전트 수수료' },
+  { label: '검수',    value: '150달러 / 일',          note: '대부분의 주문은 반나절 내 완료됩니다' },
+  { label: 'FBA 준비',      value: '단위당',            note: '견적서에 항목별로 상세히 기재됨' },
+  { label: '화물 운송',       value: '운송사 견적 기준',    note: '운송사 가격 외 추가 비용 없음' },
 ];
 
 /* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
@@ -90,8 +90,8 @@ const blogPosts = entriesForLang((await getCollection('blog')).filter(p => !p.da
 
 const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
 const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
-const tickerItems = ['FBA Prep', 'Pre-Shipment QC', '1688 Sourcing', 'Supplier Verification', 'DDP Shipping', 'Private Label', 'Product Photography', 'Amazon FBA', 'HeBei · BaoDing → World', 'QC Photo Reports', 'No Hidden Fees'];
-const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys & Games', 'Sports & Outdoors', 'Beauty & Personal Care', 'Electronics Accessories', 'Office Products'];
+const tickerItems = ['FBA 준비', '출하 전 품질 검사', '1688 소싱', '공급처 검증', 'DDP 배송', '프라이빗 라벨', '제품 사진 촬영', '아마존 FBA', '허베이 · 바오딩 → 전 세계', '품질 검사 사진 보고서', '숨겨진 비용 없음'];
+const categories = ['주방용품 & 식기', '가정용품 & 정원', '반려동물 용품', '장난감 & 게임', '스포츠 & 아웃도어', '뷰티 & 개인용품', '전자제품 액세서리', '사무용품'];
 ---
 <BaseLayout
   title="아마존 판매자들이 신뢰하는 소싱 파트너"
@@ -122,9 +122,9 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       <div class="hero__left-inner">
         <p class="overline overline--light">FBA 판매자를 위한 중국 소싱</p>
         <h1 class="hero__title">아마존 판매자들이 신뢰하는 소싱 파트너 — <em>품질 검사 포함.</em></h1>
-        <p class="hero__lead">FBA 준비를 위한 제품 소싱, 검수, 포장까지 처리해드립니다. 공급업체 대신 판매에 집중하세요.</p>
+        <p class="hero__lead">FBA 준비를 위한 제품 소싱부터 검수, 포장까지 처리해드립니다. 공급업체 대신 판매에만 집중하세요.</p>
 
-        <p class="hero__sidenote">그림 00 — 대부분의 FBA 판매자는 언어 장벽, 허위 공급업체, 무검수 발송으로 손해를 봅니다. 저희는 이 세 문제를 해결합니다.</p>
+        <p class="hero__sidenote">그림 00 — 대부분의 FBA 판매자는 언어 장벽, 허위 공급업체, 무검수 발송으로 인해 피해를 입습니다. 저희는 이 세 가지 문제를 해결합니다.</p>
 
         <div class="hero__actions">
           <a href="/ko/contact" class="btn btn-primary">무료 견적 요청하기<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
@@ -165,7 +165,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <!-- ═══ 信任带：服务场景标识 + 数字指标（替代原来的国家旗帜列表） ═══ -->
 <section class="trustbar" aria-label="우리가 다루는 것과 서비스 대상">
   <div class="container">
-    <p class="overline" style="margin-bottom:var(--s4);">아마존 & Shopify 판매자를 위한 소싱, 검품, FBA 준비 서비스</p>
+    <p class="overline" style="margin-bottom:var(--s4);">아마존 & Shopify 판매자를 위한 소싱, 품질 검사, FBA 준비 서비스</p>
     <div class="regionwall reveal">
       {categories.map(c => <span>{c}</span>)}
     </div>
@@ -219,7 +219,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
   <div class="container">
     <div class="hiw__head reveal">
       <p class="overline overline--light">Process</p>
-      <h2 class="text-white">공급업체로부터<br/><em style="color:var(--avo-300)">4단계로 FBA 준비 완료</em></h2>
+      <h2 class="text-white">공급업체로부터<br/><em style="color:var(--avo-300)">4단계로 완벽한 FBA 준비</em></h2>
     </div>
 
     <div class="manifest reveal reveal-delay-1">
@@ -299,7 +299,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       <!-- 样例质检报告（客户/供应商信息打码） -->
       <div class="qcreport reveal reveal-delay-2">
         <div class="qcreport__head">
-          <span class="qcreport__brand">CrossPals · 발송 전 검사</span>
+          <span class="qcreport__brand">CrossPals · 출고 전 검증</span>
           <span class="qcreport__no">보고서 번호 CP-2026-0418</span>
         </div>
         <dl class="qcreport__grid">

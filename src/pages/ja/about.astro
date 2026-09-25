@@ -9,7 +9,7 @@ import type { IconName } from '../../components/Icon.astro';
 const stats = [
   { n: '40+',   label: '完了したご注文' },
   { n: '12',    label: '対応国数' },
-  { n: '3 yrs', label: '調達実績年数' },
+  { n: '3年間', label: '調達実績年数' },
   { n: '100%',  label: '出荷前検品率' },
 ];
 
@@ -31,27 +31,27 @@ const gallery = [
 
 const founderPortrait = '/img/team-xizeng.webp';
 ---
-<BaseLayout lang="ja" title="会社概要 | CrossPals" description="CrossPals は河北省保定市の教員 Xizeng が運営しています。12か国の Amazon FBA 出品者向けに製品の調達・検品・出荷準備を担っています。">
+<BaseLayout lang="ja" title="会社概要 | CrossPals" description="CrossPalsは河北省保定市の教員Xizengが運営しています。12か国のAmazon FBA出品者向けに製品の調達・検品・出荷準備を担っています。">
 
-  <PageHero overline="私たちのストーリー" title="教員、工業都市、<br /><em style='font-style:italic;color:var(--avo-300)'>そして40件のご注文</em>" subtitle="ご注文に責任を持つのは一人の人間——コールセンターではありません。" />
+  <PageHero overline="私たちのストーリー" title="教師、工業都市、<br /><em style='font-style:italic;color:var(--avo-300)'>そして注文40件</em>" subtitle="ご注文に責任を持つのは一人の人間——コールセンターではありません。" />
 
   <!-- ═══ Founder story — 全页核心 ═══ -->
   <section class="section">
     <div class="container founder">
       <div class="founder__media reveal">
-        <ImgPlaceholder src={founderPortrait} seed={301} width={520} height={640} ratio="4/5" alt="Xizeng, founder of CrossPals, in Baoding, Hebei" />
+        <ImgPlaceholder src={founderPortrait} seed={301} width={520} height={640} ratio="4/5" alt="河北省保定市、CrossPals創業者Xizeng" />
         <p class="founder__cap">Xizeng · 創業者 · 河北省保定市</p>
       </div>
 
       <div class="founder__text reveal reveal-delay-1">
         <p class="overline">取引先について</p>
-        <h2>私が Xizeng です。<br/><em>これは教室から始まりました。</em></h2>
+        <h2>私はXizengです。<br/><em>これは教室から始まりました。</em></h2>
         <div class="divider" style="margin:var(--s4) 0;"></div>
 
-        <p><strong>河北省保定市</strong>から CrossPals を運営しています。ここは製造業を中心に発展した街です。私は大学の教員であり、この事業は授業計画から始まりました。</p>
+        <p><strong>河北省保定市</strong>CrossPalsを運営しています。ここは製造業を中心に発展した街です。私は大学の教員であり、この事業は授業計画から始まりました。</p>
         <p>保定は、中国でも有数の産業地帯の真ん中に位置します。金物、繊維、台所用品、梱包材などです。私は学生を工場へ連れ出し、実地研修の一環として——製品が実際にどう作られ、値付けられ、輸出用に梱包されるか——を教えてきました。海外のバイヤーから繰り返し聞いたのは、どの教科書よりもシンプルな問いでした。<em>「このサプライヤーは本物で、本当に商品は届くのか？」</em></p>
         <p>そこで私はその問いに答え始めました。当初は少数の出品者向けに、今は12か国以上の輸入者のために。3年余りで40件以上のご注文を完了してきました。Amazon FBA 向けの調達、検品、出荷準備です。</p>
-        <p>今も教壇に立っています。CrossPals はその教えが形になったもの——もし私が見たこともない工場へ送金する側なら、自分が求めるのと同じ丁寧さを込めています。</p>
+        <p>今も教壇に立っています。CrossPalsはその教えが形になったもの——もし私が見たこともない工場へ送金する側なら、自分が求めるのと同じ丁寧さを込めています。</p>
 
         <p class="founder__sig">ご対応するのは私です。チケットの行列ではありません。</p>
 
@@ -87,15 +87,13 @@ const founderPortrait = '/img/team-xizeng.webp';
       <div class="tp__badge reveal">
         <span class="tp__name">Trustpilot</span>
         <span class="tp__stars" aria-hidden="true">★★★★★</span>
-        <span class="tp__sub">Reviews from real customers</span>
+        <span class="tp__sub">実際のお客様からのレビュー</span>
       </div>
       <div class="tp__body reveal reveal-delay-1">
         <h3>私たちが偽造できない口コミ</h3>
-        <p>私たちは Trustpilot の評価をオープンに築いています。もしご注文をお受けしたことがあれば、短い口コミが次の出品者の信頼先選びの助けになります。すべての口コミは公開されます。良いものも悪いものも。</p>
+        <p>私たちはTrustpilotの評価を透明性を持って構築しています。もしご注文をお受けしたことがあれば、短い口コミが次の出品者の信頼先選びの助けになります。すべての口コミは公開されます。良いものも悪いものも。</p>
         <div class="tp__actions">
-          <a href="https://www.trustpilot.com/review/crosspals.com" target="_blank" rel="noopener" class="btn btn-primary">
-            Trustpilot で口コミを見る
-            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          <a href="https://www.trustpilot.com/review/crosspals.com" target="_blank" rel="noopener" class="btn btn-primary">Trustpilotで口コミを見る<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
           </a>
           <a href="/ja/contact" class="btn btn-outline">ご一緒に働く</a>
         </div>
@@ -134,7 +132,7 @@ const founderPortrait = '/img/team-xizeng.webp';
       <div class="gallery-strip">
         {gallery.map((g, i) => (
           <div class:list={['gallery-item reveal', `reveal-delay-${i}`]}>
-            <ImgPlaceholder src={'/img/'+galImg[g.seed]+'.webp'} seed={g.seed} width={400} height={533} ratio="3/4" alt="CrossPals in action" />
+            <ImgPlaceholder src={'/img/'+galImg[g.seed]+'.webp'} seed={g.seed} width={400} height={533} ratio="3/4" alt="稼働中のCrossPals" />
           </div>
         ))}
       </div>

@@ -1,0 +1,83 @@
+---
+/**
+ * 日本語ブログ詳細（/ja/blog/{slug}/）。
+ * slug 是各语言共用的基准名（文件名剥掉 -ja 后缀，或取 translationKey）——
+ * 与英文详情 /blog/{slug}/ 一一对应，供 hreflang 互指。
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { localePath, languageList, defaultLang } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const PAGE_LANG = 'ja';
+  const posts = await getCollection('blog');
+  return posts
+    .filter(p => !p.data.draft && p.data.lang === PAGE_LANG)
+    .map(p => {
+      const slug = p.data.translationKey || p.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
+      return { params: { slug }, props: { post: p } };
+    });
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const PAGE_LANG = 'ja';
+const published = new Date(post.data.date + 'T00:00:00')
+  .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+
+/* hreflang 互指：本文 ↔ 英文原文（translationKey = 各语言共用的基准 slug） */
+const alternates: Record<string, string> = { [PAGE_LANG]: Astro.url.pathname };
+{
+  const siblings = await getCollection('blog');
+  const key = post.data.translationKey || post.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
+  const enPost = siblings.find(p =>
+    !p.data.draft && (!p.data.lang || p.data.lang === defaultLang) && (
+      (post.data.translationKey && p.data.translationKey === post.data.translationKey) ||
+      p.slug === key
+    )
+  );
+  if (enPost) alternates[defaultLang] = `/blog/${enPost.slug}/`;
+}
+---
+<BaseLayout lang={PAGE_LANG} title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates}>
+
+  <div class="article-cover" style="padding-top:var(--hdr-h);">
+    <ImgPlaceholder src={post.data.cover} width={1680} height={720} ratio="21/9" priority alt={post.data.title} />
+  </div>
+
+  <header class="article-hdr">
+    <div class="container article-hdr__inner">
+      <a href={localePath(PAGE_LANG, '/blog/')} class="back">← ブログ一覧</a>
+      <span class="article-cat">{post.data.category}</span>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta">
+        <time>{published}</time>
+        <span>·</span><span>{post.data.readTime}</span>
+        <span>·</span><span>CrossPals Team</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container article-grid">
+      <div class="prose reveal"><Content /></div>
+
+      <aside class="article-aside reveal reveal-delay-2">
+        <div class="aside-cta">
+          <p class="overline">お問い合わせ</p>
+          <h4>無料で見積もりを取る</h4>
+          <p>製品情報をお知らせください。確認済みサプライヤーと価格内訳を48時間でご提案します。</p>
+          <a href={localePath(defaultLang, '/contact')} class="btn btn-primary" style="margin-top:var(--s5);">無料で相談する <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <nav class="aside-nav">
+          <p class="overline">Explore</p>
+          <a href={localePath(defaultLang, '/services')}>FBA Sourcing &amp; Inspection →</a>
+          <a href={localePath(defaultLang, '/case-studies')}>Case Studies →</a>
+          <a href={localePath(PAGE_LANG, '/blog/')}>ブログ一覧 →</a>
+        </nav>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>

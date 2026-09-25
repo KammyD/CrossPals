@@ -7,17 +7,17 @@ import type { IconName } from '../../components/Icon.astro';
 
 /* ── 真实指标（小而真，比大而假有说服力） ── */
 const stats = [
-  { n: '40+',   label: 'Orders completed' },
-  { n: '12',    label: 'Countries served' },
-  { n: '3 yrs', label: 'Sourcing experience' },
-  { n: '100%',  label: 'Inspected before shipping' },
+  { n: '40+',   label: '주문 완료' },
+  { n: '12',    label: '서비스 제공 국가' },
+  { n: '3년', label: '조달 경험' },
+  { n: '100%',  label: '출하 전 검수' },
 ];
 
 const values: Array<{ icon: IconName; n: string; title: string; body: string }> = [
-  { icon: 'trust',        n: '01', title: 'Trust First',          body: 'We only recommend suppliers we have personally vetted. Your money is safe because we treat every order as our own.' },
-  { icon: 'transparent',  n: '02', title: 'Radical Transparency', body: 'Supplier price, freight cost, our fee — you see every number before committing. No hidden markups, ever.' },
-  { icon: 'endtoend',     n: '03', title: 'End-to-End Ownership', body: 'From first inquiry to delivery confirmation, one dedicated agent handles your entire order. We do not hand you off.' },
-  { icon: 'inspection',   n: '04', title: 'Inspect, Always',      body: 'Every order is physically inspected and photographed before it ships — because "trust the factory" is not a quality-control plan.' },
+  { icon: 'trust',        n: '01', title: '신뢰 우선',          body: '우리는 직접 검증한 공급업체만 추천합니다. 모든 주문을 우리 자신의 것처럼 다루기 때문에 당신의 돈은 안전합니다.' },
+  { icon: 'transparent',  n: '02', title: '완전한 투명성', body: '공급업체 가격, 운송 비용, 우리 수수료 — 결정하기 전에 모든 숫자를 확인할 수 있습니다. 숨겨진 가격 인상은 절대 없습니다.' },
+  { icon: 'endtoend',     n: '03', title: '종단 간 책임', body: '첫 문의부터 배송 확인까지, 한 명의 전담 에이전트가 주문 전체를 처리합니다. 중간에 다른 사람에게 넘기지 않습니다.' },
+  { icon: 'inspection',   n: '04', title: '항상 검수',      body: '모든 주문은 출하 전 물리적으로 검수되고 사진으로 기록됩니다 — \'공장을 믿는다\'는 것은 품질 관리 계획이 아니기 때문입니다.' },
 ];
 
 const galImg: Record<number,string> = {401:'g-market',402:'g-production',403:'g-packing',404:'g-unboxing'};
@@ -31,7 +31,7 @@ const gallery = [
 
 const founderPortrait = '/img/team-xizeng.webp';
 ---
-<BaseLayout title="회사 소개" description="CrossPals는 Hebei Baoding의 대학 교수인 Xizeng이 운영하며, 12개국 Amazon FBA 판매업체를 위한 제품 조달, 검수 및 준비를 담당합니다." lang="ko">
+<BaseLayout title="회사 소개" description="CrossPals는 허베이 바오딩 출신 대학교수 Xizeng이 운영하며, 12개국 Amazon FBA 판매자용 제품 소싱, 검수 및 준비를 전문으로 합니다." lang="ko">
 
   <PageHero overline="우리의 역사" title="한 교수, 산업 마을,<br /><em style='font-style:italic;color:var(--avo-300)'>그리고 40개의 주문</em>" subtitle="콜센터가 아닌, 주문을 책임지는 한 사람." />
 
@@ -39,7 +39,7 @@ const founderPortrait = '/img/team-xizeng.webp';
   <section class="section">
     <div class="container founder">
       <div class="founder__media reveal">
-        <ImgPlaceholder src={founderPortrait} seed={301} width={520} height={640} ratio="4/5" alt="CrossPals 설립자 Xizeng, Hebei Baoding에서" />
+        <ImgPlaceholder src={founderPortrait} seed={301} width={520} height={640} ratio="4/5" alt="CrossPals 설립자 Xizeng, 허베이 바오딩 출신" />
         <p class="founder__cap">시젱 · 창립자 · 허베이성 바오딩시</p>
       </div>
 

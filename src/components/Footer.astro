@@ -5,13 +5,13 @@ import { PHONE, EMAIL, COMPANY } from '../config/site';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const services = ['Product Sourcing','Quality Inspection','Purchasing & Payment','Shipping & Logistics'];
+const serviceKeys = ['footer_service_sourcing','footer_service_inspection','footer_service_payment','footer_service_logistics'];
 
 const company = [
-  { label: 'About Us', href: '/about' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
+  { labelKey: 'nav_about', href: '/about' },
+  { labelKey: 'nav_cases', href: '/case-studies' },
+  { labelKey: 'nav_blog', href: '/blog' },
+  { labelKey: 'nav_contact', href: '/contact' },
 ];
 ---
 
@@ -37,13 +37,13 @@ const company = [
     <div class="footer__col">
       <h5>{t('footer_services')}</h5>
       <ul>
-        {services.map(s => <li><a href={navPath(lang,'/services')}>{s}</a></li>)}
+        {serviceKeys.map(k => <li><a href={navPath(lang,'/services')}>{t(k)}</a></li>)}
       </ul>
     </div>
     <div class="footer__col">
       <h5>{t('footer_company')}</h5>
       <ul>
-        {company.map(c => <li><a href={navPath(lang,c.href)}>{c.label}</a></li>)}
+        {company.map(c => <li><a href={navPath(lang,c.href)}>{t(c.labelKey)}</a></li>)}
       </ul>
     </div>
     <div class="footer__col">

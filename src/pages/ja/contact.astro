@@ -7,20 +7,20 @@ import type { IconName } from '../../components/Icon.astro';
 import { PHONE, EMAIL, COMPANY } from '../../config/site';
 
 const expectItems: Array<{ icon: IconName; strong: string; body: string }> = [
-  { icon: 'clock',      strong: '24時間以内に返信',       body: '営業時間内（中国 GMT+8）はさらに早い場合が多いです。' },
+  { icon: 'clock',      strong: '24時間以内に返信',       body: '営業時間内（中国 GMT+8）はさらに迅速な対応が可能です。' },
   { icon: 'sourcing',   strong: '48時間でサプライヤー候補を提示',   body: '価格と概要付きの厳選された3〜5社をご用意します。' },
-  { icon: 'lock',       strong: 'ご検討だけでもOK',      body: '決定前にまずは提案をご確認いただけます。' },
+  { icon: 'lock',       strong: '検討のみでも結構です',      body: '決定前にまずは提案をご確認いただけます。' },
   { icon: 'handshake',  strong: '専任エージェントが担当',    body: 'お問い合わせから完了まで、一人の担当者が一貫して対応します。' },
 ];
 
 const companyName = `${COMPANY.nameJa}（${COMPANY.nameZh}）`;
 const companyAddr = COMPANY.address.ja;
 ---
-<BaseLayout lang="ja" title="お問い合わせ | CrossPals" description="CrossPals にお問い合わせください。調達のご相談は24時間以内に返信します。">
+<BaseLayout lang="ja" title="お問い合わせ | CrossPals" description="CrossPalsまでお気軽にお問い合わせください。調達に関するご相談は24時間以内にご返信いたします。">
 
   <PageHero
     overline="お問い合わせ"
-    title="一緒に始めよう<br /><em style='font-style:italic;color:var(--avo-300)'>調達の旅を</em>"
+    title="一緒に始めましょう<br /><em style='font-style:italic;color:var(--avo-300)'>調達の旅を</em>"
     subtitle="ご希望の製品をお知らせください。24時間以内にご返信します。ご検討だけでも構いません。"
   />
 
@@ -75,7 +75,7 @@ const companyAddr = COMPANY.address.ja;
         </div>
 
         <div class="info-block trust-quote">
-          <blockquote>"CrossPals は2時間以内に返信し、翌朝には4社のサプライヤーを提案してくれました。"</blockquote>
+          <blockquote>"CrossPalsは2時間以内に返信し、翌朝までに4社のサプライヤーを提案してくれました。"</blockquote>
           <cite>— ラゴス、ナイジェリア · 初めての輸入者</cite>
         </div>
 
