@@ -1,8 +1,31 @@
-# www.CrossPals.com
+# CrossPals.com
 
-> 本站面向 AI Agent 的 Markdown 内容索引（Markdown for Agents）。
+> CrossPals sources, inspects, and preps products for FBA — supplier verification, pre-shipment QC, and FBA prep, so you can focus on selling, not suppliers.
+
+面向 AI Agent 的内容索引。以下链接均为本站真实存在的页面与内容，不含推测路径；需要更细的站点结构时请以 sitemap.xml 为准。
 
 ## 主要页面
-- [首页](https://www.CrossPals.com/)
-- [关于我们](https://www.CrossPals.com/about)
-- [联系我们](https://www.CrossPals.com/contact)
+- [Product Sourcing](https://www.CrossPals.com/)
+- [Trust First](https://www.CrossPals.com/about)：CrossPals is run by Xizeng, a university teacher in Baoding, Hebei — sourcing, inspecting, and prepping products for Amazon FBA sellers in 12 countries.
+- [Amazon Sellers' Guide: Sourcing & FBA Prep from China](https://www.CrossPals.com/blog/)：Practical guides for Amazon and Shopify sellers sourcing and importing from China.
+- [Case Studies](https://www.CrossPals.com/case-studies/)：Real orders CrossPals sourced, inspected, and prepped for Amazon FBA sellers — the problem, what we did, and the result.
+- [Contact Us](https://www.CrossPals.com/contact)：Get in touch with CrossPals. Submit a sourcing inquiry and we'll reply within 24 hours.
+- [Privacy](https://www.CrossPals.com/privacy)
+- [Supplier sourcing](https://www.CrossPals.com/services)
+- [Terms](https://www.CrossPals.com/terms)
+
+## blog（共 6 条）
+- [1688 vs Alibaba: Which Is Better for Private Label Sellers?](https://www.CrossPals.com/blog/1688-vs-alibaba)：Prices, MOQs, English support and export ability — a straight comparison for private label sellers.
+- [Where Does the Advantage of Our Purchasing Agency Lie?](https://www.CrossPals.com/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en)：Discover the key benefits of using our purchasing agency for sourcing products from China, including cost savings, quality control, and streamlined logistics.
+- [The Strategic Advantages of Sourcing from Hebei Region in China](https://www.CrossPals.com/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en)
+- [How to Avoid FBA Shipment Rejections from China](https://www.CrossPals.com/blog/avoid-fba-rejections)：The labelling, packaging and documentation mistakes that get shipments refused at Amazon — and how to prevent them.
+- [How to Get Your Product FBA-Ready Before It Leaves China](https://www.CrossPals.com/blog/get-fba-ready)：FNSKU labels, poly-bagging, bundling, carton labels, weights and dimensions — the full FBA prep checklist.
+- [What to Check in a China Quality Inspection Report](https://www.CrossPals.com/blog/read-inspection-report)：Sample size, AQL levels, defect classes and photo evidence — how to read an inspection report.
+
+## case-studies（共 4 条）
+- [An FBA shipment heading for rejection, relabelled in time](https://www.CrossPals.com/case-studies/fba-shipment-relabelled)：2,000 units labelled to the wrong spec, already packed and booked. We caught it at the FBA label check and relabelled the whole shipment before it left.
+- [A first private-label order that cleared FBA with zero rejections](https://www.CrossPals.com/case-studies/first-private-label-zero-rejections)：A seller who had never imported anything. Three factories vetted, one sample confirmed, and a carton spec that cleared Amazon receiving on the first try.
+- [A 30% defect rate on a 500-unit order — caught before it shipped](https://www.CrossPals.com/case-studies/kitchen-defects-caught)：A repeat order the seller was about to place blind — same factory, no inspection. We inspected first, and the batch did not pass.
+- [A supplier vanished after the deposit — so we rebuilt the order safely](https://www.CrossPals.com/case-studies/supplier-vanished-deposit)：UK seller lost 30% deposit to unresponsive supplier. Found a verified factory, secured payments via milestones, & safely rebuilt the order. Learn how.
+
+<!-- 由 astro-site-manager CMS 生成 · 可自由修改；保留本行则「重新生成」会覆盖，删除本行则视为手写内容不再覆盖 -->

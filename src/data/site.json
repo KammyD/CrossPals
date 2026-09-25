@@ -13,10 +13,13 @@
     "address": "Baoding, Hebei Province, China",
     "wechat": "dxzforever"
   },
-  "social": {},
+  "social": {
+    "github": "https://www.github.com/"
+  },
   "branding": {
     "domain": "https://www.crosspals.com",
-    "siteName": "CrossPals"
+    "siteName": "CrossPals",
+    "logoText": "CrossPals"
   },
   "legal": {},
   "seo": {}

@@ -1,9 +1,37 @@
-# AI bot 访问策略（Cloudflare Agent-Ready）
-User-agent: GPTBot
-Allow: /
+# AI 爬虫访问策略 —— www.CrossPals.com
+# 由 astro-site-manager CMS 生成 · 可自由修改（本文件是商业决定，删掉首行注释后不再自动重建）
+#
+# 与 robots.txt 的分工：
+#   robots.txt 用 `User-agent: *` + `Allow: /` 放开通用抓取；
+#   本文件只对「具名 AI bot」做更精确的声明，不改变通用规则。
 
-User-agent: Google-Extended
-Allow: /
-
+# ── 搜索 / 引用类：允许 ──
+# 允许抓取公开内容，让本站能出现在 AI 搜索结果与回答里（通常带回链接）。
 User-agent: OAI-SearchBot
-Disallow: /
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Claude-Web
+User-agent: Googlebot
+User-agent: Applebot
+Allow: /
+
+# ── 模型训练类：当前不额外限制 ──
+# 未在此列出的 bot 沿用 robots.txt 的 `User-agent: * / Allow: /`（即允许）。
+# 若不想让内容进入训练数据，去掉下面 7 行的注释即可（会与 robots.txt 的
+# `Content-Signal: ai-train` 无关，仅约束这些具名爬虫）：
+#
+# User-agent: GPTBot
+# User-agent: Google-Extended
+# User-agent: Applebot-Extended
+# User-agent: CCBot
+# User-agent: Bytespider
+# User-agent: Meta-ExternalAgent
+# User-agent: anthropic-ai
+# Disallow: /
+
+# ── 非公开路径：一律禁止 ──
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /draft/
+Disallow: /_astro/
