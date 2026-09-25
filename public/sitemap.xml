@@ -1,33 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 由 astro-site-manager CMS 生成 · 可自由修改 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.CrossPals.com/</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/about</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/blog/</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/1688-vs-alibaba</loc>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/avoid-fba-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/get-fba-ready</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/blog/read-inspection-report</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/case-studies/</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/case-studies/fba-shipment-relabelled</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/case-studies/first-private-label-zero-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/case-studies/kitchen-defects-caught</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/case-studies/supplier-vanished-deposit</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/contact</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
-    <loc>https://www.CrossPals.com/ja/blog/</loc>
+    <loc>https://www.CrossPals.com/hi/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/about</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/1688-vs-alibaba</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/avoid-fba-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/get-fba-ready</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/blog/read-inspection-report</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/case-studies/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/case-studies/fba-shipment-relabelled</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/case-studies/first-private-label-zero-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/case-studies/kitchen-defects-caught</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/case-studies/supplier-vanished-deposit</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/contact</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/privacy</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/services</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/hi/terms</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/ja/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/about</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/1688-vs-alibaba</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/avoid-fba-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/get-fba-ready</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/blog/read-inspection-report</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/case-studies/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/case-studies/fba-shipment-relabelled</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/case-studies/first-private-label-zero-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/case-studies/kitchen-defects-caught</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/case-studies/supplier-vanished-deposit</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/contact</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/privacy</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/services</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ja/terms</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/about</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/1688-vs-alibaba</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/avoid-fba-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/get-fba-ready</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/blog/read-inspection-report</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/case-studies/</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/case-studies/fba-shipment-relabelled</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/case-studies/first-private-label-zero-rejections</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/case-studies/kitchen-defects-caught</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/case-studies/supplier-vanished-deposit</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/contact</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/privacy</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/services</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://www.CrossPals.com/ko/terms</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/privacy</loc>
+    <lastmod>2026-09-13</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/services</loc>
+    <lastmod>2026-09-24</lastmod>
   </url>
   <url>
     <loc>https://www.CrossPals.com/terms</loc>
+    <lastmod>2026-09-13</lastmod>
   </url>
 </urlset>

@@ -4,4 +4,3 @@ Sitemap: https://www.crosspals.com/sitemap.xml
 
 # ─── Cloudflare Agent-Ready（由 CMS 生成）───
 Content-Signal: search=yes, ai-input=yes
-Sitemap: https://www.CrossPals.com/sitemap.xml
