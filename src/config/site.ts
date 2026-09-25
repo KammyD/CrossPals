@@ -21,6 +21,15 @@ function get(path: string, fallback: string): string {
   return typeof v === 'string' && v.trim() ? v.trim() : fallback;
 }
 
+/** 可空取值：空/缺失返回 undefined，供「有值才渲染」的 present-only 逻辑使用 */
+function raw(path: string): string | undefined {
+  const v = path
+    .split('.')
+    .reduce<any>((o, k) => (o && typeof o === 'object' ? o[k] : undefined), d);
+  const s = typeof v === 'string' ? v.trim() : (typeof v === 'number' ? String(v) : '');
+  return s || undefined;
+}
+
 export const SITE_URL = get('branding.domain', 'https://www.crosspals.com');
 
 export const PHONE = {
@@ -38,16 +47,51 @@ export const EMAIL = {
   ja: get('contact.email', 'hello@crosspals.com'),
 };
 
+/** 联系方式（present-only）：仅在 site.json 有值时填充，空值不进对象 → 前端据此决定是否渲染 */
+export const CONTACT = {
+  email: raw('contact.email') ?? 'hello@crosspals.com',
+  phone: raw('contact.phone'),
+  phoneTel: raw('contact.phoneTel'),
+  whatsapp: raw('contact.whatsapp'),
+  wechat: raw('contact.wechat'),
+  telegram: raw('contact.telegram'),
+  address: raw('contact.address'),
+  hours: raw('contact.hours'),
+};
+
+/** 社媒链接（present-only）：每个平台独立读取，空值不进入数组 → 页脚不渲染对应图标 */
+const socialRaw = {
+  facebook: raw('social.facebook'),
+  instagram: raw('social.instagram'),
+  linkedin: raw('social.linkedin'),
+  youtube: raw('social.youtube'),
+  x: raw('social.x'),
+  tiktok: raw('social.tiktok'),
+  weibo: raw('social.weibo'),
+  zhihu: raw('social.zhihu'),
+  github: raw('social.github'),
+};
+const SOCIAL_LABELS: Record<string, string> = {
+  facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', youtube: 'YouTube',
+  x: 'X', tiktok: 'TikTok', weibo: '微博', zhihu: '知乎', github: 'GitHub',
+};
+export const SOCIAL = Object.entries(socialRaw)
+  .filter(([, href]) => !!href)
+  .map(([key, href]) => ({ key, label: SOCIAL_LABELS[key], href }));
+
 export const COMPANY = {
-  /** 营业执照上的中文主体名 */
+  /** CMS 公司全称（无兜底：没填就让页脚/结构化数据自然留白） */
+  name: raw('company.name') ?? 'CrossPals',
   nameZh: get('company.nameZh', '保定职航科技有限公司'),
-  /** 英文主体名（用于结构化数据 / 英文法务页） */
   nameEn: get(
     'company.nameEn',
     'Baoding Zhihang Technology Co., Ltd.',
   ),
-  /** 日本語向け主体名（登記名の漢字を日本用字体にそろえたもの） */
   nameJa: get('company.nameJa', '保定職航科技有限公司'),
+  shortName: raw('company.shortName') ?? 'CrossPals',
+  tagline: raw('company.tagline'),
+  description: raw('company.description'),
+  founded: raw('company.founded'),
   address: {
     en: get('contact.address', 'Baoding, Hebei Province, China'),
     ja: get('contact.addressJa', '中国 河北省保定市'),
