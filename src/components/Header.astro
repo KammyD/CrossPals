@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { getLangFromUrl, useTranslations, localePath, languageList, isMultilingual, defaultLang, basePathOf, navPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, localePath, languageList, isMultilingual, defaultLang, basePathOf, navPath, baseSlug } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 
 const lang    = getLangFromUrl(Astro.url);
@@ -38,22 +38,24 @@ if (showLang) {
 
   if (m || isList) {
     const posts = await getCollection('blog');
+    // 当前页语言下的那篇（基准 slug 相同 + 语言匹配）；不是「默认语言那篇」
     const current = m
-      ? posts.find(p => p.slug === m[1] && (!p.data.lang || p.data.lang === defaultLang))
+      ? posts.find(p => baseSlug(p.slug, lang) === m[1] && (p.data.lang || defaultLang) === lang)
       : null;
+    const curBase = current ? baseSlug(current.slug, lang) : '';
 
     for (const l of languageList) {
       if (l.code === lang) { langTargets[l.code] = path; continue; }
       if (l.isDefault)     { langTargets[l.code] = base; continue; }
 
       if (current) {
-        // 同一篇的译文：translationKey 相同，或文件名按约定带 -<语言码> 后缀
+        // 同一篇的译文：translationKey 相同，或基准 slug 相同（两边都剥掉 -<语言码> 后缀再比）
         const alt = posts.find(p => p.data.lang === l.code && (
           (p.data.translationKey && p.data.translationKey === current.data.translationKey) ||
-          p.slug === `${current.slug}-${l.code}`
+          baseSlug(p.slug, l.code) === curBase
         ));
         if (alt) {
-          const altSlug = alt.data.translationKey || alt.slug.replace(new RegExp(`-${l.code}$`), '');
+          const altSlug = alt.data.translationKey || baseSlug(alt.slug, l.code);
           langTargets[l.code] = localePath(l.code, `/blog/${altSlug}/`);
           continue;
         }
@@ -79,7 +81,7 @@ if (showLang) {
     <Logo layout="horizontal" size="md" />
 
     <!-- Primary nav -->
-    <nav class="hdr__nav" aria-label="Primary">
+    <nav class="hdr__nav" aria-label={t('a11y_primary')}>
       {nav.map(item => (
         <a
           href={navHref(item.href)}
@@ -112,7 +114,7 @@ if (showLang) {
           </svg>
         </button>
 
-        <div class="lang__dropdown" id="langDropdown" role="listbox" aria-label="Select language">
+        <div class="lang__dropdown" id="langDropdown" role="listbox" aria-label={t('a11y_selectLanguage')}>
           <div class="lang__dropdown-title">Language</div>
           {languageList.map(l => (
             <a
@@ -147,7 +149,7 @@ if (showLang) {
     </div>
 
     <!-- Mobile burger -->
-    <button class="hdr__burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false">
+    <button class="hdr__burger" id="burgerBtn" aria-label={t('a11y_openMenu')} aria-expanded="false">
       <span class="hdr__burger-line"></span>
       <span class="hdr__burger-line"></span>
       <span class="hdr__burger-line"></span>

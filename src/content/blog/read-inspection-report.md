@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: read-inspection-report
 title: "What to Check in a China Quality Inspection Report"
 description: "Sample size, AQL levels, defect classes and photo evidence — how to read an inspection report."
 category: "Quality"

@@ -2,25 +2,29 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../../i18n/utils';
+
+/* 本页语言 —— 由 CMS 脚手架写入（源页是 defaultLang）。取数/链接/日期全读它。 */
+const PAGE_LANG = 'hi';
 
 /* 案例详情：正文来自 src/content/case-studies/*.md */
 export async function getStaticPaths() {
+  // ⚠ Astro 的 getStaticPaths 跑在独立作用域，拿不到模块级常量 —— 必须在这里再声明一次。
+  const PAGE_LANG = 'hi';
   const cases = await getCollection('case-studies');
-  return cases
-    .filter(c => !c.data.draft)
-    .map(c => ({ params: { slug: c.slug }, props: { item: c } }));
+  return entriesForLang(cases.filter(c => !c.data.draft), PAGE_LANG)
+    .map(c => ({ params: { slug: baseSlug(c.slug, PAGE_LANG) }, props: { item: c } }));
 }
 
 const { item } = Astro.props;
 const { Content } = await item.render();
 
-const all = (await getCollection('case-studies'))
-  .filter(c => !c.data.draft)
+const all = entriesForLang((await getCollection('case-studies')).filter(c => !c.data.draft), PAGE_LANG)
   .sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex(c => c.slug === item.slug);
 const others = all.filter(c => c.slug !== item.slug).slice(0, 3);
 
-const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const fmt = (d: string) => fmtDate(PAGE_LANG, d);
 ---
 <BaseLayout
   title={item.data.title}
@@ -35,7 +39,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
 
   <header class="cs-hdr">
     <div class="container cs-hdr__inner">
-      <a href="/hi/case-studies" class="back">← All case studies</a>
+      <a href="/hi/case-studies" class="back">← सभी केस स्टडी</a>
       <div class="cs-hdr__top">
         <span class="indexnum cs-n">{String(idx + 1).padStart(2, '0')}</span>
         <span class="cs-client">{item.data.client}</span>
@@ -43,7 +47,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
       <h1>{item.data.title}</h1>
       <div class="cs-meta">
         <time>{fmt(item.data.date)}</time>
-        <span>·</span><span>Anonymised client</span>
+        <span>·</span><span>अनामित ग्राहक</span>
       </div>
     </div>
   </header>
@@ -68,16 +72,16 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
 
       <aside class="cs-aside reveal reveal-delay-2">
         <div class="aside-cta">
-          <p class="overline">Need Help?</p>
-          <h4>Get a free quote</h4>
-          <p>Tell us your product. Verified suppliers and a full price breakdown in 48 hours.</p>
-          <a href="/hi/contact" class="btn btn-primary" style="margin-top:var(--s5);">Get a free quote <svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <p class="overline">मदद चाहिए?</p>
+          <h4>मुफ्त कोट प्राप्त करें</h4>
+          <p>हमें अपना उत्पाद बताएं। 48 घंटों में सत्यापित आपूर्तिकर्ता और पूर्ण मूल्य विवरण प्राप्त करें।</p>
+          <a href="/hi/contact" class="btn btn-primary" style="margin-top:var(--s5);">मुफ्त कोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
         <nav class="aside-nav">
           <p class="overline">Explore</p>
-          <a href="/hi/services">FBA Sourcing &amp; Inspection →</a>
-          <a href="/hi/blog">Sourcing Guides →</a>
-          <a href="/hi/case-studies">All Case Studies →</a>
+          <a href="/hi/services">एफबीए सोर्सिंग और निरीक्षण →</a>
+          <a href="/hi/blog">सोर्सिंग गाइड →</a>
+          <a href="/hi/case-studies">सभी केस स्टडी →</a>
         </nav>
       </aside>
 
@@ -88,18 +92,18 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
   {others.length > 0 && (
     <section class="section bg-parchment">
       <div class="container">
-        <p class="overline reveal">More cases</p>
-        <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">Other Orders, <em style="font-style:italic;color:var(--avo-600);">Other Problems</em></h2>
+        <p class="overline reveal">अधिक मामले</p>
+        <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">अन्य ऑर्डर, <em style="font-style:italic;color:var(--avo-600);">अन्य समस्याएं</em></h2>
         <div class="ocases">
           {others.map((c, i) => (
-            <a href={`/case-studies/${c.slug}`} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
+            <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
               <div class="ocard__thumb">
                 <ImgPlaceholder src={c.data.cover} width={480} height={360} ratio="4/3" alt={c.data.title} />
               </div>
               <div class="ocard__body">
                 <span class="ocard__client">{c.data.client}</span>
                 <h4>{c.data.title}</h4>
-                <span class="ocard__more">Learn more →</span>
+                <span class="ocard__more">अधिक जानें →</span>
               </div>
             </a>
           ))}
@@ -111,16 +115,11 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
   <!-- CTA -->
   <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
     <div class="container">
-      <p class="overline overline--light reveal">Next case study</p>
-      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
-        Let's Make Yours<br/><em style="color:var(--avo-300)">The Next One</em>
+      <p class="overline overline--light reveal">अगली केस स्टडी</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">आइए आपका बनाएं<br/><em style="color:var(--avo-300)">अगला एक</em>
       </h2>
-      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
-        Tell us what you want to source. We'll come back with verified suppliers and a full price breakdown within 48 hours.
-      </p>
-      <a href="/hi/contact" class="btn btn-primary reveal reveal-delay-3">
-        Get a free quote
-        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">हमें बताएं कि आप क्या सोर्स करना चाहते हैं। हम 48 घंटों के भीतर सत्यापित आपूर्तिकर्ता और पूर्ण मूल्य विवरण के साथ वापस आएंगे।</p>
+      <a href="/hi/contact" class="btn btn-primary reveal reveal-delay-3">मुफ्त कोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
       </a>
     </div>
   </section>

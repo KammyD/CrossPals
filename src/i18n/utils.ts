@@ -151,3 +151,58 @@ export function navPath(lang: string, href: string): string {
   if (lang === defaultLang) return clean;
   return localizedPagesFor(lang).has(clean) ? localePath(lang, clean) : clean;
 }
+
+/* ── 内容条目的多语言挑选（2026-09-25 新增）──────────────────────
+ * 译文布局唯一：同目录 + 文件名 `-<语言码>` 后缀，frontmatter 带 lang。
+ * 页面只要用 PAGE_LANG 调这两个函数，就天然适配任意语言 ——
+ * 脚手架复制出 /xx/blog/[slug].astro 时只需把 `const PAGE_LANG = defaultLang;`
+ * 改成 `const PAGE_LANG = 'xx';`（scaffold 已自动做），取数与链接都自动正确。
+ */
+/** 按页面语言挑内容条目：默认语言取「未标 lang 或 lang=默认」的原文；其他语言只取该语言的译文 */
+export function entriesForLang<T extends { data?: { lang?: string } }>(items: T[], lang: string): T[] {
+  return items.filter((it) => {
+    const l = (it && it.data && it.data.lang) || '';
+    return l ? l === lang : lang === defaultLang;
+  });
+}
+
+/** 译文 slug 去掉 `-<语言码>` 后缀得到基准 slug（默认语言的 slug 原样返回） */
+export function baseSlug(slug: unknown, lang: string): string {
+  const s = String(slug ?? '');
+  if (lang === defaultLang) return s;
+  return s.replace(new RegExp(`-${lang}$`), '');
+}
+
+/** 文章内容里的图片/链接不翻，但相对路径在子语言下不变 —— 保留此函数便于将来统一处理 */
+export function contentPath(lang: string, path: string): string {
+  return path;
+}
+
+/** 内容详情链接：/blog/{基准slug} —— 非默认语言自动加语言前缀，译文的 -<语言码> 后缀自动剥掉 */
+export function contentLink(lang: string, base: string, slug: unknown): string {
+  return localePath(lang, `/${base}/${baseSlug(slug, lang)}`);
+}
+
+/* ── 日期本地化 ──────────────────────────────────────────────────
+ * 语言标签不写在页面里（AI 翻译页面时会把 'en-US' 当成文案翻掉，踩过），
+ * 统一由这里按语言码给出完整 BCP-47 标签。加语言只需补一行。 */
+const LOCALE_TAG: Record<string, string> = {
+  en: 'en-US', ja: 'ja-JP', hi: 'hi-IN', zh: 'zh-CN', es: 'es-ES',
+  fr: 'fr-FR', de: 'de-DE', ar: 'ar', pt: 'pt-BR', ko: 'ko-KR', it: 'it-IT',
+};
+
+/** long = 2026年1月1日式全写；short = 缩写月名；monthYear = 仅月+年 */
+export function fmtDate(lang: string, d: string, style: 'long' | 'short' | 'monthYear' = 'long'): string {
+  const tag = LOCALE_TAG[lang] || lang;
+  const raw = String(d ?? '');
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(raw) ? new Date(`${raw}T00:00:00`) : new Date(raw);
+  const opts: Intl.DateTimeFormatOptions =
+    style === 'short' ? { month: 'short', day: 'numeric', year: 'numeric' }
+    : style === 'monthYear' ? { month: 'short', year: 'numeric' }
+    : { month: 'long', day: 'numeric', year: 'numeric' };
+  try {
+    return date.toLocaleDateString(tag, opts);
+  } catch {
+    return date.toLocaleDateString('en-US', opts);
+  }
+}

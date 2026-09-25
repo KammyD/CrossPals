@@ -141,9 +141,23 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"1688-vs-alibaba-hi.md": {
+	id: "1688-vs-alibaba-hi.md";
+  slug: "1688-vs-alibaba-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "1688-vs-alibaba-ja.md": {
 	id: "1688-vs-alibaba-ja.md";
   slug: "1688-vs-alibaba-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"1688-vs-alibaba-ko.md": {
+	id: "1688-vs-alibaba-ko.md";
+  slug: "1688-vs-alibaba-ko";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -155,6 +169,27 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"avoid-fba-rejections-hi.md": {
+	id: "avoid-fba-rejections-hi.md";
+  slug: "avoid-fba-rejections-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"avoid-fba-rejections-ja.md": {
+	id: "avoid-fba-rejections-ja.md";
+  slug: "avoid-fba-rejections-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"avoid-fba-rejections-ko.md": {
+	id: "avoid-fba-rejections-ko.md";
+  slug: "avoid-fba-rejections-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "avoid-fba-rejections.md": {
 	id: "avoid-fba-rejections.md";
   slug: "avoid-fba-rejections";
@@ -162,9 +197,51 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"get-fba-ready-hi.md": {
+	id: "get-fba-ready-hi.md";
+  slug: "get-fba-ready-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"get-fba-ready-ja.md": {
+	id: "get-fba-ready-ja.md";
+  slug: "get-fba-ready-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"get-fba-ready-ko.md": {
+	id: "get-fba-ready-ko.md";
+  slug: "get-fba-ready-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "get-fba-ready.md": {
 	id: "get-fba-ready.md";
   slug: "get-fba-ready";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"read-inspection-report-hi.md": {
+	id: "read-inspection-report-hi.md";
+  slug: "read-inspection-report-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"read-inspection-report-ja.md": {
+	id: "read-inspection-report-ja.md";
+  slug: "read-inspection-report-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"read-inspection-report-ko.md": {
+	id: "read-inspection-report-ko.md";
+  slug: "read-inspection-report-ko";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -178,9 +255,51 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "case-studies": {
+"fba-shipment-relabelled-hi.md": {
+	id: "fba-shipment-relabelled-hi.md";
+  slug: "fba-shipment-relabelled-hi";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"fba-shipment-relabelled-ja.md": {
+	id: "fba-shipment-relabelled-ja.md";
+  slug: "fba-shipment-relabelled-ja";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"fba-shipment-relabelled-ko.md": {
+	id: "fba-shipment-relabelled-ko.md";
+  slug: "fba-shipment-relabelled-ko";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
 "fba-shipment-relabelled.md": {
 	id: "fba-shipment-relabelled.md";
   slug: "fba-shipment-relabelled";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"first-private-label-zero-rejections-hi.md": {
+	id: "first-private-label-zero-rejections-hi.md";
+  slug: "first-private-label-zero-rejections-hi";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"first-private-label-zero-rejections-ja.md": {
+	id: "first-private-label-zero-rejections-ja.md";
+  slug: "first-private-label-zero-rejections-ja";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"first-private-label-zero-rejections-ko.md": {
+	id: "first-private-label-zero-rejections-ko.md";
+  slug: "first-private-label-zero-rejections-ko";
   body: string;
   collection: "case-studies";
   data: any
@@ -192,9 +311,51 @@ declare module 'astro:content' {
   collection: "case-studies";
   data: any
 } & { render(): Render[".md"] };
+"kitchen-defects-caught-hi.md": {
+	id: "kitchen-defects-caught-hi.md";
+  slug: "kitchen-defects-caught-hi";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"kitchen-defects-caught-ja.md": {
+	id: "kitchen-defects-caught-ja.md";
+  slug: "kitchen-defects-caught-ja";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"kitchen-defects-caught-ko.md": {
+	id: "kitchen-defects-caught-ko.md";
+  slug: "kitchen-defects-caught-ko";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
 "kitchen-defects-caught.md": {
 	id: "kitchen-defects-caught.md";
   slug: "kitchen-defects-caught";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"supplier-vanished-deposit-hi.md": {
+	id: "supplier-vanished-deposit-hi.md";
+  slug: "supplier-vanished-deposit-hi";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"supplier-vanished-deposit-ja.md": {
+	id: "supplier-vanished-deposit-ja.md";
+  slug: "supplier-vanished-deposit-ja";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"supplier-vanished-deposit-ko.md": {
+	id: "supplier-vanished-deposit-ko.md";
+  slug: "supplier-vanished-deposit-ko";
   body: string;
   collection: "case-studies";
   data: any

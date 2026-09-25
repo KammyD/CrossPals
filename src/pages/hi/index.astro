@@ -5,6 +5,10 @@ import Icon from '../../components/Icon.astro';
 import type { IconName } from '../../components/Icon.astro';
 import { PHONE } from '../../config/site';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink } from '../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = 'hi';
 
 /* ── 服务（每项带一条独立定价说明） ── */
 const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
@@ -79,8 +83,7 @@ const pricingFees: Array<{ label: string; value: string; note: string }> = [
 ];
 
 /* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
-const blogPosts = (await getCollection('blog'))
-  .filter(p => !p.data.draft)
+const blogPosts = entriesForLang((await getCollection('blog')).filter(p => !p.data.draft), PAGE_LANG)
   .sort((a, b) => b.data.date.localeCompare(a.data.date))
   .slice(0, 3)
   .map(p => ({ slug: p.slug, cat: p.data.category, title: p.data.title, time: p.data.readTime, cover: p.data.cover }));
@@ -91,23 +94,23 @@ const tickerItems = ['FBA Prep', 'Pre-Shipment QC', '1688 Sourcing', 'Supplier V
 const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys & Games', 'Sports & Outdoors', 'Beauty & Personal Care', 'Electronics Accessories', 'Office Products'];
 ---
 <BaseLayout
-  title="The sourcing partner Amazon sellers trust"
-  description="CrossPals sources, inspects, and preps products for FBA — supplier verification, pre-shipment QC, and FBA prep, so you can focus on selling, not suppliers."
+  title="Amazon सेलर्स का विश्वसनीय सोर्सिंग पार्टनर"
+  description="CrossPals, FBA के लिए उत्पादों को सोर्स, निरीक्षण और तैयार करता है — सप्लायर वेरिफिकेशन, प्री-शिपमेंट QC, और FBA प्रीप, ताकि आप सप्लायर्स पर नहीं बल्कि सेलिंग पर ध्यान दे सकें।"
  lang="hi">
 
 <!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══ -->
 <div class="topband">
   <a href="/hi/contact" class="announce announce--dark">
     <span class="announce__dot" aria-hidden="true"></span>
-    <span><strong>New:</strong> free sourcing consultation for first-time importers — supplier shortlist in 48h</span>
+    <span><strong>नया:</strong>पहली बार आयात करने वालों के लिए मुफ्त सोर्सिंग परामर्श — 48 घंटे में आपूर्तिकर्ता शॉर्टलिस्ट</span>
     <span class="announce__arrow" aria-hidden="true">→</span>
   </a>
 
   <div class="masthead">
     <div class="container masthead__inner">
-      <span>CrossPals · China Sourcing Manual</span>
+      <span>CrossPals · चीन सोर्सिंग मैनुअल</span>
       <span class="masthead__rule" aria-hidden="true"></span>
-      <span>Issue Nº01 — MMXXVI</span>
+      <span>अंक Nº01 — MMXXVI</span>
     </div>
   </div>
 </div>
@@ -117,24 +120,24 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
   <div class="hero__grid">
     <div class="hero__left">
       <div class="hero__left-inner">
-        <p class="overline overline--light">China sourcing for FBA sellers</p>
-        <h1 class="hero__title">The sourcing partner Amazon sellers trust — <em>quality inspection included.</em></h1>
-        <p class="hero__lead">We source, inspect, and prep your products for FBA — so you can focus on selling, not suppliers.</p>
+        <p class="overline overline--light">FBA विक्रेताओं के लिए चीन से सोर्सिंग</p>
+        <h1 class="hero__title">Amazon विक्रेताओं का विश्वसनीय सोर्सिंग पार्टनर — <em>गुणवत्ता निरीक्षण शामिल।</em></h1>
+        <p class="hero__lead">हम FBA के लिए आपके उत्पादों को सोर्स, निरीक्षण और तैयार करते हैं — ताकि आप आपूर्तिकर्ताओं की जगह बिक्री पर ध्यान दे सकें।</p>
 
-        <p class="hero__sidenote">Fig. 00 — Most FBA sellers lose money to language gaps, fake suppliers, and blind shipments. We close all three.</p>
+        <p class="hero__sidenote">चित्र 00 — अधिकांश FBA विक्रेता भाषा अंतराल, नकली आपूर्तिकर्ताओं और अंधी शिपमेंट के कारण पैसा खो देते हैं। हम इन तीनों को बंद कर देते हैं।</p>
 
         <div class="hero__actions">
           <a href="/hi/contact" class="btn btn-primary">
-            Get a free quote
+            मुफ्त कोटेशन प्राप्त करें
             <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
           </a>
-          <a href="/hi/services" class="btn btn-ghost">See how it works</a>
+          <a href="/hi/services" class="btn btn-ghost">यह कैसे काम करता है देखें</a>
         </div>
 
         <ul class="hero__index">
           <li><span>01</span> Source</li>
           <li><span>02</span> Inspect</li>
-          <li><span>03</span> Prep for FBA</li>
+          <li><span>03</span> FBA के लिए तैयारी</li>
           <li><span>04</span> Deliver</li>
         </ul>
       </div>
@@ -143,11 +146,11 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
     <div class="hero__right">
       <div class="hero__photo-fill">
         <ImgPlaceholder src="/img/hero-warehouse.webp" seed={42} width={900} height={1100} ratio="9/11" priority
-          alt="China factory warehouse — CrossPals sourcing" />
+          alt="चीन फैक्टरी वेयरहाउस — CrossPals सोर्सिंग" />
       </div>
       <div class="hero__cap">
-        <span class="hero__cap-label">Fig. 01</span>
-        <span class="hero__cap-text">HeBei · BaoDing, China</span>
+        <span class="hero__cap-label">चित्र. 01</span>
+        <span class="hero__cap-text">हेबेई · बाओडिंग, चीन</span>
         <span class="seal seal--sm" aria-hidden="true"><span>Verified</span><span>Agent</span></span>
       </div>
     </div>
@@ -162,16 +165,16 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 </div>
 
 <!-- ═══ 信任带：服务场景标识 + 数字指标（替代原来的国家旗帜列表） ═══ -->
-<section class="trustbar" aria-label="What we handle and who we serve">
+<section class="trustbar" aria-label="हम क्या संभालते हैं और हम किनकी सेवा करते हैं">
   <div class="container">
-    <p class="overline" style="margin-bottom:var(--s4);">Sourcing, inspecting &amp; prepping for Amazon &amp; Shopify sellers in</p>
+    <p class="overline" style="margin-bottom:var(--s4);">Amazon और Shopify विक्रेताओं के लिए सोर्सिंग, निरीक्षण और तैयारी</p>
     <div class="regionwall reveal">
       {categories.map(c => <span>{c}</span>)}
     </div>
     <ul class="trustmetrics reveal reveal-delay-1">
-      <li><b>47</b><span>Amazon sellers served</span></li>
-      <li><b>$2.3M<em>+</em></b><span>In sourced goods</span></li>
-      <li><b>98<em>%</em></b><span>On-time delivery</span></li>
+      <li><b>47</b><span>सेवा प्राप्त Amazon विक्रेता</span></li>
+      <li><b>$2.3M<em>+</em></b><span>सोर्स किया गया सामान</span></li>
+      <li><b>98<em>%</em></b><span>समय पर वितरण</span></li>
     </ul>
   </div>
 </section>
@@ -180,10 +183,10 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section svc ledger">
   <div class="container svc__wrap">
     <aside class="svc__aside">
-      <p class="overline">What We Do</p>
-      <h2 class="svc__h">End-to-End<br/><em>China Sourcing</em></h2>
-      <p class="svc__intro">Four disciplines, one accountable agent. Each step is documented, photographed, and priced before your money moves.</p>
-      <a href="/hi/services" class="svc__all">Full service index →</a>
+      <p class="overline">हम क्या करते हैं</p>
+      <h2 class="svc__h">एंड-टू-एंड<br/><em>चीन सोर्सिंग</em></h2>
+      <p class="svc__intro">चार अनुशासन, एक जिम्मेदार एजेंट। आपका पैसा ट्रांसफर होने से पहले प्रत्येक चरण दस्तावेजीकृत, फोटोग्राफ़ और मूल्य निर्धारित किया जाता है।</p>
+      <a href="/hi/services" class="svc__all">पूर्ण सेवा सूचकांक →</a>
     </aside>
 
     <ol class="svc__list">
@@ -199,8 +202,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
             </div>
             <div class="lede-row">
               <p>{s.body}</p>
-              <a href="/hi/services" class="svc-row__link">Learn more
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              <a href="/hi/services" class="svc-row__link">और जानें<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
               </a>
             </div>
             <div class="price-note">
@@ -219,7 +221,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
   <div class="container">
     <div class="hiw__head reveal">
       <p class="overline overline--light">Process</p>
-      <h2 class="text-white">From Supplier to<br/><em style="color:var(--avo-300)">FBA-Ready in 4 Steps</em></h2>
+      <h2 class="text-white">सप्लायर से<br/><em style="color:var(--avo-300)">4 चरणों में FBA-तैयार</em></h2>
     </div>
 
     <div class="manifest reveal reveal-delay-1">
@@ -232,13 +234,13 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
         </div>
       ))}
       <div class="manifest__stamp" aria-hidden="true">
-        <span class="seal"><span>Cross</span><span>Pals ✓</span></span>
+        <span class="seal"><span>Cross</span><span>पाल्स ✓</span></span>
       </div>
     </div>
 
     <div class="hiw__cta reveal reveal-delay-2">
-      <a href="/hi/contact" class="btn btn-primary">Get a free quote</a>
-      <a href="/hi/case-studies" class="btn btn-ghost">See case studies</a>
+      <a href="/hi/contact" class="btn btn-primary">मुफ्त उद्धरण प्राप्त करें</a>
+      <a href="/hi/case-studies" class="btn btn-ghost">केस स्टडीज़ देखें</a>
     </div>
   </div>
 </section>
@@ -247,9 +249,9 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section scen">
   <div class="container">
     <div class="scen__head reveal">
-      <p class="overline">Problems we solve</p>
-      <h2>Three Posts Every<br/><em>Amazon Seller Writes</em></h2>
-      <p class="scen__lead">These are the threads that show up in Amazon seller groups every single day. Here is exactly how we answer each one.</p>
+      <p class="overline">जिन समस्याओं का हम समाधान करते हैं</p>
+      <h2>हर अमेज़न सेलर की तीन पोस्टें<br/><em>ये वो धागे हैं जो रोज़ अमेज़न सेलर समूहों में दिखते हैं। हम प्रत्येक का ठीक यही जवाब देते हैं।</em></h2>
+      <p class="scen__lead">— FBA सेलर फोरम पोस्ट</p>
     </div>
 
     <div class="scen__list">
@@ -258,7 +260,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
           <div class="scen-item__quote">
             <span class="scen-item__mark" aria-hidden="true">“</span>
             <p>{s.quote}</p>
-            <span class="scen-item__src">— FBA seller forum post</span>
+            <span class="scen-item__src">गुणवत्ता निरीक्षण</span>
           </div>
           <div class="scen-item__sol">
             <span class="tag tag-seal">{s.tag}</span>
@@ -278,9 +280,9 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section inspect grain" style="position:relative;overflow:hidden;">
   <div class="container">
     <div class="inspect__head reveal">
-      <p class="overline overline--light">Quality Inspection</p>
-      <h2 class="text-white">Every order comes with a<br/><em>full inspection report.</em></h2>
-      <p class="inspect__lead">Not a photo of a box. A structured, line-by-line report against five standards — sent to you before your goods ship, on every order, at every order size.</p>
+      <p class="overline overline--light">हर ऑर्डर के साथ आता है</p>
+      <h2 class="text-white">पूर्ण निरीक्षण रिपोर्ट।<br/><em>सिर्फ़ एक बॉक्स की तस्वीर नहीं। पाँच मानकों के खिलाफ़ एक संरचित, पंक्ति-दर-पंक्ति रिपोर्ट — हर ऑर्डर पर, हर ऑर्डर साइज़ में, माल भेजने से पहले आपको भेजी जाती है।</em></h2>
+      <p class="inspect__lead">क्रॉसपाल्स · प्री-शिपमेंट निरीक्षण</p>
     </div>
 
     <div class="inspect__grid">
@@ -299,27 +301,27 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       <!-- 样例质检报告（客户/供应商信息打码） -->
       <div class="qcreport reveal reveal-delay-2">
         <div class="qcreport__head">
-          <span class="qcreport__brand">CrossPals · Pre-Shipment Inspection</span>
-          <span class="qcreport__no">Report № CP-2026-0418</span>
+          <span class="qcreport__brand">क्रॉसपाल्स · प्री-शिपमेंट इंस्पेक्शन</span>
+          <span class="qcreport__no">रिपोर्ट संख्या CP-2026-0418</span>
         </div>
         <dl class="qcreport__grid">
-          <div><dt>Product</dt><dd>Stainless-steel kitchen gadget</dd></div>
-          <div><dt>Order qty</dt><dd>1,000 pcs</dd></div>
-          <div><dt>Sample size</dt><dd>80 pcs (AQL 2.5)</dd></div>
-          <div><dt>Where</dt><dd>At factory, pre-shipment</dd></div>
+          <div><dt>Product</dt><dd>स्टेनलेस-स्टील किचन गैजेट</dd></div>
+          <div><dt>ऑर्डर मात्रा</dt><dd>1,000 पीसी</dd></div>
+          <div><dt>नमूना आकार</dt><dd>80 पीसी (AQL 2.5)</dd></div>
+          <div><dt>Where</dt><dd>फैक्ट्री में, शिपमेंट पूर्व</dd></div>
         </dl>
         <ul class="qcreport__checks">
           <li><span>Appearance</span><span class="ok">Pass</span></li>
           <li><span>Dimensions</span><span class="ok">Pass</span></li>
-          <li><span>Function test</span><span class="ok">Pass</span></li>
-          <li><span>Packaging</span><span class="warn">12 pcs reworked</span></li>
-          <li><span>FBA label check</span><span class="ok">Pass</span></li>
+          <li><span>फंक्शन टेस्ट</span><span class="ok">Pass</span></li>
+          <li><span>Packaging</span><span class="warn">12 पीसी दोबारा काम किया गया</span></li>
+          <li><span>FBA लेबल जांच</span><span class="ok">Pass</span></li>
         </ul>
         <div class="qcreport__result">
           <span class="qcreport__verdict">PASS</span>
-          <span>12 minor cosmetic defects rejected and replaced by the supplier before packing.</span>
+          <span>पैकिंग से पहले 12 मामूली कॉस्मेटिक दोषों को रिजेक्ट कर सप्लायर द्वारा बदल दिया गया।</span>
         </div>
-        <p class="qcreport__note">Sample report — client and supplier details masked. Every order ships with a report like this.</p>
+        <p class="qcreport__note">नमूना रिपोर्ट - क्लाइंट और सप्लायर विवरण छिपाए गए। हर ऑर्डर के साथ इस तरह की रिपोर्ट शिप की जाती है।</p>
       </div>
     </div>
   </div>
@@ -329,8 +331,8 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section testi">
   <div class="container">
     <div class="testi__head reveal">
-      <p class="overline">Success Stories</p>
-      <h2>Amazon Sellers,<br/><em>Real Orders</em></h2>
+      <p class="overline">सफलता की कहानियाँ</p>
+      <h2>Amazon विक्रेता,<br/><em>वास्तविक ऑर्डर</em></h2>
     </div>
 
     <!-- 精选证言：文本左、头像右 -->
@@ -360,10 +362,10 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
         </blockquote>
       ))}
       <div class="testi__stat reveal reveal-delay-1">
-        <p class="overline overline--avo">Our track record</p>
+        <p class="overline overline--avo">हमारा ट्रैक रिकॉर्ड</p>
         <div class="testi__bignum">47<span>+</span></div>
-        <p>Amazon sellers served, $2.3M+ in sourced goods, 98% on-time delivery.</p>
-        <a href="/hi/case-studies" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">See case studies →</a>
+        <p>Amazon विक्रेताओं को सेवा, $2.3M+ की सोर्स्ड गुड्स, 98% समय पर डिलीवरी।</p>
+        <a href="/hi/case-studies" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">केस स्टडी देखें →</a>
       </div>
     </div>
   </div>
@@ -373,9 +375,9 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section pricing bg-parchment">
   <div class="container pricing__wrap">
     <div class="pricing__intro reveal">
-      <p class="overline">Transparent Pricing</p>
-      <h2>You See the Whole Cost<br/><em>Before You Commit</em></h2>
-      <p class="pricing__lead">No "contact us for pricing". No markups buried in the freight. Here is exactly how we charge.</p>
+      <p class="overline">पारदर्शी मूल्य निर्धारण</p>
+      <h2>आप पूरी लागत देखते हैं<br/><em>प्रतिबद्ध होने से पहले</em></h2>
+      <p class="pricing__lead">"कीमत के लिए हमसे संपर्क करें" नहीं। माल ढुलाई में छिपे हुए अतिरिक्त शुल्क नहीं। हमारी शुल्क संरचना स्पष्ट रूप से यहां दी गई है।</p>
     </div>
 
     <div class="pricing__right">
@@ -390,14 +392,14 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       </ul>
 
       <div class="price-example reveal reveal-delay-2">
-        <p class="price-example__title">Worked example — a $1,000 order</p>
+        <p class="price-example__title">उदाहरण — $1,000 का ऑर्डर</p>
         <div class="price-example__rows">
-          <div class="price-example__row"><span>Supplier price (goods)</span><span>$1,000</span></div>
-          <div class="price-example__row"><span>Agent fee (8%)</span><span>$80</span></div>
-          <div class="price-example__row"><span>Freight</span><span>at actual quote</span></div>
-          <div class="price-example__row price-example__row--total"><span>Your complete cost</span><span>No hidden fees</span></div>
+          <div class="price-example__row"><span>आपूर्तिकर्ता मूल्य (माल)</span><span>$1,000</span></div>
+          <div class="price-example__row"><span>एजेंट शुल्क (8%)</span><span>$80</span></div>
+          <div class="price-example__row"><span>Freight</span><span>वास्तविक उद्धरण पर</span></div>
+          <div class="price-example__row price-example__row--total"><span>आपकी कुल लागत</span><span>कोई छिपे हुए शुल्क नहीं</span></div>
         </div>
-        <p class="price-example__foot">Supplier price + agent fee + freight = everything you pay. Nothing else.</p>
+        <p class="price-example__foot">आपूर्तिकर्ता मूल्य + एजेंट शुल्क + माल ढुलाई = आपके द्वारा भुगतान की जाने वाली पूरी राशि। और कुछ नहीं।</p>
       </div>
     </div>
   </div>
@@ -407,13 +409,11 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="banner-cta banner-cta--dark">
   <div class="container banner-cta__inner">
     <div class="banner-cta__text">
-      <span class="banner-cta__eyebrow">Limited slots</span>
-      <h3 class="banner-cta__head">Free sourcing consultation for first-time importers</h3>
-      <span class="banner-cta__note">No commitment · Reply within 24h</span>
+      <span class="banner-cta__eyebrow">सीमित स्थान</span>
+      <h3 class="banner-cta__head">पहली बार आयातकों के लिए निःशुल्क सोर्सिंग परामर्श</h3>
+      <span class="banner-cta__note">कोई प्रतिबद्धता नहीं · 24 घंटे के भीतर जवाब</span>
     </div>
-    <a href="/hi/contact" class="btn btn-primary">
-      Book my slot
-      <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+    <a href="/hi/contact" class="btn btn-primary">अपना स्थान बुक करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
     </a>
   </div>
 </section>
@@ -422,17 +422,15 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section why bg-parchment">
   <div class="container why__grid">
     <div class="why__left reveal">
-      <p class="overline">Why CrossPals</p>
-      <h2>We Solved the Hard Parts<br/><em>So You Don't Have To</em></h2>
+      <p class="overline">CrossPals क्यों?</p>
+      <h2>हमने मुश्किल हिस्से हल कर दिए हैं<br/><em>ताकि आपको न करना पड़े</em></h2>
       <div class="divider" style="margin:var(--s6) 0;"></div>
       <div class="lede-row">
-        <p style="font-size:15px;line-height:1.72;">Most sellers fail at China sourcing because of language barriers, payment risk, and quality uncertainty. CrossPals eliminates all three.</p>
-        <a href="/hi/contact" class="btn btn-primary">
-          Get a free quote
-          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        <p style="font-size:15px;line-height:1.72;">अधिकांश विक्रेता चीन से सोर्सिंग में भाषा बाधाओं, भुगतान जोखिम और गुणवत्ता की अनिश्चितता के कारण असफल होते हैं। CrossPals इन तीनों को समाप्त करता है।</p>
+        <a href="/hi/contact" class="btn btn-primary">निःशुल्क उद्धरण प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
         </a>
       </div>
-      <ImgPlaceholder src="/img/team-wide.webp" seed={15} width={560} height={420} ratio="4/3" alt="CrossPals team" />
+      <ImgPlaceholder src="/img/team-wide.webp" seed={15} width={560} height={420} ratio="4/3" alt="CrossPals टीम" />
     </div>
 
     <div class="why__right">
@@ -442,7 +440,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
           <div class="why-item__body">
             <h4>{w.title}</h4>
             <p>{w.body}</p>
-            <p class="sidenote why-item__note">CrossPals standard — applies to every order, not just the big ones.</p>
+            <p class="sidenote why-item__note">CrossPals मानक — हर ऑर्डर पर लागू, सिर्फ बड़े ऑर्डर पर नहीं।</p>
           </div>
         </div>
       ))}
@@ -456,14 +454,14 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
     <div class="blog-prev__head reveal">
       <div>
         <p class="overline">Resources</p>
-        <h2>For Amazon &amp; Shopify<br/><em>Sellers</em></h2>
+        <h2>Amazon और Shopify के लिए<br/><em>Sellers</em></h2>
       </div>
-      <a href="/hi/blog" class="btn btn-outline">All articles →</a>
+      <a href="/hi/blog" class="btn btn-outline">सभी लेख →</a>
     </div>
 
     <div class="blog-prev__grid">
       {blogPosts.map((post, i) => (
-        <a href={`/blog/${post.slug}`} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
+        <a href={contentLink(PAGE_LANG, 'blog', post.slug)} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
           <ImgPlaceholder
             src={post.cover}
             width={i === 0 ? 720 : 640}
@@ -489,8 +487,8 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="section--tight">
   <div class="container">
     <div class="guar-head reveal">
-      <p class="overline">Our Guarantees</p>
-      <h2>What You Get, <em>Every Order</em></h2>
+      <p class="overline">हमारी गारंटी</p>
+      <h2>आपको क्या मिलेगा, <em>हर ऑर्डर पर</em></h2>
     </div>
     <div class="guarantee reveal">
       {guarantees.map((g, i) => (
@@ -504,8 +502,8 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
       ))}
     </div>
     <div class="guar-lede lede-row reveal">
-      <p class="lede-row__text">How each one actually works — the steps, the checklist, and what happens if it fails.</p>
-      <a href="/hi/services#guarantees" class="btn btn-ghost">See how it works →</a>
+      <p class="lede-row__text">यह वास्तव में कैसे काम करता है — चरण, चेकलिस्ट, और अगर यह फेल होता है तो क्या होता है।</p>
+      <a href="/hi/services#guarantees" class="btn btn-ghost">यह कैसे काम करता है देखें →</a>
     </div>
   </div>
 </section>
@@ -514,22 +512,19 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 <section class="cta-final grain" style="position:relative;overflow:hidden;">
   <div class="container cta-final__inner">
     <div class="cta-final__text reveal">
-      <span class="seal cta-final__seal" aria-hidden="true"><span>Ready</span><span>48h</span></span>
-      <p class="overline overline--light">Ready?</p>
-      <h2 class="text-white" style="margin:var(--s3) 0 var(--s4);font-size:clamp(30px,4.4vw,56px);">
-        Your First Supplier<br/><em style="color:var(--avo-300)">Is 48 Hours Away</em>
+      <span class="seal cta-final__seal" aria-hidden="true"><span>Ready</span><span>48 घंटे</span></span>
+      <p class="overline overline--light">तैयार?</p>
+      <h2 class="text-white" style="margin:var(--s3) 0 var(--s4);font-size:clamp(30px,4.4vw,56px);">आपका पहला सप्लायर<br/><em style="color:var(--avo-300)">48 घंटे दूर है</em>
       </h2>
-      <p class="text-light" style="max-width:400px;">No commitment. No experience needed. Just tell us what you want to source.</p>
+      <p class="text-light" style="max-width:400px;">कोई प्रतिबद्धता नहीं। किसी अनुभव की आवश्यकता नहीं। बस हमें बताएं कि आप क्या सोर्स करना चाहते हैं।</p>
     </div>
     <div class="cta-final__form reveal reveal-delay-2">
       <form class="quick-form" action="/contact" method="GET">
-        <input type="text" name="product" placeholder="What do you want to source?" required />
-        <button type="submit" class="btn btn-primary">
-          Get quotes
-          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        <input type="text" name="product" placeholder="आप क्या सोर्स करना चाहते हैं?" required />
+        <button type="submit" class="btn btn-primary">क्वोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
         </button>
       </form>
-      <p class="cta-final__note">Or <a href={PHONE.wa}>chat on WhatsApp</a> · Free, no commitment</p>
+      <p class="cta-final__note">Or <a href={PHONE.wa}>WhatsApp पर चैट करें</a> · निःशुल्क, कोई प्रतिबद्धता नहीं</p>
     </div>
   </div>
 </section>

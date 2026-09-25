@@ -1,15 +1,21 @@
 ---
 import { EMAIL } from '../config/site';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
-interface Props { lang?: string }
-const { lang = 'en' } = Astro.props;
+interface Props { /** @deprecated 语言已改为从 URL 推导，此属性仅为兼容旧调用保留 */ lang?: string }
+// 语言从 URL 推导（/hi/contact → hi），文案全部走词典（src/data/i18n/<lang>.json，由 CMS 维护）
+// —— 这样新增语言时本组件零改动，不再需要在这里加语言分支
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 // 邮箱取自 src/data/site.json（CMS 可改），不要在组件里写死
 const mail = lang === 'ja' ? (EMAIL.ja ?? EMAIL.en) : EMAIL.en;
 
-const l = lang === 'ja' ? {
-  name:'お名前', email:'メールアドレス', country:'国', product:'調達したい製品', budget:'予算目安（USD）', msg:'補足情報（任意）', submit:'お問い合わせを送信', np:'山田 太郎', ep:'taro@example.com', cp:'日本、ブラジル、メキシコ…', bp:'$500 – $5,000', pp:'例：スマホケース、500個、オリジナルパッケージ…', mp:'納期、要件、ご質問など…', note:'通常24時間以内に返信します', fb:'メールをご希望の方',
-} : {
-  name:'Your Name', email:'Email Address', country:'Country', product:'Product you want to source', budget:'Estimated Budget (USD)', msg:'Additional details (optional)', submit:'Send Inquiry', np:'Alex Johnson', ep:'alex@example.com', cp:'Nigeria, Brazil, Mexico…', bp:'$500 – $5,000', pp:'E.g. Phone cases, 500 units, custom packaging…', mp:'Timeline, requirements, questions…', note:'Typical reply within 24 hours', fb:'Prefer email?',
+const l = {
+  name: t('contact_name'), email: t('contact_email'), country: t('contact_country'),
+  product: t('contact_product'), budget: t('contact_budget'), msg: t('contact_msg'),
+  submit: t('contact_submit'), note: t('contact_note'), fb: t('contact_fb'),
+  np: t('contact_ph_name'), ep: t('contact_ph_email'), cp: t('contact_ph_country'),
+  pp: t('contact_ph_product'), bp: t('contact_ph_budget'), mp: t('contact_ph_msg'),
 };
 ---
 <form class="cform" action="https://api.web3forms.com/submit" method="POST">

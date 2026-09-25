@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: kitchen-defects-caught
 title: "A 30% defect rate on a 500-unit order — caught before it shipped"
 client: "Amazon seller · United States · Kitchen & Dining"
 summary: "A repeat order the seller was about to place blind — same factory, no inspection. We inspected first, and the batch did not pass."

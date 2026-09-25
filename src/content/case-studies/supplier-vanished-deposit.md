@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: supplier-vanished-deposit
 
 description: "UK seller lost 30% deposit to unresponsive supplier. Found a verified factory, secured payments via milestones, & safely rebuilt the order. Learn how."
 title: "A supplier vanished after the deposit — so we rebuilt the order safely"

@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_URL, PHONE, EMAIL, COMPANY } from '../config/site';
+import { useTranslations } from '../i18n/utils';
 import '../styles/global.css';
 
 interface Props {
@@ -22,6 +23,7 @@ const {
   article,
   alternates,
 } = Astro.props;
+const t = useTranslations(lang);
 const SITE = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(Astro.url.pathname, SITE);
 const ogImage   = new URL('/og-image.png', SITE);
@@ -106,7 +108,7 @@ const jsonLd = article
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <a href="#main" class="skiplink">Skip to content</a>
+    <a href="#main" class="skiplink">{t('a11y_skip')}</a>
     <Header />
     <main id="main">{/* @ts-ignore */}<slot /></main>
     <Footer />

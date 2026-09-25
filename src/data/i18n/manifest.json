@@ -37,5 +37,18 @@
       "/services",
       "/terms"
     ]
+  },
+  "ko": {
+    "prefix": "ko",
+    "pages": [
+      "/about",
+      "/blog",
+      "/case-studies",
+      "/contact",
+      "/",
+      "/privacy",
+      "/services",
+      "/terms"
+    ]
   }
 }

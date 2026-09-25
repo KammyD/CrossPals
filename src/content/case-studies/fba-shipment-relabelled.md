@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: fba-shipment-relabelled
 title: "An FBA shipment heading for rejection, relabelled in time"
 client: "Amazon · Canada · Electronics Accessories"
 summary: "2,000 units labelled to the wrong spec, already packed and booked. We caught it at the FBA label check and relabelled the whole shipment before it left."

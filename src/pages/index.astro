@@ -5,6 +5,10 @@ import Icon from '../components/Icon.astro';
 import type { IconName } from '../components/Icon.astro';
 import { PHONE } from '../config/site';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink } from '../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = defaultLang;
 
 /* ── 服务（每项带一条独立定价说明） ── */
 const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
@@ -79,8 +83,7 @@ const pricingFees: Array<{ label: string; value: string; note: string }> = [
 ];
 
 /* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
-const blogPosts = (await getCollection('blog'))
-  .filter(p => !p.data.draft)
+const blogPosts = entriesForLang((await getCollection('blog')).filter(p => !p.data.draft), PAGE_LANG)
   .sort((a, b) => b.data.date.localeCompare(a.data.date))
   .slice(0, 3)
   .map(p => ({ slug: p.slug, cat: p.data.category, title: p.data.title, time: p.data.readTime, cover: p.data.cover }));
@@ -463,7 +466,7 @@ const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys &
 
     <div class="blog-prev__grid">
       {blogPosts.map((post, i) => (
-        <a href={`/blog/${post.slug}`} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
+        <a href={contentLink(PAGE_LANG, 'blog', post.slug)} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
           <ImgPlaceholder
             src={post.cover}
             width={i === 0 ? 720 : 640}

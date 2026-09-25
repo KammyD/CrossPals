@@ -10,27 +10,27 @@ import { getCollection } from 'astro:content';
 import { localePath, languageList, defaultLang } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
-  const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+  const PAGE_LANG = 'ja';
   const posts = await getCollection('blog');
   return posts
-    .filter(p => !p.data.draft && p.data.lang === jaCode)
+    .filter(p => !p.data.draft && p.data.lang === PAGE_LANG)
     .map(p => {
-      const slug = p.data.translationKey || p.slug.replace(new RegExp(`-${jaCode}$`), '');
+      const slug = p.data.translationKey || p.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
       return { params: { slug }, props: { post: p } };
     });
 }
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+const PAGE_LANG = 'ja';
 const published = new Date(post.data.date + 'T00:00:00')
   .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
 
 /* hreflang 互指：本文 ↔ 英文原文（translationKey = 各语言共用的基准 slug） */
-const alternates: Record<string, string> = { [jaCode]: Astro.url.pathname };
+const alternates: Record<string, string> = { [PAGE_LANG]: Astro.url.pathname };
 {
   const siblings = await getCollection('blog');
-  const key = post.data.translationKey || post.slug.replace(new RegExp(`-${jaCode}$`), '');
+  const key = post.data.translationKey || post.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
   const enPost = siblings.find(p =>
     !p.data.draft && (!p.data.lang || p.data.lang === defaultLang) && (
       (post.data.translationKey && p.data.translationKey === post.data.translationKey) ||
@@ -40,7 +40,7 @@ const alternates: Record<string, string> = { [jaCode]: Astro.url.pathname };
   if (enPost) alternates[defaultLang] = `/blog/${enPost.slug}/`;
 }
 ---
-<BaseLayout lang={jaCode} title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates}>
+<BaseLayout lang={PAGE_LANG} title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates}>
 
   <div class="article-cover" style="padding-top:var(--hdr-h);">
     <ImgPlaceholder src={post.data.cover} width={1680} height={720} ratio="21/9" priority alt={post.data.title} />
@@ -48,7 +48,7 @@ const alternates: Record<string, string> = { [jaCode]: Astro.url.pathname };
 
   <header class="article-hdr">
     <div class="container article-hdr__inner">
-      <a href={localePath(jaCode, '/blog/')} class="back">← ブログ一覧</a>
+      <a href={localePath(PAGE_LANG, '/blog/')} class="back">← ブログ一覧</a>
       <span class="article-cat">{post.data.category}</span>
       <h1>{post.data.title}</h1>
       <div class="article-meta">
@@ -74,7 +74,7 @@ const alternates: Record<string, string> = { [jaCode]: Astro.url.pathname };
           <p class="overline">Explore</p>
           <a href={localePath(defaultLang, '/services')}>FBA Sourcing &amp; Inspection →</a>
           <a href={localePath(defaultLang, '/case-studies')}>Case Studies →</a>
-          <a href={localePath(jaCode, '/blog/')}>ブログ一覧 →</a>
+          <a href={localePath(PAGE_LANG, '/blog/')}>ブログ一覧 →</a>
         </nav>
       </aside>
     </div>

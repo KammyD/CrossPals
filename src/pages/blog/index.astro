@@ -3,22 +3,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
-import { defaultLang } from '../../i18n/utils';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/blog/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = defaultLang;
 
 /* 文章列表来自 src/content/blog/*.md —— 新增一篇文章只需新建一个 md 文件。
-   多语言译文（frontmatter 带 lang 的文件，如 x-ja.md）与原文同目录存放，
-   英文列表只渲染默认语言的条目，避免日语文章混进英文列表。 */
-const all = (await getCollection('blog'))
-  .filter(p => !p.data.draft)
-  .filter(p => !p.data.lang || p.data.lang === defaultLang)
+   多语言译文（frontmatter 带 lang 的文件，如 x-hi.md）与原文同目录存放，
+   靠 entriesForLang 按 PAGE_LANG 挑选，避免别的语言文章混进本语言列表。 */
+const all = entriesForLang((await getCollection('blog')).filter(p => !p.data.draft), PAGE_LANG)
   .sort((a, b) => b.data.date.localeCompare(a.data.date));
 
-const featured = all.find(p => p.data.featured) ?? all[0];
-const rest = all.filter(p => p.slug !== featured.slug);
-const cats = ['All', ...Array.from(new Set(all.map(p => p.data.category)))];
+/* 该语言一篇译文都还没有时不能崩整站构建 —— featured 可空，列表自然为空 */
+const featured = all.find(p => p.data.featured) ?? all[0] ?? null;
+const rest = featured ? all.filter(p => p.slug !== featured.slug) : [];
+/* 「全部」用 '*' 作哨兵值 —— 不能拿可译文案当筛选键，否则译文一改前端筛选就整体失效 */
+const ALL_CAT = '*';
+const cats = [ALL_CAT, ...Array.from(new Set(all.map(p => p.data.category)))];
 
-const fmtLong  = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long',  day: 'numeric', year: 'numeric' });
-const fmtShort = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const fmtLong  = (d: string) => fmtDate(PAGE_LANG, d, 'long');
+const fmtShort = (d: string) => fmtDate(PAGE_LANG, d, 'short');
 ---
 <BaseLayout title="Amazon Sellers' Guide: Sourcing & FBA Prep from China" description="Practical guides for Amazon and Shopify sellers sourcing and importing from China." ogImage="/covers/amazon-sellers-guide-social.jpg">
 
@@ -28,7 +32,7 @@ const fmtShort = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en
     <div class="container">
 
       <!-- Featured with large cover image -->
-      <a href={`/blog/${featured.slug}`} class="featured reveal">
+      {featured && (<a href={contentLink(PAGE_LANG, 'blog', featured.slug)} class="featured reveal">
         <div class="featured__img">
           <ImgPlaceholder src={featured.data.cover} width={1000} height={750} ratio="4/3" priority alt={featured.data.title} />
         </div>
@@ -45,19 +49,19 @@ const fmtShort = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en
             <span class="featured__read">Read article →</span>
           </div>
         </div>
-      </a>
+      </a>)}
 
       <!-- Filter -->
       <div class="cat-bar" id="catBar">
         {cats.map(c => (
-          <button class:list={['cat-btn', { 'cat-btn--on': c === 'All' }]} data-cat={c}>{c}</button>
+          <button class:list={['cat-btn', { 'cat-btn--on': c === ALL_CAT }]} data-cat={c}>{c === ALL_CAT ? 'All' : c}</button>
         ))}
       </div>
 
       <!-- Post grid with cover images -->
       <div class="posts" id="postsGrid">
         {rest.map((post, i) => (
-          <a href={`/blog/${post.slug}`} class:list={['pcard reveal', `reveal-delay-${i % 3}`]} data-cat={post.data.category}>
+          <a href={contentLink(PAGE_LANG, 'blog', post.slug)} class:list={['pcard reveal', `reveal-delay-${i % 3}`]} data-cat={post.data.category}>
             <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
             <div class="pcard__body">
               <span class="pcard__cat">{post.data.category}</span>
@@ -96,8 +100,9 @@ const fmtShort = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('cat-btn--on'));
       btn.classList.add('cat-btn--on');
       const cat = btn.dataset.cat!;
+      // '*' = 「全部」哨兵值（服务端 ALL_CAT 的值；客户端脚本取不到那个常量，故写死同一个字面量）
       document.querySelectorAll<HTMLElement>('.pcard').forEach(c => {
-        c.style.display = (cat === 'All' || c.dataset.cat === cat) ? '' : 'none';
+        c.style.display = (cat === '*' || c.dataset.cat === cat) ? '' : 'none';
       });
     });
   });

@@ -7,15 +7,15 @@ import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
 import { localePath, languageList, defaultLang } from '../../../i18n/utils';
 
-const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+const PAGE_LANG = 'ja';
 const posts = (await getCollection('blog'))
-  .filter(p => !p.data.draft && p.data.lang === jaCode)
+  .filter(p => !p.data.draft && p.data.lang === PAGE_LANG)
   .sort((a, b) => b.data.date.localeCompare(a.data.date));
 
 const fmtDate = (d: string) => new Date(d + 'T00:00:00')
   .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
-<BaseLayout lang={jaCode} title="ブログ | CrossPals" description="中国調達・仕入れの実践ノウハウを日本語で解説します。">
+<BaseLayout lang={PAGE_LANG} title="ブログ | CrossPals" description="中国調達・仕入れの実践ノウハウを日本語で解説します。">
 
   <section class="ja-hero">
     <div class="container">
@@ -32,9 +32,9 @@ const fmtDate = (d: string) => new Date(d + 'T00:00:00')
       ) : (
         <div class="ja-posts">
           {posts.map((post) => {
-            const slug = post.data.translationKey || post.slug.replace(new RegExp(`-${jaCode}$`), '');
+            const slug = post.data.translationKey || post.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
             return (
-              <a href={localePath(jaCode, `/blog/${slug}/`)} class="ja-card">
+              <a href={localePath(PAGE_LANG, `/blog/${slug}/`)} class="ja-card">
                 <div class="ja-card__img">
                   <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
                 </div>

@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { defaultLang, localePath, languageList, entriesForLang, baseSlug, fmtDate } from '../../../i18n/utils';
+
+/* 本页语言 —— 源页写默认语言；CMS 脚手架复制出 /<prefix>/blog/[slug].astro 时
+   会把这一行改成 `const PAGE_LANG = '<语言码>';`，取数/链接/日期随之全部切换。
+   ★ 页面里不要再出现 defaultLang，否则加语言后仍会取英文条目。 */
+const PAGE_LANG = 'ko';
+
+/* 文章正文来自 src/content/blog/*.md。
+   译文与原文同目录、文件名加 -<语言码> 后缀，靠 entriesForLang 按 PAGE_LANG 挑选。 */
+export async function getStaticPaths() {
+  // ⚠ Astro 的 getStaticPaths 跑在独立作用域，拿不到模块级常量 —— 必须在这里再声明一次。
+  // 两处字面量由 CMS 脚手架一起改写（`const PAGE_LANG = 'ko';` 全局替换），值恒相同。
+  const PAGE_LANG = 'ko';
+  const posts = await getCollection('blog');
+  return entriesForLang(posts.filter(p => !p.data.draft), PAGE_LANG)
+    .map(p => ({ params: { slug: baseSlug(p.slug, PAGE_LANG) }, props: { post: p } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const published = fmtDate(PAGE_LANG, post.data.date);
+
+/* hreflang 互指：找出这篇的各语言译文（translationKey 相同，或基准 slug 相同） */
+const selfSlug = baseSlug(post.slug, PAGE_LANG);
+const alternates: Record<string, string> = { [PAGE_LANG]: localePath(PAGE_LANG, `/blog/${selfSlug}/`) };
+{
+  const siblings = await getCollection('blog');
+  for (const l of languageList) {
+    if (l.code === PAGE_LANG) continue;
+    const alt = siblings.find(p => p.data.lang === l.code && !p.data.draft && (
+      (p.data.translationKey && p.data.translationKey === post.data.translationKey) ||
+      baseSlug(p.slug, l.code) === selfSlug
+    ));
+    if (alt) {
+      const altSlug = alt.data.translationKey || baseSlug(alt.slug, l.code);
+      alternates[l.code] = localePath(l.code, `/blog/${altSlug}/`);
+    }
+  }
+}
+---
+<BaseLayout title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates} lang="ko">
+
+  <!-- Article hero with full-width cover image -->
+  <div class="article-cover" style="padding-top:var(--hdr-h);">
+    <ImgPlaceholder src={post.data.cover} width={1680} height={720} ratio="21/9" priority alt={post.data.title} />
+  </div>
+
+  <header class="article-hdr">
+    <div class="container article-hdr__inner">
+      <a href="/ko/blog" class="back">← 블로그로 돌아가기</a>
+      <span class="article-cat">{post.data.category}</span>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta">
+        <time>{published}</time>
+        <span>·</span><span>{post.data.readTime} read</span>
+        <span>·</span><span>CrossPals 팀</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container article-grid">
+      <div class="prose reveal"><Content /></div>
+
+      <aside class="article-aside reveal reveal-delay-2">
+        <div class="aside-cta">
+          <p class="overline">도움이 필요하세요?</p>
+          <h4>무료 견적 받기</h4>
+          <p>상품에 대해 알려주세요. 검증된 공급업체와 48시간 내 완벽한 가격 분석을 제공합니다.</p>
+          <a href="/ko/contact" class="btn btn-primary" style="margin-top:var(--s5);">무료 견적 받기<svg class="arrow-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <nav class="aside-nav">
+          <p class="overline">Explore</p>
+          <a href="/ko/services">FBA 조달 및 검수 →</a>
+          <a href="/ko/case-studies">사례 연구 →</a>
+          <a href="/ko/blog">모든 글 보기 →</a>
+        </nav>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* padding-top 只是给固定顶栏让位，限幅要把它加回来，否则图片被压扁 */
+  .article-cover{max-height:calc(44vh + var(--hdr-h));min-height:260px;overflow:hidden;}
+  .article-cover :global(.img-ph){border-radius:0;}
+  .article-cover :global(.img-ph__wrap){border-radius:0;}
+  .article-hdr{background:var(--warm-100);padding:var(--s6) 0 var(--s5);border-bottom:1px solid var(--border-light);}
+  .article-hdr__inner{max-width:820px;}
+  .back{display:inline-block;font-size:13px;font-weight:600;font-family:var(--font-mono);color:var(--text-body);text-decoration:none;margin-bottom:var(--s3);transition:color var(--t-fast);letter-spacing:0.04em;}
+  .back:hover{color:var(--seal);}
+  .article-cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--avo-600);display:block;margin-bottom:var(--s2);}
+  .article-hdr h1{margin-bottom:var(--s3);max-width:760px;}
+  .article-meta{display:flex;align-items:center;gap:var(--s3);font-size:12px;color:var(--warm-400);font-family:var(--font-mono);}
+  .article-grid{display:grid;grid-template-columns:1fr 280px;gap:var(--s6);align-items:start;}
+  .prose{font-size:16.5px;line-height:1.72;color:var(--text-body);max-width:660px;}
+  .prose :global(p){margin-bottom:var(--s4);}
+  .prose :global(h2){font-family:var(--font-serif);font-size:clamp(21px,2.3vw,26px);color:var(--warm-950);margin:var(--s6) 0 var(--s3);padding-top:var(--s5);border-top:2px solid var(--seal);}
+  .prose :global(h2:first-child){margin-top:0;border-top:none;padding-top:0;}
+  .prose :global(strong){color:var(--warm-950);}
+  .prose :global(a){color:var(--seal);font-weight:600;text-decoration:underline;text-decoration-color:var(--seal-soft);}
+  .article-aside{position:sticky;top:84px;display:flex;flex-direction:column;gap:var(--s4);}
+  .aside-cta{background:var(--avo-950);border-left:2px solid var(--seal);padding:var(--s5);color:#fff;}
+  .aside-cta .overline{color:rgba(255,255,255,.45);margin-bottom:var(--s2);}
+  .aside-cta h4{color:#fff;font-size:16px;margin-bottom:var(--s2);}
+  .aside-cta>p{font-size:13.5px;color:rgba(255,255,255,.6);}
+  .aside-nav{background:var(--warm-100);border-top:2px solid var(--seal);padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s2);}
+  .aside-nav .overline{margin-bottom:var(--s2);}
+  .aside-nav a{font-size:14px;font-weight:600;color:var(--avo-800);text-decoration:none;transition:color var(--t-fast);}
+  .aside-nav a:hover{color:var(--seal);}
+  @media(max-width:860px){.article-grid{grid-template-columns:1fr}.article-aside{position:static}}
+</style>

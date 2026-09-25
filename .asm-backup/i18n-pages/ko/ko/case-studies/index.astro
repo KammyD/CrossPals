@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/case-studies/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = 'ko';
+
+/* 案例来自 src/content/case-studies/*.md —— 新增案例只需新建一个 md 文件 */
+const cases = entriesForLang((await getCollection('case-studies')).filter(c => !c.data.draft), PAGE_LANG)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const num = (i: number) => String(i + 1).padStart(2, '0');
+const fmt = (d: string) => fmtDate(PAGE_LANG, d, 'monthYear');
+---
+<BaseLayout title="Case Studies" description="Real orders CrossPals sourced, inspected, and prepped for Amazon FBA sellers — the problem, what we did, and the result." lang="ko">
+
+  <PageHero
+    overline="Case Studies"
+    title="Real Orders,<br/><em style='font-style:italic;color:var(--avo-300)'>Real Results</em>"
+    subtitle="Orders, anonymised: the problem a seller had, what we did about it, and what changed. Numbers first, adjectives second."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="cases">
+        {cases.map((c, i) => (
+          <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
+            <ImgPlaceholder src={c.data.cover} width={800} height={600} ratio="4/3" alt={c.data.title} />
+
+            <div class="ccard__body">
+              <div class="ccard__head">
+                <span class="indexnum ccard__n">{num(i)}</span>
+                <span class="ccard__client">{c.data.client}</span>
+              </div>
+
+              <h3>{c.data.title}</h3>
+              <p class="ccard__sum">{c.data.summary}</p>
+
+              <div class="ccard__results">
+                {c.data.results.map(r => (
+                  <div class="ccard__res">
+                    <strong>{r.v}</strong>
+                    <span>{r.l}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="ccard__foot">
+                <time>{fmt(c.data.date)}</time>
+                <span class="ccard__more">Learn more →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA → 报价表单 -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <span class="seal cta-seal" aria-hidden="true"><span>Your</span><span>Turn</span></span>
+      <p class="overline overline--light reveal">Next case study</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
+        Let's Make Yours<br/><em style="color:var(--avo-300)">The Next One</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
+        Tell us what you want to source. We'll come back with verified suppliers and a full price breakdown within 48 hours.
+      </p>
+      <a href="/ko/contact" class="btn btn-primary reveal reveal-delay-3">
+        Get a free quote
+        <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* 卡片网格：图 + 概览 + 结果指标，右下角进详情页 */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);align-items:stretch;}
+  .ccard{background:#fff;border:1px solid var(--warm-200);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:var(--t-med);overflow:hidden;}
+  .ccard:hover{border-color:var(--avo-300);}
+  .ccard :global(.img-ph){border-radius:0;flex-shrink:0;}
+  .ccard :global(.img-ph__wrap){border-radius:0;}
+  .ccard__body{padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+  /* 序号独占一行，「类别标签」另起一行 —— 不再和序号挤在同一行 */
+  .ccard__head{display:block;}
+  .ccard__n{display:block;font-size:26px;}
+  .ccard__client{display:block;margin-top:9px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);}
+  .ccard h3{font-size:17px;line-height:1.34;transition:color var(--t-fast);}
+  .ccard:hover h3{color:var(--seal);}
+  .ccard__sum{font-size:13px;line-height:1.62;color:var(--text-body);}
+  .ccard__results{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);border-top:2px solid var(--seal);padding-top:var(--s3);}
+  .ccard__res strong{display:block;font-family:var(--font-serif);font-size:19px;font-weight:600;color:var(--avo-700);line-height:1.1;margin-bottom:3px;}
+  .ccard__res span{font-family:var(--font-mono);font-size:9.5px;line-height:1.45;color:var(--text-muted);display:block;}
+  .ccard__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);font-size:11px;color:var(--warm-400);font-family:var(--font-mono);padding-top:var(--s3);border-top:1px solid var(--warm-200);margin-top:auto;}
+  .ccard__more{color:var(--seal);font-weight:600;}
+  .cta-seal{display:inline-flex;margin-bottom:var(--s4);background:rgba(28,33,20,.4);border-color:var(--seal);color:#fff;}
+
+  @media(max-width:1000px){.cases{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){
+    .cases{grid-template-columns:1fr;}
+    .ccard__results{grid-template-columns:repeat(3,1fr);gap:var(--s2);}
+    .ccard__res strong{font-size:17px;}
+  }
+</style>

@@ -1,0 +1,810 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+import { PHONE } from '../../config/site';
+import { getCollection } from 'astro:content';
+
+/* ── 服务（每项带一条独立定价说明） ── */
+const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
+  { icon: 'sourcing',    n: '01', title: 'Product Sourcing',     body: 'We search thousands of Chinese suppliers — 1688, Alibaba, and direct factory networks — to find the exact match for your budget and standards.', price: '<b>$1,000</b> order → <b>$80</b> sourcing fee (8%). We push the unit price down and add no markup to it.', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: 'Quality Inspection',   body: 'Physical inspection at the factory before your goods ship. Detailed photo report, defect counts, and a clear pass/fail so you never ship blind.', price: '<b>$1,000</b> order → <b>$150</b> flat inspection (half-day). Full photo report included.', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: 'Purchasing & Payment', body: 'We negotiate in Chinese and handle all payments to verified suppliers. Your money is protected at every step — no wires to strangers.', price: '<b>$1,000</b> order → 30% deposit / 70% after QC. <b>5–8%</b> handling, no hidden markups.', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: 'Shipping & Logistics', body: 'Door-to-door worldwide. We compare air, sea, and express options, then handle customs docs and give you real-time tracking.', price: '<b>$1,000</b> order → freight at the carrier\'s live quote. <b>$0</b> added on top.', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
+];
+
+/* ── 三个真实 FBA 卖家场景（Facebook 群组每天都在发的帖） ── */
+const scenarios: Array<{ quote: string; tag: string; title: string; body: string; cta: string }> = [
+  { quote: 'I ordered 500 units and got 30% defects.', tag: 'Inspected before it ships', title: 'Quality Inspection',
+    body: 'We check the whole batch at the factory — measuring, testing, and counting defects on camera. If the pass rate falls short, the supplier reworks or replaces before a single box leaves China.',
+    cta: 'See how inspection works' },
+  { quote: 'My supplier disappeared after I paid.', tag: 'Verified before you pay', title: 'Supplier Verification',
+    body: 'We never wire a supplier we have not verified. Business licence, factory address, export history, and a live video walkthrough — checked before you release a deposit, not after.',
+    cta: 'See how we vet suppliers' },
+  { quote: 'I don\'t know if my product meets FBA requirements.', tag: 'FBA-ready before it leaves', title: 'FBA Prep',
+    body: 'We label, poly-bag, bundle, weigh, and measure to Amazon\'s exact spec — then hand you carton labels and a packing list that clears receiving the first time.',
+    cta: 'See FBA prep' },
+];
+
+/* ── 独立质检模块：5 项质检标准 ── */
+const inspectionStandards: Array<{ n: string; title: string; body: string }> = [
+  { n: '01', title: 'Appearance',      body: 'Surface, colour, print and finish checked against your approved sample.' },
+  { n: '02', title: 'Dimensions',      body: 'Length, width, weight and tolerances measured with calipers and scales.' },
+  { n: '03', title: 'Function test',   body: 'Every sampled unit powered on, assembled or used the way your customer will.' },
+  { n: '04', title: 'Packaging',       body: 'Retail box, inserts and poly-bag integrity — plus transit-drop readiness.' },
+  { n: '05', title: 'FBA label check', body: 'FNSKU, carton labels, suffocation warnings, and Amazon barcode scannability.' },
+];
+
+const steps: Array<{ day: string; title: string; body: string }> = [
+  { day: 'Day 1',    title: 'Submit your product',      body: 'Tell us the product, quantity, quality bar, and budget via our simple form.' },
+  { day: 'Day 2',    title: 'Vetted supplier options',  body: '3–5 verified suppliers with pricing and profiles, in your inbox within 48 hours.' },
+  { day: 'Day 7–20', title: 'We buy & inspect',         body: 'We pay the supplier, oversee production, and send a full QC photo report before anything ships.' },
+  { day: 'Day 21+',  title: 'FBA-ready, delivered',     body: 'Goods leave China labelled and packed to Amazon spec, customs handled, with tracking.' },
+];
+
+/* ── 证言：FBA 卖家格式（品类 / 订单 / 问题 / 结果） ── */
+const testiFeatured = {
+  quote: 'I sell kitchen gadgets on Amazon US. CrossPals sourced my hero product, caught 15 defective units before shipping, and got everything FBA-ready in 18 days. Reordered twice since.',
+  name: 'Marcus T.', meta: 'Amazon seller · United States · Kitchen & Dining',
+  result: '15 defects caught pre-ship · FBA-ready in 18 days', avatar: '/img/avatar-nigeria.webp',
+};
+const testiSmall = [
+  { quote: 'First private-label order — 800 units of pet supplies. They verified the factory, caught a packaging problem, and it hit FBA without a single rejection.',
+    name: 'Ana R.', meta: 'Amazon FBA · Spain · Pet Supplies', result: '0 FBA rejections', avatar: '/img/avatar-mexico.webp' },
+  { quote: 'My previous supplier ghosted me after the deposit. CrossPals vetted a new one, ran the QC themselves, and I never sent money to a stranger again.',
+    name: 'David O.', meta: 'Amazon & Shopify · United Kingdom · Home & Garden', result: '2 reorders', avatar: '/img/avatar-uk.webp' },
+];
+
+const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
+  { icon: 'global',       n: '01', title: 'No Language Barrier',  body: 'We negotiate directly in Chinese — you get factory prices, not tourist prices.' },
+  { icon: 'trust',        n: '02', title: 'Real Accountability',   body: 'A dedicated agent manages your order. You get one person, not a ticket queue.' },
+  { icon: 'handshake',    n: '03', title: 'Built for FBA Sellers', body: 'Everything we do ends in an Amazon-ready carton: sourced, inspected, labelled, packed.' },
+  { icon: 'transparent',  n: '04', title: 'Transparent Costs',     body: 'Supplier price + freight + our fee. You see every number before committing.' },
+];
+
+/* 首页只给承诺（结果），不说过程；过程全部放到 Services 页的展开模块 */
+const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
+  { icon: 'trust',      title: 'Verified suppliers only', body: 'We vet every supplier before you pay a cent.' },
+  { icon: 'inspection', title: 'QC before shipping',      body: 'Photo report + pass/fail before your money moves.' },
+  { icon: 'payment',    title: 'Payment protection',      body: 'We hold funds until milestones clear. No wires to strangers.' },
+  { icon: 'shipping',   title: 'DDP door delivery',       body: 'Tracking and goods — not paperwork.' },
+];
+
+const pricingFees: Array<{ label: string; value: string; note: string }> = [
+  { label: 'Agent fee',     value: '5–8% of order value', note: '$10,000 order = $600 agent fee' },
+  { label: 'Inspection',    value: '$150 / day',          note: 'Most orders finish in half a day' },
+  { label: 'FBA Prep',      value: 'Per unit',            note: 'Itemised line-by-line on your quote' },
+  { label: 'Freight',       value: 'At carrier quote',    note: 'Nothing added on top of the carrier price' },
+];
+
+/* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
+const blogPosts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 3)
+  .map(p => ({ slug: p.slug, cat: p.data.category, title: p.data.title, time: p.data.readTime, cover: p.data.cover }));
+
+const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
+const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
+const tickerItems = ['FBA Prep', 'Pre-Shipment QC', '1688 Sourcing', 'Supplier Verification', 'DDP Shipping', 'Private Label', 'Product Photography', 'Amazon FBA', 'HeBei · BaoDing → World', 'QC Photo Reports', 'No Hidden Fees'];
+const categories = ['Kitchen & Dining', 'Home & Garden', 'Pet Supplies', 'Toys & Games', 'Sports & Outdoors', 'Beauty & Personal Care', 'Electronics Accessories', 'Office Products'];
+---
+<BaseLayout
+  title="The sourcing partner Amazon sellers trust"
+  description="CrossPals sources, inspects, and preps products for FBA — supplier verification, pre-shipment QC, and FBA prep, so you can focus on selling, not suppliers."
+ lang="hi">
+
+<!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══ -->
+<div class="topband">
+  <a href="/hi/contact" class="announce announce--dark">
+    <span class="announce__dot" aria-hidden="true"></span>
+    <span><strong>New:</strong> free sourcing consultation for first-time importers — supplier shortlist in 48h</span>
+    <span class="announce__arrow" aria-hidden="true">→</span>
+  </a>
+
+  <div class="masthead">
+    <div class="container masthead__inner">
+      <span>CrossPals · China Sourcing Manual</span>
+      <span class="masthead__rule" aria-hidden="true"></span>
+      <span>Issue Nº01 — MMXXVI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO — 面向 Amazon 卖家 ═══ -->
+<section class="hero grain" style="position:relative;overflow:hidden;">
+  <div class="hero__grid">
+    <div class="hero__left">
+      <div class="hero__left-inner">
+        <p class="overline overline--light">China sourcing for FBA sellers</p>
+        <h1 class="hero__title">The sourcing partner Amazon sellers trust — <em>quality inspection included.</em></h1>
+        <p class="hero__lead">We source, inspect, and prep your products for FBA — so you can focus on selling, not suppliers.</p>
+
+        <p class="hero__sidenote">Fig. 00 — Most FBA sellers lose money to language gaps, fake suppliers, and blind shipments. We close all three.</p>
+
+        <div class="hero__actions">
+          <a href="/hi/contact" class="btn btn-primary">
+            Get a free quote
+            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          </a>
+          <a href="/hi/services" class="btn btn-ghost">See how it works</a>
+        </div>
+
+        <ul class="hero__index">
+          <li><span>01</span> Source</li>
+          <li><span>02</span> Inspect</li>
+          <li><span>03</span> Prep for FBA</li>
+          <li><span>04</span> Deliver</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero__right">
+      <div class="hero__photo-fill">
+        <ImgPlaceholder src="/img/hero-warehouse.webp" seed={42} width={900} height={1100} ratio="9/11" priority
+          alt="China factory warehouse — CrossPals sourcing" />
+      </div>
+      <div class="hero__cap">
+        <span class="hero__cap-label">Fig. 01</span>
+        <span class="hero__cap-text">HeBei · BaoDing, China</span>
+        <span class="seal seal--sm" aria-hidden="true"><span>Verified</span><span>Agent</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {[...tickerItems, ...tickerItems].map(t => <span class="ticker__item">{t}</span>)}
+  </div>
+</div>
+
+<!-- ═══ 信任带：服务场景标识 + 数字指标（替代原来的国家旗帜列表） ═══ -->
+<section class="trustbar" aria-label="What we handle and who we serve">
+  <div class="container">
+    <p class="overline" style="margin-bottom:var(--s4);">Sourcing, inspecting &amp; prepping for Amazon &amp; Shopify sellers in</p>
+    <div class="regionwall reveal">
+      {categories.map(c => <span>{c}</span>)}
+    </div>
+    <ul class="trustmetrics reveal reveal-delay-1">
+      <li><b>47</b><span>Amazon sellers served</span></li>
+      <li><b>$2.3M<em>+</em></b><span>In sourced goods</span></li>
+      <li><b>98<em>%</em></b><span>On-time delivery</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ SERVICES — 每项带独立定价说明 ═══ -->
+<section class="section svc ledger">
+  <div class="container svc__wrap">
+    <aside class="svc__aside">
+      <p class="overline">What We Do</p>
+      <h2 class="svc__h">End-to-End<br/><em>China Sourcing</em></h2>
+      <p class="svc__intro">Four disciplines, one accountable agent. Each step is documented, photographed, and priced before your money moves.</p>
+      <a href="/hi/services" class="svc__all">Full service index →</a>
+    </aside>
+
+    <ol class="svc__list">
+      {services.map(s => (
+        <li class:list={['svc-row reveal', `reveal-delay-${s.delay}`]}>
+          <div class="svc-row__num"><span class="indexnum">{s.n}</span></div>
+          <div class="svc-row__thumb">
+            <ImgPlaceholder src={'/img/'+svcImg[s.seed]+'.webp'} seed={s.seed} width={360} height={240} ratio="3/2" alt={s.title} />
+          </div>
+          <div class="svc-row__body">
+            <div class="svc-row__top">
+              <h3>{s.title}</h3>
+            </div>
+            <div class="lede-row">
+              <p>{s.body}</p>
+              <a href="/hi/services" class="svc-row__link">Learn more
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <div class="price-note">
+              <span class="price-note__label">Price</span>
+              <span class="price-note__calc" set:html={s.price} />
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section hiw grain" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="hiw__head reveal">
+      <p class="overline overline--light">Process</p>
+      <h2 class="text-white">From Supplier to<br/><em style="color:var(--avo-300)">FBA-Ready in 4 Steps</em></h2>
+    </div>
+
+    <div class="manifest reveal reveal-delay-1">
+      {steps.map((step, i) => (
+        <div class:list={['manifest__col', { 'manifest__col--end': i === steps.length - 1 }]}>
+          <span class="manifest__day">{step.day}</span>
+          <span class="manifest__n">{String(i + 1).padStart(2, '0')}</span>
+          <h4 class="manifest__title">{step.title}</h4>
+          <p class="manifest__body">{step.body}</p>
+        </div>
+      ))}
+      <div class="manifest__stamp" aria-hidden="true">
+        <span class="seal"><span>Cross</span><span>Pals ✓</span></span>
+      </div>
+    </div>
+
+    <div class="hiw__cta reveal reveal-delay-2">
+      <a href="/hi/contact" class="btn btn-primary">Get a free quote</a>
+      <a href="/hi/case-studies" class="btn btn-ghost">See case studies</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 三个真实 FBA 卖家场景（解决痛点） ═══ -->
+<section class="section scen">
+  <div class="container">
+    <div class="scen__head reveal">
+      <p class="overline">Problems we solve</p>
+      <h2>Three Posts Every<br/><em>Amazon Seller Writes</em></h2>
+      <p class="scen__lead">These are the threads that show up in Amazon seller groups every single day. Here is exactly how we answer each one.</p>
+    </div>
+
+    <div class="scen__list">
+      {scenarios.map((s, i) => (
+        <article class:list={['scen-item reveal', `reveal-delay-${i}`]}>
+          <div class="scen-item__quote">
+            <span class="scen-item__mark" aria-hidden="true">“</span>
+            <p>{s.quote}</p>
+            <span class="scen-item__src">— FBA seller forum post</span>
+          </div>
+          <div class="scen-item__sol">
+            <span class="tag tag-seal">{s.tag}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <a href="/hi/services" class="scen-item__link">{s.cta}
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 独立质检模块（差异化武器） ═══ -->
+<section class="section inspect grain" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="inspect__head reveal">
+      <p class="overline overline--light">Quality Inspection</p>
+      <h2 class="text-white">Every order comes with a<br/><em>full inspection report.</em></h2>
+      <p class="inspect__lead">Not a photo of a box. A structured, line-by-line report against five standards — sent to you before your goods ship, on every order, at every order size.</p>
+    </div>
+
+    <div class="inspect__grid">
+      <ol class="inspect__std reveal">
+        {inspectionStandards.map((s, i) => (
+          <li class:list={['inspect-std', `reveal-delay-${i}`]}>
+            <span class="inspect-std__n">{s.n}</span>
+            <div>
+              <h4>{s.title}</h4>
+              <p>{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <!-- 样例质检报告（客户/供应商信息打码） -->
+      <div class="qcreport reveal reveal-delay-2">
+        <div class="qcreport__head">
+          <span class="qcreport__brand">CrossPals · Pre-Shipment Inspection</span>
+          <span class="qcreport__no">Report № CP-2026-0418</span>
+        </div>
+        <dl class="qcreport__grid">
+          <div><dt>Product</dt><dd>Stainless-steel kitchen gadget</dd></div>
+          <div><dt>Order qty</dt><dd>1,000 pcs</dd></div>
+          <div><dt>Sample size</dt><dd>80 pcs (AQL 2.5)</dd></div>
+          <div><dt>Where</dt><dd>At factory, pre-shipment</dd></div>
+        </dl>
+        <ul class="qcreport__checks">
+          <li><span>Appearance</span><span class="ok">Pass</span></li>
+          <li><span>Dimensions</span><span class="ok">Pass</span></li>
+          <li><span>Function test</span><span class="ok">Pass</span></li>
+          <li><span>Packaging</span><span class="warn">12 pcs reworked</span></li>
+          <li><span>FBA label check</span><span class="ok">Pass</span></li>
+        </ul>
+        <div class="qcreport__result">
+          <span class="qcreport__verdict">PASS</span>
+          <span>12 minor cosmetic defects rejected and replaced by the supplier before packing.</span>
+        </div>
+        <p class="qcreport__note">Sample report — client and supplier details masked. Every order ships with a report like this.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS — FBA 卖家格式 ═══ -->
+<section class="section testi">
+  <div class="container">
+    <div class="testi__head reveal">
+      <p class="overline">Success Stories</p>
+      <h2>Amazon Sellers,<br/><em>Real Orders</em></h2>
+    </div>
+
+    <!-- 精选证言：文本左、头像右 -->
+    <blockquote class="pullquote pullquote--feat reveal">
+      <div class="pullquote__body">
+        <span class="pullquote__mark" aria-hidden="true">“</span>
+        <p>{testiFeatured.quote}</p>
+        <footer>
+          <span class="pullquote__name">{testiFeatured.name}</span>
+          <span class="pullquote__region">{testiFeatured.meta}</span>
+          <span class="pullquote__result">{testiFeatured.result}</span>
+        </footer>
+      </div>
+      <img class="pullquote__avatar" src={testiFeatured.avatar} alt={`${testiFeatured.name} — Amazon seller portrait`} loading="lazy" decoding="async" width="160" height="160" />
+    </blockquote>
+
+    <div class="testi__row">
+      {testiSmall.map((t, i) => (
+        <blockquote class:list={['pq-sm reveal', `reveal-delay-${i + 1}`]}>
+          <img class="pq-sm__avatar" src={t.avatar} alt={`${t.name} — Amazon seller portrait`} loading="lazy" decoding="async" width="56" height="56" />
+          <p>“{t.quote}”</p>
+          <footer>
+            <span class="pq-sm__name">{t.name}</span>
+            <span>{t.meta}</span>
+            <span class="text-seal">{t.result}</span>
+          </footer>
+        </blockquote>
+      ))}
+      <div class="testi__stat reveal reveal-delay-1">
+        <p class="overline overline--avo">Our track record</p>
+        <div class="testi__bignum">47<span>+</span></div>
+        <p>Amazon sellers served, $2.3M+ in sourced goods, 98% on-time delivery.</p>
+        <a href="/hi/case-studies" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">See case studies →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 定价说明区块（独立、透明） ═══ -->
+<section class="section pricing bg-parchment">
+  <div class="container pricing__wrap">
+    <div class="pricing__intro reveal">
+      <p class="overline">Transparent Pricing</p>
+      <h2>You See the Whole Cost<br/><em>Before You Commit</em></h2>
+      <p class="pricing__lead">No "contact us for pricing". No markups buried in the freight. Here is exactly how we charge.</p>
+    </div>
+
+    <div class="pricing__right">
+      <ul class="pricetable reveal reveal-delay-1">
+        {pricingFees.map(f => (
+          <li>
+            <span class="pricetable__label">{f.label}</span>
+            <span class="pricetable__value">{f.value}</span>
+            <span class="pricetable__note">{f.note}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="price-example reveal reveal-delay-2">
+        <p class="price-example__title">Worked example — a $1,000 order</p>
+        <div class="price-example__rows">
+          <div class="price-example__row"><span>Supplier price (goods)</span><span>$1,000</span></div>
+          <div class="price-example__row"><span>Agent fee (8%)</span><span>$80</span></div>
+          <div class="price-example__row"><span>Freight</span><span>at actual quote</span></div>
+          <div class="price-example__row price-example__row--total"><span>Your complete cost</span><span>No hidden fees</span></div>
+        </div>
+        <p class="price-example__foot">Supplier price + agent fee + freight = everything you pay. Nothing else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 通栏行动 Banner ═══ -->
+<section class="banner-cta banner-cta--dark">
+  <div class="container banner-cta__inner">
+    <div class="banner-cta__text">
+      <span class="banner-cta__eyebrow">Limited slots</span>
+      <h3 class="banner-cta__head">Free sourcing consultation for first-time importers</h3>
+      <span class="banner-cta__note">No commitment · Reply within 24h</span>
+    </div>
+    <a href="/hi/contact" class="btn btn-primary">
+      Book my slot
+      <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ WHY ═══ -->
+<section class="section why bg-parchment">
+  <div class="container why__grid">
+    <div class="why__left reveal">
+      <p class="overline">Why CrossPals</p>
+      <h2>We Solved the Hard Parts<br/><em>So You Don't Have To</em></h2>
+      <div class="divider" style="margin:var(--s6) 0;"></div>
+      <div class="lede-row">
+        <p style="font-size:15px;line-height:1.72;">Most sellers fail at China sourcing because of language barriers, payment risk, and quality uncertainty. CrossPals eliminates all three.</p>
+        <a href="/hi/contact" class="btn btn-primary">
+          Get a free quote
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </a>
+      </div>
+      <ImgPlaceholder src="/img/team-wide.webp" seed={15} width={560} height={420} ratio="4/3" alt="CrossPals team" />
+    </div>
+
+    <div class="why__right">
+      {whyItems.map((w, i) => (
+        <div class:list={['why-item reveal', `reveal-delay-${i}`]}>
+          <span class="indexnum why-item__n">{w.n}</span>
+          <div class="why-item__body">
+            <h4>{w.title}</h4>
+            <p>{w.body}</p>
+            <p class="sidenote why-item__note">CrossPals standard — applies to every order, not just the big ones.</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOG ═══ -->
+<section class="section blog-prev">
+  <div class="container">
+    <div class="blog-prev__head reveal">
+      <div>
+        <p class="overline">Resources</p>
+        <h2>For Amazon &amp; Shopify<br/><em>Sellers</em></h2>
+      </div>
+      <a href="/hi/blog" class="btn btn-outline">All articles →</a>
+    </div>
+
+    <div class="blog-prev__grid">
+      {blogPosts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
+          <ImgPlaceholder
+            src={post.cover}
+            width={i === 0 ? 720 : 640}
+            height={i === 0 ? 960 : 360}
+            ratio={i === 0 ? '3/4' : '16/9'}
+            alt={post.title}
+          />
+          <div class="bcard__body">
+            <span class="bcard__cat">{post.cat}</span>
+            {i === 0 ? <h3>{post.title}</h3> : <h4>{post.title}</h4>}
+            <div class="bcard__foot">
+              <div class="bcard__time"><Icon name="clock" size={12} color="var(--warm-400)" /><span>{post.time} read</span></div>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 保障模块网格 ═══ -->
+<section class="section--tight">
+  <div class="container">
+    <div class="guar-head reveal">
+      <p class="overline">Our Guarantees</p>
+      <h2>What You Get, <em>Every Order</em></h2>
+    </div>
+    <div class="guarantee reveal">
+      {guarantees.map((g, i) => (
+        <div class="guarantee__item">
+          <span class="guarantee__n">{String(i + 1).padStart(2, '0')}</span>
+          <div class="guarantee__icon"><Icon name={g.icon} size={26} color="var(--seal)" /></div>
+          <ImgPlaceholder class="guarantee__img" src={'/img/' + guarImg[g.icon] + '.webp'} seed={600 + i} width={480} height={320} ratio="3/2" alt={g.title} />
+          <h4>{g.title}</h4>
+          <p>{g.body}</p>
+        </div>
+      ))}
+    </div>
+    <div class="guar-lede lede-row reveal">
+      <p class="lede-row__text">How each one actually works — the steps, the checklist, and what happens if it fails.</p>
+      <a href="/hi/services#guarantees" class="btn btn-ghost">See how it works →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="cta-final grain" style="position:relative;overflow:hidden;">
+  <div class="container cta-final__inner">
+    <div class="cta-final__text reveal">
+      <span class="seal cta-final__seal" aria-hidden="true"><span>Ready</span><span>48h</span></span>
+      <p class="overline overline--light">Ready?</p>
+      <h2 class="text-white" style="margin:var(--s3) 0 var(--s4);font-size:clamp(30px,4.4vw,56px);">
+        Your First Supplier<br/><em style="color:var(--avo-300)">Is 48 Hours Away</em>
+      </h2>
+      <p class="text-light" style="max-width:400px;">No commitment. No experience needed. Just tell us what you want to source.</p>
+    </div>
+    <div class="cta-final__form reveal reveal-delay-2">
+      <form class="quick-form" action="/contact" method="GET">
+        <input type="text" name="product" placeholder="What do you want to source?" required />
+        <button type="submit" class="btn btn-primary">
+          Get quotes
+          <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </button>
+      </form>
+      <p class="cta-final__note">Or <a href={PHONE.wa}>chat on WhatsApp</a> · Free, no commitment</p>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+/* TOPBAND */
+.topband{background:var(--avo-950);padding-top:var(--hdr-h);}
+.announce--dark{background:transparent;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(232,229,218,.82);}
+.announce--dark strong{color:var(--seal);font-weight:600;}
+.announce--dark:hover{background:rgba(255,255,255,.05);}
+.announce--dark:hover .announce__arrow{transform:translateX(3px);}
+
+/* MASTHEAD */
+.masthead{background:var(--avo-950);border-bottom:1px solid rgba(255,255,255,.08);}
+.masthead__inner{display:flex;align-items:center;gap:var(--s4);padding:10px var(--s5);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.masthead__rule{flex:1;height:1px;background:rgba(255,255,255,.1);}
+
+/* HERO */
+.hero{background:var(--avo-950);min-height:min(78vh,680px);display:flex;flex-direction:column;}
+.hero__grid{display:grid;grid-template-columns:1.05fr 0.95fr;flex:1;min-height:0;}
+.hero__left{display:flex;align-items:center;padding:84px var(--s7) var(--s7) var(--s7);}
+.hero__left-inner{max-width:600px;}
+.hero__title{color:#fff;font-size:clamp(32px,4.1vw,54px);line-height:1.06;margin:var(--s2) 0 var(--s4);font-weight:560;}
+.hero__title em{font-style:italic;color:var(--seal);font-weight:400;}
+.hero__lead{color:rgba(255,255,255,.66);font-size:16.5px;line-height:1.7;max-width:500px;margin-bottom:var(--s4);}
+.hero__sidenote{font-family:var(--font-mono);font-size:11px;line-height:1.6;color:rgba(255,255,255,.4);border-left:1px solid var(--seal);padding-left:var(--s3);max-width:440px;margin-bottom:var(--s5);}
+.hero__actions{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s5);}
+.hero__index{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s5);padding-top:var(--s4);border-top:1px solid rgba(255,255,255,.1);}
+.hero__index li{display:flex;align-items:baseline;gap:6px;font-family:var(--font-serif);font-size:15px;color:rgba(255,255,255,.7);}
+.hero__index li span{font-family:var(--font-mono);font-size:10px;color:var(--seal);letter-spacing:.08em;}
+
+.hero__right{position:relative;overflow:hidden;display:flex;}
+.hero__photo-fill{position:absolute;inset:0;}
+.hero__photo-fill :global(.img-ph){height:100%;}
+.hero__photo-fill :global(.img-ph__wrap){padding-top:0!important;height:100%;}
+.hero__photo-fill :global(img){width:100%;height:100%;object-fit:cover;}
+.hero__cap{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:var(--s4);padding:var(--s4) var(--s5);background:linear-gradient(0deg,rgba(28,33,20,.9),transparent);}
+.hero__cap-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--avo-300);}
+.hero__cap-text{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.7);text-transform:uppercase;flex:1;}
+.hero__cap .seal{transform:rotate(-8deg);background:rgba(28,33,20,.4);border-color:var(--seal);color:#fff;backdrop-filter:blur(2px);}
+
+/* TRUSTBAR */
+.trustbar{padding:var(--section-y-sm) var(--s5);background:var(--bg-page);border-bottom:1px solid var(--border-light);}
+.trustmetrics{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s6);margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--border-light);}
+.trustmetrics li{display:flex;align-items:baseline;gap:var(--s3);}
+.trustmetrics b{font-family:var(--font-serif);font-size:clamp(28px,3.4vw,40px);font-weight:600;color:var(--avo-700);line-height:1;}
+.trustmetrics b em{font-style:normal;color:var(--seal);}
+.trustmetrics span{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-muted);}
+
+/* SERVICES */
+.svc{background:var(--bg-page);}
+.svc__wrap{display:grid;grid-template-columns:300px 1fr;gap:var(--s7);align-items:start;}
+.svc__aside{position:sticky;top:100px;}
+.svc__h em{font-style:italic;color:var(--avo-600);}
+.svc__intro{font-size:15px;line-height:1.7;color:var(--text-body);margin:var(--s4) 0;}
+.svc__all{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--seal);text-transform:uppercase;}
+.svc__list{list-style:none;display:flex;flex-direction:column;}
+.svc-row{display:grid;grid-template-columns:56px 180px 1fr;gap:var(--s5);align-items:center;padding:var(--s5) 0;border-top:1px solid var(--border-light);}
+.svc-row:last-child{border-bottom:1px solid var(--border-light);}
+.svc-row__num .indexnum{font-size:40px;}
+.svc-row__thumb :global(.img-ph){border:1px solid var(--border-light);}
+.svc-row__top{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s2);flex-wrap:wrap;}
+.svc-row__body .lede-row{margin-top:var(--s2);}
+.svc-row__body h3{font-size:clamp(19px,2.1vw,25px);}
+.svc-row__body p{font-size:14px;line-height:1.65;margin:0;max-width:520px;}
+.svc-row__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);}
+.svc-row__link:hover{gap:10px;}
+.svc-row{transition:background var(--t-med),color var(--t-med);}
+.svc-row:hover{background:var(--avo-950);}
+.svc-row:hover .svc-row__body h3{color:#fff;}
+.svc-row:hover .svc-row__body p{color:rgba(255,255,255,.62);}
+.svc-row:hover .svc-row__num .indexnum{color:var(--avo-300);}
+.svc-row:hover .svc-row__thumb :global(.img-ph){border-color:rgba(255,255,255,.15);}
+.svc-row:hover .svc-row__link{color:var(--avo-300);}
+.svc-row__body h3,.svc-row__body p,.svc-row__link,.svc-row__num .indexnum{transition:color var(--t-med);}
+/* 每项服务的独立定价说明 */
+.price-note{display:flex;align-items:flex-start;gap:var(--s3);margin-top:var(--s4);padding-top:var(--s3);border-top:1px dashed var(--border-mid);max-width:560px;}
+.price-note__label{flex-shrink:0;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--seal);padding-top:2px;}
+.price-note__calc{font-size:13px;line-height:1.55;color:var(--text-muted);}
+.price-note__calc b{color:var(--avo-800);font-weight:600;}
+.svc-row:hover .price-note{border-top-color:rgba(255,255,255,.2);}
+.svc-row:hover .price-note__calc{color:rgba(255,255,255,.6);}
+.svc-row:hover .price-note__calc b{color:var(--avo-300);}
+
+/* HOW IT WORKS */
+.guar-head{margin-bottom:var(--s6);}
+.guar-head h2 em{font-style:italic;color:var(--avo-600);}
+.guar-lede{margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--border-light);}
+.guar-lede p{font-size:14px;color:var(--text-muted);}
+.hiw{background:var(--avo-950);}
+.hiw__head{margin-bottom:var(--head-gap);}
+.hiw__head h2 em{font-style:italic;color:var(--avo-300);}
+.manifest{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.15);position:relative;}
+.manifest__col{padding:var(--s5) var(--s5) var(--s6) 0;border-right:1px solid rgba(255,255,255,.08);}
+.manifest__day{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:var(--s3);}
+.manifest__n{display:block;font-family:var(--font-serif);font-size:46px;font-weight:600;color:rgba(255,255,255,.1);line-height:1;margin-bottom:var(--s2);}
+.manifest__title{color:#fff;font-size:18px;margin-bottom:var(--s2);}
+.manifest__body{font-size:14px;color:rgba(255,255,255,.5);}
+.manifest__stamp{position:absolute;right:0;top:-10px;}
+.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6);}
+
+/* SCENARIOS */
+.scen{background:var(--warm-100);}
+.scen__head{margin-bottom:var(--head-gap);max-width:720px;}
+.scen__head h2 em{font-style:italic;color:var(--avo-600);}
+.scen__lead{font-size:16px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:620px;}
+.scen__list{display:flex;flex-direction:column;}
+.scen-item{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--s7);align-items:center;padding:var(--s6) 0;border-top:1px solid var(--border-light);}
+.scen-item:last-child{border-bottom:1px solid var(--border-light);}
+.scen-item__quote{position:relative;padding-left:var(--s6);}
+.scen-item__mark{position:absolute;left:0;top:-14px;font-family:var(--font-serif);font-size:56px;line-height:1;color:var(--seal);opacity:.3;}
+.scen-item__quote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(19px,2.3vw,26px);line-height:1.4;color:var(--text-primary);}
+.scen-item__src{display:block;margin-top:var(--s3);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
+.scen-item__sol h3{font-size:clamp(18px,2vw,22px);margin:var(--s3) 0 var(--s3);}
+.scen-item__sol p{font-size:14.5px;line-height:1.7;color:var(--text-body);max-width:560px;}
+.scen-item__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);margin-top:var(--s4);transition:gap var(--t-fast);}
+.scen-item__link:hover{gap:10px;}
+
+/* INSPECTION MODULE */
+.inspect{background:var(--avo-950);}
+.inspect__head{margin-bottom:var(--head-gap);max-width:760px;}
+.inspect__head h2 em{font-style:italic;color:var(--avo-300);}
+.inspect__lead{font-size:16px;line-height:1.72;color:rgba(255,255,255,.6);margin-top:var(--s4);max-width:640px;}
+.inspect__grid{display:grid;grid-template-columns:1fr 1.05fr;gap:var(--s7);align-items:start;}
+.inspect__std{list-style:none;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.15);}
+.inspect-std{display:grid;grid-template-columns:48px 1fr;gap:var(--s4);padding:var(--s4) 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.inspect-std__n{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;color:var(--seal);padding-top:2px;}
+.inspect-std h4{color:#fff;font-size:16px;margin-bottom:4px;}
+.inspect-std p{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.6;}
+/* 样例报告 */
+.qcreport{background:#fff;border:1px solid var(--border-light);padding:var(--s5);}
+.qcreport__head{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex-wrap:wrap;padding-bottom:var(--s3);border-bottom:2px solid var(--seal);}
+.qcreport__brand{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--avo-800);}
+.qcreport__no{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
+.qcreport__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5);margin:var(--s4) 0;padding-bottom:var(--s4);border-bottom:1px solid var(--border-light);}
+.qcreport__grid dt{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;}
+.qcreport__grid dd{font-size:13.5px;color:var(--text-primary);}
+.qcreport__checks{list-style:none;display:flex;flex-direction:column;margin-bottom:var(--s4);}
+.qcreport__checks li{display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:7px 0;border-bottom:1px solid var(--border-light);font-size:13.5px;color:var(--text-body);}
+.qcreport__checks .ok{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:#637d3e;text-transform:uppercase;}
+.qcreport__checks .warn{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--seal);text-transform:uppercase;}
+.qcreport__result{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s4);background:var(--avo-50);border-left:2px solid #637d3e;}
+.qcreport__verdict{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.1em;color:#637d3e;flex-shrink:0;}
+.qcreport__result span:last-child{font-size:13px;color:var(--text-body);}
+.qcreport__note{margin-top:var(--s4);font-family:var(--font-mono);font-size:10.5px;line-height:1.55;color:var(--text-faint);}
+
+/* TESTIMONIALS */
+.testi{background:var(--warm-100);}
+.testi__head{margin-bottom:var(--head-gap);}
+.testi__head h2 em{font-style:italic;color:var(--avo-600);}
+.pullquote{position:relative;margin:0 0 var(--s6);border-left:2px solid var(--seal);}
+.pullquote--feat{display:grid;grid-template-columns:1fr 180px;gap:var(--s7);align-items:center;padding:var(--s5) 0 var(--s5) var(--s6);}
+.pullquote__body{position:relative;}
+.pullquote__mark{position:absolute;left:-6px;top:-22px;font-family:var(--font-serif);font-size:80px;line-height:1;color:var(--seal);opacity:.25;}
+.pullquote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(19px,2.3vw,27px);line-height:1.4;color:var(--text-primary);max-width:680px;}
+.pullquote footer{display:flex;flex-direction:column;gap:4px;margin-top:var(--s4);}
+.pullquote__name{font-family:var(--font-serif);font-size:16px;color:var(--text-primary);}
+.pullquote__region{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--text-muted);}
+.pullquote__result{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--seal);}
+.pullquote__avatar{width:100%;max-width:180px;aspect-ratio:1;height:auto;object-fit:cover;object-position:50% 22%;border:1px solid var(--border-light);background:var(--bg-page);justify-self:end;}
+.testi__row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s5);}
+.pq-sm{margin:0;padding:var(--s4) 0;border-top:1px solid var(--border-light);}
+.pq-sm__avatar{width:56px;height:56px;object-fit:cover;object-position:50% 24%;display:block;border:1px solid var(--border-light);background:var(--warm-100);margin-bottom:var(--s4);}
+.pq-sm p{font-family:var(--font-serif);font-style:italic;font-size:16px;line-height:1.5;color:var(--text-primary);margin-bottom:var(--s3);}
+.pq-sm footer{display:flex;flex-direction:column;gap:4px;}
+.pq-sm__name{font-family:var(--font-serif);font-size:15px;color:var(--text-primary);}
+.pq-sm footer span:not(.pq-sm__name){font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);}
+.pq-sm footer span.text-seal{font-family:var(--font-mono);font-size:12px;font-weight:500;}
+.testi__stat{background:var(--avo-950);padding:var(--s5);display:flex;flex-direction:column;}
+.testi__stat p{color:rgba(255,255,255,.55);font-size:14px;}
+.testi__bignum{font-family:var(--font-serif);font-size:52px;font-weight:600;color:#fff;line-height:1;margin:var(--s2) 0;}
+.testi__bignum span{color:var(--avo-300);}
+
+/* PRICING */
+.pricing__wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:var(--s7);align-items:start;}
+.pricing__intro h2 em{font-style:italic;color:var(--avo-600);}
+.pricing__lead{font-size:15px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:400px;}
+.pricetable{list-style:none;display:flex;flex-direction:column;border-top:2px solid var(--seal);}
+.pricetable li{display:grid;grid-template-columns:140px 1fr;gap:var(--s4) var(--s5);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);align-items:baseline;}
+.pricetable__label{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-800);}
+.pricetable__value{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--text-primary);}
+.pricetable__note{grid-column:2;font-size:13px;color:var(--text-muted);}
+.price-example{margin-top:var(--s5);background:var(--avo-950);padding:var(--s5) var(--s6);border-left:2px solid var(--seal);}
+.price-example__title{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-300);margin-bottom:var(--s4);}
+.price-example__rows{display:flex;flex-direction:column;}
+.price-example__row{display:flex;justify-content:space-between;gap:var(--s4);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14.5px;color:rgba(255,255,255,.7);}
+.price-example__row span:last-child{font-family:var(--font-mono);color:#fff;}
+.price-example__row--total{border-bottom:none;padding-top:var(--s4);margin-top:var(--s2);border-top:2px solid var(--seal);}
+.price-example__row--total span{color:#fff;font-weight:600;}
+.price-example__row--total span:last-child{color:var(--avo-300);}
+.price-example__foot{margin-top:var(--s4);font-size:13px;color:rgba(255,255,255,.5);}
+
+/* WHY */
+.why{background:var(--warm-100);}
+.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s7);align-items:center;}
+.why h2 em{font-style:italic;color:var(--avo-600);}
+.why__right{display:flex;flex-direction:column;}
+.why-item{display:grid;grid-template-columns:64px 1fr;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid var(--border-light);}
+.why-item:first-child{padding-top:0;}
+.why-item:last-child{border-bottom:none;}
+.why-item__n{font-size:36px;}
+.why-item__body h4{font-size:18px;margin-bottom:var(--s2);}
+.why-item__body p{font-size:14px;}
+.why-item__note{margin-top:var(--s2);}
+
+/* BLOG */
+.blog-prev{background:var(--bg-page);}
+.blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--head-gap);}
+.blog-prev__head h2 em{font-style:italic;color:var(--avo-600);}
+.blog-prev__grid{column-count:2;column-gap:var(--s5);}
+.bcard{display:block;break-inside:avoid;margin-bottom:var(--s5);text-decoration:none;color:inherit;background:var(--bg-surface);border:1px solid var(--border-light);transition:var(--t-med);}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
+.bcard--feat :global(.img-ph){border-bottom:1px solid var(--border-light);}
+.bcard__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+.bcard__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--avo-600);}
+.bcard--feat h3{font-size:clamp(21px,2.4vw,27px);line-height:1.25;flex:1;transition:color var(--t-fast);}
+.bcard--feat:hover h3{color:var(--avo-700);}
+.bcard--sm h4{font-size:16px;line-height:1.3;flex:1;}
+.bcard__foot{display:flex;justify-content:space-between;align-items:center;padding-top:var(--s4);border-top:1px solid var(--border-light);margin-top:auto;}
+.bcard__time{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--warm-400);font-family:var(--font-mono);}
+
+/* CTA FINAL */
+.cta-final{background:var(--avo-950);padding:var(--section-y) var(--s5);position:relative;overflow:hidden;}
+.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s7);flex-wrap:wrap;}
+.cta-final__text{position:relative;max-width:560px;}
+.cta-final__seal{position:absolute;top:-30px;right:0;background:rgba(28,33,20,.5);border-color:var(--seal);color:#fff;}
+.cta-final__form{display:flex;flex-direction:column;gap:var(--s3);min-width:360px;}
+.quick-form{display:flex;gap:var(--s3);}
+.quick-form input{flex:1;padding:13px 18px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:var(--font-sans);outline:none;transition:border-color var(--t-fast);}
+.quick-form input:focus{border-color:var(--seal);}
+.quick-form input::placeholder{color:rgba(255,255,255,.32);}
+.cta-final__note{font-size:12px;color:rgba(255,255,255,.32);text-align:center;font-family:var(--font-mono);}
+.cta-final__note a{color:var(--avo-300);text-decoration:underline;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .svc__wrap{grid-template-columns:1fr;gap:var(--s7);}
+  .svc__aside{position:static;}
+  .manifest{grid-template-columns:1fr 1fr;}
+  .manifest__col{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .manifest__stamp{display:none;}
+  .inspect__grid{grid-template-columns:1fr;gap:var(--s6);}
+  .pricing__wrap{grid-template-columns:1fr;gap:var(--s6);}
+  .testi__row{grid-template-columns:1fr;}
+  .blog-prev__grid{column-count:1;}
+}
+@media(max-width:860px){
+  .hero__grid{grid-template-columns:1fr;}
+  .hero__right{display:none;}
+  .hero__left{padding:100px var(--s5) var(--s6);}
+  .why__grid{grid-template-columns:1fr;gap:var(--s6);}
+  .scen-item{grid-template-columns:1fr;gap:var(--s5);}
+  .scen-item__quote{padding-left:var(--s5);}
+}
+@media(max-width:640px){
+  .svc-row{grid-template-columns:48px 1fr;gap:var(--s4);}
+  .svc-row__thumb{display:none;}
+  .manifest{grid-template-columns:1fr;}
+  .cta-final__inner{flex-direction:column;text-align:center;}
+  .cta-final__form{min-width:unset;width:100%;}
+  .quick-form{flex-direction:column;}
+  .pullquote--feat{grid-template-columns:1fr;gap:var(--s5);}
+  .pullquote__avatar{max-width:120px;justify-self:start;}
+  .trustmetrics{gap:var(--s5);}
+}
+@media(max-width:560px){
+  .why-item{grid-template-columns:44px 1fr;gap:var(--s4);}
+  .why-item__n{font-size:30px;}
+  .blog-prev__head{flex-direction:column;align-items:flex-start;gap:var(--s4);}
+  .masthead__inner{gap:var(--s3);font-size:10px;letter-spacing:.08em;}
+  .masthead__rule{display:none;}
+  .pricetable li{grid-template-columns:1fr;gap:4px;}
+  .pricetable__note{grid-column:1;}
+  .trustmetrics li{align-items:flex-start;flex-direction:column;gap:2px;}
+}
+</style>

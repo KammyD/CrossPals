@@ -3,28 +3,31 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../../i18n/utils';
+
+/* 本页语言 —— 由 CMS 脚手架写入（源页是 defaultLang）。取数/链接/日期全读它。 */
+const PAGE_LANG = 'hi';
 
 /* 案例来自 src/content/case-studies/*.md —— 新增案例只需新建一个 md 文件 */
-const cases = (await getCollection('case-studies'))
-  .filter(c => !c.data.draft)
+const cases = entriesForLang((await getCollection('case-studies')).filter(c => !c.data.draft), PAGE_LANG)
   .sort((a, b) => a.data.order - b.data.order);
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
-const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+const fmt = (d: string) => fmtDate(PAGE_LANG, d, 'monthYear');
 ---
-<BaseLayout title="Case Studies" description="Real orders CrossPals sourced, inspected, and prepped for Amazon FBA sellers — the problem, what we did, and the result." lang="hi">
+<BaseLayout title="केस स्टडीज" description="CrossPals द्वारा Amazon FBA विक्रेताओं के लिए सोर्स, निरीक्षण और तैयार किए गए वास्तविक ऑर्डर — समस्या, हमने क्या किया, और परिणाम।" lang="hi">
 
   <PageHero
-    overline="Case Studies"
-    title="Real Orders,<br/><em style='font-style:italic;color:var(--avo-300)'>Real Results</em>"
-    subtitle="Orders, anonymised: the problem a seller had, what we did about it, and what changed. Numbers first, adjectives second."
+    overline="केस स्टडीज"
+    title="वास्तविक ऑर्डर,<br/><em style='font-style:italic;color:var(--avo-300)'>वास्तविक परिणाम</em>"
+    subtitle="अनामित ऑर्डर: विक्रेता की समस्या, हमने उसके बारे में क्या किया, और क्या बदला। पहले नंबर, बाद में विशेषण।"
   />
 
   <section class="section">
     <div class="container">
       <div class="cases">
         {cases.map((c, i) => (
-          <a href={`/case-studies/${c.slug}`} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
+          <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
             <ImgPlaceholder src={c.data.cover} width={800} height={600} ratio="4/3" alt={c.data.title} />
 
             <div class="ccard__body">
@@ -47,7 +50,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
 
               <div class="ccard__foot">
                 <time>{fmt(c.data.date)}</time>
-                <span class="ccard__more">Learn more →</span>
+                <span class="ccard__more">और जानें →</span>
               </div>
             </div>
           </a>
@@ -60,15 +63,15 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
   <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
     <div class="container">
       <span class="seal cta-seal" aria-hidden="true"><span>Your</span><span>Turn</span></span>
-      <p class="overline overline--light reveal">Next case study</p>
+      <p class="overline overline--light reveal">अगला केस स्टडी</p>
       <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">
-        Let's Make Yours<br/><em style="color:var(--avo-300)">The Next One</em>
+        आपका बनाएँ<br/><em style="color:var(--avo-300)">अगला एक</em>
       </h2>
       <p style="color:rgba(255,255,255,.6);max-width:440px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">
-        Tell us what you want to source. We'll come back with verified suppliers and a full price breakdown within 48 hours.
+        हमें बताएं कि आप क्या सोर्स करना चाहते हैं। हम 48 घंटों के भीतर सत्यापित आपूर्तिकर्ताओं और पूर्ण मूल्य विवरण के साथ वापस आएंगे।
       </p>
       <a href="/hi/contact" class="btn btn-primary reveal reveal-delay-3">
-        Get a free quote
+        निःशुल्क कोटेशन प्राप्त करें
         <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
       </a>
     </div>

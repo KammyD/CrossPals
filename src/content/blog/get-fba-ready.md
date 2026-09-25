@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: get-fba-ready
 title: "How to Get Your Product FBA-Ready Before It Leaves China"
 description: "FNSKU labels, poly-bagging, bundling, carton labels, weights and dimensions — the full FBA prep checklist."
 category: "Amazon FBA"

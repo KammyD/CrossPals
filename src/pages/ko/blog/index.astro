@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
+import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/blog/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = 'ko';
+
+/* 文章列表来自 src/content/blog/*.md —— 新增一篇文章只需新建一个 md 文件。
+   多语言译文（frontmatter 带 lang 的文件，如 x-hi.md）与原文同目录存放，
+   靠 entriesForLang 按 PAGE_LANG 挑选，避免别的语言文章混进本语言列表。 */
+const all = entriesForLang((await getCollection('blog')).filter(p => !p.data.draft), PAGE_LANG)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+/* 该语言一篇译文都还没有时不能崩整站构建 —— featured 可空，列表自然为空 */
+const featured = all.find(p => p.data.featured) ?? all[0] ?? null;
+const rest = featured ? all.filter(p => p.slug !== featured.slug) : [];
+/* 「全部」用 '*' 作哨兵值 —— 不能拿可译文案当筛选键，否则译文一改前端筛选就整体失效 */
+const ALL_CAT = '*';
+const cats = [ALL_CAT, ...Array.from(new Set(all.map(p => p.data.category)))];
+
+const fmtLong  = (d: string) => fmtDate(PAGE_LANG, d, 'long');
+const fmtShort = (d: string) => fmtDate(PAGE_LANG, d, 'short');
+---
+<BaseLayout title="아마존 판매자 가이드: 중국에서 FBA 준비 및 소싱하기" description="중국에서 소싱 및 수입하는 아마존 및 Shopify 판매자를 위한 실용적인 가이드." ogImage="/covers/amazon-sellers-guide-social.jpg" lang="ko">
+
+  <PageHero overline="Resources" title="아마존 <br /><em style='font-style:italic;color:var(--avo-300)'>판매자</em>를 위한" subtitle="FBA 준비, 검사 및 소싱 안내서 — 일반 수입업체가 아닌 Amazon 및 Shopify 판매자를 위해 작성되었습니다." />
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Featured with large cover image -->
+      {featured && (<a href={contentLink(PAGE_LANG, 'blog', featured.slug)} class="featured reveal">
+        <div class="featured__img">
+          <ImgPlaceholder src={featured.data.cover} width={1000} height={750} ratio="4/3" priority alt={featured.data.title} />
+        </div>
+        <div class="featured__body">
+          <div class="featured__tags">
+            <span class="tag tag-green">Featured</span>
+            <span class="featured__cat">{featured.data.category}</span>
+          </div>
+          <h2>{featured.data.title}</h2>
+          <p>{featured.data.description}</p>
+          <div class="featured__meta">
+            <time>{fmtLong(featured.data.date)}</time>
+            <span>· {featured.data.readTime} read</span>
+            <span class="featured__read">기사 보기 →</span>
+          </div>
+        </div>
+      </a>)}
+
+      <!-- Filter -->
+      <div class="cat-bar" id="catBar">
+        {cats.map(c => (
+          <button class:list={['cat-btn', { 'cat-btn--on': c === ALL_CAT }]} data-cat={c}>{c === ALL_CAT ? 'All' : c}</button>
+        ))}
+      </div>
+
+      <!-- Post grid with cover images -->
+      <div class="posts" id="postsGrid">
+        {rest.map((post, i) => (
+          <a href={contentLink(PAGE_LANG, 'blog', post.slug)} class:list={['pcard reveal', `reveal-delay-${i % 3}`]} data-cat={post.data.category}>
+            <ImgPlaceholder src={post.data.cover} width={640} height={360} ratio="16/9" alt={post.data.title} />
+            <div class="pcard__body">
+              <span class="pcard__cat">{post.data.category}</span>
+              <h4>{post.data.title}</h4>
+              <p>{post.data.description}</p>
+              <div class="pcard__foot">
+                <time>{fmtShort(post.data.date)}</time>
+                <span>{post.data.readTime}보기 →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section bg-parchment">
+    <div class="container nl-wrap">
+      <div class="reveal">
+        <p class="overline">최신 정보 받기</p>
+        <h2>소싱 팁<br /><em>귀하의 이메일로</em></h2>
+        <p>공급업체 목록, 가이드, 수입 요령 등 — 한 달에 한두 번.</p>
+      </div>
+      <form class="nl-form reveal reveal-delay-2" onsubmit="return false">
+        <input type="email" placeholder="your@email.com" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('cat-btn--on'));
+      btn.classList.add('cat-btn--on');
+      const cat = btn.dataset.cat!;
+      // '*' = 「全部」哨兵值（服务端 ALL_CAT 的值；客户端脚本取不到那个常量，故写死同一个字面量）
+      document.querySelectorAll<HTMLElement>('.pcard').forEach(c => {
+        c.style.display = (cat === '*' || c.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  h2 em{font-style:italic;color:var(--avo-600);}
+  /* Featured — 编辑式左右分栏（替代全宽大图，高度约减半） */
+  .featured{display:grid;grid-template-columns:1.05fr 1fr;background:#fff;border:1px solid var(--warm-200);overflow:hidden;text-decoration:none;color:inherit;margin-bottom:var(--s6);transition:var(--t-med);}
+  .featured:hover{border-color:var(--avo-300);}
+  .featured__img{align-self:stretch;min-width:0;}
+  .featured__img :global(.img-ph){border-radius:0;height:100%;}
+  .featured__img :global(.img-ph__wrap){border-radius:0;}
+  .featured__body{padding:var(--s5) var(--s6);display:flex;flex-direction:column;justify-content:center;}
+  .featured__tags{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s3);}
+  .featured__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--avo-600);}
+  .featured__body h2{font-size:clamp(19px,2.1vw,25px);line-height:1.28;margin-bottom:var(--s3);}
+  .featured__body>p{font-size:14px;color:var(--text-body);max-width:680px;margin-bottom:var(--s4);}
+  .featured__meta{display:flex;align-items:center;gap:var(--s3);font-size:12px;color:var(--warm-400);font-family:var(--font-mono);}
+  .featured__read{margin-left:auto;color:var(--seal);font-weight:600;}
+  /* Filter — 锐角标签 */
+  .cat-bar{display:flex;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s5);}
+  .cat-btn{background:#fff;border:1px solid var(--warm-200);color:var(--text-body);padding:6px 16px;border-radius:0;font-size:13px;font-weight:500;cursor:pointer;transition:var(--t-fast);font-family:var(--font-sans);}
+  .cat-btn:hover,.cat-btn--on{background:var(--avo-800);border-color:var(--avo-800);color:#fff;}
+  /* Grid — 矩阵对齐（等宽等高，图片统一 16:9，脚注对齐同一基线） */
+  .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);align-items:stretch;}
+  .pcard{background:#fff;border:1px solid var(--warm-200);border-radius:0;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:var(--t-med);overflow:hidden;}
+  .pcard:hover{border-color:var(--avo-300);}
+  .pcard :global(.img-ph){border-radius:0;flex-shrink:0;}
+  .pcard :global(.img-ph__wrap){border-radius:0;}
+  .pcard__body{padding:var(--s4) var(--s5) var(--s5);display:flex;flex-direction:column;gap:var(--s2);flex:1;}
+  .pcard__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--avo-600);}
+  .pcard h4{font-size:16px;line-height:1.32;transition:color var(--t-fast);}
+  .pcard:hover h4{color:var(--seal);}
+  .pcard>p,.pcard__body>p{font-size:13px;color:var(--text-body);line-height:1.62;flex:1;}
+  .pcard__foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--warm-400);font-family:var(--font-mono);padding-top:var(--s3);border-top:1px solid var(--warm-200);margin-top:auto;}
+  /* Newsletter */
+  .nl-wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s6);flex-wrap:wrap;}
+  .nl-wrap h2{margin:var(--s2) 0 var(--s3);}.nl-wrap p{font-size:15px;max-width:360px;}
+  .nl-form{display:flex;gap:var(--s3);flex-shrink:0;}
+  .nl-form input{padding:11px 16px;border:1px solid var(--warm-200);border-radius:0;font-size:14px;font-family:var(--font-sans);background:#fff;color:var(--warm-950);outline:none;transition:var(--t-fast);width:240px;}
+  .nl-form input:focus{border-color:var(--avo-600);}
+  @media(max-width:900px){.featured{grid-template-columns:1fr}.posts{grid-template-columns:repeat(2,1fr)}.nl-wrap{flex-direction:column;text-align:center}.nl-form{width:100%;justify-content:center}.nl-form input{flex:1;min-width:0}}
+  @media(max-width:560px){.posts{grid-template-columns:1fr}}
+</style>

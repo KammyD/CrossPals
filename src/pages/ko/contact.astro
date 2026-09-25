@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+import { PHONE, EMAIL, COMPANY } from '../../config/site';
+
+const expectItems: Array<{ icon: IconName; strong: string; body: string }> = [
+  { icon: 'clock',      strong: '24시간 내로 답변드립니다',       body: '일반적으로 중국 표준시(GMT+8) 근무 시간 내 더 빠른 응답이 가능합니다.' },
+  { icon: 'sourcing',   strong: '48시간 내 사전 선별된 공급업체 리스트 제공',   body: '검증된 3~5개 옵션과 가격/프로필 정보를 확인할 수 있습니다.' },
+  { icon: 'lock',       strong: '약정 불필요',      body: '결정 전 다양한 옵션을 검토해보세요.' },
+  { icon: 'handshake',  strong: '전담 에이전트 배정',    body: '처음부터 끝까지 한 담당자가 모든 문의를 관리합니다.' },
+];
+---
+<BaseLayout title="문의하기" description="CrossPals에 연락하세요. 소싱 문의를 보내시면 24시간 내 답변드립니다." lang="ko">
+
+  <PageHero
+    overline="연락하기"
+    title="함께 <br /><em style='font-style:italic;color:var(--avo-300)'>재고를 채워봐요</em>"
+    subtitle="원하시는 상품을 알려주시면 24시간 내로 연락드립니다. 별도 약정 없이 편안히 문의해주세요."
+  />
+
+  <section class="section">
+    <div class="container contact-wrap">
+
+      <!-- Form side -->
+      <div class="contact-form-col reveal">
+        <p class="overline">문의 보내기</p>
+        <h2>무엇을 도와드릴까요?<br /><em>Necesita</em></h2>
+        <p class="contact-form-col__sub">더 많은 세부정보를 알려주실수록 적합한 공급업체를 빠르게 찾아드릴 수 있습니다.</p>
+        <ContactForm />
+      </div>
+
+      <!-- Info side -->
+      <aside class="contact-info reveal reveal-delay-2">
+
+        <div class="info-block channels">
+          <span class="seal channels__seal" aria-hidden="true"><span>Direct</span><span>Line</span></span>
+          <h4>직접 채팅을 선호하시나요?</h4>
+          <a href={PHONE.wa} class="ch-card ch-card--wa" target="_blank" rel="noopener">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <div><strong>WhatsApp</strong><span>실시간 채팅으로 문의하기</span></div>
+          </a>
+          <a href={`tel:${PHONE.tel}`} class="ch-card ch-card--phone">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div><strong>Phone</strong><span>{PHONE.display}</span></div>
+          </a>
+          <a href={`mailto:${EMAIL.en}`} class="ch-card ch-card--email">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div><strong>Email</strong><span>{EMAIL.en}</span></div>
+          </a>
+        </div>
+
+        <div class="info-block company-block">
+          <h4>협력 파트너</h4>
+          <p>{COMPANY.nameEn}</p>
+          <p class="company-block__zh">{COMPANY.nameZh}</p>
+          <p>{COMPANY.address.en}</p>
+        </div>
+
+        <div class="info-block expect-block">
+          <h4>기대할 수 있는 서비스</h4>
+          <ol class="expect-list">
+            {expectItems.map((e, i) => (
+              <li>
+                <span class="expect-list__n">{String(i + 1).padStart(2, '0')}</span>
+                <div><strong>{e.strong}</strong><p>{e.body}</p></div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="info-block trust-quote">
+          <blockquote>"CrossPals는 2시간 만에 답변했고 다음날 아침까지 4개 공급업체를 연결해주었습니다."</blockquote>
+          <cite>— 나이지리아 라고스 · 첫 수입 시도</cite>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+
+  .contact-wrap { display:grid; grid-template-columns:1.3fr 1fr; gap:var(--s6); align-items:start; }
+
+  .contact-form-col h2 { margin:var(--s3) 0 var(--s3); }
+  .contact-form-col__sub { font-size:15px; color:var(--text-body); margin-bottom:var(--s5); }
+
+  .contact-info { display:flex; flex-direction:column; gap:var(--s4); position:sticky; top:90px; }
+
+  .info-block { display:flex; flex-direction:column; gap:var(--s3); }
+
+  .channels { position:relative; border-top:2px solid var(--seal); padding-top:var(--s4); }
+  .channels__seal { position:absolute; top:-46px; right:0; }
+  .info-block h4 { font-size:15px; color:var(--warm-950); margin-bottom:var(--s2); }
+
+  .ch-card { display:flex; align-items:center; gap:var(--s4); padding:var(--s3) var(--s4); border:1.5px solid; text-decoration:none; transition:var(--t-fast); }
+  .ch-card strong { display:block; font-weight:700; font-size:14px; }
+  .ch-card span { font-size:12px; opacity:.7; }
+  .ch-card--wa { background:var(--avo-50); color:var(--avo-700); border-color:var(--avo-200); }
+  .ch-card--wa:hover { background:var(--avo-700); color:#fff; transform:translateY(-2px); }
+  .ch-card--email { background:var(--warm-100); color:var(--warm-800); border-color:var(--warm-200); }
+  .ch-card--email:hover { background:var(--seal); color:#fff; border-color:var(--seal); transform:translateY(-2px); }
+  .ch-card--phone { background:var(--warm-100); color:var(--warm-800); border-color:var(--warm-200); }
+  .ch-card--phone:hover { background:var(--avo-900); color:#fff; border-color:var(--avo-900); transform:translateY(-2px); }
+
+  .company-block { background:var(--warm-50); border:1px solid var(--warm-200); padding:var(--s5); }
+  .company-block p { font-family:var(--font-mono); font-size:12px; letter-spacing:.02em; color:var(--text-body); margin:0 0 5px; }
+  .company-block p:last-child { margin-bottom:0; }
+  .company-block .company-block__zh { color:var(--seal); }
+
+  .expect-block { background:var(--warm-100); border:1px solid var(--warm-200); padding:var(--s5); }
+  .expect-list { list-style:none; display:flex; flex-direction:column; gap:var(--s3); counter-reset:exp; }
+  .expect-list li { display:flex; gap:var(--s4); align-items:flex-start; }
+  .expect-list__n { font-family:var(--font-serif); font-size:22px; font-weight:600; color:var(--seal); line-height:1; flex-shrink:0; width:28px; }
+  .expect-list strong { display:block; font-size:13px; font-weight:600; color:var(--warm-950); font-family:var(--font-sans); margin-bottom:2px; }
+  .expect-list p { font-size:12px; color:var(--text-body); margin:0; }
+
+  .trust-quote { background:var(--avo-950); padding:var(--s4) var(--s5); }
+  .trust-quote blockquote { font-family:var(--font-serif); font-style:italic; font-size:16px; color:#fff; line-height:1.6; border:none; padding:0; margin:0 0 var(--s3); }
+  .trust-quote cite { font-size:11px; color:rgba(255,255,255,.45); font-family:var(--font-mono); letter-spacing:0.06em; font-style:normal; }
+
+  @media(max-width:900px) {
+    .contact-wrap { grid-template-columns:1fr; }
+    .contact-info { position:static; }
+  }
+</style>

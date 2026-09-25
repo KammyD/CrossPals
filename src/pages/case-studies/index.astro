@@ -3,14 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/case-studies/index.astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = defaultLang;
 
 /* 案例来自 src/content/case-studies/*.md —— 新增案例只需新建一个 md 文件 */
-const cases = (await getCollection('case-studies'))
-  .filter(c => !c.data.draft)
+const cases = entriesForLang((await getCollection('case-studies')).filter(c => !c.data.draft), PAGE_LANG)
   .sort((a, b) => a.data.order - b.data.order);
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
-const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+const fmt = (d: string) => fmtDate(PAGE_LANG, d, 'monthYear');
 ---
 <BaseLayout title="Case Studies" description="Real orders CrossPals sourced, inspected, and prepped for Amazon FBA sellers — the problem, what we did, and the result.">
 
@@ -24,7 +27,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
     <div class="container">
       <div class="cases">
         {cases.map((c, i) => (
-          <a href={`/case-studies/${c.slug}`} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
+          <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ccard reveal', `reveal-delay-${i % 3}`]}>
             <ImgPlaceholder src={c.data.cover} width={800} height={600} ratio="4/3" alt={c.data.title} />
 
             <div class="ccard__body">

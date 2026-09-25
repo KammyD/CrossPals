@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: avoid-fba-rejections
 title: "How to Avoid FBA Shipment Rejections from China"
 description: "The labelling, packaging and documentation mistakes that get shipments refused at Amazon — and how to prevent them."
 category: "Amazon FBA"

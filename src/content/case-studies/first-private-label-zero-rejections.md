@@ -1,4 +1,6 @@
 ---
+translationStatus: published
+translationKey: first-private-label-zero-rejections
 title: "A first private-label order that cleared FBA with zero rejections"
 client: "Amazon FBA · Spain · Pet Supplies"
 summary: "A seller who had never imported anything. Three factories vetted, one sample confirmed, and a carton spec that cleared Amazon receiving on the first try."

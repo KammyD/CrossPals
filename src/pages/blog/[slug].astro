@@ -2,35 +2,41 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
-import { defaultLang, localePath, languageList } from '../../i18n/utils';
+import { defaultLang, localePath, languageList, entriesForLang, baseSlug, fmtDate } from '../../i18n/utils';
+
+/* 本页语言 —— 源页写默认语言；CMS 脚手架复制出 /<prefix>/blog/[slug].astro 时
+   会把这一行改成 `const PAGE_LANG = '<语言码>';`，取数/链接/日期随之全部切换。
+   ★ 页面里不要再出现 defaultLang，否则加语言后仍会取英文条目。 */
+const PAGE_LANG = defaultLang;
 
 /* 文章正文来自 src/content/blog/*.md。
-   只为默认语言生成 /blog/{slug}/；带 lang 的译文（如 x-ja.md）由 /ja/blog/[slug] 负责。 */
+   译文与原文同目录、文件名加 -<语言码> 后缀，靠 entriesForLang 按 PAGE_LANG 挑选。 */
 export async function getStaticPaths() {
+  // ⚠ Astro 的 getStaticPaths 跑在独立作用域，拿不到模块级常量 —— 必须在这里再声明一次。
+  // 两处字面量由 CMS 脚手架一起改写（`const PAGE_LANG = defaultLang;` 全局替换），值恒相同。
+  const PAGE_LANG = defaultLang;
   const posts = await getCollection('blog');
-  return posts
-    .filter(p => !p.data.draft)
-    .filter(p => !p.data.lang || p.data.lang === defaultLang)
-    .map(p => ({ params: { slug: p.slug }, props: { post: p } }));
+  return entriesForLang(posts.filter(p => !p.data.draft), PAGE_LANG)
+    .map(p => ({ params: { slug: baseSlug(p.slug, PAGE_LANG) }, props: { post: p } }));
 }
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const published = new Date(post.data.date + 'T00:00:00')
-  .toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const published = fmtDate(PAGE_LANG, post.data.date);
 
-/* hreflang 互指：找出这篇的各语言译文（translationKey 相同，或文件名 -<语言码> 后缀） */
-const alternates: Record<string, string> = { [defaultLang]: `/blog/${post.slug}/` };
+/* hreflang 互指：找出这篇的各语言译文（translationKey 相同，或基准 slug 相同） */
+const selfSlug = baseSlug(post.slug, PAGE_LANG);
+const alternates: Record<string, string> = { [PAGE_LANG]: localePath(PAGE_LANG, `/blog/${selfSlug}/`) };
 {
   const siblings = await getCollection('blog');
   for (const l of languageList) {
-    if (l.isDefault || l.code === defaultLang) continue;
+    if (l.code === PAGE_LANG) continue;
     const alt = siblings.find(p => p.data.lang === l.code && !p.data.draft && (
       (p.data.translationKey && p.data.translationKey === post.data.translationKey) ||
-      p.slug === `${post.slug}-${l.code}`
+      baseSlug(p.slug, l.code) === selfSlug
     ));
     if (alt) {
-      const altSlug = alt.data.translationKey || alt.slug.replace(new RegExp(`-${l.code}$`), '');
+      const altSlug = alt.data.translationKey || baseSlug(alt.slug, l.code);
       alternates[l.code] = localePath(l.code, `/blog/${altSlug}/`);
     }
   }

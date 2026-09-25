@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "project": {
+    "type": "astro",
+    "name": "crosspals-com"
+  },
+  "site": {
+    "name": "CrossPals.com",
+    "domain": "https://www.crosspals.com",
+    "locales": [
+      {
+        "code": "en",
+        "default": true
+      },
+      {
+        "code": "ja",
+        "label": "日本語"
+      },
+      {
+        "code": "hi",
+        "label": "हिन्दी"
+      },
+      {
+        "code": "ko",
+        "label": "Español"
+      }
+    ],
+    "i18n": {
+      "strategy": "directory",
+      "source": "en"
+    }
+  },
+  "branding": {
+    "logo": "public/img/logo-horizontal-light.png",
+    "logoDark": null,
+    "favicon": "public/apple-touch-icon.png",
+    "defaultOgImage": "public/og-image.png"
+  },
+  "settings": {
+    "files": [
+      {
+        "key": "site-data",
+        "label": "站点信息",
+        "path": "src/data/site.json",
+        "enabled": true
+      }
+    ]
+  },
+  "content": {
+    "blog": {
+      "label": "文章",
+      "path": "src/content/blog",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/blog",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "textarea",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "readTime": {
+          "type": "string",
+          "required": true,
+          "help": "'6 min'"
+        },
+        "cover": {
+          "type": "image",
+          "required": true,
+          "help": "'/img/xxx.webp'"
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "order": 10,
+      "mediaFolder": "public/img"
+    },
+    "case-studies": {
+      "label": "客户案例",
+      "path": "src/content/case-studies",
+      "format": "markdown",
+      "itemLayout": "file",
+      "routeBase": "/case-studies",
+      "enabled": true,
+      "schema": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "client": {
+          "type": "string",
+          "required": true,
+          "help": "'Amazon seller · United States · Kitchen & Dining'"
+        },
+        "summary": {
+          "type": "textarea",
+          "required": true,
+          "help": "列表卡摘要（一两句）"
+        },
+        "problem": {
+          "type": "string",
+          "required": true
+        },
+        "action": {
+          "type": "string",
+          "required": true
+        },
+        "results": {
+          "type": "array",
+          "required": true,
+          "help": "3 条结果指标"
+        },
+        "cover": {
+          "type": "image",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "required": true
+        },
+        "order": {
+          "type": "number",
+          "default": 99,
+          "help": "列表排序，越小越前"
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "order": 10,
+      "astroCollection": "caseStudies",
+      "mediaFolder": "public/img"
+    }
+  },
+  "media": {
+    "root": "public",
+    "publicPrefix": "/",
+    "folders": {
+      "img": "public/img"
+    }
+  },
+  "writable": {
+    "allow": [
+      "site.config.json",
+      "src/data/**",
+      "src/content/**",
+      "public/branding/**",
+      "public/uploads/**",
+      "public/img/**"
+    ],
+    "deny": [
+      "src/components/**",
+      "src/layouts/**",
+      "src/pages/**",
+      "src/**/*.astro",
+      "src/**/*.ts",
+      "src/**/*.js",
+      "astro.config.*",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "wrangler.toml",
+      ".git/**",
+      "node_modules/**"
+    ]
+  },
+  "deploy": {
+    "provider": "cloudflare-pages",
+    "productionDomain": "https://www.crosspals.com",
+    "previewDomain": ""
+  },
+  "git": {
+    "branch": "main",
+    "remote": "origin",
+    "repo": "KammyD/crosspals"
+  },
+  "meta": {
+    "generatedBy": "cms-core/init-site.js",
+    "generatedAt": "2026-09-18T09:02:11.066Z"
+  },
+  "spec": {
+    "version": "1.0",
+    "conformance": "adapted",
+    "deviations": [
+      {
+        "code": "branding-dir-offspec",
+        "message": "品牌资源在 public/img 与 public 根下，未迁到 public/branding"
+      },
+      {
+        "code": "settings-dir-offspec",
+        "message": "公司信息在 src/config/site.ts，不在 src/data/"
+      },
+      {
+        "code": "settings-missing-navigation",
+        "message": "未声明导航菜单文件"
+      },
+      {
+        "code": "settings-missing-seo",
+        "message": "未声明 SEO 设置文件"
+      },
+      {
+        "code": "schema-duplicated",
+        "message": "zod 与 site.config.json 里的 schema 重复定义"
+      },
+      {
+        "code": "hardcoded-contact",
+        "message": "hello@crosspals.com 在 ContactForm.astro 与 404.astro 各写一遍，未引用 site.ts"
+      }
+    ]
+  }
+}

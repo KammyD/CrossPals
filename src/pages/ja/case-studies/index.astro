@@ -6,15 +6,15 @@ import { getCollection } from 'astro:content';
 import { languageList, defaultLang } from '../../../i18n/utils';
 
 /* 案例来自 src/content/case-studies/*.md —— 只列带 lang: ja 的译文（与博客一致） */
-const jaCode = languageList.find(l => !l.isDefault)?.code ?? 'ja';
+const PAGE_LANG = 'ja';
 const cases = (await getCollection('case-studies'))
-  .filter(c => !c.data.draft && c.data.lang === jaCode)
+  .filter(c => !c.data.draft && c.data.lang === PAGE_LANG)
   .sort((a, b) => a.data.order - b.data.order);
 
 const num = (i: number) => String(i + 1).padStart(2, '0');
 const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'short' });
 ---
-<BaseLayout lang={jaCode} title="導入事例 | CrossPals" description="CrossPals が調達・検品・出荷準備を担った実際のご注文——課題、対応内容、その成果。">
+<BaseLayout lang={PAGE_LANG} title="導入事例 | CrossPals" description="CrossPals が調達・検品・出荷準備を担った実際のご注文——課題、対応内容、その成果。">
 
   <PageHero
     overline="導入事例"

@@ -1,0 +1,805 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+import { PHONE } from '../../config/site';
+import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink } from '../../i18n/utils';
+
+/* 本页语言 —— 由 CMS 脚手架写入（源页是 defaultLang）。取数/链接/日期全读它。 */
+const PAGE_LANG = 'hi';
+
+/* ── 服务（每项带一条独立定价说明） ── */
+const services: Array<{ icon: IconName; n: string; title: string; body: string; price: string; seed: number; hint: string; delay: number; featured?: boolean }> = [
+  { icon: 'sourcing',    n: '01', title: 'उत्पाद खोज',     body: 'हम हजारों चीनी आपूर्तिकर्ताओं — 1688, Alibaba और सीधे कारखानों के नेटवर्क — को आपके बजट और मानकों के अनुरूप सही मिलान ढूंढने के लिए खंगालते हैं।', price: '<b>$1,000</b> ऑर्डर → <b>$80</b> खोज शुल्क (8%)। हम यूनिट कीमत कम करते हैं और उसमें कोई अतिरिक्त चार्ज नहीं जोड़ते।', seed: 10, hint: '义乌商品城/供应商展会场景', delay: 0 },
+  { icon: 'inspection',  n: '02', title: 'गुणवत्ता जांच',   body: 'माल के जहाज पर चढ़ने से पहले कारखाने में भौतिक जांच। विस्तृत फोटो रिपोर्ट, दोषों की गिनती और स्पष्ट पास/फेल जिससे आप अंधाधुंध शिपिंग से बचें।', price: '<b>$1,000</b> ऑर्डर → <b>$150</b> स्थिर जांच शुल्क (आधा दिन)। पूरी फोटो रिपोर्ट शामिल।', seed: 20, hint: '质检员工作照/工厂内部', delay: 1, featured: true },
+  { icon: 'payment',     n: '03', title: 'खरीदारी और भुगतान', body: 'हम चीनी में बातचीत करते हैं और सत्यापित आपूर्तिकर्ताओं को सभी भुगतान संभालते हैं। आपका पैसा हर कदम पर सुरक्षित — अजनबियों को कोई वायर ट्रांसफर नहीं।', price: '<b>$1,000</b> ऑर्डर → 30% अग्रिम / QC के बाद 70%। <b>5–8%</b> हैंडलिंग, कोई छिपे हुए मार्कअप नहीं।', seed: 30, hint: '签约/握手/合同场景', delay: 2 },
+  { icon: 'shipping',    n: '04', title: 'शिपिंग और लॉजिस्टिक्स', body: 'दुनिया भर में डोर-टू-डोर। हम हवाई, समुद्री और एक्सप्रेस विकल्पों की तुलना करते हैं, फिर कस्टम दस्तावेज़ संभालते हैं और आपको रीयल-टाइम ट्रैकिंग देते हैं।', price: '<b>$1,000</b> ऑर्डर → वाहक के लाइव कोट पर माल भाड़ा। <b>$0</b> अतिरिक्त।', seed: 40, hint: '集装箱港口/货运飞机', delay: 3 },
+];
+
+/* ── 三个真实 FBA 卖家场景（Facebook 群组每天都在发的帖） ── */
+const scenarios: Array<{ quote: string; tag: string; title: string; body: string; cta: string }> = [
+  { quote: 'मैंने 500 यूनिट ऑर्डर किए थे और 30% दोषपूर्ण मिले।', tag: 'शिपिंग से पहले जांचा गया', title: 'गुणवत्ता जांच',
+    body: 'हम पूरी खेप को कारखाने में जांचते हैं — मापन, परीक्षण और कैमरे पर दोषों की गिनती। यदि पास दर कम है, तो आपूर्तिकर्ता चीन से एक भी बॉक्स निकलने से पहले पुनर्निर्माण या प्रतिस्थापन करता है।',
+    cta: 'देखें जांच कैसे काम करती है' },
+  { quote: 'मैंने भुगतान किया और मेरा आपूर्तिकर्ता गायब हो गया।', tag: 'भुगतान से पहले सत्यापित', title: 'आपूर्तिकर्ता सत्यापन',
+    body: 'हम कभी भी किसी ऐसे आपूर्तिकर्ता को पैसे नहीं भेजते जिसे हमने सत्यापित नहीं किया हो। व्यवसाय लाइसेंस, फैक्ट्री पता, निर्यात इतिहास, और लाइव वीडियो वॉकथ्रू - जमा राशि जारी करने से पहले जांचा जाता है, बाद में नहीं।',
+    cta: 'देखें कि हम आपूर्तिकर्ताओं की जांच कैसे करते हैं' },
+  { quote: 'मुझे नहीं पता कि मेरा उत्पाद FBA आवश्यकताओं को पूरा करता है या नहीं।', tag: 'FBA के लिए तैयार होने के बाद ही भेजा जाता है', title: 'FBA तैयारी',
+    body: 'हम अमेज़ॅन के सटीक विनिर्देशों के अनुसार लेबल लगाते हैं, पॉली-बैग में रखते हैं, बंडल करते हैं, वजन और माप लेते हैं - फिर आपको कार्टन लेबल और पैकिंग सूची प्रदान करते हैं जो पहली बार में ही स्वीकृत हो जाती है।',
+    cta: 'FBA तैयारी देखें' },
+];
+
+/* ── 独立质检模块：5 项质检标准 ── */
+const inspectionStandards: Array<{ n: string; title: string; body: string }> = [
+  { n: '01', title: 'उपस्थिति',      body: 'सतह, रंग, प्रिंट और फिनिश आपके स्वीकृत नमूने के अनुसार जांचे जाते हैं।' },
+  { n: '02', title: 'आयाम',      body: 'लंबाई, चौड़ाई, वजन और सहनशीलता कैलीपर्स और स्केल से मापी जाती है।' },
+  { n: '03', title: 'कार्य परीक्षण',   body: 'हर नमूना यूनिट को चालू किया जाता है, असेंबल किया जाता है या आपके ग्राहक द्वारा उपयोग किए जाने वाले तरीके से जांचा जाता है।' },
+  { n: '04', title: 'पैकेजिंग',       body: 'रिटेल बॉक्स, इन्सर्ट्स और पॉली-बैग की अखंडता - साथ ही ट्रांजिट-ड्रॉप के लिए तैयारी।' },
+  { n: '05', title: 'FBA लेबल जांच', body: 'FNSKU, कार्टन लेबल, दम घुटने की चेतावनी, और अमेज़ॅन बारकोड स्कैनेबिलिटी।' },
+];
+
+const steps: Array<{ day: string; title: string; body: string }> = [
+  { day: 'दिन 1',    title: 'अपना उत्पाद जमा करें',      body: 'हमारे सरल फॉर्म के माध्यम से हमें उत्पाद, मात्रा, गुणवत्ता मानक और बजट बताएं।' },
+  { day: 'दिन 2',    title: 'सत्यापित आपूर्तिकर्ता विकल्प',  body: '48 घंटों के भीतर आपके इनबॉक्स में 3-5 सत्यापित आपूर्तिकर्ता, मूल्य और प्रोफाइल के साथ।' },
+  { day: 'दिन 7-20', title: 'हम खरीदते हैं और निरीक्षण करते हैं',         body: 'हम आपूर्तिकर्ता को भुगतान करते हैं, उत्पादन की निगरानी करते हैं, और शिपिंग से पहले एक पूर्ण QC फोटो रिपोर्ट भेजते हैं।' },
+  { day: 'दिन 21+',  title: 'FBA-तैयार, वितरित',     body: 'माल चीन से Amazon विनिर्देश के अनुसार लेबल और पैक किया गया, सीमा शुल्क निपटाया गया, ट्रैकिंग के साथ छोड़ता है।' },
+];
+
+/* ── 证言：FBA 卖家格式（品类 / 订单 / 问题 / 结果） ── */
+const testiFeatured = {
+  quote: 'मैं Amazon US पर रसोई गैजेट्स बेचता हूँ। CrossPals ने मेरे मुख्य उत्पाद की सोर्सिंग की, शिपिंग से पहले 15 दोषपूर्ण इकाइयों को पकड़ा, और 18 दिनों में सब कुछ FBA-तैयार कर दिया। तब से दोबारा ऑर्डर किया है।',
+  name: 'मार्कस टी.', meta: 'Amazon विक्रेता · संयुक्त राज्य अमेरिका · रसोई और भोजन',
+  result: 'शिपिंग पूर्व 15 दोष पकड़े गए · 18 दिनों में FBA-तैयार', avatar: '/img/avatar-nigeria.webp',
+};
+const testiSmall = [
+  { quote: 'पहला निजी-लेबल ऑर्डर - पालतू आपूर्ति की 800 इकाइयाँ। उन्होंने फैक्ट्री को सत्यापित किया, पैकेजिंग समस्या को पकड़ा, और यह बिना किसी अस्वीकृति के FBA पर पहुँच गया।',
+    name: 'एना आर.', meta: 'Amazon FBA · स्पेन · पालतू आपूर्ति', result: '0 FBA अस्वीकृतियाँ', avatar: '/img/avatar-mexico.webp' },
+  { quote: 'मेरे पिछले आपूर्तिकर्ता ने जमा राशि के बाद मुझे छोड़ दिया। CrossPals ने एक नए की जाँच की, स्वयं QC चलाया, और मैंने फिर कभी किसी अजनबी को पैसा नहीं भेजा।',
+    name: 'डेविड ओ.', meta: 'Amazon & Shopify · यूनाइटेड किंगडम · घर और उद्यान', result: '2 पुनः ऑर्डर', avatar: '/img/avatar-uk.webp' },
+];
+
+const whyItems: Array<{ icon: IconName; n: string; title: string; body: string }> = [
+  { icon: 'global',       n: '01', title: 'कोई भाषा की बाधा नहीं',  body: 'हम सीधे चीनी भाषा में वार्ता करते हैं — आपको फैक्ट्री कीमतें मिलती हैं, पर्यटक कीमतें नहीं।' },
+  { icon: 'trust',        n: '02', title: 'वास्तविक जवाबदेही',   body: 'एक समर्पित एजेंट आपके ऑर्डर का प्रबंधन करता है। आपको एक व्यक्ति मिलता है, टिकट कतार नहीं।' },
+  { icon: 'handshake',    n: '03', title: 'FBA विक्रेताओं के लिए बनाया गया', body: 'हम जो कुछ भी करते हैं वह अमेज़ॅन-तैयार कार्टन में समाप्त होता है: सोर्सिंग, निरीक्षण, लेबलिंग, पैकिंग।' },
+  { icon: 'transparent',  n: '04', title: 'पारदर्शी लागत',     body: 'सप्लायर कीमत + मालभाड़ा + हमारी फीस। प्रतिबद्ध होने से पहले आप हर नंबर देखते हैं।' },
+];
+
+/* 首页只给承诺（结果），不说过程；过程全部放到 Services 页的展开模块 */
+const guarantees: Array<{ icon: IconName; title: string; body: string }> = [
+  { icon: 'trust',      title: 'केवल सत्यापित आपूर्तिकर्ता', body: 'आप एक सेंट भुगतान करने से पहले हम हर आपूर्तिकर्ता की जांच करते हैं।' },
+  { icon: 'inspection', title: 'शिपिंग से पहले QC',      body: 'फोटो रिपोर्ट + पास/फेल इससे पहले कि आपका पैसा ट्रांसफर हो।' },
+  { icon: 'payment',    title: 'भुगतान सुरक्षा',      body: 'हम धनराशि तब तक रोकते हैं जब तक माइलस्टोन्स क्लीयर ना हो जाएँ। अजनबियों को वायर नहीं।' },
+  { icon: 'shipping',   title: 'DDP दरवाजा वितरण',       body: 'ट्रैकिंग और सामान — कागजी कार्यवाही नहीं।' },
+];
+
+const pricingFees: Array<{ label: string; value: string; note: string }> = [
+  { label: 'एजेंट फीस',     value: 'ऑर्डर मूल्य का 5–8%', note: '$10,000 ऑर्डर = $600 एजेंट फीस' },
+  { label: 'निरीक्षण',    value: '$150 / दिन',          note: 'अधिकांश ऑर्डर आधे दिन में पूरे हो जाते हैं' },
+  { label: 'एफबीए प्रीप',      value: 'प्रति यूनिट',            note: 'आपके कोटेशन पर आइटमाइज्ड लाइन-बाई-लाइन' },
+  { label: 'माल ढुलाई',       value: 'कैरियर कोटेशन पर',    note: 'कैरियर कीमत के ऊपर कुछ भी नहीं जोड़ा गया' },
+];
+
+/* Resources：自动取最新 3 篇文章（来自 src/content/blog/*.md —— 加文章即自动出现在首页） */
+const blogPosts = entriesForLang((await getCollection('blog')).filter(p => !p.data.draft), PAGE_LANG)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 3)
+  .map(p => ({ slug: p.slug, cat: p.data.category, title: p.data.title, time: p.data.readTime, cover: p.data.cover }));
+
+const svcImg: Record<number,string> = {10:'sourcing-1688',20:'inspection',30:'payment',40:'shipping'};
+const guarImg: Record<string,string> = {trust:'factory',inspection:'inspection',payment:'payment',shipping:'shipping'};
+const tickerItems = ['एफबीए प्रीप', 'प्री-शिपमेंट क्यूसी', '1688 सोर्सिंग', 'आपूर्तिकर्ता सत्यापन', 'डीडीपी शिपिंग', 'प्राइवेट लेबल', 'उत्पाद फोटोग्राफी', 'अमेज़न एफबीए', 'हेबेई · बाओडिंग → विश्व', 'क्यूसी ���ोटो रिपोर्ट्स', 'कोई छुपे हुए शुल्क नहीं'];
+const categories = ['किचन और डाइनिंग', 'होम और गार्डन', 'पालतू जानवरों का सामान', 'खिलौने और गेम्स', 'स्पोर्ट्स और आउटडोर', 'ब्यूटी और पर्सनल केयर', 'इलेक्ट्रॉनिक्स एक्सेसरीज', 'ऑफिस प्रोडक्ट्स'];
+---
+<BaseLayout
+  title="अमेज़ॅन विक्रेताओं द्वारा विश्वसनीय सोर्सिंग पार्टनर"
+  description="क्रॉसपाल्स FBA के लिए उत्पादों की सोर्सिंग, जांच और तैयारी करता है - आपूर्तिकर्ता सत्यापन, शिपमेंट पूर्व गुणवत्ता नियंत्रण और FBA तैयारी, ताकि आप आपूर्तिकर्ताओं की बजाय बिक्री पर ध्यान दे सकें।"
+ lang="hi">
+
+<!-- ═══ 顶部深色带：公告条 + 刊头信息行 ═══ -->
+<div class="topband">
+  <a href="/hi/contact" class="announce announce--dark">
+    <span class="announce__dot" aria-hidden="true"></span>
+    <span><strong>नया:</strong>पहली बार आयात करने वालों के लिए मुफ्त सोर्सिंग परामर्श — 48 घंटे में आपूर्तिकर्ता शॉर्टलिस्ट</span>
+    <span class="announce__arrow" aria-hidden="true">→</span>
+  </a>
+
+  <div class="masthead">
+    <div class="container masthead__inner">
+      <span>CrossPals · चीन सोर्सिंग मैनुअल</span>
+      <span class="masthead__rule" aria-hidden="true"></span>
+      <span>अंक Nº01 — MMXXVI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO — 面向 Amazon 卖家 ═══ -->
+<section class="hero grain" style="position:relative;overflow:hidden;">
+  <div class="hero__grid">
+    <div class="hero__left">
+      <div class="hero__left-inner">
+        <p class="overline overline--light">FBA विक्रेताओं के लिए चीन से सोर्सिंग</p>
+        <h1 class="hero__title">Amazon विक्रेताओं का विश्वसनीय सोर्सिंग पार्टनर — <em>गुणवत्ता जांच शामिल</em></h1>
+        <p class="hero__lead">हम FBA के लिए आपके उत्पादों को सोर्स, जांच और तैयार करते हैं — ताकि आप आपूर्तिकर्ताओं की बजाय बिक्री पर ध्यान दे सकें</p>
+
+        <p class="hero__sidenote">चित्र. 00 — अधिकांश FBA विक्रेता भाषा अंतर, नकली आपूर्तिकर्ताओं और अंधे शिपमेंट से पैसा खो देते हैं। हम तीनों को समाप्त कर देते हैं</p>
+
+        <div class="hero__actions">
+          <a href="/hi/contact" class="btn btn-primary">
+            मुफ्त कोटेशन प्राप्त करें
+            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          </a>
+          <a href="/hi/services" class="btn btn-ghost">यह कैसे काम करता है देखें</a>
+        </div>
+
+        <ul class="hero__index">
+          <li><span>01</span> Source</li>
+          <li><span>02</span> Inspect</li>
+          <li><span>03</span> FBA के लिए तैयार करें</li>
+          <li><span>04</span> Deliver</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hero__right">
+      <div class="hero__photo-fill">
+        <ImgPlaceholder src="/img/hero-warehouse.webp" seed={42} width={900} height={1100} ratio="9/11" priority
+          alt="चीन का फैक्टरी गोदाम - क्रॉसपाल्स सोर्सिंग" />
+      </div>
+      <div class="hero__cap">
+        <span class="hero__cap-label">चित्र 01</span>
+        <span class="hero__cap-text">हेबेई · बाओडिंग, चीन</span>
+        <span class="seal seal--sm" aria-hidden="true"><span>Verified</span><span>Agent</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {[...tickerItems, ...tickerItems].map(t => <span class="ticker__item">{t}</span>)}
+  </div>
+</div>
+
+<!-- ═══ 信任带：服务场景标识 + 数字指标（替代原来的国家旗帜列表） ═══ -->
+<section class="trustbar" aria-label="हम क्या संभालते हैं और किसकी सेवा करते हैं">
+  <div class="container">
+    <p class="overline" style="margin-bottom:var(--s4);">अमेज़न और शॉपिफाय विक्रेताओं के लिए सोर्सिंग, निरीक्षण और तैयारी करना</p>
+    <div class="regionwall reveal">
+      {categories.map(c => <span>{c}</span>)}
+    </div>
+    <ul class="trustmetrics reveal reveal-delay-1">
+      <li><b>47</b><span>सेवित अमेज़न विक्रेता</span></li>
+      <li><b>$2.3M<em>+</em></b><span>सोर्स की गई वस्तुएँ</span></li>
+      <li><b>98<em>%</em></b><span>समय पर वितरण</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ SERVICES — 每项带独立定价说明 ═══ -->
+<section class="section svc ledger">
+  <div class="container svc__wrap">
+    <aside class="svc__aside">
+      <p class="overline">हम क्या करते हैं</p>
+      <h2 class="svc__h">एंड-टू-एंड<br/><em>चीन सोर्सिंग</em></h2>
+      <p class="svc__intro">चार अनुशासन, एक जवाबदेह एजेंट। प्रत्येक चरण का दस्तावेज़ीकरण, फोटोग्राफी और मूल्य निर्धारण आपके धन हस्तांतरित होने से पहले किया जाता है।</p>
+      <a href="/hi/services" class="svc__all">पूर्ण सेवा सूचकांक →</a>
+    </aside>
+
+    <ol class="svc__list">
+      {services.map(s => (
+        <li class:list={['svc-row reveal', `reveal-delay-${s.delay}`]}>
+          <div class="svc-row__num"><span class="indexnum">{s.n}</span></div>
+          <div class="svc-row__thumb">
+            <ImgPlaceholder src={'/img/'+svcImg[s.seed]+'.webp'} seed={s.seed} width={360} height={240} ratio="3/2" alt={s.title} />
+          </div>
+          <div class="svc-row__body">
+            <div class="svc-row__top">
+              <h3>{s.title}</h3>
+            </div>
+            <div class="lede-row">
+              <p>{s.body}</p>
+              <a href="/hi/services" class="svc-row__link">और अधिक जानें<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+            <div class="price-note">
+              <span class="price-note__label">Price</span>
+              <span class="price-note__calc" set:html={s.price} />
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section hiw grain" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="hiw__head reveal">
+      <p class="overline overline--light">Process</p>
+      <h2 class="text-white">आपूर्तिकर्ता से<br/><em style="color:var(--avo-300)">4 चरणों में एफबीए-तैयार</em></h2>
+    </div>
+
+    <div class="manifest reveal reveal-delay-1">
+      {steps.map((step, i) => (
+        <div class:list={['manifest__col', { 'manifest__col--end': i === steps.length - 1 }]}>
+          <span class="manifest__day">{step.day}</span>
+          <span class="manifest__n">{String(i + 1).padStart(2, '0')}</span>
+          <h4 class="manifest__title">{step.title}</h4>
+          <p class="manifest__body">{step.body}</p>
+        </div>
+      ))}
+      <div class="manifest__stamp" aria-hidden="true">
+        <span class="seal"><span>Cross</span><span>पाल्स ✓</span></span>
+      </div>
+    </div>
+
+    <div class="hiw__cta reveal reveal-delay-2">
+      <a href="/hi/contact" class="btn btn-primary">मुफ्त उद्धरण प्राप्त करें</a>
+      <a href="/hi/case-studies" class="btn btn-ghost">केस स्टडीज़ देखें</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 三个真实 FBA 卖家场景（解决痛点） ═══ -->
+<section class="section scen">
+  <div class="container">
+    <div class="scen__head reveal">
+      <p class="overline">हमारे द्वारा हल की जाने वाली समस्याएँ</p>
+      <h2>हर तीन पोस्ट<br/><em>अमेज़न सेलर राइट्स</em></h2>
+      <p class="scen__lead">ये वही धागे हैं जो हर दिन Amazon विक्रेता समूहों में दिखाई देते हैं। यहाँ बिल्कुल वैसा ही है जैसा हम हर एक का जवाब देते हैं।</p>
+    </div>
+
+    <div class="scen__list">
+      {scenarios.map((s, i) => (
+        <article class:list={['scen-item reveal', `reveal-delay-${i}`]}>
+          <div class="scen-item__quote">
+            <span class="scen-item__mark" aria-hidden="true">“</span>
+            <p>{s.quote}</p>
+            <span class="scen-item__src">— FBA विक्रेता फोरम पोस्ट</span>
+          </div>
+          <div class="scen-item__sol">
+            <span class="tag tag-seal">{s.tag}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <a href="/hi/services" class="scen-item__link">{s.cta}
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 独立质检模块（差异化武器） ═══ -->
+<section class="section inspect grain" style="position:relative;overflow:hidden;">
+  <div class="container">
+    <div class="inspect__head reveal">
+      <p class="overline overline--light">गुणवत्ता जाँच</p>
+      <h2 class="text-white">हर ऑर्डर के साथ आता है<br/><em>एक पूर्ण निरीक्षण रिपोर्ट।</em></h2>
+      <p class="inspect__lead">एक बॉक्स की तस्वीर नहीं। पाँच मानकों के खिलाफ एक संरचित, पंक्ति-दर-पंक्ति रिपोर्ट — आपके सामान के शिप होने से पहले, हर ऑर्डर पर, हर ऑर्डर के आकार पर आपको भेजी जाती है।</p>
+    </div>
+
+    <div class="inspect__grid">
+      <ol class="inspect__std reveal">
+        {inspectionStandards.map((s, i) => (
+          <li class:list={['inspect-std', `reveal-delay-${i}`]}>
+            <span class="inspect-std__n">{s.n}</span>
+            <div>
+              <h4>{s.title}</h4>
+              <p>{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <!-- 样例质检报告（客户/供应商信息打码） -->
+      <div class="qcreport reveal reveal-delay-2">
+        <div class="qcreport__head">
+          <span class="qcreport__brand">CrossPals · प्री-शिपमेंट इंस्पेक्शन</span>
+          <span class="qcreport__no">रिपोर्ट № CP-2026-0418</span>
+        </div>
+        <dl class="qcreport__grid">
+          <div><dt>Product</dt><dd>स्टेनलेस-स्टील किचन गैजेट</dd></div>
+          <div><dt>ऑर्डर मात्रा</dt><dd>1,000 टुकड़े</dd></div>
+          <div><dt>नमूना आकार</dt><dd>80 टुकड़े (AQL 2.5)</dd></div>
+          <div><dt>Where</dt><dd>फैक्ट्री में, शिपमेंट से पहले</dd></div>
+        </dl>
+        <ul class="qcreport__checks">
+          <li><span>Appearance</span><span class="ok">Pass</span></li>
+          <li><span>Dimensions</span><span class="ok">Pass</span></li>
+          <li><span>फंक्शन टेस्ट</span><span class="ok">Pass</span></li>
+          <li><span>Packaging</span><span class="warn">12 टुकड़े फिर से काम किए गए</span></li>
+          <li><span>FBA लेबल जांच</span><span class="ok">Pass</span></li>
+        </ul>
+        <div class="qcreport__result">
+          <span class="qcreport__verdict">PASS</span>
+          <span>पैकिंग से पहले 12 मामूली कॉस्मेटिक दोषों को अस्वीकार कर दिया गया और आपूर्तिकर्ता द्वारा बदल दिया गया।</span>
+        </div>
+        <p class="qcreport__note">नमूना रिपोर्ट — ग्राहक और आपूर्तिकर्ता विवरण छिपाए गए। हर ऑर्डर इस तरह की रिपोर्ट के साथ शिप होता है।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS — FBA 卖家格式 ═══ -->
+<section class="section testi">
+  <div class="container">
+    <div class="testi__head reveal">
+      <p class="overline">सफलता की कहानियाँ</p>
+      <h2>अमेज़ॅन विक्रेता,<br/><em>वास्तविक आदेश</em></h2>
+    </div>
+
+    <!-- 精选证言：文本左、头像右 -->
+    <blockquote class="pullquote pullquote--feat reveal">
+      <div class="pullquote__body">
+        <span class="pullquote__mark" aria-hidden="true">“</span>
+        <p>{testiFeatured.quote}</p>
+        <footer>
+          <span class="pullquote__name">{testiFeatured.name}</span>
+          <span class="pullquote__region">{testiFeatured.meta}</span>
+          <span class="pullquote__result">{testiFeatured.result}</span>
+        </footer>
+      </div>
+      <img class="pullquote__avatar" src={testiFeatured.avatar} alt={`${testiFeatured.name} — Amazon seller portrait`} loading="lazy" decoding="async" width="160" height="160" />
+    </blockquote>
+
+    <div class="testi__row">
+      {testiSmall.map((t, i) => (
+        <blockquote class:list={['pq-sm reveal', `reveal-delay-${i + 1}`]}>
+          <img class="pq-sm__avatar" src={t.avatar} alt={`${t.name} — Amazon seller portrait`} loading="lazy" decoding="async" width="56" height="56" />
+          <p>“{t.quote}”</p>
+          <footer>
+            <span class="pq-sm__name">{t.name}</span>
+            <span>{t.meta}</span>
+            <span class="text-seal">{t.result}</span>
+          </footer>
+        </blockquote>
+      ))}
+      <div class="testi__stat reveal reveal-delay-1">
+        <p class="overline overline--avo">हमारा ट्रैक रिकॉर्ड</p>
+        <div class="testi__bignum">47<span>+</span></div>
+        <p>अमेज़ॅन विक्रेताओं की सेवा, $2.3M+ सोर्सेड सामान, 98% समय पर वितरण।</p>
+        <a href="/hi/case-studies" class="btn btn-outline" style="margin-top:var(--s5);border-color:rgba(186,209,133,.4);color:rgba(255,255,255,.85);">केस स्टडी देखें →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 定价说明区块（独立、透明） ═══ -->
+<section class="section pricing bg-parchment">
+  <div class="container pricing__wrap">
+    <div class="pricing__intro reveal">
+      <p class="overline">पारदर्शी मूल्य निर्धारण</p>
+      <h2>आप पूरी लागत देखें<br/><em>प्रतिबद्ध होने से पहले</em></h2>
+      <p class="pricing__lead">कोई "मूल्य निर्धारण के लिए हमसे संपर्क करें" नहीं। माल ढुलाई में कोई छुपी हुई मार्कअप नहीं। यहाँ बिल्कुल हमारी शुल्क संरचना है।</p>
+    </div>
+
+    <div class="pricing__right">
+      <ul class="pricetable reveal reveal-delay-1">
+        {pricingFees.map(f => (
+          <li>
+            <span class="pricetable__label">{f.label}</span>
+            <span class="pricetable__value">{f.value}</span>
+            <span class="pricetable__note">{f.note}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="price-example reveal reveal-delay-2">
+        <p class="price-example__title">कार्य उदाहरण — $1,000 का आदेश</p>
+        <div class="price-example__rows">
+          <div class="price-example__row"><span>आपूर्तिकर्ता मूल्य (सामान)</span><span>$1,000</span></div>
+          <div class="price-example__row"><span>एजेंट शुल्क (8%)</span><span>$80</span></div>
+          <div class="price-example__row"><span>Freight</span><span>वास्तविक उद्धरण पर</span></div>
+          <div class="price-example__row price-example__row--total"><span>आपकी संपूर्ण लागत</span><span>कोई छुपे हुए शुल्क नहीं</span></div>
+        </div>
+        <p class="price-example__foot">आपूर्तिकर्ता मूल्य + एजेंट शुल्क + माल ढुलाई = आपकी कुल लागत। और कुछ नहीं।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 通栏行动 Banner ═══ -->
+<section class="banner-cta banner-cta--dark">
+  <div class="container banner-cta__inner">
+    <div class="banner-cta__text">
+      <span class="banner-cta__eyebrow">सीमित स्थान</span>
+      <h3 class="banner-cta__head">पहली बार आयातकर्ताओं के लिए निःशुल्क सोर्सिंग परामर्श</h3>
+      <span class="banner-cta__note">कोई प्रतिबद्धता नहीं · 24 घंटे के भीतर उत्तर</span>
+    </div>
+    <a href="/hi/contact" class="btn btn-primary">मेरा स्लॉट बुक करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ WHY ═══ -->
+<section class="section why bg-parchment">
+  <div class="container why__grid">
+    <div class="why__left reveal">
+      <p class="overline">क्यों CrossPals</p>
+      <h2>हमने मुश्किल हिस्सों को हल कर दिया<br/><em>ताकि आपको न करना पड़े</em></h2>
+      <div class="divider" style="margin:var(--s6) 0;"></div>
+      <div class="lede-row">
+        <p style="font-size:15px;line-height:1.72;">अधिकांश विक्रेता चाइना सोर्सिंग में भाषा बाधाओं, भुगतान जोखिम और गुणवत्ता अनिश्चितता के कारण असफल हो जाते हैं। CrossPals इन तीनों को खत्म कर देता है।</p>
+        <a href="/hi/contact" class="btn btn-primary">मुफ्त कोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </a>
+      </div>
+      <ImgPlaceholder src="/img/team-wide.webp" seed={15} width={560} height={420} ratio="4/3" alt="क्रॉसपाल्स टीम" />
+    </div>
+
+    <div class="why__right">
+      {whyItems.map((w, i) => (
+        <div class:list={['why-item reveal', `reveal-delay-${i}`]}>
+          <span class="indexnum why-item__n">{w.n}</span>
+          <div class="why-item__body">
+            <h4>{w.title}</h4>
+            <p>{w.body}</p>
+            <p class="sidenote why-item__note">CrossPals मानक — हर ऑर्डर पर लागू, सिर्फ बड़े ऑर्डर पर नहीं।</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BLOG ═══ -->
+<section class="section blog-prev">
+  <div class="container">
+    <div class="blog-prev__head reveal">
+      <div>
+        <p class="overline">Resources</p>
+        <h2>Amazon और Shopify के लिए<br/><em>Sellers</em></h2>
+      </div>
+      <a href="/hi/blog" class="btn btn-outline">सभी लेख →</a>
+    </div>
+
+    <div class="blog-prev__grid">
+      {blogPosts.map((post, i) => (
+        <a href={contentLink(PAGE_LANG, 'blog', post.slug)} class:list={['bcard', i === 0 ? 'bcard--feat' : 'bcard--sm', 'reveal', `reveal-delay-${i}`]}>
+          <ImgPlaceholder
+            src={post.cover}
+            width={i === 0 ? 720 : 640}
+            height={i === 0 ? 960 : 360}
+            ratio={i === 0 ? '3/4' : '16/9'}
+            alt={post.title}
+          />
+          <div class="bcard__body">
+            <span class="bcard__cat">{post.cat}</span>
+            {i === 0 ? <h3>{post.title}</h3> : <h4>{post.title}</h4>}
+            <div class="bcard__foot">
+              <div class="bcard__time"><Icon name="clock" size={12} color="var(--warm-400)" /><span>{post.time} read</span></div>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 保障模块网格 ═══ -->
+<section class="section--tight">
+  <div class="container">
+    <div class="guar-head reveal">
+      <p class="overline">हमारी गारंटी</p>
+      <h2>आपको क्या मिलता है<em>हर ऑर्डर</em></h2>
+    </div>
+    <div class="guarantee reveal">
+      {guarantees.map((g, i) => (
+        <div class="guarantee__item">
+          <span class="guarantee__n">{String(i + 1).padStart(2, '0')}</span>
+          <div class="guarantee__icon"><Icon name={g.icon} size={26} color="var(--seal)" /></div>
+          <ImgPlaceholder class="guarantee__img" src={'/img/' + guarImg[g.icon] + '.webp'} seed={600 + i} width={480} height={320} ratio="3/2" alt={g.title} />
+          <h4>{g.title}</h4>
+          <p>{g.body}</p>
+        </div>
+      ))}
+    </div>
+    <div class="guar-lede lede-row reveal">
+      <p class="lede-row__text">प्रत्येक कैसे वास्तव में काम करता है — चरण, चेकलिस्ट, और अगर यह विफल हो जाता है तो क्या होता है।</p>
+      <a href="/hi/services#guarantees" class="btn btn-ghost">देखें कि यह कैसे काम करता है →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section class="cta-final grain" style="position:relative;overflow:hidden;">
+  <div class="container cta-final__inner">
+    <div class="cta-final__text reveal">
+      <span class="seal cta-final__seal" aria-hidden="true"><span>Ready</span><span>48 घंटे</span></span>
+      <p class="overline overline--light">तैयार?</p>
+      <h2 class="text-white" style="margin:var(--s3) 0 var(--s4);font-size:clamp(30px,4.4vw,56px);">आपका पहला सप्लायर<br/><em style="color:var(--avo-300)">48 घंटे दूर है</em>
+      </h2>
+      <p class="text-light" style="max-width:400px;">कोई प्रतिबद्धता नहीं। कोई अनुभव आवश्यक नहीं। बस हमें बताएं कि आप क्या सोर्स करना चाहते हैं।</p>
+    </div>
+    <div class="cta-final__form reveal reveal-delay-2">
+      <form class="quick-form" action="/contact" method="GET">
+        <input type="text" name="product" placeholder="आप क्या सोर्स करना चाहते हैं?" required />
+        <button type="submit" class="btn btn-primary">कोट प्राप्त करें<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+        </button>
+      </form>
+      <p class="cta-final__note">Or <a href={PHONE.wa}>व्हाट्सएप पर चैट करें</a> · निःशुल्क, कोई प्रतिबद्धता नहीं</p>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+/* TOPBAND */
+.topband{background:var(--avo-950);padding-top:var(--hdr-h);}
+.announce--dark{background:transparent;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(232,229,218,.82);}
+.announce--dark strong{color:var(--seal);font-weight:600;}
+.announce--dark:hover{background:rgba(255,255,255,.05);}
+.announce--dark:hover .announce__arrow{transform:translateX(3px);}
+
+/* MASTHEAD */
+.masthead{background:var(--avo-950);border-bottom:1px solid rgba(255,255,255,.08);}
+.masthead__inner{display:flex;align-items:center;gap:var(--s4);padding:10px var(--s5);font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.masthead__rule{flex:1;height:1px;background:rgba(255,255,255,.1);}
+
+/* HERO */
+.hero{background:var(--avo-950);min-height:min(78vh,680px);display:flex;flex-direction:column;}
+.hero__grid{display:grid;grid-template-columns:1.05fr 0.95fr;flex:1;min-height:0;}
+.hero__left{display:flex;align-items:center;padding:84px var(--s7) var(--s7) var(--s7);}
+.hero__left-inner{max-width:600px;}
+.hero__title{color:#fff;font-size:clamp(32px,4.1vw,54px);line-height:1.06;margin:var(--s2) 0 var(--s4);font-weight:560;}
+.hero__title em{font-style:italic;color:var(--seal);font-weight:400;}
+.hero__lead{color:rgba(255,255,255,.66);font-size:16.5px;line-height:1.7;max-width:500px;margin-bottom:var(--s4);}
+.hero__sidenote{font-family:var(--font-mono);font-size:11px;line-height:1.6;color:rgba(255,255,255,.4);border-left:1px solid var(--seal);padding-left:var(--s3);max-width:440px;margin-bottom:var(--s5);}
+.hero__actions{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s5);}
+.hero__index{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s5);padding-top:var(--s4);border-top:1px solid rgba(255,255,255,.1);}
+.hero__index li{display:flex;align-items:baseline;gap:6px;font-family:var(--font-serif);font-size:15px;color:rgba(255,255,255,.7);}
+.hero__index li span{font-family:var(--font-mono);font-size:10px;color:var(--seal);letter-spacing:.08em;}
+
+.hero__right{position:relative;overflow:hidden;display:flex;}
+.hero__photo-fill{position:absolute;inset:0;}
+.hero__photo-fill :global(.img-ph){height:100%;}
+.hero__photo-fill :global(.img-ph__wrap){padding-top:0!important;height:100%;}
+.hero__photo-fill :global(img){width:100%;height:100%;object-fit:cover;}
+.hero__cap{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:var(--s4);padding:var(--s4) var(--s5);background:linear-gradient(0deg,rgba(28,33,20,.9),transparent);}
+.hero__cap-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--avo-300);}
+.hero__cap-text{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:rgba(255,255,255,.7);text-transform:uppercase;flex:1;}
+.hero__cap .seal{transform:rotate(-8deg);background:rgba(28,33,20,.4);border-color:var(--seal);color:#fff;backdrop-filter:blur(2px);}
+
+/* TRUSTBAR */
+.trustbar{padding:var(--section-y-sm) var(--s5);background:var(--bg-page);border-bottom:1px solid var(--border-light);}
+.trustmetrics{list-style:none;display:flex;flex-wrap:wrap;gap:var(--s6);margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--border-light);}
+.trustmetrics li{display:flex;align-items:baseline;gap:var(--s3);}
+.trustmetrics b{font-family:var(--font-serif);font-size:clamp(28px,3.4vw,40px);font-weight:600;color:var(--avo-700);line-height:1;}
+.trustmetrics b em{font-style:normal;color:var(--seal);}
+.trustmetrics span{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-muted);}
+
+/* SERVICES */
+.svc{background:var(--bg-page);}
+.svc__wrap{display:grid;grid-template-columns:300px 1fr;gap:var(--s7);align-items:start;}
+.svc__aside{position:sticky;top:100px;}
+.svc__h em{font-style:italic;color:var(--avo-600);}
+.svc__intro{font-size:15px;line-height:1.7;color:var(--text-body);margin:var(--s4) 0;}
+.svc__all{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--seal);text-transform:uppercase;}
+.svc__list{list-style:none;display:flex;flex-direction:column;}
+.svc-row{display:grid;grid-template-columns:56px 180px 1fr;gap:var(--s5);align-items:center;padding:var(--s5) 0;border-top:1px solid var(--border-light);}
+.svc-row:last-child{border-bottom:1px solid var(--border-light);}
+.svc-row__num .indexnum{font-size:40px;}
+.svc-row__thumb :global(.img-ph){border:1px solid var(--border-light);}
+.svc-row__top{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s2);flex-wrap:wrap;}
+.svc-row__body .lede-row{margin-top:var(--s2);}
+.svc-row__body h3{font-size:clamp(19px,2.1vw,25px);}
+.svc-row__body p{font-size:14px;line-height:1.65;margin:0;max-width:520px;}
+.svc-row__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);}
+.svc-row__link:hover{gap:10px;}
+.svc-row{transition:background var(--t-med),color var(--t-med);}
+.svc-row:hover{background:var(--avo-950);}
+.svc-row:hover .svc-row__body h3{color:#fff;}
+.svc-row:hover .svc-row__body p{color:rgba(255,255,255,.62);}
+.svc-row:hover .svc-row__num .indexnum{color:var(--avo-300);}
+.svc-row:hover .svc-row__thumb :global(.img-ph){border-color:rgba(255,255,255,.15);}
+.svc-row:hover .svc-row__link{color:var(--avo-300);}
+.svc-row__body h3,.svc-row__body p,.svc-row__link,.svc-row__num .indexnum{transition:color var(--t-med);}
+/* 每项服务的独立定价说明 */
+.price-note{display:flex;align-items:flex-start;gap:var(--s3);margin-top:var(--s4);padding-top:var(--s3);border-top:1px dashed var(--border-mid);max-width:560px;}
+.price-note__label{flex-shrink:0;font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--seal);padding-top:2px;}
+.price-note__calc{font-size:13px;line-height:1.55;color:var(--text-muted);}
+.price-note__calc b{color:var(--avo-800);font-weight:600;}
+.svc-row:hover .price-note{border-top-color:rgba(255,255,255,.2);}
+.svc-row:hover .price-note__calc{color:rgba(255,255,255,.6);}
+.svc-row:hover .price-note__calc b{color:var(--avo-300);}
+
+/* HOW IT WORKS */
+.guar-head{margin-bottom:var(--s6);}
+.guar-head h2 em{font-style:italic;color:var(--avo-600);}
+.guar-lede{margin-top:var(--s6);padding-top:var(--s5);border-top:1px solid var(--border-light);}
+.guar-lede p{font-size:14px;color:var(--text-muted);}
+.hiw{background:var(--avo-950);}
+.hiw__head{margin-bottom:var(--head-gap);}
+.hiw__head h2 em{font-style:italic;color:var(--avo-300);}
+.manifest{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.15);position:relative;}
+.manifest__col{padding:var(--s5) var(--s5) var(--s6) 0;border-right:1px solid rgba(255,255,255,.08);}
+.manifest__day{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:var(--s3);}
+.manifest__n{display:block;font-family:var(--font-serif);font-size:46px;font-weight:600;color:rgba(255,255,255,.1);line-height:1;margin-bottom:var(--s2);}
+.manifest__title{color:#fff;font-size:18px;margin-bottom:var(--s2);}
+.manifest__body{font-size:14px;color:rgba(255,255,255,.5);}
+.manifest__stamp{position:absolute;right:0;top:-10px;}
+.hiw__cta{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6);}
+
+/* SCENARIOS */
+.scen{background:var(--warm-100);}
+.scen__head{margin-bottom:var(--head-gap);max-width:720px;}
+.scen__head h2 em{font-style:italic;color:var(--avo-600);}
+.scen__lead{font-size:16px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:620px;}
+.scen__list{display:flex;flex-direction:column;}
+.scen-item{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--s7);align-items:center;padding:var(--s6) 0;border-top:1px solid var(--border-light);}
+.scen-item:last-child{border-bottom:1px solid var(--border-light);}
+.scen-item__quote{position:relative;padding-left:var(--s6);}
+.scen-item__mark{position:absolute;left:0;top:-14px;font-family:var(--font-serif);font-size:56px;line-height:1;color:var(--seal);opacity:.3;}
+.scen-item__quote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(19px,2.3vw,26px);line-height:1.4;color:var(--text-primary);}
+.scen-item__src{display:block;margin-top:var(--s3);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);}
+.scen-item__sol h3{font-size:clamp(18px,2vw,22px);margin:var(--s3) 0 var(--s3);}
+.scen-item__sol p{font-size:14.5px;line-height:1.7;color:var(--text-body);max-width:560px;}
+.scen-item__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);margin-top:var(--s4);transition:gap var(--t-fast);}
+.scen-item__link:hover{gap:10px;}
+
+/* INSPECTION MODULE */
+.inspect{background:var(--avo-950);}
+.inspect__head{margin-bottom:var(--head-gap);max-width:760px;}
+.inspect__head h2 em{font-style:italic;color:var(--avo-300);}
+.inspect__lead{font-size:16px;line-height:1.72;color:rgba(255,255,255,.6);margin-top:var(--s4);max-width:640px;}
+.inspect__grid{display:grid;grid-template-columns:1fr 1.05fr;gap:var(--s7);align-items:start;}
+.inspect__std{list-style:none;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.15);}
+.inspect-std{display:grid;grid-template-columns:48px 1fr;gap:var(--s4);padding:var(--s4) 0;border-bottom:1px solid rgba(255,255,255,.08);}
+.inspect-std__n{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;color:var(--seal);padding-top:2px;}
+.inspect-std h4{color:#fff;font-size:16px;margin-bottom:4px;}
+.inspect-std p{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.6;}
+/* 样例报告 */
+.qcreport{background:#fff;border:1px solid var(--border-light);padding:var(--s5);}
+.qcreport__head{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex-wrap:wrap;padding-bottom:var(--s3);border-bottom:2px solid var(--seal);}
+.qcreport__brand{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--avo-800);}
+.qcreport__no{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
+.qcreport__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5);margin:var(--s4) 0;padding-bottom:var(--s4);border-bottom:1px solid var(--border-light);}
+.qcreport__grid dt{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:3px;}
+.qcreport__grid dd{font-size:13.5px;color:var(--text-primary);}
+.qcreport__checks{list-style:none;display:flex;flex-direction:column;margin-bottom:var(--s4);}
+.qcreport__checks li{display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:7px 0;border-bottom:1px solid var(--border-light);font-size:13.5px;color:var(--text-body);}
+.qcreport__checks .ok{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:#637d3e;text-transform:uppercase;}
+.qcreport__checks .warn{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--seal);text-transform:uppercase;}
+.qcreport__result{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s4);background:var(--avo-50);border-left:2px solid #637d3e;}
+.qcreport__verdict{font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.1em;color:#637d3e;flex-shrink:0;}
+.qcreport__result span:last-child{font-size:13px;color:var(--text-body);}
+.qcreport__note{margin-top:var(--s4);font-family:var(--font-mono);font-size:10.5px;line-height:1.55;color:var(--text-faint);}
+
+/* TESTIMONIALS */
+.testi{background:var(--warm-100);}
+.testi__head{margin-bottom:var(--head-gap);}
+.testi__head h2 em{font-style:italic;color:var(--avo-600);}
+.pullquote{position:relative;margin:0 0 var(--s6);border-left:2px solid var(--seal);}
+.pullquote--feat{display:grid;grid-template-columns:1fr 180px;gap:var(--s7);align-items:center;padding:var(--s5) 0 var(--s5) var(--s6);}
+.pullquote__body{position:relative;}
+.pullquote__mark{position:absolute;left:-6px;top:-22px;font-family:var(--font-serif);font-size:80px;line-height:1;color:var(--seal);opacity:.25;}
+.pullquote p{font-family:var(--font-serif);font-style:italic;font-size:clamp(19px,2.3vw,27px);line-height:1.4;color:var(--text-primary);max-width:680px;}
+.pullquote footer{display:flex;flex-direction:column;gap:4px;margin-top:var(--s4);}
+.pullquote__name{font-family:var(--font-serif);font-size:16px;color:var(--text-primary);}
+.pullquote__region{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--text-muted);}
+.pullquote__result{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--seal);}
+.pullquote__avatar{width:100%;max-width:180px;aspect-ratio:1;height:auto;object-fit:cover;object-position:50% 22%;border:1px solid var(--border-light);background:var(--bg-page);justify-self:end;}
+.testi__row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s5);}
+.pq-sm{margin:0;padding:var(--s4) 0;border-top:1px solid var(--border-light);}
+.pq-sm__avatar{width:56px;height:56px;object-fit:cover;object-position:50% 24%;display:block;border:1px solid var(--border-light);background:var(--warm-100);margin-bottom:var(--s4);}
+.pq-sm p{font-family:var(--font-serif);font-style:italic;font-size:16px;line-height:1.5;color:var(--text-primary);margin-bottom:var(--s3);}
+.pq-sm footer{display:flex;flex-direction:column;gap:4px;}
+.pq-sm__name{font-family:var(--font-serif);font-size:15px;color:var(--text-primary);}
+.pq-sm footer span:not(.pq-sm__name){font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted);}
+.pq-sm footer span.text-seal{font-family:var(--font-mono);font-size:12px;font-weight:500;}
+.testi__stat{background:var(--avo-950);padding:var(--s5);display:flex;flex-direction:column;}
+.testi__stat p{color:rgba(255,255,255,.55);font-size:14px;}
+.testi__bignum{font-family:var(--font-serif);font-size:52px;font-weight:600;color:#fff;line-height:1;margin:var(--s2) 0;}
+.testi__bignum span{color:var(--avo-300);}
+
+/* PRICING */
+.pricing__wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:var(--s7);align-items:start;}
+.pricing__intro h2 em{font-style:italic;color:var(--avo-600);}
+.pricing__lead{font-size:15px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:400px;}
+.pricetable{list-style:none;display:flex;flex-direction:column;border-top:2px solid var(--seal);}
+.pricetable li{display:grid;grid-template-columns:140px 1fr;gap:var(--s4) var(--s5);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);align-items:baseline;}
+.pricetable__label{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-800);}
+.pricetable__value{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--text-primary);}
+.pricetable__note{grid-column:2;font-size:13px;color:var(--text-muted);}
+.price-example{margin-top:var(--s5);background:var(--avo-950);padding:var(--s5) var(--s6);border-left:2px solid var(--seal);}
+.price-example__title{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-300);margin-bottom:var(--s4);}
+.price-example__rows{display:flex;flex-direction:column;}
+.price-example__row{display:flex;justify-content:space-between;gap:var(--s4);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14.5px;color:rgba(255,255,255,.7);}
+.price-example__row span:last-child{font-family:var(--font-mono);color:#fff;}
+.price-example__row--total{border-bottom:none;padding-top:var(--s4);margin-top:var(--s2);border-top:2px solid var(--seal);}
+.price-example__row--total span{color:#fff;font-weight:600;}
+.price-example__row--total span:last-child{color:var(--avo-300);}
+.price-example__foot{margin-top:var(--s4);font-size:13px;color:rgba(255,255,255,.5);}
+
+/* WHY */
+.why{background:var(--warm-100);}
+.why__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:var(--s7);align-items:center;}
+.why h2 em{font-style:italic;color:var(--avo-600);}
+.why__right{display:flex;flex-direction:column;}
+.why-item{display:grid;grid-template-columns:64px 1fr;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid var(--border-light);}
+.why-item:first-child{padding-top:0;}
+.why-item:last-child{border-bottom:none;}
+.why-item__n{font-size:36px;}
+.why-item__body h4{font-size:18px;margin-bottom:var(--s2);}
+.why-item__body p{font-size:14px;}
+.why-item__note{margin-top:var(--s2);}
+
+/* BLOG */
+.blog-prev{background:var(--bg-page);}
+.blog-prev__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--head-gap);}
+.blog-prev__head h2 em{font-style:italic;color:var(--avo-600);}
+.blog-prev__grid{column-count:2;column-gap:var(--s5);}
+.bcard{display:block;break-inside:avoid;margin-bottom:var(--s5);text-decoration:none;color:inherit;background:var(--bg-surface);border:1px solid var(--border-light);transition:var(--t-med);}
+.bcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--avo-200);}
+.bcard--feat :global(.img-ph){border-bottom:1px solid var(--border-light);}
+.bcard__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+.bcard__cat{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--avo-600);}
+.bcard--feat h3{font-size:clamp(21px,2.4vw,27px);line-height:1.25;flex:1;transition:color var(--t-fast);}
+.bcard--feat:hover h3{color:var(--avo-700);}
+.bcard--sm h4{font-size:16px;line-height:1.3;flex:1;}
+.bcard__foot{display:flex;justify-content:space-between;align-items:center;padding-top:var(--s4);border-top:1px solid var(--border-light);margin-top:auto;}
+.bcard__time{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--warm-400);font-family:var(--font-mono);}
+
+/* CTA FINAL */
+.cta-final{background:var(--avo-950);padding:var(--section-y) var(--s5);position:relative;overflow:hidden;}
+.cta-final__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--s7);flex-wrap:wrap;}
+.cta-final__text{position:relative;max-width:560px;}
+.cta-final__seal{position:absolute;top:-30px;right:0;background:rgba(28,33,20,.5);border-color:var(--seal);color:#fff;}
+.cta-final__form{display:flex;flex-direction:column;gap:var(--s3);min-width:360px;}
+.quick-form{display:flex;gap:var(--s3);}
+.quick-form input{flex:1;padding:13px 18px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;font-size:15px;font-family:var(--font-sans);outline:none;transition:border-color var(--t-fast);}
+.quick-form input:focus{border-color:var(--seal);}
+.quick-form input::placeholder{color:rgba(255,255,255,.32);}
+.cta-final__note{font-size:12px;color:rgba(255,255,255,.32);text-align:center;font-family:var(--font-mono);}
+.cta-final__note a{color:var(--avo-300);text-decoration:underline;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .svc__wrap{grid-template-columns:1fr;gap:var(--s7);}
+  .svc__aside{position:static;}
+  .manifest{grid-template-columns:1fr 1fr;}
+  .manifest__col{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .manifest__stamp{display:none;}
+  .inspect__grid{grid-template-columns:1fr;gap:var(--s6);}
+  .pricing__wrap{grid-template-columns:1fr;gap:var(--s6);}
+  .testi__row{grid-template-columns:1fr;}
+  .blog-prev__grid{column-count:1;}
+}
+@media(max-width:860px){
+  .hero__grid{grid-template-columns:1fr;}
+  .hero__right{display:none;}
+  .hero__left{padding:100px var(--s5) var(--s6);}
+  .why__grid{grid-template-columns:1fr;gap:var(--s6);}
+  .scen-item{grid-template-columns:1fr;gap:var(--s5);}
+  .scen-item__quote{padding-left:var(--s5);}
+}
+@media(max-width:640px){
+  .svc-row{grid-template-columns:48px 1fr;gap:var(--s4);}
+  .svc-row__thumb{display:none;}
+  .manifest{grid-template-columns:1fr;}
+  .cta-final__inner{flex-direction:column;text-align:center;}
+  .cta-final__form{min-width:unset;width:100%;}
+  .quick-form{flex-direction:column;}
+  .pullquote--feat{grid-template-columns:1fr;gap:var(--s5);}
+  .pullquote__avatar{max-width:120px;justify-self:start;}
+  .trustmetrics{gap:var(--s5);}
+}
+@media(max-width:560px){
+  .why-item{grid-template-columns:44px 1fr;gap:var(--s4);}
+  .why-item__n{font-size:30px;}
+  .blog-prev__head{flex-direction:column;align-items:flex-start;gap:var(--s4);}
+  .masthead__inner{gap:var(--s3);font-size:10px;letter-spacing:.08em;}
+  .masthead__rule{display:none;}
+  .pricetable li{grid-template-columns:1fr;gap:4px;}
+  .pricetable__note{grid-column:1;}
+  .trustmetrics li{align-items:flex-start;flex-direction:column;gap:2px;}
+}
+</style>

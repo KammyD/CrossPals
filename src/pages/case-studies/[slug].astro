@@ -2,25 +2,29 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
+import { defaultLang, entriesForLang, baseSlug, contentLink, fmtDate } from '../../i18n/utils';
+
+/* 本页语言 —— 脚手架复制出 /<prefix>/case-studies/[slug].astro 时会改成 `const PAGE_LANG = '<语言码>';` */
+const PAGE_LANG = defaultLang;
 
 /* 案例详情：正文来自 src/content/case-studies/*.md */
 export async function getStaticPaths() {
+  // ⚠ Astro 的 getStaticPaths 跑在独立作用域，拿不到模块级常量 —— 必须在这里再声明一次。
+  const PAGE_LANG = defaultLang;
   const cases = await getCollection('case-studies');
-  return cases
-    .filter(c => !c.data.draft)
-    .map(c => ({ params: { slug: c.slug }, props: { item: c } }));
+  return entriesForLang(cases.filter(c => !c.data.draft), PAGE_LANG)
+    .map(c => ({ params: { slug: baseSlug(c.slug, PAGE_LANG) }, props: { item: c } }));
 }
 
 const { item } = Astro.props;
 const { Content } = await item.render();
 
-const all = (await getCollection('case-studies'))
-  .filter(c => !c.data.draft)
+const all = entriesForLang((await getCollection('case-studies')).filter(c => !c.data.draft), PAGE_LANG)
   .sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex(c => c.slug === item.slug);
 const others = all.filter(c => c.slug !== item.slug).slice(0, 3);
 
-const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const fmt = (d: string) => fmtDate(PAGE_LANG, d);
 ---
 <BaseLayout
   title={item.data.title}
@@ -92,7 +96,7 @@ const fmt = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-US',
         <h2 class="reveal reveal-delay-1" style="margin-bottom:var(--head-gap);">Other Orders, <em style="font-style:italic;color:var(--avo-600);">Other Problems</em></h2>
         <div class="ocases">
           {others.map((c, i) => (
-            <a href={`/case-studies/${c.slug}`} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
+            <a href={contentLink(PAGE_LANG, 'case-studies', c.slug)} class:list={['ocard reveal', `reveal-delay-${i + 1}`]}>
               <div class="ocard__thumb">
                 <ImgPlaceholder src={c.data.cover} width={480} height={360} ratio="4/3" alt={c.data.title} />
               </div>
