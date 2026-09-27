@@ -12,7 +12,6 @@ cover: "/img/sourcing-1688.webp"
 
 Alibaba.com and 1688.com are both run by Alibaba Group, and both sell to businesses. They are not, however, the same market. If you are building a private label, knowing which to use — and when — saves real money.
 
-![sourcing-1688](/img/sourcing-1688.webp)
 
 ## The short version
 

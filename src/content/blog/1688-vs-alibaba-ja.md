@@ -15,7 +15,6 @@ translatedFrom: 8c9f27defd5720ad1e67ecb9cd2c0e79
 
 Alibaba.comと1688.comはどちらもAlibaba Groupが運営する企業向け販売プラットフォームですが、同じ市場ではありません。プライベートラベルを構築する場合、どちらをいつ利用するかを知ることで実際のコストを削減できます。
 
-![sourcing-1688](/img/sourcing-1688.webp)
 
 ## 簡単な比較
 
