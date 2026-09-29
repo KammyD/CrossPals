@@ -50,5 +50,18 @@
       "/services",
       "/terms"
     ]
+  },
+  "ar": {
+    "prefix": "ar",
+    "pages": [
+      "/about",
+      "/blog",
+      "/case-studies",
+      "/contact",
+      "/",
+      "/privacy",
+      "/services",
+      "/terms"
+    ]
   }
 }

@@ -1,0 +1,521 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ImgPlaceholder from '../../components/ImgPlaceholder.astro';
+import Icon from '../../components/Icon.astro';
+import type { IconName } from '../../components/Icon.astro';
+
+/* ── 核心服务包（主推产品）：一条龙 ── */
+const coreIncludes: Array<{ n: string; title: string; body: string }> = [
+  { n: '01', title: 'توفير الموردين',   body: '3-5 موردين موثوقين بأسعار حقيقية — تم التحقق من التراخيص وعنوان المصنع وسجل التصدير قبل تقديم عرض السعر.' },
+  { n: '02', title: 'تأكيد العينة', body: 'نقوم بطلب العينة وتقييمها وفقًا للمواصفات الخاصة بك وتوقعات عملائك قبل الالتكم بالطلب بالجملة.' },
+  { n: '03', title: 'فحص الدفعة الكاملة', body: 'فحص مراقبة الجودة قبل الشحن في المصنع: المظهر، الأبعاد، الوظيفة، التغليف، وفحص ملصق FBA.' },
+  { n: '04', title: 'تحضير FBA',            body: 'وضع ملصقات FNSKU، التغليف بكيس بلاستيكي، التجميع، الوزن والقياس وفقًا للمواصفات الدقيقة لأمازون.' },
+  { n: '05', title: 'تنسيق الشحن', body: 'مقارنة الشحن الجوي، البحري، أو السريع؛ معالجة أوراق الجمارك؛ خدمة من الباب إلى الباب DDP مع تتبع حيوي.' },
+];
+
+/* ── 附加服务：单独可选 ── */
+const addOns: Array<{ icon: IconName; title: string; problem: string; process: string; pricing: string; seed: number }> = [
+  { icon: 'package', title: 'تصميم العلامة الخاصة والتغليف', seed: 71,
+    problem: 'يجب أن يبدو منتجك كعلامة تجارية، وليس كاستيراد عام — والتغليف الضعيف يقتل التحويل.',
+    process: 'وضع الشعار، تصميم علبة / كيس / ملصق، بطاقات إدراج، ومفاوضات الحد الأدنى للطلب مع مصنع التغليف.',
+    pricing: 'رسوم تصميم ثابتة بالإضافة إلى تكلفة المصنع للتغليف. الحد الأدنى للطلب عادة 300–1000 قطعة.' },
+  { icon: 'transparent', title: 'تصوير المنتج', seed: 72,
+    problem: 'أمازون تدفن — أو تمنع — القوائم التي لا تلتزم صورتها الرئيسية بمعيار الخلفية البيضاء.',
+    process: 'صور بخلفية بيضاء وفق مواصفات الصورة الرئيسية لأمازون، بالإضافة إلى صور نمط الحياة والمخططات البيانية عند الطلب.',
+    pricing: 'سعر لكل صورة، مع خصم للكميات. سعر ثابت لكل SKU متاح.' },
+  { icon: 'sourcing', title: 'خدمة الشراء من 1688', seed: 73,
+    problem: 'أقل الأسعار الحية على 1688 — ولكن الموقع باللغة الصينية فقط ولا يشحن خارج الصين.',
+    process: 'أرسل رابط المنتج أو صورة. نقوم بالشراء من بائع 1688، ونتفحص، ونجمع الشحن، ثم نرسله إليك.',
+    pricing: 'نسبة مئوية من قيمة الطلب مع حد أدنى صغير. لا حاجة للغة الصينية.' },
+  { icon: 'shipping', title: 'التخزين وإعادة الشحن', seed: 74,
+    problem: 'الشراء من عدة موردين يعني عدة فواتير شحن دولية - دون أي شخص يتفحص البضائع.',
+    process: 'نستقبل الطلبات، نتفحصها، نعيد تغليفها، ونجمع شحنات متعددة في شحنة واحدة من مستودعنا.',
+    pricing: 'التخزين لكل متر مكعب في اليوم، بالإضافة إلى رسوم تجميع لكل طلب.' },
+];
+
+const svcImg: Record<number,string> = {71:'blog-packaging',72:'blog-products',73:'sourcing-1688',74:'shipping'};
+const steps: Array<{ day: string; title: string; body: string }> = [
+  { day: 'اليوم الأول',    title: 'تقوم بتقديم منتجك',    body: 'تفاصيل المنتج، الكمية، معايير الجودة، والميزانية عبر نموذج الاستفسار الخاص بنا.' },
+  { day: 'اليوم الثاني',    title: 'نرسل لك خيارات الموردين',   body: 'من 3 إلى 5 موردين موثوقين مع عروض الأسعار وملفات تعريفية، جاهزين لمراجعتك.' },
+  { day: 'اليوم الثالث إلى الخامس',  title: 'العينة والمفاوضات',       body: 'نتأكد من العينة، نتفق على الشروط بالصينية، نُصدِر أمر الشراء، ونُفرِز العربون بطريقة آمنة.' },
+  { day: 'اليوم السابع إلى العشرين', title: 'الإنتاج والتفتيش',    body: 'يتم تصنيع البضائع. نتفحص الدفعة كاملة ونرسل تقرير صور بمراقبة الجودة قبل الشحن.' },
+  { day: 'اليوم الحادي والعشرين فما فوق',  title: 'جاهز لـ إف بي إيه، التسليم',       body: 'يتم شحن البضائع من الصين مُوسَّمة ومُعبأة وفقًا لمواصفات أمازون، مع إتمام التخليص الجمركي وتوفير تتبع حيوي.' },
+];
+
+const pricingFees: Array<{ label: string; value: string; note: string }> = [
+  { label: 'رسوم الوكيل',  value: '5–8٪ من قيمة الطلب', note: 'طلب بقيمة 10,000 دولار = 600 دولار رسوم وكيل' },
+  { label: 'التفتيش', value: '150 دولار / يوم',          note: 'يتم إنهاء معظم الطلبات في نصف يوم' },
+  { label: 'تحضير شحنات أمازون (FBA)',   value: 'لكل وحدة',            note: 'مفصلة سطرًا بسطر في عرض الأسعار الخاص بك' },
+  { label: 'الشحن',    value: 'حسب عرض سعر الناقل',    note: 'لا يوجد أي رسوم إضافية فوق سعر الناقل' },
+];
+
+const faqs = [
+  { q: 'ما الذي يتضمنه بيع حزمة التوريد والتفتيش لخدمة FBA؟', a: 'توفير الموردين، تأكيد العينات، تفتيش الدفعة بالكامل، تحضير شحنات أمازون (FBA) (وضع البطاقات، التغليف، الوزن، القياس)، وتنسيق الشحن - وكيل واحد مسؤول، عرض سعر واحد.' },
+  { q: 'ما هي تكلفة الخدمة لديكم؟',                            a: 'رسوم الوكيل هي 5-8٪ من قيمة الطلب. التفتيش 150 دولار/يوم (معظم الطلبات تنتهي في نصف يوم). تحضير FBA يتم حسابه لكل وحدة. كل شيء مفصل في عرض الأسعار قبل الالتزام.' },
+  { q: 'ما هو الحد الأدنى لحجم الطلب؟',                         a: 'لا يوجد حد أدنى صارم، لكننا نعمل بشكل أفضل مع طلبات بقيمة 300 دولار أمريكي أو أكثر. الطلبات الأصغر قد يكون لها خيارات محدودة من الموردين.' },
+  { q: 'ماذا لو فشلت البضائع في التفتيش؟',                           a: 'نتعاون مع المورد لحل المشكلة — إما بإعادة العمل، الاستبدال، أو الاسترداد — قبل شحن أي شيء. نحن لا نحرر الدفعة النهائية بدون موافقتك.' },
+  { q: 'هل تقومون بتحضير شحنات FBA ووضع الملصقات؟',                    a: 'نعم. ملصقات FNSKU، التغليف في أكياس بلاستيكية، التجميع، ملصقات الكرتون، الأوزان والأبعاد حسب مواصفات أمازون — بحيث يتم استلام شحنتك بنجاح من أول مرة.' },
+  { q: 'هل يمكنني الحصول على تغليف مخصص مع شعار علامتي؟',                 a: 'نعم — هذه خدمة العلامة الخاصة والتغليف الإضافية لدينا. صناديق، أكياس، ملصقات، وبطاقات تعليق. الحد الأدنى للطلب يختلف حسب المورد، عادة 300–1000 قطعة.' },
+];
+
+/* ── Our Guarantees, in full ──
+   首页只给「承诺」（结果）；这里把四个承诺各自展开：流程（几步/每步多久）+ 具体标准（清单）+ 失败兜底。
+   图片刻意不用首页那四张（factory/inspection/payment/shipping），四张统一 1024×1280、统一 ratio="4/5"。 */
+type GuaranteeModule = {
+  icon: IconName; n: string; title: string; promise: string;
+  img: string; alt: string;
+  steps: Array<{ t: string; time: string; d: string }>;
+  checksLabel: string;
+  checks: Array<{ k: string; v: string }>;
+  fail: string;
+};
+const guaranteeModules: GuaranteeModule[] = [
+  {
+    icon: 'trust', n: '01', title: 'مواردون موثوقون فقط',
+    promise: 'نحن نتحقق من كل مورد قبل أن تدفع مليمًا واحدًا.',
+    img: '/img/g-market.webp', alt: 'التجول في أرضية سوق الجملة للتحقق من الموردين شخصيًا',
+    steps: [
+      { t: 'القائمة المختصرة', time: 'اليوم 1–2', d: 'نختار 3–5 مرشحين من شبكة المصانع الخاصة بنا ومن 1688، مطابقين لمواصفات منتجك.' },
+      { t: 'شيك ورقي', time: 'اليوم 2–3', d: 'رخصة العمل، العنوان المسجل، القدرة الإنتاجية، وسجل التصدير — يتم التحقق منها مقابل المصنع نفسه، وليس صفحة المبيعات.' },
+      { t: 'جولة افتراضية حية', time: 'اليوم 3–5', d: 'مكالمة فيديو داخل الورشة: خط الإنتاج الحقيقي، المخزون الفعلي، العينة الحقيقية.' },
+    ],
+    checksLabel: 'ما نتحقق منه',
+    checks: [
+      { k: 'الترخيص والكيان القانوني', v: 'رخصة عمل مطابقة للاسم الذي سيظهر على فاتورتك.' },
+      { k: 'العنوان مقابل الورشة', v: 'يتم التحقق من العنوان المسجل مقابل المكان الذي يتم فيه تصنيع البضائع فعليًا.' },
+      { k: 'السعة ووقت التسليم', v: 'ما إذا كان بإمكانهم استيعاب كمية طلبك، والموعد النهائي لك، وإعادة الطلب.' },
+      { k: 'سجل التصدير', v: 'الشحنات السابقة والعملاء الحاليون - من الذين يبيعون لهم بالفعل في الخارج.' },
+      { k: 'خط الإنتاج الحي', v: 'يتم رؤيته على الفيديو قبل أن يغادر أي دولار حسابك.' },
+    ],
+    fail: 'إذا لم يتمكن المصنع من اجتياز فحص الأوراق أو يرفض جولة حية، فلن يصل إلى عرض السعر الخاص بك. نستمر في البحث.',
+  },
+  {
+    icon: 'inspection', n: '02', title: 'مراقبة الجودة قبل الشحن',
+    promise: 'تقرير صور + نجاح/فشل قبل تحرك أموالك.',
+    img: '/img/g-production.webp', alt: 'مفتش يفحص البضائع في أرضية الإنتاج قبل الشحن',
+    steps: [
+      { t: 'حجز الفحص', time: 'اليوم قبل إغلاق الدفعة', d: 'مجدول مقابل تاريخ انتهاء الإنتاج - وليس تاريخ الشحن، لذلك لا يزال هناك وقت لإصلاح الأشياء.' },
+      { t: 'فحص الدفعة الكاملة في الموقع', time: 'نصف يوم، عادة', d: 'نقف في المصنع، نحسب، نقيس، نختبر، ونصور الدفعة بأنفسنا.' },
+      { t: 'التقرير والحكم', time: 'نفس اليوم', d: 'تتلقى تقرير الصورة مع نتيجة اجتياز/رسوب واضحة، وعدد العيوب، ومعيار أخذ العينات المستخدم.' },
+      { t: 'إعادة العمل أو الاستبدال', time: 'من 3 إلى 7 أيام', d: 'يتم إعادة المنتج غير المطابق مباشرة إلى المورد لإعادة العمل أو الاستبدال - ثم نعيد التفتيش قبل التغليف.' },
+    ],
+    checksLabel: 'ما نفحصه',
+    checks: [
+      { k: 'المظهر', v: 'الأسطح، اللون، التشطيب، الخياطة، الطباعة، والأضرار المرئية - مقارنة مع العينة المعتمدة.' },
+      { k: 'الأبعاد', v: 'الوزن والقياسات وفقاً للمواصفات، مع تحديد الوحدات غير المطابقة بشكل فردي.' },
+      { k: 'الوظيفة', v: 'تشغيل كل وحدة تم أخذ عينات منها، أو تركيبها، أو استخدامها تمامًا كما سيستخدمها عميلك.' },
+      { k: 'التغليف', v: 'الصندوق التجاري، كيس البولي، تحذير الاختناق، الإضافات الداخلية، ومتانة الكرتون.' },
+      { k: 'ملصقات FBA', v: 'مسح رموز FNSKU الباركود، ملصقات الكرتون صحيحة، والأوزان والأبعاد حسب مواصفات أمازون.' },
+    ],
+    fail: 'إذا فشلت الدفعة، لا يتم شحنها. يعيد المورد العمل عليها أو يستبدلها، ويظل رصيدك معنا حتى اجتياز الفحص.',
+  },
+  {
+    icon: 'payment', n: '03', title: 'حماية الدفع',
+    promise: 'نحتفظ بالأموال حتى اكتمال المراحل. لا تحويلات إلى جهات غير معروفة.',
+    img: '/img/payment-escrow.webp', alt: 'الأموال محتجزة مقابل صناديق مختومة حتى اكتمال كل مرحلة',
+    steps: [
+      { t: 'يتم كتابة طلب الشراء مع تحديد المراحل', time: 'اليوم الأول', d: 'يتم تحديد الإيداع والإنتاج والتفتيش والشحن كنقاط إصدار منفصلة قبل بدء أي شيء.' },
+      { t: 'تم إصدار الإيداع', time: 'اليوم الأول–الثاني', d: 'يتم صرف فقط المبلغ المتفق عليه للإيداع، وفقط بعد موافقتك الخطية على أمر الشراء.' },
+      { t: 'مرحلة التفتيش', time: 'في مرحلة مراقبة الجودة', d: 'لا يتم صرف رصيد الإنتاج حتى يرجع تقرير التفتيش بنتيجة مُرضية.' },
+      { t: 'التسوية النهائية', time: 'عند توقيعك للاعتماد', d: 'يتم تسوية الرصيد بعد موافقتك، مع إيصال مكتوب على الفاتورة.' },
+    ],
+    checksLabel: 'كيف يتم الاحتفاظ بأموالك',
+    checks: [
+      { k: 'أنت توافق على كل عملية صرف', v: 'لا يتم تحويل أي دفعة بدون موافقتك الخطية في كل مرحلة.' },
+      { k: 'المورد يُدفع له من قبلنا', v: 'نحن ندفع للمصنع مباشرة — أنت لا ترسل الأموال أبدًا إلى حساب غير معروف.' },
+      { k: 'لا حسابات شخصية', v: 'لا تذهب الأموال أبدًا إلى حساب بنكي شخصي أو محفظة طرف ثالث.' },
+      { k: 'لا دفعة مقدمة كاملة', v: 'لا يتلقى أي شخص 100% مقدمًا — لا المورد ولا نحن.' },
+      { k: 'إيصال لكل عملية تحويل', v: 'يتم توثيق كل عملية إصدار ووضعها مقابل طلبك بشكل مفصل.' },
+    ],
+    fail: 'إذا لم يتم تحقيق مرحلة ما، نقوم بإيقاف الطلب ويبقى المال معك — لا يُدفع لأحد مقابل عمل لم يتم إنجازه.',
+  },
+  {
+    icon: 'shipping', n: '04', title: 'توصيل الباب إلى الباب (DDP)',
+    promise: 'تتبع السلع — وليس الأوراق.',
+    img: '/img/g-packing.webp', alt: 'صناديق مغلقة، مٌعلّمة وجاهزة للتسليم إلى الباب',
+    steps: [
+      { t: 'حجز وتجميع', time: 'اليوم 1-2', d: 'نحن نختار الناقل، نحجز المساحة، ونجمع صناديقك في شحنة واحدة.' },
+      { t: 'التصدير والمستندات', time: '2-3 أيام', d: 'إقرار التصدير، قائمة التعبئة، والفواتير التجارية — يتم إعدادها وتقديمها من جانبنا.' },
+      { t: 'الشحن والاستيراد', time: 'جوي 5-8 أيام · بحري 25-35 يوم', d: 'شحن جوي أو بحري، مع إتمام الضرائب والجمارك تحت نظام DDP حتى لا يقع أي شيء على عاتقك.' },
+      { t: 'توصيل إلى الباب', time: '1-3 أيام', d: 'آخر ميل إلى عنوانك أو مباشرة إلى أمازون، مع التتبع من البداية إلى النهاية.' },
+    ],
+    checksLabel: 'ما المدرج',
+    checks: [
+      { k: 'مِن الباب إلى الباب (DDP)', v: 'سعر واحد من المصنع إلى عتبة منزلك — دون مفاجأة فاتورة جمركية.' },
+      { k: 'الرسوم والضرائب', v: 'مدرجة في الاقتباس، مفردة بشكل منفصل حتى تتمكن من رؤيتها.' },
+      { k: 'تتبع حي', v: 'رقم تتبع يعمل من المغادرة حتى التسليم.' },
+      { k: 'قائمة التعبئة والفاتورة', v: 'المستندات التي سيطلبها أمازون والشاحن الخاص بك.' },
+      { k: 'FBA أو عنوانك', v: 'مسلّم إلى مستودع أمازون أو إليك — الاختيار لك عند الحجز.' },
+    ],
+    fail: 'إذا تأخرت الشحنة، أو تم احتجازها، أو فقدت، نتولى ملاحقة الناقل وتقديم المطالبة. المعاملات الورقية هي مسؤوليتنا للدفاع عنها، وليست مسؤوليتك.',
+  },
+];
+---
+<BaseLayout title="Services" description="توفير وتفتيش FBA — بحث عن موردين، تأكيد العينات، تفتيش الدفعة الكاملة، إعداد FBA، وتنسيق الشحن، بالإضافة إلى العلامة الخاصة، التصوير، الشراء من 1688 وخدمات التخزين الإضافية. تسعير شفاف." ogImage="/img/case-relabel.webp" lang="ar">
+
+  <PageHero
+    overline="ما نقدمه"
+    title="توفير FBA<br/><em style='font-style:italic;color:var(--avo-300)'>وتفتيش</em>"
+    subtitle="حزمة واحدة — من البحث عن المورد إلى صندوق جاهز لأمازون. أضف العلامة الخاصة، التصوير، الشراء من 1688، أو التخزين عند الحاجة."
+  />
+
+  <!-- ═══ 核心服务包 ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="core reveal">
+        <div class="core__aside">
+          <span class="tag tag-seal">الحزمة الأساسية</span>
+          <h2>تزويد FBA<br/><em>والتفتيش</em></h2>
+          <p class="core__lead">الحزمة الوحيدة التي نوصي بها لكل بائع في FBA. كل ما يلزم للانتقال من "أريد بيع هذا" إلى صندوق مُجهز لأمازون، مع تسمية وتفتيش — تتم إدارته بواسطة وكيل واحد.</p>
+          <div class="core__price">
+            <span class="core__price-label">كيفية التسعير</span>
+            <p>رسوم الوكيل 5–8% · التفتيش 150$/يوم · تجهيز وحدة FBA — كلها مفصلة في اقتباس واحد.</p>
+          </div>
+          <a href="/ar/contact" class="btn btn-primary">احصل على اقتباس مجاني<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+          </a>
+        </div>
+
+        <ol class="core__list">
+          {coreIncludes.map((c, i) => (
+            <li class:list={['core-step reveal', `reveal-delay-${i}`]}>
+              <span class="core-step__n">{c.n}</span>
+              <div>
+                <h4>{c.title}</h4>
+                <p>{c.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- $1,000 订单说明 -->
+      <div class="price-example price-example--inline reveal">
+        <p class="price-example__title">مثال عملي — طلب بقيمة 1000$</p>
+        <div class="price-example__rows">
+          <div class="price-example__row"><span>سعر المورد (السلع)</span><span>$1,000</span></div>
+          <div class="price-example__row"><span>رسوم الوكيل (8%)</span><span>$80</span></div>
+          <div class="price-example__row"><span>Freight</span><span>عند الاقتباس الفعلي</span></div>
+          <div class="price-example__row price-example__row--total"><span>التكلفة الكاملة لديك</span><span>لا توجد رسوم خفية</span></div>
+        </div>
+        <p class="price-example__foot">سعر المورد + رسوم الوكيل + الشحن = كل ما تدفعه. لا شيء آخر.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 附加服务 ═══ -->
+  <section class="section bg-parchment">
+    <div class="container">
+      <div class="add-head reveal">
+        <p class="overline">خدمات إضافية</p>
+        <h2>إضافات اختيارية<br/><em>عند الحاجة إليها</em></h2>
+        <p class="add-lead">كل إضافة تحل مشكلة محددة. اخترها حسب الطلب، أو اجمعها في حزمة أساسية.</p>
+      </div>
+
+      <div class="addons">
+        {addOns.map((a, i) => (
+          <article class:list={['addon reveal', `reveal-delay-${i}`]}>
+            <div class="addon__media">
+              <ImgPlaceholder src={'/img/'+svcImg[a.seed]+'.webp'} seed={a.seed} width={520} height={390} ratio="4/3" alt={a.title} />
+            </div>
+            <div class="addon__body">
+              <span class="addon__icon"><Icon name={a.icon} size={24} color="var(--seal)" /></span>
+              <h3>{a.title}</h3>
+              <dl class="addon__rows">
+                <div><dt>المشكلة التي تحلها</dt><dd>{a.problem}</dd></div>
+                <div><dt>ما نفعله</dt><dd>{a.process}</dd></div>
+                <div><dt>كيف يتم تسعيرها</dt><dd>{a.pricing}</dd></div>
+              </dl>
+              <a href="/ar/contact" class="addon__link">اسأل عن هذا<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Process — ledger 时间线 ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="tl-head reveal">
+        <p class="overline">عملنا</p>
+        <h2>كيفية طلب نموذجي<br/><em>Flows</em></h2>
+      </div>
+      <ol class="ledger-list">
+        {steps.map((step, i) => (
+          <li class:list={['ledger-item reveal', `reveal-delay-${Math.min(i, 3)}`]}>
+            <span class="ledger-item__day">{step.day}</span>
+            <span class="ledger-item__n">{String(i + 1).padStart(2, '0')}</span>
+            <div class="ledger-item__body">
+              <h4>{step.title}</h4>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ 独立定价区块 ═══ -->
+  <section class="section bg-parchment">
+    <div class="container pricing__wrap">
+      <div class="pricing__intro reveal">
+        <p class="overline">تسعير شفاف</p>
+        <h2>لا يوجد "اتصل بنا<br/><em>للحصول على تسعير"</em></h2>
+        <p class="pricing__lead">كل طلب يتم اقتباسه سطراً سطراً قبل أن تدفع دولاراً واحداً. هيكل الرسوم هنا، بشكل مفتوح.</p>
+      </div>
+
+      <div class="pricing__right">
+        <ul class="pricetable reveal reveal-delay-1">
+          {pricingFees.map(f => (
+            <li>
+              <span class="pricetable__label">{f.label}</span>
+              <span class="pricetable__value">{f.value}</span>
+              <span class="pricetable__note">{f.note}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Our Guarantees, in full —— 四个承诺各自展开（流程 / 标准 / 失败兜底） ═══ -->
+  <section class="section--tight" id="guarantees">
+    <div class="container">
+      <div class="guar-head reveal">
+        <p class="overline">ضماناتنا، بالكامل</p>
+        <h2>ما تعد به<br/><em>المعنى الحقيقي</em></h2>
+        <p class="guar-lead">الوعد موجود على الصفحة الرئيسية. هنا الآلية خلفه — عدد الخطوات، المدة التي تستغرقها كل خطوة، المعايير الدقيقة التي نلتزم بها، وما يحدث في حالة حدوث خطأ.</p>
+      </div>
+
+      <div class="gmods">
+        {guaranteeModules.map((m, i) => (
+          <article class:list={['gmod reveal', i % 2 === 1 && 'gmod--flip']}>
+            <div class="gmod__media">
+              <ImgPlaceholder class="gmod__img" src={m.img} seed={700 + i} width={640} height={800} ratio="4/5" alt={m.alt} />
+              <span class="gmod__n">{m.n}</span>
+            </div>
+
+            <div class="gmod__body">
+              <span class="gmod__icon"><Icon name={m.icon} size={24} color="var(--seal)" /></span>
+              <h3>{m.title}</h3>
+              <p class="gmod__promise">{m.promise}</p>
+
+              <div class="gmod__cols">
+                <div class="gmod__col">
+                  <h4 class="gmod__label">كيف يعمل</h4>
+                  <ol class="gmod__steps">
+                    {m.steps.map((s, j) => (
+                      <li>
+                        <span class="gmod__step-n">{String(j + 1).padStart(2, '0')}</span>
+                        <div>
+                          <span class="gmod__step-t">{s.t}</span>
+                          <span class="gmod__step-time">{s.time}</span>
+                          <p>{s.d}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <div class="gmod__col">
+                  <h4 class="gmod__label">{m.checksLabel}</h4>
+                  <ul class="gmod__checks">
+                    {m.checks.map(c => (
+                      <li>
+                        <span class="gmod__check-k">{c.k}</span>
+                        <span class="gmod__check-v">{c.v}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <p class="gmod__fail"><span class="gmod__fail-tag">في حالة الفشل</span>{m.fail}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container faq-wrap">
+      <div class="faq-head reveal">
+        <p class="overline">FAQ</p>
+        <h2>Common<br/><em>Questions</em></h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((faq, i) => (
+          <details class:list={['faq-item reveal', `reveal-delay-${i % 3}`]}>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section grain" style="background:var(--avo-950);position:relative;text-align:center;">
+    <div class="container">
+      <span class="seal cta-seal" aria-hidden="true"><span>Start</span><span>Now</span></span>
+      <p class="overline overline--light reveal">ابدأ الآن</p>
+      <h2 style="color:#fff;margin-bottom:var(--s4);" class="reveal reveal-delay-1">        مستعد لوضع<br/><em style="color:var(--avo-300)">طلبك الأول؟</em>
+      </h2>
+      <p style="color:rgba(255,255,255,.6);max-width:420px;margin:0 auto var(--s6);" class="reveal reveal-delay-2">        أرسل لنا منتجك وسنقدم لك خيارات موردين موثوقين — مع تفصيل كامل للسعر — خلال 48 ساعة.</p>
+      <a href="/ar/contact" class="btn btn-primary reveal reveal-delay-3">        احصل على عرض سعر مجاني<svg class="arrow-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8h10M8 3l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  h2 em { font-style:italic; color:var(--avo-600); }
+
+  /* ── 核心服务包 ── */
+  .core{display:grid;grid-template-columns:0.9fr 1.1fr;gap:var(--s7);align-items:start;padding-bottom:var(--s6);border-bottom:1px solid var(--border-light);}
+  .core__aside{position:sticky;top:100px;}
+  .core__aside h2{font-size:clamp(28px,3.6vw,42px);line-height:1.1;margin:var(--s4) 0;}
+  .core__lead{font-size:15.5px;line-height:1.72;color:var(--text-body);max-width:440px;}
+  .core__price{margin:var(--s5) 0;padding:var(--s4) var(--s5);background:var(--bg-page);border-left:2px solid var(--seal);}
+  .core__price-label{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--seal);}
+  .core__price p{font-size:14px;line-height:1.6;color:var(--text-body);margin-top:6px;}
+  .core__list{list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--border-mid);}
+  .core-step{display:grid;grid-template-columns:56px 1fr;gap:var(--s4);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);}
+  .core-step__n{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--seal);padding-top:3px;}
+  .core-step h4{font-size:17px;margin-bottom:5px;}
+  .core-step p{font-size:14px;line-height:1.65;color:var(--text-body);}
+
+  /* $1,000 示例 */
+  .price-example{margin-top:var(--s6);background:var(--avo-950);padding:var(--s5) var(--s6);border-left:2px solid var(--seal);}
+  .price-example--inline{max-width:760px;margin-left:auto;margin-right:auto;}
+  .price-example__title{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-300);margin-bottom:var(--s4);}
+  .price-example__rows{display:flex;flex-direction:column;}
+  .price-example__row{display:flex;justify-content:space-between;gap:var(--s4);padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14.5px;color:rgba(255,255,255,.7);}
+  .price-example__row span:last-child{font-family:var(--font-mono);color:#fff;}
+  .price-example__row--total{border-bottom:none;padding-top:var(--s4);margin-top:var(--s2);border-top:2px solid var(--seal);}
+  .price-example__row--total span{color:#fff;font-weight:600;}
+  .price-example__row--total span:last-child{color:var(--avo-300);}
+  .price-example__foot{margin-top:var(--s4);font-size:13px;color:rgba(255,255,255,.5);}
+
+  /* ── 附加服务 ── */
+  .add-head{margin-bottom:var(--head-gap);max-width:680px;}
+  .add-lead{font-size:15.5px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);}
+  .addons{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);}
+  .addon{display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border-light);}
+  .addon__media :global(.img-ph){border-bottom:1px solid var(--border-light);}
+  .addon__body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1;}
+  .addon__icon{color:var(--seal);}
+  .addon h3{font-size:clamp(18px,2vw,22px);}
+  .addon__rows{display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s2);flex:1;}
+  .addon__rows dt{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--seal);margin-bottom:4px;}
+  .addon__rows dd{font-size:13.5px;line-height:1.62;color:var(--text-body);}
+  .addon__link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--seal);transition:gap var(--t-fast);margin-top:var(--s3);}
+  .addon__link:hover{gap:10px;}
+
+  .guar-head { margin-bottom:var(--head-gap); }
+  .guar-head h2 em { font-style:italic; color:var(--avo-600); }
+  .guar-lead { font-size:15.5px; line-height:1.72; color:var(--text-muted); margin-top:var(--s4); max-width:620px; }
+
+  /* ── Our Guarantees, in full：四个展开模块 ── */
+  .gmods { display:flex; flex-direction:column; }
+  .gmod { display:grid; grid-template-columns:320px 1fr; gap:var(--s7); align-items:start; padding:var(--s7) 0; border-top:1px solid var(--border-light); }
+  .gmod:first-child { border-top:2px solid var(--seal); }
+  .gmod--flip { grid-template-columns:1fr 320px; }
+  .gmod--flip .gmod__media { order:2; }
+  .gmod__media { position:relative; }
+  .gmod__media :global(figure.img-ph) { border:1px solid var(--border-light); }
+  .gmod__n { position:absolute; top:-9px; left:-9px; z-index:1; background:var(--seal); color:#fff; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.08em; line-height:1; padding:5px 7px; }
+  .gmod__body { display:flex; flex-direction:column; min-width:0; }
+  .gmod__icon { color:var(--seal); display:flex; margin-bottom:var(--s3); }
+  .gmod h3 { font-size:clamp(20px,2.4vw,26px); margin-bottom:var(--s3); }
+  .gmod__promise { font-family:var(--font-serif); font-style:italic; font-size:16.5px; line-height:1.5; color:var(--avo-700); border-left:2px solid var(--seal); padding-left:var(--s4); margin-bottom:var(--s5); }
+  .gmod__cols { display:grid; grid-template-columns:1fr 1fr; gap:var(--s6); }
+  .gmod__label { font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--seal); padding-bottom:var(--s3); border-bottom:1px solid var(--border-mid); margin-bottom:var(--s2); }
+
+  .gmod__steps { list-style:none; display:flex; flex-direction:column; }
+  .gmod__steps li { display:grid; grid-template-columns:26px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--border-light); }
+  .gmod__steps li:last-child { border-bottom:none; padding-bottom:0; }
+  .gmod__step-n { font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--avo-300); padding-top:3px; }
+  .gmod__step-t { display:block; font-size:14.5px; font-weight:600; color:var(--text-primary); }
+  .gmod__step-time { display:inline-block; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--seal); margin:3px 0 5px; }
+  .gmod__steps p { font-size:13px; line-height:1.6; color:var(--text-muted); }
+
+  .gmod__checks { list-style:none; display:flex; flex-direction:column; }
+  .gmod__checks li { position:relative; padding:var(--s3) 0 var(--s3) 20px; border-bottom:1px solid var(--border-light); }
+  .gmod__checks li:last-child { border-bottom:none; padding-bottom:0; }
+  .gmod__checks li::before { content:'✓'; position:absolute; left:0; top:calc(var(--s3) + 1px); font-size:12px; line-height:1; color:var(--seal); }
+  .gmod__check-k { display:block; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--avo-800); }
+  .gmod__check-v { display:block; font-size:13px; line-height:1.6; color:var(--text-muted); margin-top:3px; }
+
+  .gmod__fail { margin-top:var(--s5); background:var(--bg-page); border-left:2px solid var(--seal); padding:var(--s4) var(--s5); font-size:13.5px; line-height:1.62; color:var(--text-body); }
+  .gmod__fail-tag { display:block; font-family:var(--font-mono); font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--seal); margin-bottom:5px; }
+
+  /* ── 定价区块 ── */
+  .pricing__wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:var(--s7);align-items:start;}
+  .pricing__lead{font-size:15px;line-height:1.7;color:var(--text-muted);margin-top:var(--s4);max-width:400px;}
+  .pricetable{list-style:none;display:flex;flex-direction:column;border-top:2px solid var(--seal);}
+  .pricetable li{display:grid;grid-template-columns:140px 1fr;gap:var(--s4) var(--s5);padding:var(--s4) 0;border-bottom:1px solid var(--border-light);align-items:baseline;}
+  .pricetable__label{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--avo-800);}
+  .pricetable__value{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--text-primary);}
+  .pricetable__note{grid-column:2;font-size:13px;color:var(--text-muted);}
+
+  .tl-head { margin-bottom:var(--head-gap); text-align:center; }
+  .tl-head h2 em { font-style:italic; color:var(--avo-600); }
+  .ledger-list { list-style:none; display:flex; flex-direction:column; border-top:1px solid var(--border-mid); max-width:820px; margin:0 auto; text-align:left; }
+  .ledger-item { display:grid; grid-template-columns:120px 64px 1fr; gap:var(--s5); align-items:baseline; padding:var(--s4) 0; border-bottom:1px solid var(--border-light); }
+  .ledger-item__day { font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--seal); }
+  .ledger-item__n { font-family:var(--font-serif); font-size:36px; font-weight:600; color:var(--avo-200); line-height:1; }
+  .ledger-item__body h4 { font-size:17px; margin-bottom:4px; }
+  .ledger-item__body p { font-size:14px; }
+
+  .faq-wrap { display:grid; grid-template-columns:260px 1fr; gap:var(--s6); align-items:start; }
+  .faq-head h2 em { font-style:italic; color:var(--avo-600); }
+  .faq-head { position:sticky; top:100px; }
+  .faq-list { display:flex; flex-direction:column; }
+  .faq-item { border-bottom:1px solid var(--border-light); }
+  .faq-item summary {
+    font-family:var(--font-serif); font-size:17px; font-weight:560;
+    color:var(--text-primary); list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:var(--s5); padding:var(--s4) 0; cursor:pointer; user-select:none; transition:color var(--t-fast);
+  }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::after { content:'+'; font-size:22px; font-weight:300; color:var(--seal); flex-shrink:0; transition:transform var(--t-med); }
+  .faq-item[open] summary { color:var(--avo-700); }
+  .faq-item[open] summary::after { transform:rotate(45deg); }
+  .faq-item > p { font-size:15px; color:var(--text-body); padding:0 0 var(--s4); line-height:1.68; }
+
+  .cta-seal { display:inline-flex; margin-bottom:var(--s4); background:rgba(28,33,20,.4); border-color:var(--seal); color:#fff; }
+
+  @media (max-width:960px) {
+    .core { grid-template-columns:1fr; gap:var(--s6); }
+    .core__aside { position:static; }
+    .addons { grid-template-columns:1fr; }
+    .pricing__wrap { grid-template-columns:1fr; gap:var(--s6); }
+    /* 承诺展开模块：图 + 文改上下，图不再占满整行宽 */
+    .gmod, .gmod--flip { grid-template-columns:1fr; gap:var(--s6); }
+    .gmod--flip .gmod__media { order:0; }
+    .gmod__media { max-width:360px; }
+  }
+  @media (max-width:900px) {
+    .faq-wrap { grid-template-columns:1fr; }
+    .faq-head { position:static; }
+    .ledger-item { grid-template-columns:90px 1fr; }
+    .ledger-item__n { display:none; }
+    .gmod__cols { grid-template-columns:1fr; gap:var(--s5); }
+  }
+  @media (max-width:560px) {
+    .core-step { grid-template-columns:40px 1fr; gap:var(--s4); }
+    .pricetable li { grid-template-columns:1fr; gap:4px; }
+    .pricetable__note { grid-column:1; }
+    .gmod { padding:var(--s6) 0; }
+    .gmod__media { max-width:270px; }
+    .gmod__steps li { grid-template-columns:22px 1fr; gap:var(--s2); }
+    .gmod__fail { padding:var(--s4); }
+  }
+</style>

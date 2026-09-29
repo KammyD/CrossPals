@@ -141,6 +141,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"1688-vs-alibaba-ar.md": {
+	id: "1688-vs-alibaba-ar.md";
+  slug: "1688-vs-alibaba-ar";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "1688-vs-alibaba-hi.md": {
 	id: "1688-vs-alibaba-hi.md";
   slug: "1688-vs-alibaba-hi";
@@ -225,6 +232,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"avoid-fba-rejections-ar.md": {
+	id: "avoid-fba-rejections-ar.md";
+  slug: "avoid-fba-rejections-ar";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "avoid-fba-rejections-hi.md": {
 	id: "avoid-fba-rejections-hi.md";
   slug: "avoid-fba-rejections-hi";
@@ -253,6 +267,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"get-fba-ready-ar.md": {
+	id: "get-fba-ready-ar.md";
+  slug: "get-fba-ready-ar";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "get-fba-ready-hi.md": {
 	id: "get-fba-ready-hi.md";
   slug: "get-fba-ready-hi";
@@ -277,6 +298,13 @@ declare module 'astro:content' {
 "get-fba-ready.md": {
 	id: "get-fba-ready.md";
   slug: "get-fba-ready";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"read-inspection-report-ar.md": {
+	id: "read-inspection-report-ar.md";
+  slug: "read-inspection-report-ar";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -311,6 +339,13 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "case-studies": {
+"fba-shipment-relabelled-ar.md": {
+	id: "fba-shipment-relabelled-ar.md";
+  slug: "fba-shipment-relabelled-ar";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
 "fba-shipment-relabelled-hi.md": {
 	id: "fba-shipment-relabelled-hi.md";
   slug: "fba-shipment-relabelled-hi";
@@ -335,6 +370,13 @@ declare module 'astro:content' {
 "fba-shipment-relabelled.md": {
 	id: "fba-shipment-relabelled.md";
   slug: "fba-shipment-relabelled";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"first-private-label-zero-rejections-ar.md": {
+	id: "first-private-label-zero-rejections-ar.md";
+  slug: "first-private-label-zero-rejections-ar";
   body: string;
   collection: "case-studies";
   data: any
@@ -367,6 +409,13 @@ declare module 'astro:content' {
   collection: "case-studies";
   data: any
 } & { render(): Render[".md"] };
+"kitchen-defects-caught-ar.md": {
+	id: "kitchen-defects-caught-ar.md";
+  slug: "kitchen-defects-caught-ar";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
 "kitchen-defects-caught-hi.md": {
 	id: "kitchen-defects-caught-hi.md";
   slug: "kitchen-defects-caught-hi";
@@ -391,6 +440,13 @@ declare module 'astro:content' {
 "kitchen-defects-caught.md": {
 	id: "kitchen-defects-caught.md";
   slug: "kitchen-defects-caught";
+  body: string;
+  collection: "case-studies";
+  data: any
+} & { render(): Render[".md"] };
+"supplier-vanished-deposit-ar.md": {
+	id: "supplier-vanished-deposit-ar.md";
+  slug: "supplier-vanished-deposit-ar";
   body: string;
   collection: "case-studies";
   data: any
