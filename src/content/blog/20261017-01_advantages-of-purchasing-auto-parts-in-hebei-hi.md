@@ -8,10 +8,10 @@ description: अपने व्यवसाय के लिए लागत �
 category: Sourcing
 date: "2026-10-16"
 readTime: 5 min
-cover: /img/hebei-auto-parts.webp
+cover: /img/factory.webp
 featured: true
-image2: /img/supply-chain.webp
-image1: /img/auto-parts-quality.webp
+image2: /img/hero-warehouse.webp
+image1: /img/inspection.webp
 order: 4
 lang: hi
 translatedAt: "2026-10-16"

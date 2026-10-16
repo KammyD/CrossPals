@@ -1,6 +1,6 @@
 {
   "siteId": "crosspals-com",
-  "verifiedSignature": "0bf0309b8e137843",
+  "verifiedSignature": "de0de4c4123b2d7e",
   "entries": [
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/404.astro",
@@ -10,6 +10,46 @@
     {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/about.astro",
       "url": "/about",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/about.astro",
+      "url": "/ar/about",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/blog/index.astro",
+      "url": "/ar/blog",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/case-studies/index.astro",
+      "url": "/ar/case-studies",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/contact.astro",
+      "url": "/ar/contact",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/index.astro",
+      "url": "/ar",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/privacy.astro",
+      "url": "/ar/privacy",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/services.astro",
+      "url": "/ar/services",
+      "source": "static-strong"
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/pages/ar/terms.astro",
+      "url": "/ar/terms",
       "source": "static-strong"
     },
     {
@@ -168,6 +208,323 @@
       "source": "static-strong"
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ar.md",
+      "url": "/ar/blog/1688-vs-alibaba-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
+      "url": "/ar/blog/1688-vs-alibaba-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ja.md",
+      "url": "/ar/blog/1688-vs-alibaba-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ko.md",
+      "url": "/ar/blog/1688-vs-alibaba-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba.md",
+      "url": "/ar/blog/1688-vs-alibaba",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md",
+      "url": "/ar/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md",
+      "url": "/ar/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja.md",
+      "url": "/ar/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko.md",
+      "url": "/ar/blog/20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md",
+      "url": "/ar/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi.md",
+      "url": "/ar/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja.md",
+      "url": "/ar/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko.md",
+      "url": "/ar/blog/20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md",
+      "url": "/ar/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md",
+      "url": "/ar/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md",
+      "url": "/ar/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md",
+      "url": "/ar/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md",
+      "url": "/ar/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ar.md",
+      "url": "/ar/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ar",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-en.md",
+      "url": "/ar/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-en",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-hi.md",
+      "url": "/ar/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-hi",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ja.md",
+      "url": "/ar/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ja",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ko.md",
+      "url": "/ar/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ko",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ar.md",
+      "url": "/ar/blog/avoid-fba-rejections-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
+      "url": "/ar/blog/avoid-fba-rejections-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ja.md",
+      "url": "/ar/blog/avoid-fba-rejections-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ko.md",
+      "url": "/ar/blog/avoid-fba-rejections-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections.md",
+      "url": "/ar/blog/avoid-fba-rejections",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ar.md",
+      "url": "/ar/blog/get-fba-ready-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
+      "url": "/ar/blog/get-fba-ready-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ja.md",
+      "url": "/ar/blog/get-fba-ready-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ko.md",
+      "url": "/ar/blog/get-fba-ready-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready.md",
+      "url": "/ar/blog/get-fba-ready",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ar.md",
+      "url": "/ar/blog/read-inspection-report-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
+      "url": "/ar/blog/read-inspection-report-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ja.md",
+      "url": "/ar/blog/read-inspection-report-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ko.md",
+      "url": "/ar/blog/read-inspection-report-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report.md",
+      "url": "/ar/blog/read-inspection-report",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ar.md",
+      "url": "/blog/1688-vs-alibaba-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-hi.md",
       "url": "/blog/1688-vs-alibaba-hi",
       "source": "static-heuristic",
@@ -264,6 +621,99 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md",
+      "url": "/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md",
+      "url": "/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md",
+      "url": "/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md",
+      "url": "/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md",
+      "url": "/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ar.md",
+      "url": "/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ar",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-en.md",
+      "url": "/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-en",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-hi.md",
+      "url": "/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-hi",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ja.md",
+      "url": "/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ja",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ko.md",
+      "url": "/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ko",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ar.md",
+      "url": "/blog/avoid-fba-rejections-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
       "url": "/blog/avoid-fba-rejections-hi",
       "source": "static-heuristic",
@@ -293,6 +743,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ar.md",
+      "url": "/blog/get-fba-ready-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ar"
       ]
     },
     {
@@ -328,6 +786,14 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ar.md",
+      "url": "/blog/read-inspection-report-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
       "url": "/blog/read-inspection-report-hi",
       "source": "static-heuristic",
@@ -357,6 +823,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ar.md",
+      "url": "/hi/blog/1688-vs-alibaba-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ar"
       ]
     },
     {
@@ -456,6 +930,99 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md",
+      "url": "/hi/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md",
+      "url": "/hi/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md",
+      "url": "/hi/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md",
+      "url": "/hi/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md",
+      "url": "/hi/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ar.md",
+      "url": "/hi/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ar",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-en.md",
+      "url": "/hi/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-en",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-hi.md",
+      "url": "/hi/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-hi",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ja.md",
+      "url": "/hi/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ja",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ko.md",
+      "url": "/hi/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ko",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ar.md",
+      "url": "/hi/blog/avoid-fba-rejections-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
       "url": "/hi/blog/avoid-fba-rejections-hi",
       "source": "static-heuristic",
@@ -485,6 +1052,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ar.md",
+      "url": "/hi/blog/get-fba-ready-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ar"
       ]
     },
     {
@@ -520,6 +1095,14 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ar.md",
+      "url": "/hi/blog/read-inspection-report-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
       "url": "/hi/blog/read-inspection-report-hi",
       "source": "static-heuristic",
@@ -549,6 +1132,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ar.md",
+      "url": "/ja/blog/1688-vs-alibaba-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ar"
       ]
     },
     {
@@ -648,6 +1239,99 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md",
+      "url": "/ja/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md",
+      "url": "/ja/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md",
+      "url": "/ja/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md",
+      "url": "/ja/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md",
+      "url": "/ja/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ar.md",
+      "url": "/ja/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ar",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-en.md",
+      "url": "/ja/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-en",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-hi.md",
+      "url": "/ja/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-hi",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ja.md",
+      "url": "/ja/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ja",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ko.md",
+      "url": "/ja/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ko",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ar.md",
+      "url": "/ja/blog/avoid-fba-rejections-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
       "url": "/ja/blog/avoid-fba-rejections-hi",
       "source": "static-heuristic",
@@ -677,6 +1361,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "avoid-fba-rejections"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ar.md",
+      "url": "/ja/blog/get-fba-ready-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ar"
       ]
     },
     {
@@ -712,6 +1404,14 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ar.md",
+      "url": "/ja/blog/read-inspection-report-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-hi.md",
       "url": "/ja/blog/read-inspection-report-hi",
       "source": "static-heuristic",
@@ -741,6 +1441,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "read-inspection-report"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/1688-vs-alibaba-ar.md",
+      "url": "/ko/blog/1688-vs-alibaba-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "1688-vs-alibaba-ar"
       ]
     },
     {
@@ -840,6 +1548,99 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md",
+      "url": "/ko/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md",
+      "url": "/ko/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md",
+      "url": "/ko/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md",
+      "url": "/ko/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md",
+      "url": "/ko/blog/20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ar.md",
+      "url": "/ko/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ar",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ar"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-en.md",
+      "url": "/ko/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-en",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-en"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-hi.md",
+      "url": "/ko/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-hi",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-hi"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ja.md",
+      "url": "/ko/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ja",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ja"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/20261017-01_河北汽车配件批发优势在哪儿-ko.md",
+      "url": "/ko/blog/20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "20261017-01_河北汽车配件批发优势在哪儿-ko",
+        "20261017-01_%E6%B2%B3%E5%8C%97%E6%B1%BD%E8%BD%A6%E9%85%8D%E4%BB%B6%E6%89%B9%E5%8F%91%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E5%84%BF-ko"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-ar.md",
+      "url": "/ko/blog/avoid-fba-rejections-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "avoid-fba-rejections-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/avoid-fba-rejections-hi.md",
       "url": "/ko/blog/avoid-fba-rejections-hi",
       "source": "static-heuristic",
@@ -872,6 +1673,14 @@
       ]
     },
     {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-ar.md",
+      "url": "/ko/blog/get-fba-ready-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "get-fba-ready-ar"
+      ]
+    },
+    {
       "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/get-fba-ready-hi.md",
       "url": "/ko/blog/get-fba-ready-hi",
       "source": "static-heuristic",
@@ -901,6 +1710,14 @@
       "source": "static-heuristic",
       "slugCandidates": [
         "get-fba-ready"
+      ]
+    },
+    {
+      "filePath": "D:/NetSpace/Websit/web-crosspals.com-v4/src/content/blog/read-inspection-report-ar.md",
+      "url": "/ko/blog/read-inspection-report-ar",
+      "source": "static-heuristic",
+      "slugCandidates": [
+        "read-inspection-report-ar"
       ]
     },
     {

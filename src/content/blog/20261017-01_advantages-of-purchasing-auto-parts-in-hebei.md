@@ -8,12 +8,11 @@ description: Discover the key benefits of sourcing auto parts from Hebei,
 category: Sourcing
 date: "2026-10-16"
 readTime: 5 min
-cover: /img/hebei-auto-parts.webp
+cover: /img/factory.webp
 featured: true
-image2: /img/supply-chain.webp
-image1: /img/auto-parts-quality.webp
+image2: /img/hero-warehouse.webp
+image1: /img/inspection.webp
 order: 4
-lang: en
 ---
 
 Hebei Province is a premier destination for sourcing auto parts, offering numerous advantages for businesses looking to optimize their supply chain. Located in northern China, Hebei is home to a dense network of manufacturers specializing in high-quality automotive components.

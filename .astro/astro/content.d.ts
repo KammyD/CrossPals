@@ -232,6 +232,76 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_河北汽车配件批发优势在哪儿-ar.md": {
+	id: "20261017-01_河北汽车配件批发优势在哪儿-ar.md";
+  slug: "20261017-01_河北汽车配件批发优势在哪儿-ar";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_河北汽车配件批发优势在哪儿-en.md": {
+	id: "20261017-01_河北汽车配件批发优势在哪儿-en.md";
+  slug: "20261017-01_河北汽车配件批发优势在哪儿-en";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_河北汽车配件批发优势在哪儿-hi.md": {
+	id: "20261017-01_河北汽车配件批发优势在哪儿-hi.md";
+  slug: "20261017-01_河北汽车配件批发优势在哪儿-hi";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_河北汽车配件批发优势在哪儿-ja.md": {
+	id: "20261017-01_河北汽车配件批发优势在哪儿-ja.md";
+  slug: "20261017-01_河北汽车配件批发优势在哪儿-ja";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"20261017-01_河北汽车配件批发优势在哪儿-ko.md": {
+	id: "20261017-01_河北汽车配件批发优势在哪儿-ko.md";
+  slug: "20261017-01_河北汽车配件批发优势在哪儿-ko";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "avoid-fba-rejections-ar.md": {
 	id: "avoid-fba-rejections-ar.md";
   slug: "avoid-fba-rejections-ar";
