@@ -28,12 +28,14 @@ const alternates: Record<string, string> = { [PAGE_LANG]: localePath(PAGE_LANG, 
   const siblings = await getCollection('blog');
   for (const l of languageList) {
     if (l.code === PAGE_LANG) continue;
-    const alt = siblings.find(p => p.data.lang === l.code && !p.data.draft && (
+    const alt = siblings.find(p => (p.data.lang || defaultLang) === l.code && !p.data.draft && (
       (p.data.translationKey && p.data.translationKey === post.data.translationKey) ||
       baseSlug(p.slug, l.code) === selfSlug
     ));
     if (alt) {
-      const altSlug = alt.data.translationKey || baseSlug(alt.slug, l.code);
+      // ★ URL 只认文件名派生的 slug：translationKey 是内容键，命名带日期前缀时会比它多/少一段
+      //   （如 slug=20260925-01_xxx 而 translationKey=xxx），用它拼链接必 404。
+      const altSlug = baseSlug(alt.slug, l.code);
       alternates[l.code] = localePath(l.code, `/blog/${altSlug}/`);
     }
   }

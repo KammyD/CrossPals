@@ -7,7 +7,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ImgPlaceholder from '../../../components/ImgPlaceholder.astro';
 import { getCollection } from 'astro:content';
-import { localePath, languageList, defaultLang } from '../../../i18n/utils';
+import { localePath, languageList, defaultLang, baseSlug } from '../../../i18n/utils';
 
 export async function getStaticPaths() {
   const PAGE_LANG = 'ja';
@@ -15,7 +15,11 @@ export async function getStaticPaths() {
   return posts
     .filter(p => !p.data.draft && p.data.lang === PAGE_LANG)
     .map(p => {
-      const slug = p.data.translationKey || p.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
+      // ★ slug 必须与 en/hi/ko/ar 一致：文件名剥 -<lang> 后缀（baseSlug）。
+      //   不能用 translationKey 当 slug —— 它是内容键不是 URL 键，遇到
+      //   「日期前缀」命名（20261017-01_xxx）会比其他语言少一段前缀，
+      //   hreflang 互指随之全部错位。老文章两者恰好相等，所以以前没暴露。
+      const slug = baseSlug(p.slug, PAGE_LANG);
       return { params: { slug }, props: { post: p } };
     });
 }
@@ -26,18 +30,27 @@ const PAGE_LANG = 'ja';
 const published = new Date(post.data.date + 'T00:00:00')
   .toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
 
-/* hreflang 互指：本文 ↔ 英文原文（translationKey = 各语言共用的基准 slug） */
-const alternates: Record<string, string> = { [PAGE_LANG]: Astro.url.pathname };
+/* hreflang 互指：找出这篇的各语言译文（translationKey 相同，或基准 slug 相同）
+   ★ 必须遍历 languageList 全量互指 —— 只链 en/ja 会让 hi/ko/ar 变成单向，
+     Google 会因「缺回指」把整组 hreflang 判为无效。 */
+const selfSlug = baseSlug(post.slug, PAGE_LANG);
+const alternates: Record<string, string> = { [PAGE_LANG]: localePath(PAGE_LANG, `/blog/${selfSlug}/`) };
 {
   const siblings = await getCollection('blog');
-  const key = post.data.translationKey || post.slug.replace(new RegExp(`-${PAGE_LANG}$`), '');
-  const enPost = siblings.find(p =>
-    !p.data.draft && (!p.data.lang || p.data.lang === defaultLang) && (
-      (post.data.translationKey && p.data.translationKey === post.data.translationKey) ||
-      p.slug === key
-    )
-  );
-  if (enPost) alternates[defaultLang] = `/blog/${enPost.slug}/`;
+  for (const l of languageList) {
+    if (l.code === PAGE_LANG) continue;
+    // 默认语言正文通常不写 lang（如 1688-vs-alibaba.md），要靠 `|| defaultLang` 兜住
+    const alt = siblings.find(p => (p.data.lang || defaultLang) === l.code && !p.data.draft && (
+      (p.data.translationKey && p.data.translationKey === post.data.translationKey) ||
+      baseSlug(p.slug, l.code) === selfSlug
+    ));
+    if (alt) {
+      // ★ URL 只认文件名派生的 slug：translationKey 是内容键，命名带日期前缀时会少一段
+      //   （slug=20260925-01_xxx vs translationKey=xxx），用它拼链接必 404。
+      const altSlug = baseSlug(alt.slug, l.code);
+      alternates[l.code] = localePath(l.code, `/blog/${altSlug}/`);
+    }
+  }
 }
 ---
 <BaseLayout lang={PAGE_LANG} title={post.data.title} description={post.data.description} article={{ published: post.data.date, section: post.data.category }} alternates={alternates}>

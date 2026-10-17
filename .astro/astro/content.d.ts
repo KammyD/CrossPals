@@ -176,13 +176,6 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md": {
-	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en.md";
-  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-en";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
 "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md": {
 	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi.md";
   slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie-hi";
@@ -204,9 +197,9 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md": {
-	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en.md";
-  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china-en";
+"20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie.md": {
+	id: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie.md";
+  slug: "20260925-01_where-does-the-advantage-of-our-purchasing-agency-lie";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -232,16 +225,16 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md": {
-	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md";
-  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar";
+"20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china.md": {
+	id: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china.md";
+  slug: "20260925-02_the-strategic-advantages-of-sourcing-from-hebei-region-in-china";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md": {
-	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en.md";
-  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-en";
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei-ar";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
@@ -267,37 +260,9 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
-"20261017-01_河北汽车配件批发优势在哪儿-ar.md": {
-	id: "20261017-01_河北汽车配件批发优势在哪儿-ar.md";
-  slug: "20261017-01_河北汽车配件批发优势在哪儿-ar";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"20261017-01_河北汽车配件批发优势在哪儿-en.md": {
-	id: "20261017-01_河北汽车配件批发优势在哪儿-en.md";
-  slug: "20261017-01_河北汽车配件批发优势在哪儿-en";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"20261017-01_河北汽车配件批发优势在哪儿-hi.md": {
-	id: "20261017-01_河北汽车配件批发优势在哪儿-hi.md";
-  slug: "20261017-01_河北汽车配件批发优势在哪儿-hi";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"20261017-01_河北汽车配件批发优势在哪儿-ja.md": {
-	id: "20261017-01_河北汽车配件批发优势在哪儿-ja.md";
-  slug: "20261017-01_河北汽车配件批发优势在哪儿-ja";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"20261017-01_河北汽车配件批发优势在哪儿-ko.md": {
-	id: "20261017-01_河北汽车配件批发优势在哪儿-ko.md";
-  slug: "20261017-01_河北汽车配件批发优势在哪儿-ko";
+"20261017-01_advantages-of-purchasing-auto-parts-in-hebei.md": {
+	id: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei.md";
+  slug: "20261017-01_advantages-of-purchasing-auto-parts-in-hebei";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
